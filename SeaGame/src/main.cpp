@@ -1,12 +1,13 @@
 #include <SFML/Graphics.hpp>
 #include "ResourceManager.h"
+#include "Game.h"
 
 int main()
 {
 	sf::RenderWindow w(sf::VideoMode(800, 600), "Sea Game");
-	// Test load texture
-	sf::Sprite spr = ResourceManager::get()->getSprite("tiles", "sea");
-	spr.setPosition(10, 10);
+	Game g;
+	// Delta time
+	sf::Clock dClock;
 	while (w.isOpen())
 	{
 		sf::Event e;
@@ -15,8 +16,9 @@ int main()
 			if (e.type == sf::Event::Closed)
 				w.close();
 		}
+		g.update(dClock.getElapsedTime().asMilliseconds());
 		w.clear();
-		w.draw(spr);
+		g.render(w);
 		w.display();
 	}
 	return 0;
