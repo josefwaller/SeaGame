@@ -121,12 +121,17 @@
     <ClCompile Include="src\Game.cpp" />
     <ClCompile Include="src\GameMap.cpp" />
     <ClCompile Include="src\main.cpp" />
+    <ClCompile Include="src\RenderComponent.cpp" />
     <ClCompile Include="src\ResourceManager.cpp" />
+    <ClCompile Include="src\SpriteRenderer.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\Entity.h" />
     <ClInclude Include="src\Game.h" />
     <ClInclude Include="src\GameMap.h" />
+    <ClInclude Include="src\RenderComponent.h" />
     <ClInclude Include="src\ResourceManager.h" />
+    <ClInclude Include="src\SpriteRenderer.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

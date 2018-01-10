@@ -7,14 +7,17 @@ ResourceManager::ResourceManager()
 
 }
 
-sf::Sprite ResourceManager::getSprite(std::string sheetName, std::string spriteName)
+void ResourceManager::ensureSheetIsLoaded(std::string sheetName)
 {
-
 	if (this->sheets.find(sheetName) == this->sheets.end()) {
 		loadSpritesheet(sheetName);
 	}
-
+}
+sf::Sprite ResourceManager::getSprite(std::string sheetName, std::string spriteName)
+{
+	ensureSheetIsLoaded(sheetName);
 	std::pair<sf::Texture, std::map<std::string, sf::IntRect>>* sheet = &this->sheets[sheetName];
+
 	return sf::Sprite(sheet->first, sheet->second[spriteName]);
 }
 void ResourceManager::loadSpritesheet(std::string sheetName)

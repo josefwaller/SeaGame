@@ -13,5 +13,6 @@ public:
 private:
 	// Textures loaded, with individual sprite positions saved as IntRects
 	std::map<std::string, std::pair<sf::Texture, std::map<std::string, sf::IntRect>>> sheets;
+	void ensureSheetIsLoaded(std::string sheetName);
 	void loadSpritesheet(std::string sheetName);
 };

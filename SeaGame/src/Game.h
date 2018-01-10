@@ -1,6 +1,7 @@
 #pragma once
 #include <SFML\Graphics.hpp>
 #include "GameMap.h"
+#include "Entity.h"
 
 class Game
 {
@@ -11,4 +12,5 @@ public:
 
 private:
 	GameMap gMap;
+	Entity ship;
 };
