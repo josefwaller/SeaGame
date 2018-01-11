@@ -1,5 +1,6 @@
 #include "Game.h"
 #include <memory>
+#include "Entity.h"
 #include "SpriteRenderer.h"
 
 Game::Game()

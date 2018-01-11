@@ -1,8 +1,12 @@
 #pragma once
 #include <memory>
-#include "RenderComponent.h"
+
+// Forward declaration of RenderComponent
+class RenderComponent;
 
 struct Entity
 {
 	std::shared_ptr<RenderComponent> renderer;
 };
+
+#include "RenderComponent.h"

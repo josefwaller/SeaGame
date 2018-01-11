@@ -1,17 +1,10 @@
 #pragma once
 #include <SFML\Graphics.hpp>
+#include "Component.h"
 
-// Forward declaration of Entity
-struct Entity;
-
-class RenderComponent
+class RenderComponent: public Component
 {
 public:
 	RenderComponent(Entity& parent);
 	virtual void render(sf::RenderWindow& w) = 0;
-
-protected:
-	Entity& parent;
 };
-
-#include "Entity.h"

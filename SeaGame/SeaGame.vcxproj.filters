@@ -36,6 +36,9 @@
     <ClCompile Include="src\RenderComponent.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="src\Component.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\ResourceManager.h">
@@ -54,6 +57,9 @@
       <Filter>Header Files\Components</Filter>
     </ClInclude>
     <ClInclude Include="src\SpriteRenderer.h">
+      <Filter>Header Files\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Component.h">
       <Filter>Header Files\Components</Filter>
     </ClInclude>
   </ItemGroup>
