@@ -8,7 +8,7 @@ public:
 	ResourceManager();
 
 	static ResourceManager* get();
-	sf::Sprite getSprite(std::string sheetName, std::string spriteName);
+	std::pair<const sf::Texture*, sf::IntRect> getSpriteInfo(std::string sheetName, std::string spriteName);
 
 private:
 	// Textures loaded, with individual sprite positions saved as IntRects

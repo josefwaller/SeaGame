@@ -13,12 +13,12 @@ void ResourceManager::ensureSheetIsLoaded(std::string sheetName)
 		loadSpritesheet(sheetName);
 	}
 }
-sf::Sprite ResourceManager::getSprite(std::string sheetName, std::string spriteName)
+std::pair<const sf::Texture*, sf::IntRect> ResourceManager::getSpriteInfo(std::string sheetName, std::string spriteName)
 {
 	ensureSheetIsLoaded(sheetName);
 	std::pair<sf::Texture, std::map<std::string, sf::IntRect>>* sheet = &this->sheets[sheetName];
 
-	return sf::Sprite(sheet->first, sheet->second[spriteName]);
+	return { &sheet->first, sheet->second[spriteName] };
 }
 void ResourceManager::loadSpritesheet(std::string sheetName)
 {

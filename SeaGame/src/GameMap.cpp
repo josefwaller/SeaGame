@@ -4,7 +4,10 @@
 GameMap::GameMap()
 {
 	// Get the sea sprite
-	this->seaSpr = ResourceManager::get()->getSprite("tiles", "sea");
+	this->seaSpr = sf::Sprite();
+	auto spriteInfo = ResourceManager::get()->getSpriteInfo("tiles", "sea");
+	this->seaSpr.setTexture(*spriteInfo.first);
+	this->seaSpr.setTextureRect(spriteInfo.second);
 }
 void GameMap::render(sf::RenderWindow& w)
 {
