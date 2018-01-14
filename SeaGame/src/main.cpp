@@ -15,8 +15,7 @@ int main()
 			if (e.type == sf::Event::Closed)
 				w.close();
 		}
-		g.update(dClock.getElapsedTime().asMilliseconds() / 1000.0f);
-		dClock.restart();
+		g.update(dClock.restart().asSeconds());
 		w.clear();
 		g.render(w);
 		w.display();
