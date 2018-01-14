@@ -7,7 +7,7 @@ class Game
 {
 public:
 	Game();
-	void update(unsigned int delta);
+	void update(double delta);
 	void render(sf::RenderWindow& w);
 
 private:

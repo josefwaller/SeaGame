@@ -1,7 +1,6 @@
 #include <SFML/Graphics.hpp>
 #include "ResourceManager.h"
 #include "Game.h"
-
 int main()
 {
 	sf::RenderWindow w(sf::VideoMode(800, 600), "Sea Game");
@@ -16,7 +15,8 @@ int main()
 			if (e.type == sf::Event::Closed)
 				w.close();
 		}
-		g.update(dClock.getElapsedTime().asMilliseconds());
+		g.update(dClock.getElapsedTime().asMilliseconds() / 1000.0f);
+		dClock.restart();
 		w.clear();
 		g.render(w);
 		w.display();

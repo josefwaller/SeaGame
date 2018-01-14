@@ -1,5 +1,7 @@
 #include "SpriteRenderer.h"
 #include "ResourceManager.h"
+#define _USE_MATH_DEFINES
+#include <math.h>
 
 SpriteRenderer::SpriteRenderer(Entity& parent, std::string sheetName, std::string spriteName) : RenderComponent(parent)
 {
@@ -13,7 +15,8 @@ void SpriteRenderer::render(sf::RenderWindow& w)
 	if (auto transform = this->getParent().transform)
 	{
 		this->spr.setPosition(transform->getPosition());
-		this->spr.setRotation(transform->getRotation());
+		// Convert to degrees because dumbass SFML uses degrees
+		this->spr.setRotation(transform->getRotation() / M_PI * 180.0f);
 	}
 	w.draw(this->spr);
 }
