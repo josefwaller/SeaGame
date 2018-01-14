@@ -19,6 +19,10 @@ public:
 	// The acceration of all ship's turning/moving
 	const static float ACCELERATION;
 	const static float ANGULAR_ACCELERATION;
+	// How quickly the ship slows down when not being actively accelerated
+	const static float IDLE_DECCELERATION;
+	// How quickly the ship stops turning when not actively turning
+	const static float IDLE_ANGULAR_DECELLERATION;
 private:
 	// Velocity and angular velocity of the ship
 	float velocity;
