@@ -10,5 +10,10 @@ SpriteRenderer::SpriteRenderer(Entity& parent, std::string sheetName, std::strin
 }
 void SpriteRenderer::render(sf::RenderWindow& w)
 {
+	if (auto transform = this->getParent().transform)
+	{
+		this->spr.setPosition(transform->getPosition());
+		this->spr.setRotation(transform->getRotation());
+	}
 	w.draw(this->spr);
 }

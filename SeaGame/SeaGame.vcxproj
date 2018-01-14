@@ -125,6 +125,7 @@
     <ClCompile Include="src\RenderComponent.cpp" />
     <ClCompile Include="src\ResourceManager.cpp" />
     <ClCompile Include="src\SpriteRenderer.cpp" />
+    <ClCompile Include="src\TransformComponent.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Component.h" />
@@ -134,6 +135,7 @@
     <ClInclude Include="src\RenderComponent.h" />
     <ClInclude Include="src\ResourceManager.h" />
     <ClInclude Include="src\SpriteRenderer.h" />
+    <ClInclude Include="src\TransformComponent.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
