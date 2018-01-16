@@ -1,7 +1,5 @@
 #include "SpriteRenderer.h"
 #include "ResourceManager.h"
-#define _USE_MATH_DEFINES
-#include <math.h>
 
 SpriteRenderer::SpriteRenderer(Entity& parent, std::string sheetName, std::string spriteName) : RenderComponent(parent)
 {

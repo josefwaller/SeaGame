@@ -1,7 +1,7 @@
 #include "ShipController.h"
 #include <iostream>
 
-const float ShipController::MAX_VELOCITY = 100.0f;
+const float ShipController::MAX_VELOCITY = 300.0f;
 const float ShipController::MAX_ANGULAR_VELOCITY = 1.0f;
 
 const float ShipController::ACCELERATION = 100.0f;
