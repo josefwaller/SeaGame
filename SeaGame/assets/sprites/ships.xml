@@ -36,43 +36,43 @@
 	<SubTexture name="hullSmall (4).png" x="648" y="220" width="40" height="108"/>
 	<SubTexture name="nest.png" x="592" y="466" width="20" height="18"/>
 	<SubTexture name="pole.png" x="119" y="422" width="12" height="11"/>
-	<SubTexture name="sailLarge (1).png" x="408" y="279" width="66" height="47"/>
-	<SubTexture name="sailLarge (10).png" x="408" y="328" width="66" height="46"/>
-	<SubTexture name="sailLarge (11).png" x="408" y="376" width="66" height="46"/>
-	<SubTexture name="sailLarge (12).png" x="408" y="424" width="66" height="46"/>
-	<SubTexture name="sailLarge (13).png" x="476" y="0" width="66" height="47"/>
-	<SubTexture name="sailLarge (14).png" x="476" y="49" width="66" height="47"/>
-	<SubTexture name="sailLarge (15).png" x="136" y="460" width="66" height="47"/>
-	<SubTexture name="sailLarge (16).png" x="68" y="460" width="66" height="47"/>
-	<SubTexture name="sailLarge (17).png" x="476" y="98" width="66" height="47"/>
-	<SubTexture name="sailLarge (18).png" x="476" y="147" width="66" height="47"/>
-	<SubTexture name="sailLarge (19).png" x="476" y="293" width="66" height="47"/>
-	<SubTexture name="sailLarge (2).png" x="272" y="460" width="66" height="47"/>
-	<SubTexture name="sailLarge (20).png" x="204" y="460" width="66" height="47"/>
-	<SubTexture name="sailLarge (21).png" x="340" y="460" width="66" height="47"/>
-	<SubTexture name="sailLarge (22).png" x="476" y="244" width="66" height="47"/>
-	<SubTexture name="sailLarge (23).png" x="408" y="230" width="66" height="47"/>
-	<SubTexture name="sailLarge (24).png" x="476" y="342" width="66" height="47"/>
-	<SubTexture name="sailLarge (3).png" x="476" y="391" width="66" height="47"/>
-	<SubTexture name="sailLarge (4).png" x="476" y="440" width="66" height="47"/>
-	<SubTexture name="sailLarge (5).png" x="544" y="0" width="66" height="47"/>
-	<SubTexture name="sailLarge (6).png" x="0" y="460" width="66" height="47"/>
-	<SubTexture name="sailLarge (7).png" x="476" y="196" width="66" height="46"/>
-	<SubTexture name="sailLarge (8).png" x="544" y="97" width="66" height="46"/>
-	<SubTexture name="sailLarge (9).png" x="544" y="49" width="66" height="46"/>
-	<SubTexture name="sailSmall (1).png" x="0" y="422" width="42" height="9"/>
-	<SubTexture name="sailSmall (10).png" x="44" y="422" width="42" height="9"/>
-	<SubTexture name="sailSmall (11).png" x="0" y="433" width="42" height="9"/>
-	<SubTexture name="sailSmall (12).png" x="44" y="433" width="42" height="9"/>
-	<SubTexture name="sailSmall (13).png" x="44" y="444" width="42" height="9"/>
-	<SubTexture name="sailSmall (2).png" x="0" y="444" width="42" height="9"/>
-	<SubTexture name="sailSmall (3).png" x="76" y="0" width="42" height="8"/>
-	<SubTexture name="sailSmall (4).png" x="76" y="10" width="42" height="8"/>
-	<SubTexture name="sailSmall (5).png" x="76" y="20" width="42" height="8"/>
-	<SubTexture name="sailSmall (6).png" x="76" y="30" width="42" height="8"/>
-	<SubTexture name="sailSmall (7).png" x="76" y="40" width="42" height="9"/>
-	<SubTexture name="sailSmall (8).png" x="76" y="62" width="42" height="9"/>
-	<SubTexture name="sailSmall (9).png" x="76" y="51" width="42" height="9"/>
+	<SubTexture name="sailLargeWhiteDamaged.png" x="408" y="279" width="66" height="47"/>
+	<SubTexture name="sailLargeGreen.png" x="408" y="328" width="66" height="46"/>
+	<SubTexture name="sailLargeBlue.png" x="408" y="376" width="66" height="46"/>
+	<SubTexture name="sailLargeYellow.png" x="408" y="424" width="66" height="46"/>
+	<SubTexture name="sailLargeWhiteDamaged2.png" x="476" y="0" width="66" height="47"/>
+	<SubTexture name="sailLargeBlackDestroyed.png" x="476" y="49" width="66" height="47"/>
+	<SubTexture name="sailLargeRedDestroyed.png" x="136" y="460" width="66" height="47"/>
+	<SubTexture name="sailLargeYellowDestroyed.png" x="68" y="460" width="66" height="47"/>
+	<SubTexture name="sailLargeBlueDestroyed" x="476" y="98" width="66" height="47"/>
+	<SubTexture name="sailLargeYellowDestroyed" x="476" y="147" width="66" height="47"/>
+	<SubTexture name="sailLargeWhiteDamaged2.png" x="476" y="293" width="66" height="47"/>
+	<SubTexture name="sailLargeBlackDamaged.png" x="272" y="460" width="66" height="47"/>
+	<SubTexture name="sailLargeBlackDamaged2.png" x="204" y="460" width="66" height="47"/>
+	<SubTexture name="sailLargeRedDamaged2.png" x="340" y="460" width="66" height="47"/>
+	<SubTexture name="sailLargeGreenDamaged2.png" x="476" y="244" width="66" height="47"/>
+	<SubTexture name="sailLargeBlueDamaged2.png" x="408" y="230" width="66" height="47"/>
+	<SubTexture name="sailLargeYellowDamaged2.png" x="476" y="342" width="66" height="47"/>
+	<SubTexture name="sailLargeRedDamaged.png" x="476" y="391" width="66" height="47"/>
+	<SubTexture name="sailLargeYellow.png" x="476" y="440" width="66" height="47"/>
+	<SubTexture name="sailLargeBlueDamaged.png" x="544" y="0" width="66" height="47"/>
+	<SubTexture name="sailLargeYellowDamaged.png" x="0" y="460" width="66" height="47"/>
+	<SubTexture name="sailLargeWhite.png" x="476" y="196" width="66" height="46"/>
+	<SubTexture name="sailLargeBlack.png" x="544" y="97" width="66" height="46"/>
+	<SubTexture name="sailLargeRed.png" x="544" y="49" width="66" height="46"/>
+	<SubTexture name="sailSmallYellowDamaged2.png" x="0" y="422" width="42" height="9"/>
+	<SubTexture name="sailSmallYellowDamaged.png" x="44" y="422" width="42" height="9"/>
+	<SubTexture name="sailSmallRedDamaged2.png" x="0" y="433" width="42" height="9"/>
+	<SubTexture name="sailSmallGreenDamaged2.png" x="44" y="433" width="42" height="9"/>
+	<SubTexture name="sailSmallBlueDamaged2.png" x="44" y="444" width="42" height="9"/>
+	<SubTexture name="sailSmallBlackDamaged.png" x="0" y="444" width="42" height="9"/>
+	<SubTexture name="sailSmallRed.png" x="76" y="0" width="42" height="8"/>
+	<SubTexture name="sailSmallGreen.png" x="76" y="10" width="42" height="8"/>
+	<SubTexture name="sailSmallBlue.png" x="76" y="20" width="42" height="8"/>
+	<SubTexture name="sailSmallYellow.png" x="76" y="30" width="42" height="8"/>
+	<SubTexture name="sailSmallRedDamaged.png" x="76" y="40" width="42" height="9"/>
+	<SubTexture name="sailSmallBlueDamaged.png" x="76" y="62" width="42" height="9"/>
+	<SubTexture name="sailSmallGreenDamaged.png" x="76" y="51" width="42" height="9"/>
 	<SubTexture name="ship (1).png" x="408" y="0" width="66" height="113"/>
 	<SubTexture name="ship (10).png" x="340" y="345" width="66" height="113"/>
 	<SubTexture name="ship (11).png" x="340" y="230" width="66" height="113"/>
