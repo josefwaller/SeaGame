@@ -20,6 +20,19 @@ std::pair<const sf::Texture*, sf::IntRect> ResourceManager::getSpriteInfo(std::s
 
 	return { &sheet->first, sheet->second[spriteName] };
 }
+sf::Sprite ResourceManager::getSprite(std::string sheetName, std::string spriteName, bool center=false)
+{
+	auto spriteInfo = this->getSpriteInfo(sheetName, spriteName);
+	sf::Sprite spr(*spriteInfo.first, spriteInfo.second);
+	// If center parameter is given, set the sprite's origin to the center
+	if (center) {
+		spr.setOrigin({
+			spr.getLocalBounds().width / 2,
+			spr.getLocalBounds().height / 2
+		});
+	}
+	return spr;
+}
 void ResourceManager::loadSpritesheet(std::string sheetName)
 {
 	// Load the document
