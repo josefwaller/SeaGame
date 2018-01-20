@@ -6,7 +6,7 @@
 class ShipRenderer : public RenderComponent
 {
 public:
-	ShipRenderer(Entity& e, std::string sailColor);
+	ShipRenderer(std::weak_ptr<Entity> e, std::string sailColor);
 	virtual void render(sf::RenderWindow& w) override;
 private:
 	// The sprites for various parts of the ships

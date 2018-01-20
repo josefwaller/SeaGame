@@ -1,5 +1,5 @@
 #include "RenderComponent.h"
 
-RenderComponent::RenderComponent(Entity& newParent): Component(newParent)
+RenderComponent::RenderComponent(std::weak_ptr<Entity> newParent): Component(newParent)
 {
 }

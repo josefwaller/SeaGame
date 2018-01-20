@@ -10,7 +10,7 @@ const float ShipController::ANGULAR_ACCELERATION = 2.0f;
 const float ShipController::IDLE_DECCELERATION = 500.0f;
 const float ShipController::IDLE_ANGULAR_DECELLERATION = 30.0f;
 
-ShipController::ShipController(Entity& e) : ControllerComponent(e)
+ShipController::ShipController(std::weak_ptr<Entity> e) : ControllerComponent(e)
 {
 	this->acceleration = 0.0f;
 	this->angularAcceleration = 0.0f;
@@ -50,7 +50,7 @@ void ShipController::move(float delta)
 		this->angularVelocity = -ShipController::MAX_ANGULAR_VELOCITY;
 	}
 	// Apply movements to this entity's transform
-	auto transform = this->getParent().transform;
+	auto transform = this->getParent().lock()->transform;
 	transform->setPosition(
 		transform->getPosition() + sf::Vector2f(
 			this->velocity * cos(transform->getRotation()) * delta,

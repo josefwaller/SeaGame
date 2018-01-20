@@ -60,6 +60,9 @@
     <ClCompile Include="src\LayoutSprite.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="src\EntityPrefabs.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\ResourceManager.h">
@@ -100,6 +103,9 @@
     </ClInclude>
     <ClInclude Include="src\LayoutSprite.h">
       <Filter>Header Files\Utils</Filter>
+    </ClInclude>
+    <ClInclude Include="src\EntityPrefabs.h">
+      <Filter>Header Files\Components</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

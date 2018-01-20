@@ -7,7 +7,7 @@
 class TransformComponent : public Component
 {
 public:
-	TransformComponent(Entity& parent, sf::Vector2f initPos, float initRot);
+	TransformComponent(std::weak_ptr<Entity> parent, sf::Vector2f initPos, float initRot);
 	
 	sf::Vector2f getPosition();
 	void setPosition(sf::Vector2f newPos);

@@ -10,7 +10,8 @@ public:
 	void update(double delta);
 	void render(sf::RenderWindow& w);
 
+	// Add an entity to the game
 private:
 	GameMap gMap;
-	Entity ship;
+	std::vector<std::shared_ptr<Entity>> entities;
 };

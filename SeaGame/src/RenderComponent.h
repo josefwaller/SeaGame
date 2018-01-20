@@ -9,6 +9,6 @@
 class RenderComponent: public Component
 {
 public:
-	RenderComponent(Entity& parent);
+	RenderComponent(std::weak_ptr<Entity> parent);
 	virtual void render(sf::RenderWindow& w) = 0;
 };

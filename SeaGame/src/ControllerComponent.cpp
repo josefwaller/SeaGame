@@ -1,6 +1,6 @@
 #include "ControllerComponent.h"
 
-ControllerComponent::ControllerComponent(Entity& e) : Component(e)
+ControllerComponent::ControllerComponent(std::weak_ptr<Entity> e) : Component(e)
 {
 
 }

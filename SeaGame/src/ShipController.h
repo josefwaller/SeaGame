@@ -5,7 +5,7 @@
 class ShipController : public ControllerComponent
 {
 public:
-	ShipController(Entity& e);
+	ShipController(std::weak_ptr<Entity> e);
 	// Set the angular velocity to turn either left or right when move() is called
 	void turnLeft();
 	void turnRight();

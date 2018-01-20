@@ -4,7 +4,7 @@
 class SpriteRenderer : public RenderComponent
 {
 public:
-	SpriteRenderer(Entity& parent, std::string sheetName, std::string spriteName);
+	SpriteRenderer(std::weak_ptr<Entity> parent, std::string sheetName, std::string spriteName);
 	virtual void render(sf::RenderWindow& w) override;
 
 private:

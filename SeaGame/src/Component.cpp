@@ -1,9 +1,9 @@
 #include "Component.h"
 
-Component::Component(Entity& newParent): parent(newParent)
+Component::Component(std::weak_ptr<Entity> newParent): parent(newParent)
 {
 }
-Entity& Component::getParent()
+std::weak_ptr<Entity> Component::getParent()
 {
 	return this->parent;
 }

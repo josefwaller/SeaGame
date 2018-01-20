@@ -1,6 +1,6 @@
 #include "PlayerShipController.h"
 
-PlayerShipController::PlayerShipController(Entity& e) : ShipController(e)
+PlayerShipController::PlayerShipController(std::weak_ptr<Entity> e) : ShipController(e)
 {
 
 }

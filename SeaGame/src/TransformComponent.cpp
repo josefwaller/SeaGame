@@ -1,6 +1,6 @@
 #include "TransformComponent.h"
 
-TransformComponent::TransformComponent(Entity& e, sf::Vector2f initPos = { 0, 0 }, float initRot = 0.0f): Component(e)
+TransformComponent::TransformComponent(std::weak_ptr<Entity> e, sf::Vector2f initPos = { 0, 0 }, float initRot = 0.0f): Component(e)
 {
 	this->position = initPos;
 	this->rotation = initRot;

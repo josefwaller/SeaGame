@@ -1,4 +1,5 @@
 #pragma once
+#include <memory>
 
 // Forward declaration of Entity
 struct Entity;
@@ -6,10 +7,10 @@ struct Entity;
 class Component
 {
 public:
-	Component(Entity& parent);
-	virtual Entity& getParent();
+	Component(std::weak_ptr<Entity> parent);
+	virtual std::weak_ptr<Entity> getParent();
 private:
-	Entity& parent;
+	std::weak_ptr<Entity> parent;
 };
 
 #include "Entity.h"

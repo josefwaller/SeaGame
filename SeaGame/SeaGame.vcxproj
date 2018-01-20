@@ -123,6 +123,7 @@
   <ItemGroup>
     <ClCompile Include="src\Component.cpp" />
     <ClCompile Include="src\ControllerComponent.cpp" />
+    <ClCompile Include="src\EntityPrefabs.cpp" />
     <ClCompile Include="src\Game.cpp" />
     <ClCompile Include="src\GameMap.cpp" />
     <ClCompile Include="src\LayoutSprite.cpp" />
@@ -136,6 +137,7 @@
     <ClCompile Include="src\TransformComponent.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\EntityPrefabs.h" />
     <ClInclude Include="src\LayoutSprite.h" />
     <ClInclude Include="src\ControllerComponent.h" />
     <ClInclude Include="src\Component.h" />

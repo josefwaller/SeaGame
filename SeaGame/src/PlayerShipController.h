@@ -4,6 +4,6 @@
 class PlayerShipController : public ShipController
 {
 public:
-	PlayerShipController(Entity& e);
+	PlayerShipController(std::weak_ptr<Entity> e);
 	virtual void update(float delta) override;
 };
