@@ -3,5 +3,6 @@
         <LayoutSprite name="hull" x="0" y="0" rot_deg="270" />
         <LayoutSprite name="bigSail" x="-9" y="0" rot_deg="270" />
         <LayoutSprite name="smallSail" x="30" y="0" rot_deg="270" />
+        <LayoutSprite name="cannon" x="0" y="0" scale="4" rot_deg="0" />
     </Layout>
 </LayoutAtlas>

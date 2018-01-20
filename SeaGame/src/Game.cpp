@@ -3,7 +3,7 @@
 #include "Entity.h"
 #include "EntityPrefabs.h"
 
-Game::Game()
+Game::Game(sf::RenderWindow& window) : window(window)
 {
 	this->gMap = GameMap();
 	this->entities.push_back(EntityPrefabs::playerShip(this));
@@ -11,11 +11,31 @@ Game::Game()
 
 void Game::update(double delta)
 {
-	this->entities[0]->controller->update(delta);
+	for (size_t i = 0; i < this->entities.size(); i++) {
+		auto e = this->entities[i];
+		if (e->controller != nullptr) {
+			e->controller->update(delta);
+		}
+	}
 }
 
-void Game::render(sf::RenderWindow& w)
+void Game::render()
 {
-	this->gMap.render(w);
-	this->entities[0]->renderer->render(w);
+	this->gMap.render(this->window);
+	for (size_t i = 0; i < this->entities.size(); i++) {
+		auto e = this->entities[i];
+		if (e->renderer != nullptr) {
+			e->renderer->render(this->window);
+		}
+	}
+}
+
+void Game::addEntity(std::shared_ptr<Entity> newEnt)
+{
+	this->entities.push_back(newEnt);
+}
+
+sf::Vector2f Game::getMouseCoords()
+{
+	return (sf::Vector2f)sf::Mouse::getPosition(this->window);
 }

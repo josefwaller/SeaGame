@@ -63,6 +63,9 @@
     <ClCompile Include="src\EntityPrefabs.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="src\CannonBallController.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\ResourceManager.h">
@@ -105,6 +108,9 @@
       <Filter>Header Files\Utils</Filter>
     </ClInclude>
     <ClInclude Include="src\EntityPrefabs.h">
+      <Filter>Header Files\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="src\CannonBallController.h">
       <Filter>Header Files\Components</Filter>
     </ClInclude>
   </ItemGroup>

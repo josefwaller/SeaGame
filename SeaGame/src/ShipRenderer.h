@@ -1,4 +1,5 @@
 #pragma once
+#include "ShipController.h"
 #include "RenderComponent.h"
 
 // Render a ship onscreen by combining several sprites
@@ -13,4 +14,7 @@ private:
 	sf::Sprite hull;
 	sf::Sprite bigSail;
 	sf::Sprite smallSail;
+	sf::Sprite swivelCannon;
+	// Reference to the ShipController for settings certain attributes
+	std::weak_ptr<ShipController> cont;
 };

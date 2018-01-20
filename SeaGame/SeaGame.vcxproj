@@ -121,6 +121,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="src\CannonBallController.cpp" />
     <ClCompile Include="src\Component.cpp" />
     <ClCompile Include="src\ControllerComponent.cpp" />
     <ClCompile Include="src\EntityPrefabs.cpp" />
@@ -137,6 +138,7 @@
     <ClCompile Include="src\TransformComponent.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\CannonBallController.h" />
     <ClInclude Include="src\EntityPrefabs.h" />
     <ClInclude Include="src\LayoutSprite.h" />
     <ClInclude Include="src\ControllerComponent.h" />

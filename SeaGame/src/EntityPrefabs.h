@@ -8,4 +8,5 @@ class EntityPrefabs
 {
 public:
 	static std::shared_ptr<Entity> playerShip(Game* g);
+	static std::shared_ptr<Entity> cannonBall(Game* g, sf::Vector2f pos, float rot);
 };

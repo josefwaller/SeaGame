@@ -1,4 +1,5 @@
 #include "ShipController.h"
+#include "EntityPrefabs.h"
 #include <iostream>
 
 const float ShipController::MAX_VELOCITY = 300.0f;
@@ -9,6 +10,8 @@ const float ShipController::ANGULAR_ACCELERATION = 2.0f;
 
 const float ShipController::IDLE_DECCELERATION = 500.0f;
 const float ShipController::IDLE_ANGULAR_DECELLERATION = 30.0f;
+
+const float ShipController::CANNON_INTERVAL = 2.0f;
 
 ShipController::ShipController(std::weak_ptr<Entity> e) : ControllerComponent(e)
 {
@@ -31,7 +34,27 @@ void ShipController::accelerate()
 {
 	this->acceleration = ShipController::ACCELERATION;
 }
-
+void ShipController::aimSwivel(float angle)
+{
+	this->swivelCannonAngle = angle;
+}
+float ShipController::getSwivelAngle()
+{
+	return this->swivelCannonAngle;
+}
+void ShipController::shootSwivel()
+{
+	if (this->swivelCannonClock.getElapsedTime().asSeconds() > ShipController::CANNON_INTERVAL) {
+		this->swivelCannonClock.restart();
+		this->getParent()->game->addEntity(
+			EntityPrefabs::cannonBall(
+				this->getParent()->game,
+				this->getParent()->transform->getPosition(),
+				this->swivelCannonAngle
+			)
+		);
+	}
+}
 void ShipController::move(float delta)
 {
 	// Set current velocity
@@ -50,7 +73,7 @@ void ShipController::move(float delta)
 		this->angularVelocity = -ShipController::MAX_ANGULAR_VELOCITY;
 	}
 	// Apply movements to this entity's transform
-	auto transform = this->getParent().lock()->transform;
+	auto transform = this->getParent()->transform;
 	transform->setPosition(
 		transform->getPosition() + sf::Vector2f(
 			this->velocity * cos(transform->getRotation()) * delta,

@@ -4,7 +4,7 @@
 int main()
 {
 	sf::RenderWindow w(sf::VideoMode(800, 600), "Sea Game");
-	Game g;
+	Game g(w);
 	// Delta time
 	sf::Clock dClock;
 	while (w.isOpen())
@@ -17,7 +17,7 @@ int main()
 		}
 		g.update(dClock.restart().asSeconds());
 		w.clear();
-		g.render(w);
+		g.render();
 		w.display();
 	}
 	return 0;

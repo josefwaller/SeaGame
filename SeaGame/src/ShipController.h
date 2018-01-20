@@ -11,6 +11,12 @@ public:
 	void turnRight();
 	// Set the accereration to move forward when move() is called
 	void accelerate();
+	// Aim the swivel in a certain direction
+	void aimSwivel(float angle);
+	// Get the angle the swivel is pointing at
+	float getSwivelAngle();
+	// Shoot the main swivel cannon in the direction specified
+	void shootSwivel();
 	// Apply movements to the entity based on velocity and angular velocity
 	void move(float delta);
 	// Max speed and turn speed a ship can be moving at
@@ -23,6 +29,8 @@ public:
 	const static float IDLE_DECCELERATION;
 	// How quickly the ship stops turning when not actively turning
 	const static float IDLE_ANGULAR_DECELLERATION;
+	// How long the ship has to wait between shooting
+	const static float CANNON_INTERVAL;
 private:
 	// Velocity and angular velocity of the ship
 	float velocity;
@@ -31,4 +39,9 @@ private:
 	// Set by either turnRight(), turnLeft() or accelerate()
 	float acceleration;
 	float angularAcceleration;
+	// Angle the swivel cannon is pointing at
+	// Note: if the ship does not have a swivel cannon, will be ignored
+	float swivelCannonAngle;
+	// Count time since the last swivel cannon was fired
+	sf::Clock swivelCannonClock;
 };
