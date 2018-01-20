@@ -2,6 +2,7 @@
 #include <memory>
 #include "Entity.h"
 #include "EntityPrefabs.h"
+#include "RenderManager.h"
 
 Game::Game(sf::RenderWindow& window) : window(window)
 {
@@ -21,13 +22,16 @@ void Game::update(double delta)
 
 void Game::render()
 {
-	this->gMap.render(this->window);
+	RenderManager r;
+	this->gMap.render(r);
 	for (size_t i = 0; i < this->entities.size(); i++) {
 		auto e = this->entities[i];
 		if (e->renderer != nullptr) {
-			e->renderer->render(this->window);
+			e->renderer->render(r);
 		}
 	}
+	r.render(this->window);
+	r.reset();
 }
 
 void Game::addEntity(std::shared_ptr<Entity> newEnt)

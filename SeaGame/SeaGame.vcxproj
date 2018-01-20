@@ -131,6 +131,7 @@
     <ClCompile Include="src\main.cpp" />
     <ClCompile Include="src\PlayerShipController.cpp" />
     <ClCompile Include="src\RenderComponent.cpp" />
+    <ClCompile Include="src\RenderManager.cpp" />
     <ClCompile Include="src\ResourceManager.cpp" />
     <ClCompile Include="src\ShipController.cpp" />
     <ClCompile Include="src\ShipRenderer.cpp" />
@@ -148,6 +149,7 @@
     <ClInclude Include="src\GameMap.h" />
     <ClInclude Include="src\PlayerShipController.h" />
     <ClInclude Include="src\RenderComponent.h" />
+    <ClInclude Include="src\RenderManager.h" />
     <ClInclude Include="src\ResourceManager.h" />
     <ClInclude Include="src\ShipController.h" />
     <ClInclude Include="src\ShipRenderer.h" />

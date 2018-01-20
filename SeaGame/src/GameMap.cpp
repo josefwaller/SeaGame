@@ -9,7 +9,7 @@ GameMap::GameMap()
 	this->seaSpr.setTexture(*spriteInfo.first);
 	this->seaSpr.setTextureRect(spriteInfo.second);
 }
-void GameMap::render(sf::RenderWindow& w)
+void GameMap::render(RenderManager& r)
 {
 	// Render a 10x10 grid of sea tiles
 	for (size_t x = 0; x < 10; x++)
@@ -20,7 +20,7 @@ void GameMap::render(sf::RenderWindow& w)
 				x * this->seaSpr.getTextureRect().width,
 				y * this->seaSpr.getTextureRect().height
 			);
-			w.draw(this->seaSpr);
+			r.addSprite(this->seaSpr, RenderManager::INDEX_TILES);
 		}
 
 	}

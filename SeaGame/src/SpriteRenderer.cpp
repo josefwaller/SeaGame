@@ -1,11 +1,17 @@
 #include "SpriteRenderer.h"
 #include "ResourceManager.h"
 
-SpriteRenderer::SpriteRenderer(std::weak_ptr<Entity> parent, std::string sheetName, std::string spriteName) : RenderComponent(parent)
+SpriteRenderer::SpriteRenderer(
+	std::weak_ptr<Entity> parent,
+	std::string sheetName,
+	std::string spriteName,
+	size_t zIndex)
+	: RenderComponent(parent)
 {
 	this->spr = ResourceManager::get()->getSprite(sheetName, spriteName, true);
+	this->zIndex = zIndex;
 }
-void SpriteRenderer::render(sf::RenderWindow& w)
+void SpriteRenderer::render(RenderManager& r)
 {
 	if (auto transform = this->getParent()->transform)
 	{
@@ -13,5 +19,5 @@ void SpriteRenderer::render(sf::RenderWindow& w)
 		// Convert to degrees because dumbass SFML uses degrees
 		this->spr.setRotation(transform->getRotation() / M_PI * 180.0f);
 	}
-	w.draw(this->spr);
+	r.addSprite(this->spr, this->zIndex);
 }

@@ -16,7 +16,11 @@ std::shared_ptr<Entity> EntityPrefabs::playerShip(Game* g)
 std::shared_ptr<Entity> EntityPrefabs::cannonBall(Game* g, sf::Vector2f pos, float rot)
 {
 	auto ball = std::shared_ptr<Entity>(new Entity(g));
-	ball->renderer = std::shared_ptr<RenderComponent>(new SpriteRenderer(ball, "ships", "cannonBall.png"));
+	ball->renderer = std::shared_ptr<RenderComponent>(new SpriteRenderer(
+		ball,
+		"ships",
+		"cannonBall.png",
+		RenderManager::INDEX_CANNONBALLS));
 	ball->controller = std::shared_ptr<ControllerComponent>(new CannonBallController(ball));
 	ball->transform = std::shared_ptr<TransformComponent>(new TransformComponent(ball, pos, rot));
 	return ball;

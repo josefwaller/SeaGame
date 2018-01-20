@@ -1,6 +1,7 @@
 #pragma once
 #include <SFML\Graphics.hpp>
 #include "Component.h"
+#include "RenderManager.h"
 // Included here bc they are used in a lot of rendering components
 // to convert between degrees and radians
 #define _USE_MATH_DEFINES
@@ -10,5 +11,5 @@ class RenderComponent: public Component
 {
 public:
 	RenderComponent(std::weak_ptr<Entity> parent);
-	virtual void render(sf::RenderWindow& w) = 0;
+	virtual void render(RenderManager& r) = 0;
 };

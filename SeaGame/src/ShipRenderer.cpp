@@ -15,7 +15,7 @@ ShipRenderer::ShipRenderer(std::weak_ptr<Entity> parent, std::string sailColor) 
 
 }
 
-void ShipRenderer::render(sf::RenderWindow& w)
+void ShipRenderer::render(RenderManager& r)
 {
 	// Get the layout
 	std::map<std::string, LayoutSprite> layout = ResourceManager::get()->getLayout("smallShip");
@@ -29,8 +29,8 @@ void ShipRenderer::render(sf::RenderWindow& w)
 	positionLayoutSprite(this->smallSail, layout["smallSail"], pos, rot);
 	positionLayoutSprite(this->swivelCannon, layout["swivelCannon"], pos, cont->getSwivelAngle() * 180.0f / M_PI);
 	// Draw in proper order
-	w.draw(this->hull);
-	w.draw(this->swivelCannon);
-	w.draw(this->bigSail);
-	w.draw(this->smallSail);
+	r.addSprite(this->hull, RenderManager::INDEX_HULL);
+	r.addSprite(this->swivelCannon, RenderManager::INDEX_DECK);
+	r.addSprite(this->bigSail, RenderManager::INDEX_SAILS);
+	r.addSprite(this->smallSail, RenderManager::INDEX_SAILS);
 }
