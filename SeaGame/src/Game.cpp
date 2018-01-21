@@ -8,6 +8,7 @@ Game::Game(sf::RenderWindow& window) : window(window)
 {
 	this->gMap = GameMap();
 	this->entities.push_back(EntityPrefabs::playerShip(this));
+	this->player = this->entities.back();
 }
 
 void Game::update(double delta)
@@ -42,4 +43,9 @@ void Game::addEntity(std::shared_ptr<Entity> newEnt)
 sf::Vector2f Game::getMouseCoords()
 {
 	return (sf::Vector2f)sf::Mouse::getPosition(this->window);
+}
+
+std::shared_ptr<Entity> Game::getPlayer()
+{
+	return this->player.lock();
 }

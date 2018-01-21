@@ -14,9 +14,14 @@ public:
 	void addEntity(std::shared_ptr<Entity> newEnt);
 	// Get mouse coordinates relative to the window
 	sf::Vector2f getMouseCoords();
+	// Get player
+	std::shared_ptr<Entity> getPlayer();
 private:
-	// Window for ref`
+	// Window for ref
 	sf::RenderWindow& window;
+	// Pointer to the player's ship
+	// Actual owner pointer is in entities
+	std::weak_ptr<Entity> player;
 	GameMap gMap;
 	std::vector<std::shared_ptr<Entity>> entities;
 };
