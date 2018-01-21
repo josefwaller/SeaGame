@@ -3,11 +3,12 @@
 #include "Entity.h"
 #include "EntityPrefabs.h"
 #include "RenderManager.h"
+#include "ShipRenderer.h"
 
 Game::Game(sf::RenderWindow& window) : window(window)
 {
 	this->gMap = GameMap();
-	this->entities.push_back(EntityPrefabs::playerShip(this));
+	this->entities.push_back(EntityPrefabs::playerShip(this, ShipRenderer::SAIL_COLOR::Red));
 	this->player = this->entities.back();
 }
 

@@ -7,7 +7,12 @@
 class ShipRenderer : public RenderComponent
 {
 public:
-	ShipRenderer(std::weak_ptr<Entity> e, std::string sailColor);
+	// Different colors the sails can be
+	const enum SAIL_COLOR {Red, Blue, Green, Yellow, Black, White};
+	// Convert SAIL_COLOR value to string used to load the sprites
+	static std::string getSailColorString(SAIL_COLOR color);
+
+	ShipRenderer(std::weak_ptr<Entity> e, SAIL_COLOR sailColor);
 	virtual void render(RenderManager& r) override;
 private:
 	// The sprites for various parts of the ships
@@ -17,4 +22,6 @@ private:
 	sf::Sprite swivelCannon;
 	// Reference to the ShipController for settings certain attributes
 	std::weak_ptr<ShipController> cont;
+	// Some ships do not have small sails
+	bool hasSmallSail;
 };

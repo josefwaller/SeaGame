@@ -1,11 +1,39 @@
 #include "ShipRenderer.h"
 #include "ResourceManager.h"
 
-ShipRenderer::ShipRenderer(std::weak_ptr<Entity> parent, std::string sailColor) : RenderComponent(parent)
+std::string ShipRenderer::getSailColorString(ShipRenderer::SAIL_COLOR color)
+{
+	switch (color) {
+	case SAIL_COLOR::Red:
+		return "Red";
+	case SAIL_COLOR::Blue:
+		return "Blue";
+	case SAIL_COLOR::Yellow:
+		return "Yellow";
+	case SAIL_COLOR::Green:
+		return "Green";
+	case SAIL_COLOR::Black:
+		return "Black";
+	case SAIL_COLOR::White:
+		return "White";
+	default:
+		return "White";
+	}
+}
+ShipRenderer::ShipRenderer(std::weak_ptr<Entity> parent, SAIL_COLOR sailColor) : RenderComponent(parent)
 {
 	this->hull = ResourceManager::get()->getSprite("ships", "hullLarge (1).png", true);
-	this->bigSail = ResourceManager::get()->getSprite("ships", "sailLargeBlue.png", true);
-	this->smallSail = ResourceManager::get()->getSprite("ships", "sailSmallBlue.png", true);
+	this->bigSail = ResourceManager::get()->getSprite(
+		"ships",
+		"sailLarge" + getSailColorString(sailColor) + ".png",
+		true);
+	this->hasSmallSail = (sailColor != SAIL_COLOR::Black && sailColor != SAIL_COLOR::White);
+	if (this->hasSmallSail) {
+		this->smallSail = ResourceManager::get()->getSprite(
+			"ships",
+			"sailSmall" + getSailColorString(sailColor) + ".png",
+			true);
+	}
 	this->swivelCannon = ResourceManager::get()->getSprite("ships", "cannonLoose.png", true);
 	this->swivelCannon.setOrigin(sf::Vector2f(
 		this->swivelCannon.getLocalBounds().width / 4,
@@ -26,11 +54,13 @@ void ShipRenderer::render(RenderManager& r)
 	// Position all sprites in the ship
 	positionLayoutSprite(this->hull, layout["hull"], pos, rot);
 	positionLayoutSprite(this->bigSail, layout["bigSail"], pos, rot);
-	positionLayoutSprite(this->smallSail, layout["smallSail"], pos, rot);
+	if (this->hasSmallSail)
+		positionLayoutSprite(this->smallSail, layout["smallSail"], pos, rot);
 	positionLayoutSprite(this->swivelCannon, layout["swivelCannon"], pos, cont->getSwivelAngle() * 180.0f / M_PI);
 	// Draw in proper order
 	r.addSprite(this->hull, RenderManager::INDEX_HULL);
 	r.addSprite(this->swivelCannon, RenderManager::INDEX_DECK);
 	r.addSprite(this->bigSail, RenderManager::INDEX_SAILS);
+	if (this->hasSmallSail)
 	r.addSprite(this->smallSail, RenderManager::INDEX_SAILS);
 }
