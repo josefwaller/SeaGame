@@ -14,6 +14,8 @@ public:
 
 	float getRotation();
 	void setRotation(float newRot);
+	// Get difference in position and angle between two transforms
+	std::pair<sf::Vector2f, float> getDifference(TransformComponent other);
 
 private:
 	sf::Vector2f position;

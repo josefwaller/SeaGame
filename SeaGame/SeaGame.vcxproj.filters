@@ -19,6 +19,15 @@
     <Filter Include="Header Files\Utils">
       <UniqueIdentifier>{34fd1fd3-7fdc-49ed-bd22-9653290b5249}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\Components\Renderers">
+      <UniqueIdentifier>{bdfd56c3-bb5a-43b9-a41e-cd72c4a990ce}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Components\Controllers">
+      <UniqueIdentifier>{485aadb3-d9f9-4e66-8d2a-25ae8af5620d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Components\Transforms">
+      <UniqueIdentifier>{b8769202-5315-4052-8969-44cfc32351e8}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\main.cpp">
@@ -69,6 +78,9 @@
     <ClCompile Include="src\RenderManager.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="src\ChasingShipController.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\ResourceManager.h">
@@ -83,41 +95,44 @@
     <ClInclude Include="src\Entity.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\RenderComponent.h">
-      <Filter>Header Files\Components</Filter>
-    </ClInclude>
-    <ClInclude Include="src\SpriteRenderer.h">
-      <Filter>Header Files\Components</Filter>
-    </ClInclude>
     <ClInclude Include="src\Component.h">
-      <Filter>Header Files\Components</Filter>
-    </ClInclude>
-    <ClInclude Include="src\TransformComponent.h">
-      <Filter>Header Files\Components</Filter>
-    </ClInclude>
-    <ClInclude Include="src\ControllerComponent.h">
-      <Filter>Header Files\Components</Filter>
-    </ClInclude>
-    <ClInclude Include="src\ShipController.h">
-      <Filter>Header Files\Components</Filter>
-    </ClInclude>
-    <ClInclude Include="src\PlayerShipController.h">
-      <Filter>Header Files\Components</Filter>
-    </ClInclude>
-    <ClInclude Include="src\ShipRenderer.h">
       <Filter>Header Files\Components</Filter>
     </ClInclude>
     <ClInclude Include="src\LayoutSprite.h">
       <Filter>Header Files\Utils</Filter>
-    </ClInclude>
-    <ClInclude Include="src\CannonBallController.h">
-      <Filter>Header Files\Components</Filter>
     </ClInclude>
     <ClInclude Include="src\EntityPrefabs.h">
       <Filter>Header Files\Utils</Filter>
     </ClInclude>
     <ClInclude Include="src\RenderManager.h">
       <Filter>Header Files\Utils</Filter>
+    </ClInclude>
+    <ClInclude Include="src\CannonBallController.h">
+      <Filter>Header Files\Components\Controllers</Filter>
+    </ClInclude>
+    <ClInclude Include="src\ControllerComponent.h">
+      <Filter>Header Files\Components\Controllers</Filter>
+    </ClInclude>
+    <ClInclude Include="src\PlayerShipController.h">
+      <Filter>Header Files\Components\Controllers</Filter>
+    </ClInclude>
+    <ClInclude Include="src\RenderComponent.h">
+      <Filter>Header Files\Components\Renderers</Filter>
+    </ClInclude>
+    <ClInclude Include="src\ShipController.h">
+      <Filter>Header Files\Components\Controllers</Filter>
+    </ClInclude>
+    <ClInclude Include="src\ShipRenderer.h">
+      <Filter>Header Files\Components\Renderers</Filter>
+    </ClInclude>
+    <ClInclude Include="src\SpriteRenderer.h">
+      <Filter>Header Files\Components\Renderers</Filter>
+    </ClInclude>
+    <ClInclude Include="src\TransformComponent.h">
+      <Filter>Header Files\Components\Transforms</Filter>
+    </ClInclude>
+    <ClInclude Include="src\ChasingShipController.h">
+      <Filter>Header Files\Components\Controllers</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

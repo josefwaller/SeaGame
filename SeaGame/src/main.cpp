@@ -3,7 +3,7 @@
 #include "Game.h"
 int main()
 {
-	sf::RenderWindow w(sf::VideoMode(800, 600), "Sea Game");
+	sf::RenderWindow w(sf::VideoMode(1920, 1080), "Sea Game");
 	Game g(w);
 	// Delta time
 	sf::Clock dClock;
