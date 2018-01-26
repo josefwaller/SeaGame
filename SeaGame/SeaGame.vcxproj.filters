@@ -28,6 +28,9 @@
     <Filter Include="Header Files\Components\Transforms">
       <UniqueIdentifier>{b8769202-5315-4052-8969-44cfc32351e8}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\Components\Colliders">
+      <UniqueIdentifier>{33c081e4-37e7-4501-a3e4-0bdb71d4df76}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\main.cpp">
@@ -79,6 +82,12 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="src\ChasingShipController.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\ColliderComponent.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\BoxCollider.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -133,6 +142,15 @@
     </ClInclude>
     <ClInclude Include="src\ChasingShipController.h">
       <Filter>Header Files\Components\Controllers</Filter>
+    </ClInclude>
+    <ClInclude Include="src\ColliderComponent.h">
+      <Filter>Header Files\Components\Colliders</Filter>
+    </ClInclude>
+    <ClInclude Include="src\BoxCollider.h">
+      <Filter>Header Files\Components\Colliders</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Triangle.h">
+      <Filter>Header Files\Utils</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

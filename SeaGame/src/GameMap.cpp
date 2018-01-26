@@ -20,7 +20,7 @@ void GameMap::render(RenderManager& r)
 				x * this->seaSpr.getTextureRect().width,
 				y * this->seaSpr.getTextureRect().height
 			);
-			r.addSprite(this->seaSpr, RenderManager::INDEX_TILES);
+			r.add(this->seaSpr, RenderManager::INDEX_TILES);
 		}
 
 	}

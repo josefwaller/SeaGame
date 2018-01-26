@@ -1,4 +1,5 @@
 #pragma once
+#include <memory>
 #include <SFML/Graphics.hpp>
 
 class RenderManager
@@ -6,11 +7,17 @@ class RenderManager
 public:
 	// Draw all sprites on the window
 	void render(sf::RenderWindow& window);
-	// Add a sprite to be drawn
-	void addSprite(sf::Sprite s, size_t zIndex);
+	// Add a drawable to be drawn
+	void addPointer(sf::Drawable* s, size_t index);
+	// Convienence method so that new does not have to be called every time a sprite is added
+	template<class T>
+	void add(T s, const size_t index)
+	{
+		static_assert(std::is_base_of<sf::Drawable, T>::value, "U R dum");
+		this->addPointer(new T(s), index);
+	};
 	// Remove all sprites
 	void reset();
-	
 	// Z indexes to draw things on
 	// For sea tiles, land tiles, etc
 	const static size_t INDEX_TILES = 0;
@@ -22,7 +29,8 @@ public:
 	const static size_t INDEX_DECK = 3;
 	// For the ship sails
 	const static size_t INDEX_SAILS = 4;
+	// For debug information, hitboxes, etc
+	const static size_t INDEX_DEBUG = 5;
 private:
-	// Sprites to draw, ordered by z index
-	std::vector<std::vector<sf::Sprite>> sprites;
+	std::vector<std::vector<std::shared_ptr<sf::Drawable>>> sprites;
 };

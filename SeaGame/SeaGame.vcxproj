@@ -121,8 +121,10 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="src\BoxCollider.cpp" />
     <ClCompile Include="src\CannonBallController.cpp" />
     <ClCompile Include="src\ChasingShipController.cpp" />
+    <ClCompile Include="src\ColliderComponent.cpp" />
     <ClCompile Include="src\Component.cpp" />
     <ClCompile Include="src\ControllerComponent.cpp" />
     <ClCompile Include="src\EntityPrefabs.cpp" />
@@ -140,8 +142,10 @@
     <ClCompile Include="src\TransformComponent.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\BoxCollider.h" />
     <ClInclude Include="src\CannonBallController.h" />
     <ClInclude Include="src\ChasingShipController.h" />
+    <ClInclude Include="src\ColliderComponent.h" />
     <ClInclude Include="src\EntityPrefabs.h" />
     <ClInclude Include="src\LayoutSprite.h" />
     <ClInclude Include="src\ControllerComponent.h" />
@@ -157,6 +161,7 @@
     <ClInclude Include="src\ShipRenderer.h" />
     <ClInclude Include="src\SpriteRenderer.h" />
     <ClInclude Include="src\TransformComponent.h" />
+    <ClInclude Include="src\Triangle.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

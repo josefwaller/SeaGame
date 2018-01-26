@@ -4,12 +4,11 @@
 #include "PlayerShipController.h"
 #include "ChasingShipController.h"
 #include "CannonBallController.h"
+#include "BoxCollider.h"
 
 std::shared_ptr<Entity> EntityPrefabs::playerShip(Game* g, ShipRenderer::SAIL_COLOR c)
 {
-	auto ship = std::shared_ptr<Entity>(new Entity(g));
-	ship->renderer = std::unique_ptr<RenderComponent>(new ShipRenderer(ship, c));
-	ship->transform = std::shared_ptr<TransformComponent>(new TransformComponent(ship, { 30, 30 }, (float)(M_PI / 6)));
+	auto ship = EntityPrefabs::ship(g, { 30, 30 }, 0.0f, c);
 	ship->controller = std::shared_ptr<ControllerComponent>(new PlayerShipController(ship));
 	return ship;
 }
@@ -29,9 +28,16 @@ std::shared_ptr<Entity> EntityPrefabs::cannonBall(Game* g, sf::Vector2f pos, flo
 
 std::shared_ptr<Entity> EntityPrefabs::enemyChasingShip(Game* g, sf::Vector2f pos, ShipRenderer::SAIL_COLOR c)
 {
-	auto ship = std::shared_ptr<Entity>(new Entity(g));
-	ship->renderer = std::shared_ptr<RenderComponent>(new ShipRenderer(ship, c));
-	ship->transform = std::shared_ptr<TransformComponent>(new TransformComponent(ship, pos, 0.0f));
+	auto ship = EntityPrefabs::ship(g, pos, 0.0f, c);
 	ship->controller = std::shared_ptr<ControllerComponent>(new ChasingShipController(ship));
+	return ship;
+}
+
+std::shared_ptr<Entity> EntityPrefabs::ship(Game* g, sf::Vector2f pos, float rot, ShipRenderer::SAIL_COLOR c)
+{
+	auto ship = std::shared_ptr<Entity>(new Entity(g));
+	ship->transform = std::shared_ptr<TransformComponent>(new TransformComponent(ship, pos, rot));
+	ship->collider = std::shared_ptr<ColliderComponent>(new BoxCollider(ship, { -60, -30 }, 120, 60));
+	ship->renderer = std::shared_ptr<RenderComponent>(new ShipRenderer(ship, c));
 	return ship;
 }

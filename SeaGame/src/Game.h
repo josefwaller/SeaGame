@@ -16,6 +16,8 @@ public:
 	sf::Vector2f getMouseCoords();
 	// Get player
 	std::shared_ptr<Entity> getPlayer();
+	// Get all entities
+	std::vector<std::shared_ptr<Entity>> getEntities();
 private:
 	// Window for ref
 	sf::RenderWindow& window;

@@ -58,9 +58,20 @@ void ShipRenderer::render(RenderManager& r)
 		positionLayoutSprite(this->smallSail, layout["smallSail"], pos, rot);
 	positionLayoutSprite(this->swivelCannon, layout["swivelCannon"], pos, cont->getSwivelAngle() * 180.0f / M_PI);
 	// Draw in proper order
-	r.addSprite(this->hull, RenderManager::INDEX_HULL);
-	r.addSprite(this->swivelCannon, RenderManager::INDEX_DECK);
-	r.addSprite(this->bigSail, RenderManager::INDEX_SAILS);
+	r.add(this->hull, RenderManager::INDEX_HULL);
+	r.add(this->swivelCannon, RenderManager::INDEX_DECK);
+	r.add(this->bigSail, RenderManager::INDEX_SAILS);
 	if (this->hasSmallSail)
-	r.addSprite(this->smallSail, RenderManager::INDEX_SAILS);
+		r.add(this->smallSail, RenderManager::INDEX_SAILS);
+
+	if (this->getParent()->collider != nullptr) {
+		for (auto t : this->getParent()->collider->getTriangles()) {
+			sf::VertexArray p(sf::LineStrip, 4);
+			for (size_t i = 0; i < 4; i++) {
+				p[i] = t.points[i % 3];
+				p[i].color = sf::Color::Red;
+			}
+			r.add(p, RenderManager::INDEX_DEBUG);
+		}
+	}
 }
