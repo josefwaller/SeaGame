@@ -6,7 +6,7 @@ ColliderComponent::ColliderComponent(std::weak_ptr<Entity> parent) : Component(p
 }
 bool ColliderComponent::checkForCollision(std::weak_ptr<ColliderComponent> other)
 {
-	for (auto t : this->triangles) {
+	for (auto t : this->getTriangles()) {
 		for (auto o : other.lock()->getTriangles()) {
 			if (t.collidesWith(o)) {
 				return true;
@@ -17,6 +17,7 @@ bool ColliderComponent::checkForCollision(std::weak_ptr<ColliderComponent> other
 }
 std::vector<Triangle> ColliderComponent::getTriangles()
 {
+	// Create copy of entity's triangles and move then to the entity's position/rotation
 	sf::Transform trans;
 	trans.translate(this->getParent()->transform->getPosition());
 	trans.rotate(this->getParent()->transform->getRotation() * 180.0f / M_PI);
