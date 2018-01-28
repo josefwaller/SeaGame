@@ -50,6 +50,7 @@ void Game::render()
 		auto e = this->entities[i];
 		if (e->renderer != nullptr) {
 			e->renderer->render(r);
+			e->renderer->renderCollider(r);
 		}
 	}
 	r.render(this->window);

@@ -64,14 +64,4 @@ void ShipRenderer::render(RenderManager& r)
 	if (this->hasSmallSail)
 		r.add(this->smallSail, RenderManager::INDEX_SAILS);
 
-	if (this->getParent()->collider != nullptr) {
-		for (auto t : this->getParent()->collider->getTriangles()) {
-			sf::VertexArray p(sf::LineStrip, 4);
-			for (size_t i = 0; i < 4; i++) {
-				p[i] = t.points[i % 3];
-				p[i].color = sf::Color::Green;
-			}
-			r.add(p, RenderManager::INDEX_DEBUG);
-		}
-	}
 }
