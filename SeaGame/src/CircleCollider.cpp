@@ -16,7 +16,7 @@ CircleCollider::CircleCollider(std::weak_ptr<Entity> e, float r): ColliderCompon
 	sf::Vector2f pOne = CircleCollider::BASE_POINTS[0];
 	sf::Vector2f pTwo = CircleCollider::BASE_POINTS[1];
 	for (auto it = CircleCollider::BASE_POINTS.begin() + 2; it != CircleCollider::BASE_POINTS.end(); it++) {
-		this->triangles.push_back(Triangle({
+		this->addTriangle(Triangle({
 			pOne * r,
 			pTwo * r,
 			*it * r

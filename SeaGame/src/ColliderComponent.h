@@ -10,6 +10,12 @@ public:
 	virtual bool checkForCollision(std::weak_ptr<ColliderComponent> other);
 	// Get the triangles this collider uses
 	std::vector<Triangle> getTriangles();
-protected:
+	void addTriangle(Triangle t);
+	sf::FloatRect getBoundingBox();
+private:
 	std::vector<Triangle> triangles;
+	// The point at with the minimum x value and the minimum y value of all the triangles
+	sf::Vector2f minPoint;
+	// Same as minPoint, but maximum values instead
+	sf::Vector2f maxPoint;
 };

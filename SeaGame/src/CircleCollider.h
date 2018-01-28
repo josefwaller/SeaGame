@@ -8,4 +8,5 @@ public:
 	static std::vector<sf::Vector2f> BASE_POINTS;
 
 	CircleCollider(std::weak_ptr<Entity> e, float r);
+private:
 };
