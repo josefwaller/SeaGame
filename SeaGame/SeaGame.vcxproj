@@ -124,6 +124,7 @@
     <ClCompile Include="src\BoxCollider.cpp" />
     <ClCompile Include="src\CannonBallController.cpp" />
     <ClCompile Include="src\ChasingShipController.cpp" />
+    <ClCompile Include="src\CircleCollider.cpp" />
     <ClCompile Include="src\ColliderComponent.cpp" />
     <ClCompile Include="src\Component.cpp" />
     <ClCompile Include="src\ControllerComponent.cpp" />
@@ -145,6 +146,7 @@
     <ClInclude Include="src\BoxCollider.h" />
     <ClInclude Include="src\CannonBallController.h" />
     <ClInclude Include="src\ChasingShipController.h" />
+    <ClInclude Include="src\CircleCollider.h" />
     <ClInclude Include="src\ColliderComponent.h" />
     <ClInclude Include="src\EntityPrefabs.h" />
     <ClInclude Include="src\LayoutSprite.h" />

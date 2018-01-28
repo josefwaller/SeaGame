@@ -5,6 +5,7 @@
 #include "ChasingShipController.h"
 #include "CannonBallController.h"
 #include "BoxCollider.h"
+#include "CircleCollider.h"
 
 std::shared_ptr<Entity> EntityPrefabs::playerShip(Game* g, ShipRenderer::SAIL_COLOR c)
 {
@@ -23,6 +24,7 @@ std::shared_ptr<Entity> EntityPrefabs::cannonBall(Game* g, sf::Vector2f pos, flo
 		RenderManager::INDEX_CANNONBALLS));
 	ball->controller = std::shared_ptr<ControllerComponent>(new CannonBallController(ball));
 	ball->transform = std::shared_ptr<TransformComponent>(new TransformComponent(ball, pos, rot));
+	ball->collider = std::shared_ptr<ColliderComponent>(new CircleCollider(ball, 7));
 	return ball;
 }
 
