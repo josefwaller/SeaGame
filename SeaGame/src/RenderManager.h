@@ -29,8 +29,10 @@ public:
 	const static size_t INDEX_DECK = 3;
 	// For the ship sails
 	const static size_t INDEX_SAILS = 4;
+	// For explosions, fire, etc
+	const static size_t INDEX_EFFECT = 5;
 	// For debug information, hitboxes, etc
-	const static size_t INDEX_DEBUG = 5;
+	const static size_t INDEX_DEBUG = 6;
 private:
 	std::vector<std::vector<std::shared_ptr<sf::Drawable>>> sprites;
 };

@@ -49,6 +49,7 @@ void ShipController::shootSwivel()
 		this->getParent()->game->addEntity(
 			EntityPrefabs::cannonBall(
 				this->getParent()->game,
+				this->getParent(),
 				this->getParent()->transform->getPosition(),
 				this->swivelCannonAngle
 			)

@@ -9,9 +9,9 @@ class EntityPrefabs
 {
 public:
 	static std::shared_ptr<Entity> playerShip(Game* g, ShipRenderer::SAIL_COLOR c);
-	static std::shared_ptr<Entity> cannonBall(Game* g, sf::Vector2f pos, float rot);
+	static std::shared_ptr<Entity> cannonBall(Game* g, std::weak_ptr<Entity> spawner, sf::Vector2f pos, float rot);
 	static std::shared_ptr<Entity> enemyChasingShip(Game* g, sf::Vector2f pos, ShipRenderer::SAIL_COLOR c);
-
+	static std::shared_ptr<Entity> explosion(Game* g, sf::Vector2f pos);
 private:
 	static std::shared_ptr<Entity> ship(Game* g, sf::Vector2f pos, float rot, ShipRenderer::SAIL_COLOR c);
 };

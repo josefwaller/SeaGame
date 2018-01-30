@@ -121,6 +121,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="src\AnimationRenderer.cpp" />
     <ClCompile Include="src\BoxCollider.cpp" />
     <ClCompile Include="src\CannonBallController.cpp" />
     <ClCompile Include="src\ChasingShipController.cpp" />
@@ -143,6 +144,7 @@
     <ClCompile Include="src\TransformComponent.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\AnimationRenderer.h" />
     <ClInclude Include="src\BoxCollider.h" />
     <ClInclude Include="src\CannonBallController.h" />
     <ClInclude Include="src\ChasingShipController.h" />

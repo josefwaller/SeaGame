@@ -93,6 +93,9 @@
     <ClCompile Include="src\CircleCollider.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="src\AnimationRenderer.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\ResourceManager.h">
@@ -157,6 +160,9 @@
     </ClInclude>
     <ClInclude Include="src\CircleCollider.h">
       <Filter>Header Files\Components\Colliders</Filter>
+    </ClInclude>
+    <ClInclude Include="src\AnimationRenderer.h">
+      <Filter>Header Files\Components\Renderers</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

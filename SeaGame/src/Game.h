@@ -12,6 +12,8 @@ public:
 
 	// Add an entity to the game
 	void addEntity(std::shared_ptr<Entity> newEnt);
+	// Remove an entity from the game
+	void removeEntity(std::weak_ptr<Entity> e);
 	// Get mouse coordinates relative to the window
 	sf::Vector2f getMouseCoords();
 	// Get player
@@ -26,4 +28,6 @@ private:
 	std::weak_ptr<Entity> player;
 	GameMap gMap;
 	std::vector<std::shared_ptr<Entity>> entities;
+	// Entities to be removed after this frame
+	std::vector<std::weak_ptr<Entity>> toRemove;
 };

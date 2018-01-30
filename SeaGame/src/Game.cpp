@@ -40,6 +40,12 @@ void Game::update(double delta)
 			}
 		}
 	}
+	// Remove entities
+	for (auto it : this->toRemove) {
+		this->entities.erase(
+			std::remove(this->entities.begin(), this->entities.end(), it.lock()),
+			this->entities.end());
+	}
 }
 
 void Game::render()
@@ -65,7 +71,10 @@ void Game::addEntity(std::shared_ptr<Entity> newEnt)
 {
 	this->entities.push_back(newEnt);
 }
-
+void Game::removeEntity(std::weak_ptr<Entity> e)
+{
+	this->toRemove.push_back(e);
+}
 sf::Vector2f Game::getMouseCoords()
 {
 	return (sf::Vector2f)sf::Mouse::getPosition(this->window);
