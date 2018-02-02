@@ -1,5 +1,6 @@
 #include "ShipRenderer.h"
 #include "ResourceManager.h"
+#include "ShipController.h"
 
 std::string ShipRenderer::getSailColorString(ShipRenderer::SAIL_COLOR color)
 {
@@ -40,7 +41,10 @@ ShipRenderer::ShipRenderer(std::weak_ptr<Entity> parent, SAIL_COLOR sailColor) :
 		this->swivelCannon.getLocalBounds().height / 2
 	));
 	this->swivelCannon.setScale(2.0f, 2.0f);
-
+}
+void ShipRenderer::setSwivel(float angle)
+{
+	this->swivelAngle = angle;
 }
 
 void ShipRenderer::render(RenderManager& r)
@@ -56,7 +60,7 @@ void ShipRenderer::render(RenderManager& r)
 	positionLayoutSprite(this->bigSail, layout["bigSail"], pos, rot);
 	if (this->hasSmallSail)
 		positionLayoutSprite(this->smallSail, layout["smallSail"], pos, rot);
-	positionLayoutSprite(this->swivelCannon, layout["swivelCannon"], pos, cont->getSwivelAngle() * 180.0f / M_PI);
+	positionLayoutSprite(this->swivelCannon, layout["swivelCannon"], pos, this->swivelAngle * 180.0f / M_PI);
 	// Draw in proper order
 	r.add(this->hull, RenderManager::INDEX_HULL);
 	r.add(this->swivelCannon, RenderManager::INDEX_DECK);
@@ -64,4 +68,10 @@ void ShipRenderer::render(RenderManager& r)
 	if (this->hasSmallSail)
 		r.add(this->smallSail, RenderManager::INDEX_SAILS);
 
+}
+void ShipRenderer::reset()
+{
+	if (auto cont = std::dynamic_pointer_cast<ShipController>(this->getParent()->controller)) {
+		this->swivelAngle = cont->getSwivelAngle();
+	}
 }

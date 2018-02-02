@@ -1,5 +1,4 @@
 #pragma once
-#include "ShipController.h"
 #include "RenderComponent.h"
 
 // Render a ship onscreen by combining several sprites
@@ -14,14 +13,15 @@ public:
 
 	ShipRenderer(std::weak_ptr<Entity> e, SAIL_COLOR sailColor);
 	virtual void render(RenderManager& r) override;
+	virtual void reset() override;
 private:
 	// The sprites for various parts of the ships
 	sf::Sprite hull;
 	sf::Sprite bigSail;
 	sf::Sprite smallSail;
 	sf::Sprite swivelCannon;
-	// Reference to the ShipController for settings certain attributes
-	std::weak_ptr<ShipController> cont;
 	// Some ships do not have small sails
 	bool hasSmallSail;
+	// Angle to draw the swivel cannon at
+	float swivelAngle;
 };

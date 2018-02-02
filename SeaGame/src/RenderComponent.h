@@ -13,4 +13,8 @@ public:
 	RenderComponent(std::weak_ptr<Entity> parent);
 	virtual void render(RenderManager& r) = 0;
 	void renderCollider(RenderManager& r);
+	// Update what to render
+	// For ships, may change sprites based on damage, aim swivel, etc
+	// Empty by default
+	virtual void reset();
 };

@@ -37,6 +37,7 @@ void ShipController::accelerate()
 void ShipController::aimSwivel(float angle)
 {
 	this->swivelCannonAngle = angle;
+	this->getParent()->renderer->reset();
 }
 float ShipController::getSwivelAngle()
 {

@@ -28,3 +28,7 @@ void RenderComponent::renderCollider(RenderManager& r)
 		r.add(rect, RenderManager::INDEX_DEBUG);
 	}
 }
+void RenderComponent::reset()
+{
+
+}
