@@ -8,11 +8,13 @@
 #include "CircleCollider.h"
 #include "AnimationRenderer.h"
 #include "ResourceManager.h"
+#include "SimpleHealth.h"
 
 std::shared_ptr<Entity> EntityPrefabs::playerShip(Game* g, ShipRenderer::SAIL_COLOR c)
 {
 	auto ship = EntityPrefabs::ship(g, { 30, 30 }, 0.0f, c);
 	ship->controller = std::shared_ptr<ControllerComponent>(new PlayerShipController(ship));
+	ship->health = std::shared_ptr<HealthComponent>(new SimpleHealth(ship, 20));
 	return ship;
 }
 

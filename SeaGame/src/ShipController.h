@@ -19,6 +19,7 @@ public:
 	void shootSwivel();
 	// Apply movements to the entity based on velocity and angular velocity
 	void move(float delta);
+	virtual void onHit(int damageAmount);
 	// Max speed and turn speed a ship can be moving at
 	const static float MAX_VELOCITY;
 	static const float MAX_ANGULAR_VELOCITY;

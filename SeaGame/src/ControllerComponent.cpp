@@ -10,3 +10,10 @@ void ControllerComponent::onCollision(std::weak_ptr<Entity> other)
 {
 
 }
+
+void ControllerComponent::onHit(HealthType t, int damageAmount)
+{
+	// Default, just reduces overall health
+	if (this->getParent()->health != nullptr)
+		this->getParent()->health->takeDamage(t, damageAmount);
+}
