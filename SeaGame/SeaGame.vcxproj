@@ -132,6 +132,7 @@
     <ClCompile Include="src\EntityPrefabs.cpp" />
     <ClCompile Include="src\Game.cpp" />
     <ClCompile Include="src\GameMap.cpp" />
+    <ClCompile Include="src\HealthComponent.cpp" />
     <ClCompile Include="src\LayoutSprite.cpp" />
     <ClCompile Include="src\main.cpp" />
     <ClCompile Include="src\PlayerShipController.cpp" />
@@ -151,6 +152,8 @@
     <ClInclude Include="src\CircleCollider.h" />
     <ClInclude Include="src\ColliderComponent.h" />
     <ClInclude Include="src\EntityPrefabs.h" />
+    <ClInclude Include="src\HealthComponent.h" />
+    <ClInclude Include="src\HealthType.h" />
     <ClInclude Include="src\LayoutSprite.h" />
     <ClInclude Include="src\ControllerComponent.h" />
     <ClInclude Include="src\Component.h" />

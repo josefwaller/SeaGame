@@ -31,6 +31,9 @@
     <Filter Include="Header Files\Components\Colliders">
       <UniqueIdentifier>{33c081e4-37e7-4501-a3e4-0bdb71d4df76}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\Components\Health">
+      <UniqueIdentifier>{12bf1484-a3d2-4889-9e3f-11d1e0d00d13}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\main.cpp">
@@ -94,6 +97,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="src\AnimationRenderer.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\HealthComponent.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -163,6 +169,12 @@
     </ClInclude>
     <ClInclude Include="src\AnimationRenderer.h">
       <Filter>Header Files\Components\Renderers</Filter>
+    </ClInclude>
+    <ClInclude Include="src\HealthComponent.h">
+      <Filter>Header Files\Components\Health</Filter>
+    </ClInclude>
+    <ClInclude Include="src\HealthType.h">
+      <Filter>Header Files\Utils</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

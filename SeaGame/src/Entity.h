@@ -7,6 +7,7 @@ class Game;
 // Forward declaration of components
 class RenderComponent;
 class TransformComponent;
+class HealthComponent;
 class ControllerComponent;
 class ColliderComponent;
 
@@ -19,10 +20,12 @@ struct Entity
 	std::shared_ptr<RenderComponent> renderer;
 	std::shared_ptr<ControllerComponent> controller;
 	std::shared_ptr<ColliderComponent> collider;
+	std::shared_ptr<HealthComponent> health;
 };
 
 #include "RenderComponent.h"
 #include "TransformComponent.h"
+#include "HealthComponent.h"
 #include "ControllerComponent.h"
 #include "ColliderComponent.h"
 #include "Game.h"
