@@ -140,6 +140,7 @@
     <ClCompile Include="src\RenderManager.cpp" />
     <ClCompile Include="src\ResourceManager.cpp" />
     <ClCompile Include="src\ShipController.cpp" />
+    <ClCompile Include="src\ShipHealth.cpp" />
     <ClCompile Include="src\ShipRenderer.cpp" />
     <ClCompile Include="src\SimpleHealth.cpp" />
     <ClCompile Include="src\SpriteRenderer.cpp" />
@@ -166,6 +167,7 @@
     <ClInclude Include="src\RenderManager.h" />
     <ClInclude Include="src\ResourceManager.h" />
     <ClInclude Include="src\ShipController.h" />
+    <ClInclude Include="src\ShipHealth.h" />
     <ClInclude Include="src\ShipRenderer.h" />
     <ClInclude Include="src\SimpleHealth.h" />
     <ClInclude Include="src\SpriteRenderer.h" />

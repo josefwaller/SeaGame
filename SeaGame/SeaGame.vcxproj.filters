@@ -105,6 +105,9 @@
     <ClCompile Include="src\SimpleHealth.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="src\ShipHealth.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\ResourceManager.h">
@@ -181,6 +184,9 @@
     </ClInclude>
     <ClInclude Include="src\HealthType.h">
       <Filter>Header Files\Utils</Filter>
+    </ClInclude>
+    <ClInclude Include="src\ShipHealth.h">
+      <Filter>Header Files\Components\Health</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

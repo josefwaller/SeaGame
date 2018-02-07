@@ -8,7 +8,7 @@
 Game::Game(sf::RenderWindow& window) : window(window)
 {
 	this->gMap = GameMap();
-	this->entities.push_back(EntityPrefabs::playerShip(this, ShipRenderer::SAIL_COLOR::Green));
+	this->entities.push_back(EntityPrefabs::playerShip(this, ShipRenderer::SAIL_COLOR::Blue));
 	this->player = this->entities.back();
 	this->addEntity(EntityPrefabs::enemyChasingShip(this, { 200, 200 }, ShipRenderer::SAIL_COLOR::Black));
 }

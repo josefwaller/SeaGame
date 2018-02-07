@@ -79,35 +79,43 @@ void ShipRenderer::reset()
 
 void ShipRenderer::setSprites()
 {
-	int health;
-	if (this->getParent()->health != nullptr)
-		health = this->getParent()->health->getHealth(HealthType::Default);
-	else
-		health = 100;
-
-	std::string damageString = "";
-	if (health == 0)
-		damageString = "Destroyed";
-
 	this->bigSail = ResourceManager::get()->getSprite(
 		"ships",
-		"sailLarge" + this->getSailColorString(this->sailColor) + damageString + ".png",
+		"sailLarge" + this->getSailColorString(this->sailColor) + this->getDamageString(HealthType::Sails) + ".png",
 		true);
 	if (this->hasSmallSail) {
 		// Small sails only have 1 destroyed sprite, rather than 1 for each color
 		// So if the small sail is destroyed, don't have a color string
 		std::string colorName = this->getSailColorString(this->sailColor);
-		if (health == 0)
+		if (this->getParent()->health != nullptr && this->getParent()->health->getHealth(HealthType::Sails) == 0)
 			colorName = "";
 		this->smallSail = ResourceManager::get()->getSprite(
 			"ships",
-			"sailSmall" + colorName + damageString + ".png",
+			"sailSmall" + colorName + this->getDamageString(HealthType::Sails) + ".png",
 			true
 		);
 	}
 	this->hull = ResourceManager::get()->getSprite(
 		"ships",
-		"hullLarge" + damageString + ".png",
+		"hullLarge" + this->getDamageString(HealthType::Hull) + ".png",
 		true
 	);
+}
+std::string ShipRenderer::getDamageString(HealthType t)
+{
+	int health;
+	if (this->getParent()->health == nullptr)
+		health = 100;
+	else
+		health = this->getParent()->health->getHealth(t);
+
+	if (health == 100)
+		return "";
+	else if (health > 50)
+		return "Damaged";
+	else if (health > 0)
+		return "Damaged2";
+	else
+		return "Destroyed";
+
 }

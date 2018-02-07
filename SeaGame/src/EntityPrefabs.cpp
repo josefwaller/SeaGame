@@ -9,12 +9,12 @@
 #include "AnimationRenderer.h"
 #include "ResourceManager.h"
 #include "SimpleHealth.h"
+#include "ShipHealth.h"
 
 std::shared_ptr<Entity> EntityPrefabs::playerShip(Game* g, ShipRenderer::SAIL_COLOR c)
 {
 	auto ship = EntityPrefabs::ship(g, { 30, 30 }, 0.0f, c);
 	ship->controller = std::shared_ptr<ControllerComponent>(new PlayerShipController(ship));
-	ship->health = std::shared_ptr<HealthComponent>(new SimpleHealth(ship, 20));
 	return ship;
 }
 
@@ -45,6 +45,7 @@ std::shared_ptr<Entity> EntityPrefabs::ship(Game* g, sf::Vector2f pos, float rot
 	ship->transform = std::shared_ptr<TransformComponent>(new TransformComponent(ship, pos, rot));
 	ship->collider = std::shared_ptr<ColliderComponent>(new BoxCollider(ship, { -60, -30 }, 120, 60));
 	ship->renderer = std::shared_ptr<RenderComponent>(new ShipRenderer(ship, c));
+	ship->health = std::shared_ptr<HealthComponent>(new ShipHealth(ship));
 	return ship;
 }
 std::shared_ptr<Entity> EntityPrefabs::explosion(Game* g, sf::Vector2f pos)

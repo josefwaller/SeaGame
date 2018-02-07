@@ -111,10 +111,10 @@ void ShipController::move(float delta)
 		this->angularAcceleration = 0.0f;
 	}
 }
-void ShipController::onHit(int damageAmount)
+void ShipController::onHit(HealthType t, int damageAmount)
 {
 	if (this->getParent()->health != nullptr) {
-		this->getParent()->health->takeDamage(HealthType::Default, damageAmount);
+		this->getParent()->health->takeDamage(t, damageAmount);
 		this->getParent()->renderer->reset();
 	}
 }

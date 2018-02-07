@@ -27,7 +27,7 @@ void CannonBallController::onCollision(std::weak_ptr<Entity> other)
 			this->getParent()->transform->getPosition()));
 		// Damage other entity
 		if (other.lock()->controller != nullptr)
-			other.lock()->controller->onHit(HealthType::Default, 10);
+			other.lock()->controller->onHit(HealthType::Sails, 10);
 		// Remove self
 		this->getParent()->game->removeEntity(this->getParent());
 	}

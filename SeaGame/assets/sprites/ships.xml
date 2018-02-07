@@ -44,7 +44,7 @@
 	<SubTexture name="sailLargeBlackDestroyed.png" x="476" y="49" width="66" height="47"/>
 	<SubTexture name="sailLargeRedDestroyed.png" x="136" y="460" width="66" height="47"/>
 	<SubTexture name="sailLargeGreenDestroyed.png" x="68" y="460" width="66" height="47"/>
-	<SubTexture name="sailLargeBlueDestroyed" x="476" y="98" width="66" height="47"/>
+	<SubTexture name="sailLargeBlueDestroyed.png" x="476" y="98" width="66" height="47"/>
 	<SubTexture name="sailLargeYellowDestroyed" x="476" y="147" width="66" height="47"/>
 	<SubTexture name="sailLargeWhiteDamaged2.png" x="476" y="293" width="66" height="47"/>
 	<SubTexture name="sailLargeBlackDamaged.png" x="272" y="460" width="66" height="47"/>
@@ -54,7 +54,7 @@
 	<SubTexture name="sailLargeBlueDamaged2.png" x="408" y="230" width="66" height="47"/>
 	<SubTexture name="sailLargeYellowDamaged2.png" x="476" y="342" width="66" height="47"/>
 	<SubTexture name="sailLargeRedDamaged.png" x="476" y="391" width="66" height="47"/>
-	<SubTexture name="sailLargeYellow.png" x="476" y="440" width="66" height="47"/>
+	<SubTexture name="sailLargeGreenDamaged.png" x="476" y="440" width="66" height="47"/>
 	<SubTexture name="sailLargeBlueDamaged.png" x="544" y="0" width="66" height="47"/>
 	<SubTexture name="sailLargeYellowDamaged.png" x="0" y="460" width="66" height="47"/>
 	<SubTexture name="sailLargeWhite.png" x="476" y="196" width="66" height="46"/>
@@ -71,8 +71,8 @@
 	<SubTexture name="sailSmallBlue.png" x="76" y="20" width="42" height="8"/>
 	<SubTexture name="sailSmallYellow.png" x="76" y="30" width="42" height="8"/>
 	<SubTexture name="sailSmallRedDamaged.png" x="76" y="40" width="42" height="9"/>
-	<SubTexture name="sailSmallBlueDamaged.png" x="76" y="62" width="42" height="9"/>
-	<SubTexture name="sailSmallGreenDamaged.png" x="76" y="51" width="42" height="9"/>
+	<SubTexture name="sailSmallGreenDamaged.png" x="76" y="62" width="42" height="9"/>
+	<SubTexture name="sailSmallBlueDamaged.png" x="76" y="51" width="42" height="9"/>
 	<SubTexture name="ship (1).png" x="408" y="0" width="66" height="113"/>
 	<SubTexture name="ship (10).png" x="340" y="345" width="66" height="113"/>
 	<SubTexture name="ship (11).png" x="340" y="230" width="66" height="113"/>
