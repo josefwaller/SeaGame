@@ -19,7 +19,7 @@ void Game::update(double delta)
 	for (size_t i = 0; i < this->entities.size(); i++) {
 		auto e = this->entities[i];
 		if (e->controller != nullptr) {
-			e->controller->update(delta);
+			e->controller->update((float)delta);
 		}
 	}
 	// Check for/resolve collision

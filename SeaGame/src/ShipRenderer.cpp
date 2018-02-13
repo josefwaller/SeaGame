@@ -54,13 +54,13 @@ void ShipRenderer::render(RenderManager& r)
 	std::map<std::string, LayoutSprite> layout = ResourceManager::get()->getLayout("smallShip");
 	// Get this entity's position and rotation for easy access
 	sf::Vector2f pos = this->getParent()->transform->getPosition();
-	float rot = this->getParent()->transform->getRotation() * 180.0f / M_PI;
+	float rot = this->getParent()->transform->getRotation() * 180.0f / (float)M_PI;
 	// Position all sprites in the ship
 	positionLayoutSprite(this->hull, layout["hull"], pos, rot);
 	positionLayoutSprite(this->bigSail, layout["bigSail"], pos, rot);
 	if (this->hasSmallSail)
 		positionLayoutSprite(this->smallSail, layout["smallSail"], pos, rot);
-	positionLayoutSprite(this->swivelCannon, layout["swivelCannon"], pos, this->swivelAngle * 180.0f / M_PI);
+	positionLayoutSprite(this->swivelCannon, layout["swivelCannon"], pos, this->swivelAngle * 180.0f / (float)M_PI);
 	// Draw in proper order
 	r.add(this->hull, RenderManager::INDEX_HULL);
 	r.add(this->swivelCannon, RenderManager::INDEX_DECK);

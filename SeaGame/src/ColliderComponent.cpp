@@ -23,7 +23,7 @@ std::vector<Triangle> ColliderComponent::getTriangles()
 	// Create copy of entity's triangles and move then to the entity's position/rotation
 	sf::Transform trans;
 	trans.translate(this->getParent()->transform->getPosition());
-	trans.rotate(this->getParent()->transform->getRotation() * 180.0f / M_PI);
+	trans.rotate(this->getParent()->transform->getRotation() * 180.0f / (float)M_PI);
 	std::vector<Triangle> toReturn;
 	for (auto t : this->triangles) {
 		toReturn.push_back(Triangle({
@@ -61,7 +61,7 @@ sf::FloatRect ColliderComponent::getBoundingBox()
 	std::shared_ptr<TransformComponent> trans = this->getParent()->transform;
 	sf::Transform t;
 	t.translate(trans->getPosition());
-	t.rotate(trans->getRotation() * 180.0f / M_PI);
+	t.rotate(trans->getRotation() * 180.0f / (float)M_PI);
 	for (sf::Vector2f& p : points) {
 		p = t.transformPoint(p);
 	}

@@ -17,7 +17,7 @@ void SpriteRenderer::render(RenderManager& r)
 	{
 		this->spr.setPosition(transform->getPosition());
 		// Convert to degrees because dumbass SFML uses degrees
-		this->spr.setRotation(transform->getRotation() / M_PI * 180.0f);
+		this->spr.setRotation(transform->getRotation() / (float)M_PI * 180.0f);
 	}
 	r.add(this->spr, this->zIndex);
 }

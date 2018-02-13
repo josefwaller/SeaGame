@@ -17,8 +17,8 @@ void GameMap::render(RenderManager& r)
 		for (size_t y = 0; y < 10; y++)
 		{
 			this->seaSpr.setPosition(
-				x * this->seaSpr.getTextureRect().width,
-				y * this->seaSpr.getTextureRect().height
+				x * (float)this->seaSpr.getTextureRect().width,
+				y * (float)this->seaSpr.getTextureRect().height
 			);
 			r.add(this->seaSpr, RenderManager::INDEX_TILES);
 		}
