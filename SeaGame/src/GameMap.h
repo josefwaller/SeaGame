@@ -5,8 +5,19 @@
 class GameMap
 {
 public:
+	// Different types of tiles
+	enum TileType
+	{
+		Sea,
+		Sand,
+		Grass
+	};
+	// The different sprites used for each tile
+	static std::map<GameMap::TileType, sf::Sprite> tileSprites;
+
 	GameMap();
 	void render(RenderManager& r);
 private:
-	sf::Sprite seaSpr;
+	// The tiles in the map
+	std::vector<std::vector<TileType>> tiles;
 };
