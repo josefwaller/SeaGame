@@ -79,12 +79,25 @@ sf::Sprite ResourceManager::getSprite(std::string sheetName, std::string spriteN
 }
 void ResourceManager::loadSpritesheet(std::string sheetName)
 {
-	// Load the document
 	rapidxml::xml_document<> doc;
+	// Load the document
 	rapidxml::file<> file(std::string("assets/sprites/" + sheetName + ".xml").c_str());
 	doc.parse<0>(file.data());
-	// Get the TextureAtlas
-	rapidxml::xml_node<> *atlas = doc.first_node("TextureAtlas");
+	auto x = doc.first_node("TextureAtlas");
+	// Check there is a texture atlas
+	if (doc.first_node("TextureAtlas") != nullptr) {
+		// Load it
+		this->readAsSpriteSheet(sheetName, doc);
+	}
+	// The file may be a tileset
+	// Check if it is
+	if (doc.first_node("TileSetAtlas")) {
+		this->readAsTileSheet(sheetName, doc);
+	}
+}
+void ResourceManager::readAsSpriteSheet(std::string sheetName, rapidxml::xml_document<>& doc)
+{
+	rapidxml::xml_node<>* atlas = doc.first_node("TextureAtlas");
 	// Get the name of the image
 	std::string imageName = atlas->first_attribute("imagePath")->value();
 	// Load the texture
@@ -111,7 +124,40 @@ void ResourceManager::loadSpritesheet(std::string sheetName)
 		sub = sub->next_sibling();
 	}
 }
-
+void ResourceManager::readAsTileSheet(std::string sheetName, rapidxml::xml_document<>& doc)
+{
+	// Get atlas node
+	rapidxml::xml_node<>* atlas = doc.first_node("TileSetAtlas");
+	// Get dimensions
+	int s = std::stoi(atlas->first_attribute("size")->value());
+	// Load texture
+	this->sheets.insert({
+		sheetName,
+		{
+			sf::Texture(),
+			{}
+		}
+	});
+	sf::Texture* t = &this->sheets[sheetName].first;
+	t->loadFromFile("assets/sprites/" + std::string(atlas->first_attribute("path")->value()));
+	// Cycle through nodes
+	rapidxml::xml_node<>* tile = atlas->first_node("Tile");
+	while (tile) {
+		// Get tile attributes
+		std::string name = tile->first_attribute("name")->value();
+		int x = std::stoi(tile->first_attribute("x")->value());
+		int y = std::stoi(tile->first_attribute("y")->value());
+		// Create IntRect
+		sf::IntRect r({ x * s, y * s}, { s, s });
+		// Add IntRect
+		this->sheets[sheetName].second.insert({
+			name,
+			r
+		});
+		// Go to next tile
+		tile = tile->next_sibling("Tile");
+	}
+}
 ResourceManager* ResourceManager::get()
 {
 	static ResourceManager r;
