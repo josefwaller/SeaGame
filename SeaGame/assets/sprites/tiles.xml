@@ -1,5 +1,21 @@
 <TileSetAtlas path="tiles.png" size="64">
-    <Tile x="3" y="4" name="sand"/>
-    <Tile x="6" y="2" name="grass"/>
-    <Tile x="8" y="4" name="sea"/>
+    <!-- Define each tile by the type of edges it has
+         i.e. each edge is either sea or land
+         Note that there is always a 1 tile border of sand around islands,
+         and the rest of the islands are grass.
+         Names start at the top edge and go clockwise -->
+     <Tile x="5" y="0" name="sea-shore-shore-sea"/>
+     <Tile x="6" y="0" name="sea-shore-land-shore"/>
+     <Tile x="8" y="0" name="sea-sea-shore-shore"/>
+     <Tile x="5" y="1" name="shore-land-shore-sea"/>
+     <Tile x="6" y="1" name="land-land-land-land"/>
+     <Tile x="8" y="1" name="shore-sea-shore-land"/>
+     <Tile x="3" y="2" name="land-shore-shore-land"/>
+     <Tile x="4" y="2" name="land-land-shore-shore"/>
+     <Tile x="3" y="3" name="shore-shore-land-land"/>
+     <Tile x="4" y="3" name="shore-land-land-shore"/>
+     <Tile x="5" y="3" name="shore-shore-sea-sea"/>
+     <Tile x="6" y="3" name="land-shore-sea-shore"/>
+     <Tile x="8" y="3" name="shore-sea-sea-shore"/>
+     <Tile x="8" y="4" name="sea-sea-sea-sea"/>
 </TileSetAtlas>
