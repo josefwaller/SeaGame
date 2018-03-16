@@ -87,15 +87,6 @@
     <ClCompile Include="src\ChasingShipController.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\ColliderComponent.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\BoxCollider.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\CircleCollider.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="src\AnimationRenderer.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -161,17 +152,8 @@
     <ClInclude Include="src\ChasingShipController.h">
       <Filter>Header Files\Components\Controllers</Filter>
     </ClInclude>
-    <ClInclude Include="src\ColliderComponent.h">
-      <Filter>Header Files\Components\Colliders</Filter>
-    </ClInclude>
-    <ClInclude Include="src\BoxCollider.h">
-      <Filter>Header Files\Components\Colliders</Filter>
-    </ClInclude>
     <ClInclude Include="src\Triangle.h">
       <Filter>Header Files\Utils</Filter>
-    </ClInclude>
-    <ClInclude Include="src\CircleCollider.h">
-      <Filter>Header Files\Components\Colliders</Filter>
     </ClInclude>
     <ClInclude Include="src\AnimationRenderer.h">
       <Filter>Header Files\Components\Renderers</Filter>

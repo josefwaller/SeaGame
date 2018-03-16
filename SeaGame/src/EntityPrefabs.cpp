@@ -4,8 +4,6 @@
 #include "PlayerShipController.h"
 #include "ChasingShipController.h"
 #include "CannonBallController.h"
-#include "BoxCollider.h"
-#include "CircleCollider.h"
 #include "AnimationRenderer.h"
 #include "ResourceManager.h"
 #include "SimpleHealth.h"
@@ -28,7 +26,6 @@ std::shared_ptr<Entity> EntityPrefabs::cannonBall(Game* g, std::weak_ptr<Entity>
 		RenderManager::INDEX_CANNONBALLS));
 	ball->controller = std::shared_ptr<ControllerComponent>(new CannonBallController(ball, spawner));
 	ball->transform = std::shared_ptr<TransformComponent>(new TransformComponent(ball, pos, rot));
-	ball->collider = std::shared_ptr<ColliderComponent>(new CircleCollider(ball, 7));
 	return ball;
 }
 
@@ -43,7 +40,6 @@ std::shared_ptr<Entity> EntityPrefabs::ship(Game* g, sf::Vector2f pos, float rot
 {
 	auto ship = std::shared_ptr<Entity>(new Entity(g));
 	ship->transform = std::shared_ptr<TransformComponent>(new TransformComponent(ship, pos, rot));
-	ship->collider = std::shared_ptr<ColliderComponent>(new BoxCollider(ship, { -60, -30 }, 120, 60));
 	ship->renderer = std::shared_ptr<RenderComponent>(new ShipRenderer(ship, c));
 	ship->health = std::shared_ptr<HealthComponent>(new ShipHealth(ship));
 	return ship;

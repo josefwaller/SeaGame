@@ -22,24 +22,6 @@ void Game::update(double delta)
 			e->controller->update((float)delta);
 		}
 	}
-	// Check for/resolve collision
-	for (size_t i = 0; i < this->entities.size(); i++) {
-		auto eOne = this->entities[i];
-		for (size_t x = i + 1; x < this->entities.size(); x++) {
-			auto eTwo = this->entities[x];
-			// Ensure they both have colliders
-			if (eOne->collider != nullptr && eTwo->collider != nullptr) {
-				// Check they both have colliders
-				if (eOne->collider->checkForCollision(eTwo->collider)) {
-					// If they have colliders, call the onCollision event
-					if (eOne->controller != nullptr)
-						eOne->controller->onCollision(eTwo);
-					if (eTwo->controller != nullptr)
-						eTwo->controller->onCollision(eOne);
-				}
-			}
-		}
-	}
 	// Remove entities
 	for (auto it : this->toRemove) {
 		this->entities.erase(
