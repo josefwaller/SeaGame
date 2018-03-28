@@ -141,10 +141,12 @@
     <ClCompile Include="src\ShipRenderer.cpp" />
     <ClCompile Include="src\SimpleHealth.cpp" />
     <ClCompile Include="src\SpriteRenderer.cpp" />
+    <ClCompile Include="src\BasicTransform.cpp" />
     <ClCompile Include="src\TransformComponent.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\AnimationRenderer.h" />
+    <ClInclude Include="src\BasicTransform.h" />
     <ClInclude Include="src\CannonBallController.h" />
     <ClInclude Include="src\ChasingShipController.h" />
     <ClInclude Include="src\EntityPrefabs.h" />
@@ -165,7 +167,9 @@
     <ClInclude Include="src\ShipRenderer.h" />
     <ClInclude Include="src\SimpleHealth.h" />
     <ClInclude Include="src\SpriteRenderer.h" />
-    <ClInclude Include="src\TransformComponent.h" />
+    <ClInclude Include="src\TransformComponent.h">
+      <FileType>CppForm</FileType>
+    </ClInclude>
     <ClInclude Include="src\Triangle.h" />
   </ItemGroup>
   <ItemGroup>

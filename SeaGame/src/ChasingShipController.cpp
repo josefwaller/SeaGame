@@ -17,7 +17,7 @@ void ChasingShipController::update(float delta)
 	auto trans = this->getParent()->transform;
 	// Get the difference between this ship's position and the target's position
 	std::pair<sf::Vector2f, float> diff = trans->getDifference(
-		*(this->target.lock()->transform)
+		(this->target.lock()->transform)
 	);
 	// Turn left or right if the ship is not facing the target
 	if (diff.second < - ANGLE_TURN_MARGIN) {
