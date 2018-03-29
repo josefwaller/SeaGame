@@ -28,9 +28,6 @@
     <Filter Include="Header Files\Components\Transforms">
       <UniqueIdentifier>{b8769202-5315-4052-8969-44cfc32351e8}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Header Files\Components\Colliders">
-      <UniqueIdentifier>{33c081e4-37e7-4501-a3e4-0bdb71d4df76}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Header Files\Components\Health">
       <UniqueIdentifier>{12bf1484-a3d2-4889-9e3f-11d1e0d00d13}</UniqueIdentifier>
     </Filter>
@@ -97,6 +94,15 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="src\ShipHealth.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\BasicTransform.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Box2dTransform.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\TransformComponent.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -169,6 +175,15 @@
     </ClInclude>
     <ClInclude Include="src\ShipHealth.h">
       <Filter>Header Files\Components\Health</Filter>
+    </ClInclude>
+    <ClInclude Include="src\PhysicsComponent.h">
+      <Filter>Header Files\Components\Physics</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Box2dTransform.h">
+      <Filter>Header Files\Components\Transforms</Filter>
+    </ClInclude>
+    <ClInclude Include="src\BasicTransform.h">
+      <Filter>Header Files\Components\Transforms</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

@@ -8,6 +8,8 @@
 Game::Game(sf::RenderWindow& window) : window(window)
 {
 	this->gMap = GameMap();
+	// Create world and make gravity 0, since it is top down
+	this->world = std::shared_ptr<b2World>(new b2World({ 0.0f, 0.0f }));
 	this->entities.push_back(EntityPrefabs::playerShip(this, ShipRenderer::SAIL_COLOR::Blue));
 	this->player = this->entities.back();
 	this->addEntity(EntityPrefabs::enemyChasingShip(this, { 200, 200 }, ShipRenderer::SAIL_COLOR::Black));
@@ -22,6 +24,8 @@ void Game::update(double delta)
 			e->controller->update((float)delta);
 		}
 	}
+	// Update world and resolve collisions
+	this->world->Step((float) delta, 8, 3);
 	// Remove entities
 	for (auto it : this->toRemove) {
 		this->entities.erase(
@@ -65,4 +69,9 @@ sf::Vector2f Game::getMouseCoords()
 std::shared_ptr<Entity> Game::getPlayer()
 {
 	return this->player.lock();
+}
+
+std::weak_ptr<b2World> Game::getWorld()
+{
+	return this->world;
 }
