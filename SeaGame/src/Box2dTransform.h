@@ -4,7 +4,7 @@
 class Box2dTransform : public TransformComponent
 {
 public:
-	Box2dTransform(std::weak_ptr<Entity> parent, b2BodyDef* def);
+	Box2dTransform(std::weak_ptr<Entity> parent, b2BodyDef* def, std::vector<b2FixtureDef> fixtures);
 
 	sf::Vector2f getPosition() override;
 	virtual void setPosition(sf::Vector2f newPos) override;

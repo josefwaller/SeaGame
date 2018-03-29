@@ -1,9 +1,14 @@
 #include "Box2dTransform.h"
 
-Box2dTransform::Box2dTransform(std::weak_ptr<Entity> parent, b2BodyDef* def) : TransformComponent(parent)
+Box2dTransform::Box2dTransform(std::weak_ptr<Entity> parent, b2BodyDef* def, std::vector<b2FixtureDef> fixtures)
+	: TransformComponent(parent)
 {
 	// Create the body
 	this->body = this->getParent()->game->getWorld().lock()->CreateBody(def);
+	// Add fixtures
+	for (b2FixtureDef def : fixtures) {
+		this->body->CreateFixture(&def);
+	}
 }
 
 sf::Vector2f Box2dTransform::getPosition()

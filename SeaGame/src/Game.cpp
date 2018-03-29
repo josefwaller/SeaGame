@@ -36,12 +36,19 @@ void Game::update(double delta)
 
 void Game::render()
 {
+	// Render Entities
 	RenderManager r;
 	this->gMap.render(r);
 	for (size_t i = 0; i < this->entities.size(); i++) {
 		auto e = this->entities[i];
 		if (e->renderer != nullptr) {
 			e->renderer->render(r);
+			e->renderer->renderCollider(r);
+		}
+	}
+	// Render debug info, i.e. hitboxes
+	for (auto e : this->entities) {
+		if (e->renderer != nullptr) {
 			e->renderer->renderCollider(r);
 		}
 	}
