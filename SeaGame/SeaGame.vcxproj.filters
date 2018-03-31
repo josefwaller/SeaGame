@@ -108,6 +108,9 @@
     <ClCompile Include="src\TransformComponent.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="src\SimpleCollisionListener.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\ResourceManager.h">
@@ -187,6 +190,9 @@
     </ClInclude>
     <ClInclude Include="src\BasicTransform.h">
       <Filter>Header Files\Components\Transforms</Filter>
+    </ClInclude>
+    <ClInclude Include="src\SimpleCollisionListener.h">
+      <Filter>Header Files\Utils</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

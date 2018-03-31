@@ -3,6 +3,7 @@
 #include <SFML\Graphics.hpp>
 #include "GameMap.h"
 #include "Entity.h"
+#include "SimpleCollisionListener.h"
 
 class Game
 {
@@ -28,7 +29,8 @@ private:
 	sf::RenderWindow& window;
 	// The box2d world
 	std::shared_ptr<b2World> world;
-	// box2D world
+	// Box2d listener
+	SimpleCollisionListener listener;
 	// Pointer to the player's ship
 	// Actual owner pointer is in entities
 	std::weak_ptr<Entity> player;

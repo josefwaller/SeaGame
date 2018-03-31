@@ -8,6 +8,7 @@ class PhysicsComponent : public Component
 {
 public:
 	PhysicsComponent(std::weak_ptr<Entity> parent);
+	~PhysicsComponent();
 	// Set acceleration
 	void setAcceleration(sf::Vector2f a);
 	void setAngularAcceleration(float alpha);
@@ -15,9 +16,11 @@ public:
 	void setVelocity(sf::Vector2f v);
 	// Just apply a force to the body for this frame
 	void setNetForce(sf::Vector2f force);
-
 protected:
 	// The body that the Bocx2dTransform component uses
 	// Will use to control the entity's physics
 	b2Body* body;
+	// Weak pointer to the b2world
+	// Used to destroy the body after the entity has gone out of scope
+	std::weak_ptr<b2World> world;
 };

@@ -4,12 +4,15 @@
 #include "EntityPrefabs.h"
 #include "RenderManager.h"
 #include "ShipRenderer.h"
+#include "SimpleCollisionListener.h"
 
 Game::Game(sf::RenderWindow& window) : window(window)
 {
 	this->gMap = GameMap();
 	// Create world and make gravity 0, since it is top down
 	this->world = std::shared_ptr<b2World>(new b2World({ 0.0f, 0.0f }));
+	this->listener = SimpleCollisionListener();
+	this->world->SetContactListener(&this->listener);
 	this->entities.push_back(EntityPrefabs::playerShip(this, ShipRenderer::SAIL_COLOR::Blue));
 	this->player = this->entities.back();
 	this->addEntity(EntityPrefabs::enemyChasingShip(this, { 200, 200 }, ShipRenderer::SAIL_COLOR::Black));
