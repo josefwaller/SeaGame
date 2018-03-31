@@ -11,6 +11,8 @@ public:
 	// Set acceleration
 	void setAcceleration(sf::Vector2f a);
 	void setAngularAcceleration(float alpha);
+	// Set velocity
+	void setVelocity(sf::Vector2f v);
 	// Just apply a force to the body for this frame
 	void setNetForce(sf::Vector2f force);
 

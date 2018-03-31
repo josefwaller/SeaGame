@@ -26,8 +26,18 @@ std::shared_ptr<Entity> EntityPrefabs::cannonBall(Game* g, std::weak_ptr<Entity>
 		"ships",
 		"cannonBall.png",
 		RenderManager::INDEX_CANNONBALLS));
-	ball->controller = std::shared_ptr<ControllerComponent>(new CannonBallController(ball, spawner));
-	ball->transform = std::shared_ptr<TransformComponent>(new BasicTransform(ball, pos, rot));
+	b2BodyDef ballDef;
+	ballDef.type = b2_dynamicBody;
+	ballDef.position.Set(pos.x, pos.y);
+	b2FixtureDef ballFixture;
+	b2CircleShape ballShape;
+	ballShape.m_radius = 5;
+	ballShape.m_p = { -5.0f, -5.0f };
+	ballFixture.shape = &ballShape;
+	ballFixture.isSensor = true;
+	ball->transform = std::shared_ptr<Box2dTransform>(new Box2dTransform(ball, &ballDef, { ballFixture }));
+	ball->physics = std::shared_ptr<PhysicsComponent>(new PhysicsComponent(ball));
+	ball->controller = std::shared_ptr<ControllerComponent>(new CannonBallController(ball, rot, spawner));
 	return ball;
 }
 

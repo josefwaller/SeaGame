@@ -1,22 +1,19 @@
 #include "CannonBallController.h"
 #include "EntityPrefabs.h"
+#include "PhysicsComponent.h"
 
 const float CannonBallController::SPEED = 300.0f;
-CannonBallController::CannonBallController(std::weak_ptr<Entity> parent, std::weak_ptr<Entity> spawner)
+CannonBallController::CannonBallController(std::weak_ptr<Entity> parent, float angle, std::weak_ptr<Entity> spawner)
 	: ControllerComponent(parent)
 {
 	this->spawner = spawner;
+	this->angle = angle;
 }
 
 void CannonBallController::update(float delta)
 {
-	auto trans = this->getParent()->transform;
-	trans->setPosition(trans->getPosition()
-		+ sf::Vector2f(
-			CannonBallController::SPEED * cos(trans->getRotation()) * delta,
-			CannonBallController::SPEED * sin(trans->getRotation()) * delta
-		)
-	);
+	auto physics = this->getParent()->physics;
+	physics->setVelocity({ SPEED * cos(this->angle), SPEED * sin(this->angle) });
 }
 void CannonBallController::onCollision(std::weak_ptr<Entity> other)
 {

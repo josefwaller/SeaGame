@@ -17,6 +17,10 @@ void PhysicsComponent::setAngularAcceleration(float alpha)
 {
 	this->body->ApplyTorque(alpha * this->body->GetInertia(), true);
 }
+void PhysicsComponent::setVelocity(sf::Vector2f v)
+{
+	this->body->SetLinearVelocity({ v.x, v.y });
+}
 void PhysicsComponent::setNetForce(sf::Vector2f force)
 {
 	//tba

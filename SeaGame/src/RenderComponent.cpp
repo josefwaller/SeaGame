@@ -14,19 +14,31 @@ void RenderComponent::renderCollider(RenderManager& r)
 		// Go through each fixture
 		for (b2Fixture* fixture = body->GetFixtureList(); fixture; fixture = fixture->GetNext()) {
 			// Get shape, if it is  a rectangleshape
-			b2PolygonShape* shape = (b2PolygonShape*)fixture->GetShape();
-			// Create new vertex array to draw
-			sf::VertexArray drawableVerts(sf::LineStrip, shape->m_count);
-			for (int i = 0; i < shape->m_count; i++) {
-				// Convert to world coordinates vs relative to the body
-				b2Vec2 vert = body->GetWorldPoint(shape->m_vertices[i]);
-				// Add a vertex to the SFML array to draw
-				drawableVerts[i] = sf::Vertex({ vert.x, vert.y }, sf::Color::Red);
+			if (b2PolygonShape* shape = dynamic_cast<b2PolygonShape*>(fixture->GetShape())) {
+				// Create new vertex array to draw
+				sf::VertexArray drawableVerts(sf::LineStrip, shape->m_count);
+				for (int i = 0; i < shape->m_count; i++) {
+					// Convert to world coordinates vs relative to the body
+					b2Vec2 vert = body->GetWorldPoint(shape->m_vertices[i]);
+					// Add a vertex to the SFML array to draw
+					drawableVerts[i] = sf::Vertex({ vert.x, vert.y }, sf::Color::Red);
+				}
+				// Add the first vertice again, to make it a full loop
+				drawableVerts.append(drawableVerts[0]);
+				// Draw the vertex array
+				r.add(drawableVerts, RenderManager::INDEX_DEBUG);
 			}
-			// Add the first vertice again, to make it a full loop
-			drawableVerts.append(drawableVerts[0]);
-			// Draw the vertex array
-			r.add(drawableVerts, RenderManager::INDEX_DEBUG);
+			else if (b2CircleShape* shape = dynamic_cast<b2CircleShape*>(fixture->GetShape())) {
+				// Draw the circle collider is it has one
+				sf::CircleShape drawableShape;
+				drawableShape.setRadius(shape->m_radius);
+				b2Vec2 worldPos = body->GetWorldPoint(shape->m_p);
+				drawableShape.setPosition({ worldPos.x, worldPos.y });
+				drawableShape.setOutlineColor(sf::Color::Red);
+				drawableShape.setOutlineThickness(2);
+				drawableShape.setFillColor(sf::Color::Transparent);
+				r.add(drawableShape, RenderManager::INDEX_DEBUG);
+			}
 		}
 	}
 }
