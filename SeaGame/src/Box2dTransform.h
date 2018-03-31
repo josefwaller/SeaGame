@@ -4,6 +4,10 @@
 class Box2dTransform : public TransformComponent
 {
 public:
+	// Damping to slow down moving and turning
+	static const float LINEAR_DAMPING;
+	static const float ANGULAR_DAMPING;
+
 	Box2dTransform(std::weak_ptr<Entity> parent, b2BodyDef* def, std::vector<b2FixtureDef> fixtures);
 
 	sf::Vector2f getPosition() override;

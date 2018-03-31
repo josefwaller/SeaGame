@@ -23,5 +23,4 @@ void PlayerShipController::update(float delta)
 		this->shootSwivel();
 		auto x = 0;
 	}
-	this->move(delta);
 }

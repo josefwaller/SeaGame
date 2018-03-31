@@ -10,6 +10,7 @@ class TransformComponent;
 class HealthComponent;
 class ControllerComponent;
 class ColliderComponent;
+class PhysicsComponent;
 
 struct Entity
 {
@@ -18,6 +19,7 @@ struct Entity
 	Game* game;
 	std::shared_ptr<TransformComponent> transform;
 	std::shared_ptr<RenderComponent> renderer;
+	std::shared_ptr<PhysicsComponent> physics;
 	std::shared_ptr<ControllerComponent> controller;
 	std::shared_ptr<HealthComponent> health;
 };

@@ -55,6 +55,7 @@ std::shared_ptr<Entity> EntityPrefabs::ship(Game* g, sf::Vector2f pos, float rot
 	shipFixture.density = 100 / (4 * shapeDimension.x * shapeDimension.y);
 	ship->transform = std::shared_ptr<TransformComponent>(new Box2dTransform(ship, &shipDef, { shipFixture }));
 	ship->renderer = std::shared_ptr<RenderComponent>(new ShipRenderer(ship, c));
+	ship->physics = std::shared_ptr<PhysicsComponent>(new PhysicsComponent(ship));
 	ship->health = std::shared_ptr<HealthComponent>(new ShipHealth(ship));
 	return ship;
 }

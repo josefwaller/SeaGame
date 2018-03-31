@@ -33,5 +33,4 @@ void ChasingShipController::update(float delta)
 	// Aim the swivel at the target
 	this->aimSwivel(diff.second + this->getParent()->transform->getRotation());
 	this->shootSwivel();
-	this->move(delta);
 }

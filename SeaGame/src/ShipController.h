@@ -1,5 +1,6 @@
 #pragma once
 #include "ControllerComponent.h"
+#include "PhysicsComponent.h"
 
 // Control the player's ship using keyboard input
 class ShipController : public ControllerComponent
@@ -17,29 +18,14 @@ public:
 	float getSwivelAngle();
 	// Shoot the main swivel cannon in the direction specified
 	void shootSwivel();
-	// Apply movements to the entity based on velocity and angular velocity
-	void move(float delta);
 	virtual void onHit(HealthType t, int damageAmount) override;
-	// Max speed and turn speed a ship can be moving at
-	const static float MAX_VELOCITY;
-	static const float MAX_ANGULAR_VELOCITY;
 	// The acceration of all ship's turning/moving
 	const static float ACCELERATION;
 	const static float ANGULAR_ACCELERATION;
-	// How quickly the ship slows down when not being actively accelerated
-	const static float IDLE_DECCELERATION;
-	// How quickly the ship stops turning when not actively turning
-	const static float IDLE_ANGULAR_DECELLERATION;
 	// How long the ship has to wait between shooting
 	const static float CANNON_INTERVAL;
 private:
-	// Velocity and angular velocity of the ship
-	float velocity;
-	float angularVelocity;
-	// Current acceleration and angular acceleration of the ship
-	// Set by either turnRight(), turnLeft() or accelerate()
-	float acceleration;
-	float angularAcceleration;
+	std::weak_ptr<PhysicsComponent> physicsComp;
 	// Angle the swivel cannon is pointing at
 	// Note: if the ship does not have a swivel cannon, will be ignored
 	float swivelCannonAngle;
