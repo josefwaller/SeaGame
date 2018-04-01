@@ -31,6 +31,7 @@ std::shared_ptr<Entity> EntityPrefabs::cannonBall(Game* g, std::weak_ptr<Entity>
 	ballDef.position.Set(pos.x, pos.y);
 	b2FixtureDef ballFixture;
 	b2CircleShape ballShape;
+	b2CircleShape b = b2CircleShape();
 	ballShape.m_radius = 5;
 	ballShape.m_p = { -5.0f, -5.0f };
 	ballFixture.shape = &ballShape;
@@ -50,7 +51,6 @@ std::shared_ptr<Entity> EntityPrefabs::enemyChasingShip(Game* g, sf::Vector2f po
 
 std::shared_ptr<Entity> EntityPrefabs::ship(Game* g, sf::Vector2f pos, float rot, ShipRenderer::SAIL_COLOR c)
 {
-	auto ship = std::shared_ptr<Entity>(new Entity(g));
 	// Create a ship definition for the new ship
 	b2BodyDef shipDef;
 	shipDef.type = b2_dynamicBody;
@@ -58,11 +58,21 @@ std::shared_ptr<Entity> EntityPrefabs::ship(Game* g, sf::Vector2f pos, float rot
 	shipDef.angle = rot;
 	// Create a new fixture and add it to the definition
 	b2FixtureDef shipFixture;
+	// Create shape for the fixture to have
 	b2PolygonShape shipShape; // lol
-	b2Vec2 shapeDimension = { 20, 20 };
-	shipShape.SetAsBox(shapeDimension.x, shapeDimension.y);
+	// Set the shape to a ship-like pentagon
+	b2Vec2 verts[5];
+	verts[0].Set(-50, -20);
+	verts[1].Set(30, -20);
+	verts[2].Set(50, 0);
+	verts[3].Set(30, 20);
+	verts[4].Set(-50, 20);
+	shipShape.Set(verts, 5);
 	shipFixture.shape = &shipShape;
-	shipFixture.density = 100 / (4 * shapeDimension.x * shapeDimension.y);
+	// PhysicsComponent will calculate the volume/mass itself, so this value doesn't really matter
+	shipFixture.density = 100;
+	// Create the actualy ship entity
+	auto ship = std::shared_ptr<Entity>(new Entity(g));
 	ship->transform = std::shared_ptr<TransformComponent>(new Box2dTransform(ship, &shipDef, { shipFixture }));
 	ship->renderer = std::shared_ptr<RenderComponent>(new ShipRenderer(ship, c));
 	ship->physics = std::shared_ptr<PhysicsComponent>(new PhysicsComponent(ship));
