@@ -26,15 +26,17 @@ void CannonBallController::update(float delta)
 }
 void CannonBallController::onCollision(std::weak_ptr<Entity> other)
 {
-	if (other.lock() != this->spawner.lock()) {
-		// Add explosion
-		this->getParent()->game->addEntity(EntityPrefabs::explosion(
-			this->getParent()->game,
-			this->getParent()->transform->getPosition()));
-		// Damage other entity
-		if (other.lock()->controller != nullptr)
-			other.lock()->controller->onHit(HealthType::Sails, 10);
-		// Remove self
-		this->getParent()->game->removeEntity(this->getParent());
+	if (other.lock()) {
+		if (other.lock() != this->spawner.lock()) {
+			// Add explosion
+			this->getParent()->game->addEntity(EntityPrefabs::explosion(
+				this->getParent()->game,
+				this->getParent()->transform->getPosition()));
+			// Damage other entity
+			if (other.lock()->controller != nullptr)
+				other.lock()->controller->onHit(HealthType::Sails, 10);
+			// Remove self
+			this->getParent()->game->removeEntity(this->getParent());
+		}
 	}
 }

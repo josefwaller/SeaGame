@@ -16,7 +16,6 @@ void SimpleCollisionListener::BeginContact(b2Contact* contact)
 		one = (static_cast<PhysicsComponent*>(oneVoid))->getParent();
 	}
 	else {
-		throw std::runtime_error("UserData on a Box2D body was not a PhysicsComponent");
 	}
 	void* twoVoid = contact->GetFixtureB()->GetBody()->GetUserData();
 	if (twoVoid) {
@@ -24,13 +23,16 @@ void SimpleCollisionListener::BeginContact(b2Contact* contact)
 		two = static_cast<PhysicsComponent*>(twoVoid)->getParent();
 	}
 	else {
-		throw std::runtime_error("UserData on a Box2D body was not a PhysicsComponent");
 	}
 	// Call the controller's collision methods
-	if (one.lock()->controller != nullptr) {
-		one.lock()->controller->onCollision(two);
+	if (one.lock()) {
+		if (one.lock()->controller != nullptr) {
+			one.lock()->controller->onCollision(two);
+		}
 	}
-	if (two.lock()->controller != nullptr) {
-		two.lock()->controller->onCollision(one);
+	if (two.lock()) {
+		if (two.lock()->controller != nullptr) {
+			two.lock()->controller->onCollision(one);
+		}
 	}
 }

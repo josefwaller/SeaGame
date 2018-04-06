@@ -1,27 +1,41 @@
+#include <queue>
 #include "GameMap.h"
 #include "ResourceManager.h"
+#include "Box2dTransform.h"
 
-GameMap::GameMap()
+GameMap::GameMap() {}
+GameMap::GameMap(Game* g)
 {
 	// Add tiles
 	for (auto x = 0; x < 10; x++) {
 		this->tiles.push_back({});
 		for (auto y = 0; y < 10; y++) {
 			// Add test island in the middle
-			if (x < 7 && x > 3 && y < 9 && y > 3)
+			if (x < 7 && x > 3 && y < 9 && y > 3) {
 				this->tiles[x].push_back(TileType::Land);
-			else
+				// Add a box collider for this tile
+				b2PolygonShape box;
+				box.SetAsBox(32, 32);
+				b2FixtureDef fix;
+				fix.shape = &box;
+				b2BodyDef bodyDef;
+				bodyDef.position.Set(32 + x * 64, 32 + y * 64);
+				bodyDef.type = b2_staticBody;
+				b2Body* body = g->getWorld().lock()->CreateBody(&bodyDef);
+				body->CreateFixture(&fix);
+				this->bodies.push_back(body);
+			}
+			else {
 				this->tiles[x].push_back(TileType::Sea);
+			}
 		}
 	}
 }
 void GameMap::render(RenderManager& r)
 {
 	// Render a 10x10 grid of sea tiles
-	for (size_t x = 0; x < this->tiles.size(); x++)
-	{
-		for (size_t y = 0; y < this->tiles[x].size(); y++)
-		{
+	for (size_t x = 0; x < this->tiles.size(); x++) {
+		for (size_t y = 0; y < this->tiles[x].size(); y++) {
 			// First draw sea under it
 			sf::Sprite seaSprite = ResourceManager::get()->getSprite("tiles", "sea-sea-sea-sea", false);
 			seaSprite.setPosition({ 64 * (float)x, 64 * (float)y });
@@ -61,6 +75,27 @@ void GameMap::render(RenderManager& r)
 				// Add it to be drawn
 				r.add(s, RenderManager::INDEX_LAND_TILES);
 			}
+		}
+	}
+	// Draw collision bodies
+	for (auto b_it : this->bodies) {
+		for (b2Fixture* fix = b_it->GetFixtureList(); fix; fix = fix->GetNext()) {
+			// Get shape
+			b2PolygonShape* shape = dynamic_cast<b2PolygonShape*>(fix->GetShape());
+			// Create drawable vertice array
+			sf::VertexArray drawable(sf::LineStrip, shape->m_count + 1);
+			// Add all points
+			for (int i = 0; i < shape->m_count; i++) {
+				drawable[i].position = {
+					b_it->GetPosition().x + shape->m_vertices[i].x,
+					b_it->GetPosition().y + shape->m_vertices[i].y
+				};
+				drawable[i].color = sf::Color::Red;
+			}
+			// Make the debug render a closed loop
+			drawable[shape->m_count] = drawable[0];
+			// Render
+			r.add(drawable, RenderManager::INDEX_DEBUG);
 		}
 	}
 }
