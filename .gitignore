@@ -321,5 +321,7 @@ ASALocalRun/
 # MSBuild Binary and Structured Log
 *.binlog
 
-# Do not include SFML in the repo
+# Do not include SFML or Box2D in the repo
 SFML-2.4.2
+Box2D
+lib
