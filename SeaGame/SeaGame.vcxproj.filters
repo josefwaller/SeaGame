@@ -111,6 +111,9 @@
     <ClCompile Include="src\SimpleCollisionListener.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="src\BaseRenderer.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\ResourceManager.h">
@@ -193,6 +196,9 @@
     </ClInclude>
     <ClInclude Include="src\SimpleCollisionListener.h">
       <Filter>Header Files\Utils</Filter>
+    </ClInclude>
+    <ClInclude Include="src\BaseRenderer.h">
+      <Filter>Header Files\Components\Renderers</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

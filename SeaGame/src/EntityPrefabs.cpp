@@ -10,6 +10,7 @@
 #include "ShipHealth.h"
 #include "BasicTransform.h"
 #include "Box2dTransform.h"
+#include "BaseRenderer.h"
 
 std::shared_ptr<Entity> EntityPrefabs::playerShip(Game* g, ShipRenderer::SAIL_COLOR c)
 {
@@ -78,6 +79,17 @@ std::shared_ptr<Entity> EntityPrefabs::ship(Game* g, sf::Vector2f pos, float rot
 	ship->physics = std::shared_ptr<PhysicsComponent>(new PhysicsComponent(ship));
 	ship->health = std::shared_ptr<HealthComponent>(new ShipHealth(ship));
 	return ship;
+}
+std::shared_ptr<Entity> EntityPrefabs::militaryBase(Game* g, sf::Vector2i pos)
+{
+	return base(g, pos);
+}
+std::shared_ptr<Entity> EntityPrefabs::base(Game* g, sf::Vector2i pos)
+{
+	auto base = std::shared_ptr<Entity>(new Entity(g));
+	base->transform = std::shared_ptr<TransformComponent>(new BasicTransform(base, (sf::Vector2f)pos * 64.0f, 0.0f));
+	base->renderer = std::shared_ptr<RenderComponent>(new BaseRenderer(base));
+	return base;
 }
 std::shared_ptr<Entity> EntityPrefabs::explosion(Game* g, sf::Vector2f pos)
 {

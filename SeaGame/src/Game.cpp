@@ -18,6 +18,8 @@ Game::Game(sf::RenderWindow& window) : window(window)
 	// Create GameMap
 	this->gMap = GameMap(this);
 	this->addEntity(EntityPrefabs::enemyChasingShip(this, { 200, 200 }, ShipRenderer::SAIL_COLOR::Black));
+	// Add a base
+	this->entities.push_back(EntityPrefabs::militaryBase(this, { 5, 5 }));
 }
 
 void Game::update(double delta)

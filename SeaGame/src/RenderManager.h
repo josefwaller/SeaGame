@@ -23,8 +23,10 @@ public:
 	const static size_t INDEX_SEA_TILES = 0;
 	// For non sea tiles
 	const static size_t INDEX_LAND_TILES = INDEX_SEA_TILES + 1;
+	// For tiles which make up bases
+	const static size_t INDEX_BASE_TILES = INDEX_LAND_TILES + 1;
 	// For ship hulls
-	const static size_t INDEX_HULL = INDEX_LAND_TILES + 1;
+	const static size_t INDEX_HULL = INDEX_BASE_TILES + 1;
 	// For cannonballs
 	const static size_t INDEX_CANNONBALLS = INDEX_HULL + 1;
 	// For things on the decks of ships
