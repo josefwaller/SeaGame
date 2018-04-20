@@ -153,6 +153,7 @@
     <ClInclude Include="src\BaseRenderer.h" />
     <ClInclude Include="src\BasicTransform.h" />
     <ClInclude Include="src\Box2dTransform.h" />
+    <ClInclude Include="src\Cannon.h" />
     <ClInclude Include="src\CannonBallController.h" />
     <ClInclude Include="src\ChasingShipController.h" />
     <ClInclude Include="src\EntityPrefabs.h" />

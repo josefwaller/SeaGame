@@ -10,6 +10,11 @@ const float ShipController::CANNON_INTERVAL = 2.0f;
 ShipController::ShipController(std::weak_ptr<Entity> e) : ControllerComponent(e)
 {
 	this->physicsComp = this->getParent()->physics;
+	this->cannon = Cannon(
+		this->getParent(),
+		sf::Vector2f(0.0f, 0.0f),
+		0,
+		CANNON_INTERVAL);
 }
 
 void ShipController::turnLeft()
@@ -30,26 +35,16 @@ void ShipController::accelerate()
 }
 void ShipController::aimSwivel(float angle)
 {
-	this->swivelCannonAngle = angle;
+	this->cannon.rotation = angle;
 	this->getParent()->renderer->reset();
 }
 float ShipController::getSwivelAngle()
 {
-	return this->swivelCannonAngle;
+	return this->cannon.rotation;
 }
 void ShipController::shootSwivel()
 {
-	if (this->swivelCannonClock.getElapsedTime().asSeconds() > ShipController::CANNON_INTERVAL) {
-		this->swivelCannonClock.restart();
-		this->getParent()->game->addEntity(
-			EntityPrefabs::cannonBall(
-				this->getParent()->game,
-				this->getParent(),
-				this->getParent()->transform->getPosition(),
-				this->swivelCannonAngle
-			)
-		);
-	}
+	this->cannon.fire();
 }
 void ShipController::onHit(HealthType t, int damageAmount)
 {

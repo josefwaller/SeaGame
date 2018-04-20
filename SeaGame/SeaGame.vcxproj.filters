@@ -200,6 +200,9 @@
     <ClInclude Include="src\BaseRenderer.h">
       <Filter>Header Files\Components\Renderers</Filter>
     </ClInclude>
+    <ClInclude Include="src\Cannon.h">
+      <Filter>Header Files\Utils</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

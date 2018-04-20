@@ -1,6 +1,7 @@
 #pragma once
 #include "ControllerComponent.h"
 #include "PhysicsComponent.h"
+#include "Cannon.h"
 
 // Control the player's ship using keyboard input
 class ShipController : public ControllerComponent
@@ -26,9 +27,7 @@ public:
 	const static float CANNON_INTERVAL;
 private:
 	std::weak_ptr<PhysicsComponent> physicsComp;
-	// Angle the swivel cannon is pointing at
-	// Note: if the ship does not have a swivel cannon, will be ignored
-	float swivelCannonAngle;
-	// Count time since the last swivel cannon was fired
-	sf::Clock swivelCannonClock;
+	// Cannon on the ship
+	// If the ship does not have a cannon, will be unused
+	Cannon cannon;
 };
