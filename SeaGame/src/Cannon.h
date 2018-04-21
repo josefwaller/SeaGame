@@ -37,4 +37,24 @@ struct Cannon
 			fireClock.restart();
 		}
 	}
+	// Automatically aims the cannon at a target within its range
+	void autoAim(std::weak_ptr<Entity> target) {
+		if (target.lock()) {
+			sf::Vector2f targetPos = target.lock()->transform->getPosition();
+			sf::Vector2f diff = targetPos - (this->parent.lock()->transform->getPosition() + this->position);
+			this->rotation = atan2f(diff.y, diff.x);
+		}
+	}
+	// Find a suitable target within the range given
+	std::weak_ptr<Entity> findTarget(float range) {
+		for (auto it : this->parent.lock()->game->getEntities()) {
+			sf::Vector2f diff = it->transform->getDifference(
+				this->parent.lock()->transform->getPosition() + this->position
+			).first;
+			if (pow(diff.x, 2) + pow(diff.y, 2) <= pow(range, 2)) {
+				return it;
+			}
+		}
+		return {};
+	}
 };
