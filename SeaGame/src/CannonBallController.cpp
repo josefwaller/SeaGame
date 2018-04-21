@@ -4,10 +4,9 @@
 
 const float CannonBallController::SPEED = 300.0f;
 const float CannonBallController::MAX_DISTANCE = 500.0f;
-CannonBallController::CannonBallController(std::weak_ptr<Entity> parent, float angle, std::weak_ptr<Entity> spawner)
+CannonBallController::CannonBallController(std::weak_ptr<Entity> parent, float angle)
 	: ControllerComponent(parent)
 {
-	this->spawner = spawner;
 	this->angle = angle;
 	this->distance = 0;
 }
@@ -27,7 +26,7 @@ void CannonBallController::update(float delta)
 void CannonBallController::onCollision(std::weak_ptr<Entity> other)
 {
 	if (other.lock()) {
-		if (other.lock() != this->spawner.lock()) {
+		if (other.lock()->team != this->getParent()->team) {
 			// Add explosion
 			this->getParent()->game->addEntity(EntityPrefabs::explosion(
 				this->getParent()->game,

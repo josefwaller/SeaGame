@@ -9,12 +9,10 @@ public:
 	// Speed at which cannonballs move
 	static const float SPEED;
 
-	CannonBallController(std::weak_ptr<Entity> parent, float angle, std::weak_ptr<Entity> spawner);
+	CannonBallController(std::weak_ptr<Entity> parent, float angle);
 	virtual void update(float delta) override;
 	virtual void onCollision(std::weak_ptr<Entity> spawner) override;
 private:
-	// Ship which shot the cannonball
-	std::weak_ptr<Entity> spawner;
 	float angle;
 	// Distance the cannonball has gone
 	float distance;

@@ -17,6 +17,7 @@
 std::shared_ptr<Entity> EntityPrefabs::playerShip(Game* g, ShipRenderer::SAIL_COLOR c)
 {
 	auto ship = EntityPrefabs::ship(g, { 30, 30 }, 0.0f, c);
+	ship->team = 0;
 	ship->controller = std::shared_ptr<ControllerComponent>(new PlayerShipController(ship));
 	return ship;
 }
@@ -29,25 +30,30 @@ std::shared_ptr<Entity> EntityPrefabs::cannonBall(Game* g, std::weak_ptr<Entity>
 		"ships",
 		"cannonBall.png",
 		RenderManager::INDEX_CANNONBALLS));
+	// Set up Box2d definition
 	b2BodyDef ballDef;
 	ballDef.type = b2_dynamicBody;
 	ballDef.position.Set(pos.x, pos.y);
 	b2FixtureDef ballFixture;
 	b2CircleShape ballShape;
-	b2CircleShape b = b2CircleShape();
+	// Set up shape for the hitbox
 	ballShape.m_radius = 5;
 	ballShape.m_p = { -5.0f, -5.0f };
 	ballFixture.shape = &ballShape;
+	// Make sensor so that the ball creates an explosion when it hits something
 	ballFixture.isSensor = true;
+	// Set ball team to it's creator's team
+	ball->team = spawner.lock()->team;
 	ball->transform = std::shared_ptr<Box2dTransform>(new Box2dTransform(ball, &ballDef, { ballFixture }));
 	ball->physics = std::shared_ptr<PhysicsComponent>(new PhysicsComponent(ball));
-	ball->controller = std::shared_ptr<ControllerComponent>(new CannonBallController(ball, rot, spawner));
+	ball->controller = std::shared_ptr<ControllerComponent>(new CannonBallController(ball, rot));
 	return ball;
 }
 
 std::shared_ptr<Entity> EntityPrefabs::enemyChasingShip(Game* g, sf::Vector2f pos, ShipRenderer::SAIL_COLOR c)
 {
 	auto ship = EntityPrefabs::ship(g, pos, 0.0f, c);
+	ship->team = 1;
 	ship->controller = std::shared_ptr<ControllerComponent>(new ChasingShipController(ship));
 	return ship;
 }
@@ -87,6 +93,8 @@ std::shared_ptr<Entity> EntityPrefabs::militaryBase(Game* g, sf::Vector2i pos)
 	auto b = base(g, pos);
 	b->controller = std::shared_ptr<ControllerComponent>(new MilitaryBaseController(b));
 	b->renderer = std::shared_ptr<RenderComponent>(new MilitaryBaseRenderer(b));
+	// TODO: Make team a parameter
+	b->team = 1;
 	return b;
 }
 std::shared_ptr<Entity> EntityPrefabs::base(Game* g, sf::Vector2i pos)
