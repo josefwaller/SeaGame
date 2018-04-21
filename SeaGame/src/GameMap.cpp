@@ -11,7 +11,7 @@ GameMap::GameMap(Game* g)
 		this->tiles.push_back({});
 		for (auto y = 0; y < 10; y++) {
 			// Add test island in the middle
-			if (x < 7 && x > 3 && y < 9 && y > 3) {
+			if (x < 9 && x > 3 && y < 9 && y > 3) {
 				this->tiles[x].push_back(TileType::Land);
 				// Add a box collider for this tile
 				b2PolygonShape box;

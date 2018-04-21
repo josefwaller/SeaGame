@@ -15,4 +15,6 @@ public:
 
 	// Get difference in position and angle between two transforms
 	std::pair<sf::Vector2f, float> getDifference(std::weak_ptr<TransformComponent> other);
+	// Get the same difference, but when given a position
+	std::pair<sf::Vector2f, float> getDifference(sf::Vector2f other);
 };

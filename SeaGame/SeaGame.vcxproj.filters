@@ -114,6 +114,12 @@
     <ClCompile Include="src\BaseRenderer.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="src\MilitaryBaseRenderer.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\MilitaryBaseController.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\ResourceManager.h">
@@ -161,9 +167,6 @@
     <ClInclude Include="src\SpriteRenderer.h">
       <Filter>Header Files\Components\Renderers</Filter>
     </ClInclude>
-    <ClInclude Include="src\TransformComponent.h">
-      <Filter>Header Files\Components\Transforms</Filter>
-    </ClInclude>
     <ClInclude Include="src\ChasingShipController.h">
       <Filter>Header Files\Components\Controllers</Filter>
     </ClInclude>
@@ -200,8 +203,17 @@
     <ClInclude Include="src\BaseRenderer.h">
       <Filter>Header Files\Components\Renderers</Filter>
     </ClInclude>
+    <ClInclude Include="src\MilitaryBaseRenderer.h">
+      <Filter>Header Files\Components\Renderers</Filter>
+    </ClInclude>
+    <ClInclude Include="src\MilitaryBaseController.h">
+      <Filter>Header Files\Components\Controllers</Filter>
+    </ClInclude>
     <ClInclude Include="src\Cannon.h">
       <Filter>Header Files\Utils</Filter>
+    </ClInclude>
+    <ClInclude Include="src\TransformComponent.h">
+      <Filter>Header Files\Components\Transforms</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

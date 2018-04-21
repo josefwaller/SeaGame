@@ -11,6 +11,8 @@
 #include "BasicTransform.h"
 #include "Box2dTransform.h"
 #include "BaseRenderer.h"
+#include "MilitaryBaseRenderer.h"
+#include "MilitaryBaseController.h"
 
 std::shared_ptr<Entity> EntityPrefabs::playerShip(Game* g, ShipRenderer::SAIL_COLOR c)
 {
@@ -82,7 +84,10 @@ std::shared_ptr<Entity> EntityPrefabs::ship(Game* g, sf::Vector2f pos, float rot
 }
 std::shared_ptr<Entity> EntityPrefabs::militaryBase(Game* g, sf::Vector2i pos)
 {
-	return base(g, pos);
+	auto b = base(g, pos);
+	b->controller = std::shared_ptr<ControllerComponent>(new MilitaryBaseController(b));
+	b->renderer = std::shared_ptr<RenderComponent>(new MilitaryBaseRenderer(b));
+	return b;
 }
 std::shared_ptr<Entity> EntityPrefabs::base(Game* g, sf::Vector2i pos)
 {
