@@ -11,6 +11,7 @@ class HealthComponent;
 class ControllerComponent;
 class ColliderComponent;
 class PhysicsComponent;
+class InventoryComponent;
 
 struct Entity
 {
@@ -25,10 +26,12 @@ struct Entity
 	std::shared_ptr<PhysicsComponent> physics;
 	std::shared_ptr<ControllerComponent> controller;
 	std::shared_ptr<HealthComponent> health;
+	std::shared_ptr<InventoryComponent> inventory;
 };
 
 #include "RenderComponent.h"
 #include "TransformComponent.h"
 #include "HealthComponent.h"
 #include "ControllerComponent.h"
+#include"InventoryComponent.h"
 #include "Game.h"

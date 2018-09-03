@@ -34,6 +34,9 @@
     <Filter Include="Header Files\Components\Physics">
       <UniqueIdentifier>{33c081e4-37e7-4501-a3e4-0bdb71d4df76}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\Components\Inventory">
+      <UniqueIdentifier>{e57ed9bf-cf40-4747-b712-5472639c9543}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\main.cpp">
@@ -118,6 +121,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="src\MilitaryBaseController.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\InventoryComponent.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -214,6 +220,12 @@
     </ClInclude>
     <ClInclude Include="src\TransformComponent.h">
       <Filter>Header Files\Components\Transforms</Filter>
+    </ClInclude>
+    <ClInclude Include="src\GameResource.h">
+      <Filter>Header Files\Utils</Filter>
+    </ClInclude>
+    <ClInclude Include="src\InventoryComponent.h">
+      <Filter>Header Files\Components\Inventory</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

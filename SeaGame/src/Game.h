@@ -4,11 +4,13 @@
 #include "GameMap.h"
 #include "Entity.h"
 #include "SimpleCollisionListener.h"
+#include "GameResource.h"
+#include <TGUI/TGUI.hpp>
 
 class Game
 {
 public:
-	Game(sf::RenderWindow& window);
+	Game(sf::RenderWindow& window, tgui::Gui& gui);
 	void update(double delta);
 	void render();
 
@@ -16,6 +18,8 @@ public:
 	void addEntity(std::shared_ptr<Entity> newEnt);
 	// Remove an entity from the game
 	void removeEntity(std::weak_ptr<Entity> e);
+	// Handle an event
+	void handleEvent(sf::Event e);
 	// Get mouse coordinates relative to the window
 	sf::Vector2f getMouseCoords();
 	// Get player
@@ -24,9 +28,13 @@ public:
 	std::vector<std::shared_ptr<Entity>> getEntities();
 	// Get the box2d world
 	std::weak_ptr<b2World> getWorld();
+	// Get the GUI world for adding/removing widgets
+	tgui::Gui& getGui();
 private:
 	// Window for ref
 	sf::RenderWindow& window;
+	// TGUI handler
+	tgui::Gui& gui;
 	// The box2d world
 	std::shared_ptr<b2World> world;
 	// Box2d listener

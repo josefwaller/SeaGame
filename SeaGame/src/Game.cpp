@@ -6,7 +6,7 @@
 #include "ShipRenderer.h"
 #include "SimpleCollisionListener.h"
 
-Game::Game(sf::RenderWindow& window) : window(window)
+Game::Game(sf::RenderWindow& window, tgui::Gui& gui) : window(window), gui(gui)
 {
 	// Create world and make gravity 0, since it is top down
 	this->world = std::shared_ptr<b2World>(new b2World({ 0.0f, 0.0f }));
@@ -15,6 +15,7 @@ Game::Game(sf::RenderWindow& window) : window(window)
 	// Add entities
 	this->entities.push_back(EntityPrefabs::playerShip(this, ShipRenderer::SAIL_COLOR::Blue));
 	this->player = this->entities.back();
+	this->player.lock()->inventory->addItems(GameResource::Gold, 300);
 	// Create GameMap
 	this->gMap = GameMap(this);
 	this->addEntity(EntityPrefabs::enemyChasingShip(this, { 200, 200 }, ShipRenderer::SAIL_COLOR::Black));
@@ -27,9 +28,8 @@ void Game::update(double delta)
 	// Update all entities
 	for (size_t i = 0; i < this->entities.size(); i++) {
 		auto e = this->entities[i];
-		if (e->controller != nullptr) {
+		if (e->controller != nullptr)
 			e->controller->update((float)delta);
-		}
 	}
 	// Update world and resolve collisions
 	this->world->Step((float) delta, 8, 3);
@@ -61,8 +61,19 @@ void Game::render()
 	}
 	r.render(this->window);
 	r.reset();
+	// Render GUI
+	this->gui.draw();
 }
-
+void Game::handleEvent(sf::Event e) {
+	switch (e.type) {
+	case sf::Event::MouseButtonPressed:
+		if (e.key.code == sf::Mouse::Left)
+			for (auto e : this->entities)
+				if (e->inventory != nullptr) {
+					e->inventory->checkForOpen();
+				}
+	}
+}
 std::vector<std::shared_ptr<Entity>> Game::getEntities()
 {
 	return this->entities;
@@ -88,4 +99,7 @@ std::shared_ptr<Entity> Game::getPlayer()
 std::weak_ptr<b2World> Game::getWorld()
 {
 	return this->world;
+}
+tgui::Gui& Game::getGui() {
+	return this->gui;
 }

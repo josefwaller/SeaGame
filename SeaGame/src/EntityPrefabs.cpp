@@ -86,6 +86,7 @@ std::shared_ptr<Entity> EntityPrefabs::ship(Game* g, sf::Vector2f pos, float rot
 	ship->renderer = std::shared_ptr<RenderComponent>(new ShipRenderer(ship, c));
 	ship->physics = std::shared_ptr<PhysicsComponent>(new PhysicsComponent(ship));
 	ship->health = std::shared_ptr<HealthComponent>(new ShipHealth(ship));
+	ship->inventory = std::shared_ptr<InventoryComponent>(new InventoryComponent(ship));
 	return ship;
 }
 std::shared_ptr<Entity> EntityPrefabs::militaryBase(Game* g, sf::Vector2i pos)

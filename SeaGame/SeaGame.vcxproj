@@ -84,11 +84,11 @@
       <SDLCheck>true</SDLCheck>
       <AdditionalUsingDirectories>%(AdditionalUsingDirectories)</AdditionalUsingDirectories>
       <PreprocessorDefinitions>_MBCS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>..\packages\rapidxml.1.13\build\native\include;..\SFML-2.4.2\include;C:\Users\josef\Documents\Github\SeaGame\</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\Users\josef\Documents\Github\SeaGame\TGUI-0.8-dev\include;..\packages\rapidxml.1.13\build\native\include;..\SFML-2.4.2\include;C:\Users\josef\Documents\Github\SeaGame\</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
-      <AdditionalDependencies>Box2D.lib;sfml-graphics-d.lib;sfml-system-d.lib;sfml-main-d.lib;sfml-window-d.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <AdditionalLibraryDirectories>..\SFML-2.4.2\lib;C:\Users\josef\Documents\Github\SeaGame\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>Box2D.lib;sfml-graphics-d.lib;sfml-system-d.lib;sfml-main-d.lib;sfml-window-d.lib;tgui-d.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>C:\Users\josef\Documents\Github\SeaGame\TGUI-0.8-dev\lib;..\SFML-2.4.2\lib;C:\Users\josef\Documents\Github\SeaGame\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -111,7 +111,7 @@
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
-      <AdditionalIncludeDirectories>..\packages\rapidxml.1.13\build\native\include;..\SFML-2.4.2\include</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\Users\josef\Documents\Github\SeaGame\TGUI-0.8-dev;..\packages\rapidxml.1.13\build\native\include;..\SFML-2.4.2\include;</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
@@ -132,6 +132,7 @@
     <ClCompile Include="src\Game.cpp" />
     <ClCompile Include="src\GameMap.cpp" />
     <ClCompile Include="src\HealthComponent.cpp" />
+    <ClCompile Include="src\InventoryComponent.cpp" />
     <ClCompile Include="src\LayoutSprite.cpp" />
     <ClCompile Include="src\main.cpp" />
     <ClCompile Include="src\MilitaryBaseController.cpp" />
@@ -159,8 +160,10 @@
     <ClInclude Include="src\CannonBallController.h" />
     <ClInclude Include="src\ChasingShipController.h" />
     <ClInclude Include="src\EntityPrefabs.h" />
+    <ClInclude Include="src\GameResource.h" />
     <ClInclude Include="src\HealthComponent.h" />
     <ClInclude Include="src\HealthType.h" />
+    <ClInclude Include="src\InventoryComponent.h" />
     <ClInclude Include="src\LayoutSprite.h" />
     <ClInclude Include="src\ControllerComponent.h" />
     <ClInclude Include="src\Component.h" />
