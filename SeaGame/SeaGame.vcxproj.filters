@@ -126,6 +126,9 @@
     <ClCompile Include="src\InventoryComponent.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="src\MiningBaseController.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\ResourceManager.h">
@@ -226,6 +229,9 @@
     </ClInclude>
     <ClInclude Include="src\InventoryComponent.h">
       <Filter>Header Files\Components\Inventory</Filter>
+    </ClInclude>
+    <ClInclude Include="src\MiningBaseController.h">
+      <Filter>Header Files\Components\Controllers</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

@@ -18,9 +18,9 @@ Game::Game(sf::RenderWindow& window, tgui::Gui& gui) : window(window), gui(gui)
 	this->player.lock()->inventory->addItems(GameResource::Gold, 300);
 	// Create GameMap
 	this->gMap = GameMap(this);
-	this->addEntity(EntityPrefabs::enemyChasingShip(this, { 200, 200 }, ShipRenderer::SAIL_COLOR::Black));
+	//this->addEntity(EntityPrefabs::enemyChasingShip(this, { 200, 200 }, ShipRenderer::SAIL_COLOR::Black));
 	// Add a base
-	this->entities.push_back(EntityPrefabs::militaryBase(this, { 5, 5 }));
+	this->entities.push_back(EntityPrefabs::miningBase(this, { 5, 5 }));
 }
 
 void Game::update(double delta)

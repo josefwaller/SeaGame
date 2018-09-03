@@ -10,10 +10,11 @@ InventoryComponent::InventoryComponent(std::shared_ptr<Entity> parent) : Compone
 }
 void InventoryComponent::addItems(GameResource res, unsigned int amount) {
 	this->inventory[res] += amount;
-	this->inventoryText->addItem(this->getResourceString(res) + std::string(": ") + std::to_string(amount));
+	this->resetItems();
 }
 void InventoryComponent::removeItems(GameResource res, unsigned int amount) {
 	this->inventory[res] -= amount;
+	this->resetItems();
 }
 void InventoryComponent::openMenu() {
 	this->getParent()->game->getGui().add(this->inventoryWindow);
@@ -37,4 +38,10 @@ std::string InventoryComponent::getResourceString(GameResource res) {
 	case GameResource::Stone: return "Stone";
 	}
 	return "N/A";
+}
+void InventoryComponent::resetItems() {
+	this->inventoryText->removeAllItems();
+	for (auto it = this->inventory.begin(); it != this->inventory.end(); it++) {
+		this->inventoryText->addItem(this->getResourceString(it->first) + std::string(": ") + std::to_string(it->second));
+	}
 }

@@ -13,6 +13,7 @@
 #include "BaseRenderer.h"
 #include "MilitaryBaseRenderer.h"
 #include "MilitaryBaseController.h"
+#include "MiningBaseController.h"
 
 std::shared_ptr<Entity> EntityPrefabs::playerShip(Game* g, ShipRenderer::SAIL_COLOR c)
 {
@@ -98,10 +99,31 @@ std::shared_ptr<Entity> EntityPrefabs::militaryBase(Game* g, sf::Vector2i pos)
 	b->team = 1;
 	return b;
 }
+std::shared_ptr<Entity> EntityPrefabs::miningBase(Game* g, sf::Vector2i pos) {
+	auto b = base(g, pos);
+	b->controller = std::shared_ptr<ControllerComponent>(new MiningBaseController(b));
+	b->inventory = std::shared_ptr<InventoryComponent>(new InventoryComponent(b));
+	b->team = 1;
+	return b;
+}
 std::shared_ptr<Entity> EntityPrefabs::base(Game* g, sf::Vector2i pos)
 {
+	b2BodyDef baseDef;
+	baseDef.type = b2_staticBody;
+	baseDef.position = b2Vec2(pos.x * 64, pos.y * 64);
+	baseDef.angle = 0.0f;
+	b2FixtureDef baseFixture;
+	b2PolygonShape baseShape;
+	b2Vec2 verts[4];
+	verts[0] = b2Vec2(0, 0);
+	verts[1] = b2Vec2(0, 3 * 64);
+	verts[2] = b2Vec2(3 * 64, 3 * 64);
+	verts[3] = b2Vec2(3 * 64, 0);
+	baseShape.Set(verts, 4);
+	baseFixture.shape = &baseShape;
+
 	auto base = std::shared_ptr<Entity>(new Entity(g));
-	base->transform = std::shared_ptr<TransformComponent>(new BasicTransform(base, (sf::Vector2f)pos * 64.0f, 0.0f));
+	base->transform = std::shared_ptr<TransformComponent>(new Box2dTransform(base, &baseDef, { baseFixture }));
 	base->renderer = std::shared_ptr<RenderComponent>(new BaseRenderer(base));
 	return base;
 }

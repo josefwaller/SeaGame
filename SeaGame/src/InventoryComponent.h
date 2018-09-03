@@ -22,4 +22,6 @@ private:
 	// GUI widgets
 	tgui::ChildWindow::Ptr inventoryWindow;
 	tgui::ListBox::Ptr inventoryText;
+	// Set up the items of the widget
+	void resetItems();
 };
