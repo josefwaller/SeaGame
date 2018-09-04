@@ -13,6 +13,7 @@ public:
 	// Add/remove items to/from the inventory
 	void addItems(GameResource res, unsigned int amount);
 	void removeItems(GameResource res, unsigned int amount);
+	std::map<GameResource, unsigned int> getInventory();
 	// Check if the entity was clicked, and the menu should be opened
 	void checkForOpen();
 	std::string getResourceString(GameResource res);

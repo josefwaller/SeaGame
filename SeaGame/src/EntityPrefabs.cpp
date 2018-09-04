@@ -14,6 +14,7 @@
 #include "MilitaryBaseRenderer.h"
 #include "MilitaryBaseController.h"
 #include "MiningBaseController.h"
+#include "FerryShipController.h"
 
 std::shared_ptr<Entity> EntityPrefabs::playerShip(Game* g, ShipRenderer::SAIL_COLOR c)
 {
@@ -142,4 +143,9 @@ std::shared_ptr<Entity> EntityPrefabs::explosion(Game* g, sf::Vector2f pos)
 		RenderManager::INDEX_EFFECT,
 		false));
 	return ex;
+}
+std::shared_ptr<Entity> EntityPrefabs::ferryShip(Game* g, sf::Vector2f pos, std::weak_ptr<Entity> from, std::weak_ptr<Entity> to) {
+	auto ship = EntityPrefabs::ship(g, pos, 0.0f, ShipRenderer::SAIL_COLOR::Red);
+	ship->controller = std::shared_ptr<ControllerComponent>(new FerryShipController(ship, from, to));
+	return ship;
 }

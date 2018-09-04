@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup Label="ProjectConfigurations">
     <ProjectConfiguration Include="Debug|Win32">
@@ -122,6 +122,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="src\AnimationRenderer.cpp" />
+    <ClCompile Include="src\AutomatedShipController.cpp" />
     <ClCompile Include="src\BaseRenderer.cpp" />
     <ClCompile Include="src\Box2dTransform.cpp" />
     <ClCompile Include="src\CannonBallController.cpp" />
@@ -129,6 +130,7 @@
     <ClCompile Include="src\Component.cpp" />
     <ClCompile Include="src\ControllerComponent.cpp" />
     <ClCompile Include="src\EntityPrefabs.cpp" />
+    <ClCompile Include="src\FerryShipController.cpp" />
     <ClCompile Include="src\Game.cpp" />
     <ClCompile Include="src\GameMap.cpp" />
     <ClCompile Include="src\HealthComponent.cpp" />
@@ -154,6 +156,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\AnimationRenderer.h" />
+    <ClInclude Include="src\AutomatedShipController.h" />
     <ClInclude Include="src\BaseRenderer.h" />
     <ClInclude Include="src\BasicTransform.h" />
     <ClInclude Include="src\Box2dTransform.h" />
@@ -161,6 +164,7 @@
     <ClInclude Include="src\CannonBallController.h" />
     <ClInclude Include="src\ChasingShipController.h" />
     <ClInclude Include="src\EntityPrefabs.h" />
+    <ClInclude Include="src\FerryShipController.h" />
     <ClInclude Include="src\GameResource.h" />
     <ClInclude Include="src\HealthComponent.h" />
     <ClInclude Include="src\HealthType.h" />

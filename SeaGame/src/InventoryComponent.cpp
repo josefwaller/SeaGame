@@ -40,8 +40,13 @@ std::string InventoryComponent::getResourceString(GameResource res) {
 	return "N/A";
 }
 void InventoryComponent::resetItems() {
+	this->inventoryText->deselectItem();
 	this->inventoryText->removeAllItems();
 	for (auto it = this->inventory.begin(); it != this->inventory.end(); it++) {
-		this->inventoryText->addItem(this->getResourceString(it->first) + std::string(": ") + std::to_string(it->second));
+		std::string itemString = this->getResourceString(it->first) + std::string(": ") + std::to_string(it->second);
+		this->inventoryText->addItem(itemString);
 	}
+}
+std::map<GameResource, unsigned int> InventoryComponent::getInventory() {
+	return this->inventory;
 }

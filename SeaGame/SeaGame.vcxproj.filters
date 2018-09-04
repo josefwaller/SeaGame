@@ -129,6 +129,12 @@
     <ClCompile Include="src\MiningBaseController.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="src\FerryShipController.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\AutomatedShipController.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\ResourceManager.h">
@@ -231,6 +237,12 @@
       <Filter>Header Files\Components\Inventory</Filter>
     </ClInclude>
     <ClInclude Include="src\MiningBaseController.h">
+      <Filter>Header Files\Components\Controllers</Filter>
+    </ClInclude>
+    <ClInclude Include="src\FerryShipController.h">
+      <Filter>Header Files\Components\Controllers</Filter>
+    </ClInclude>
+    <ClInclude Include="src\AutomatedShipController.h">
       <Filter>Header Files\Components\Controllers</Filter>
     </ClInclude>
   </ItemGroup>

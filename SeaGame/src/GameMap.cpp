@@ -13,6 +13,7 @@ GameMap::GameMap(Game* g)
 			// Add test island in the middle
 			if (x < 9 && x > 3 && y < 9 && y > 3) {
 				this->tiles[x].push_back(TileType::Land);
+				continue;
 				// Add a box collider for this tile
 				b2PolygonShape box;
 				box.SetAsBox(32, 32);
