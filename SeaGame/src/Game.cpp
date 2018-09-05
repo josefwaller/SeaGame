@@ -101,8 +101,8 @@ void Game::handleEvent(sf::Event e) {
 		if (e.key.code == sf::Mouse::Left) {
 			if (!this->isBuilding) {
 				for (auto e : this->entities) {
-					if (e->inventory != nullptr) {
-						e->inventory->checkForOpen();
+					if (e->gui != nullptr) {
+						e->gui->checkForClick(this->getMouseCoords());
 					}
 				}
 			}

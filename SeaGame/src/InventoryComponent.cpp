@@ -3,49 +3,17 @@
 #include "Box2dTransform.h"
 
 InventoryComponent::InventoryComponent(std::shared_ptr<Entity> parent) : Component(parent) {
-	this->inventoryWindow = tgui::ChildWindow::create();
-	this->inventoryWindow->setTitle("Inventory");
-	this->inventoryText = tgui::ListBox::create();
-	this->inventoryWindow->add(this->inventoryText);
 }
 void InventoryComponent::addItems(GameResource res, unsigned int amount) {
 	this->inventory[res] += amount;
-	this->resetItems();
+	if (this->getParent()->gui != nullptr) {
+		this->getParent()->gui->updateInventory();
+	}
 }
 void InventoryComponent::removeItems(GameResource res, unsigned int amount) {
 	this->inventory[res] -= amount;
-	this->resetItems();
-}
-void InventoryComponent::openMenu() {
-	this->getParent()->game->getGui().add(this->inventoryWindow);
-}
-void InventoryComponent::checkForOpen() {
-	sf::Vector2f mouseCoords = this->getParent()->game->getMouseCoords();
-	if (auto trans = std::dynamic_pointer_cast<Box2dTransform>(this->getParent()->transform)) {
-		auto body = trans->getBody();
-		for (auto fix = body->GetFixtureList(); fix; fix = fix->GetNext()) {
-			if (fix->TestPoint(b2Vec2(mouseCoords.x, mouseCoords.y))) {
-				this->openMenu();
-				return;
-			}
-		}
-	}
-}
-std::string InventoryComponent::getResourceString(GameResource res) {
-	switch (res) {
-	case GameResource::Gold: return "Gold";
-	case GameResource::Wood: return "Wood";
-	case GameResource::Stone: return "Stone";
-	}
-	return "N/A";
-}
-void InventoryComponent::resetItems() {
-	this->inventoryText->deselectItem();
-	this->inventoryText->removeAllItems();
-	auto inv = this->getInventory();
-	for (auto it : inv) {
-		std::string itemString = this->getResourceString(it.first) + std::string(": ") + std::to_string(it.second);
-		this->inventoryText->addItem(itemString);
+	if (this->getParent()->gui != nullptr) {
+		this->getParent()->gui->updateInventory();
 	}
 }
 std::map<GameResource, unsigned int> InventoryComponent::getInventory() {

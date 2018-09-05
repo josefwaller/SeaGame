@@ -133,6 +133,7 @@
     <ClCompile Include="src\FerryShipController.cpp" />
     <ClCompile Include="src\Game.cpp" />
     <ClCompile Include="src\GameMap.cpp" />
+    <ClCompile Include="src\GuiComponent.cpp" />
     <ClCompile Include="src\HealthComponent.cpp" />
     <ClCompile Include="src\InventoryComponent.cpp" />
     <ClCompile Include="src\LayoutSprite.cpp" />
@@ -166,6 +167,7 @@
     <ClInclude Include="src\EntityPrefabs.h" />
     <ClInclude Include="src\FerryShipController.h" />
     <ClInclude Include="src\GameResource.h" />
+    <ClInclude Include="src\GuiComponent.h" />
     <ClInclude Include="src\HealthComponent.h" />
     <ClInclude Include="src\HealthType.h" />
     <ClInclude Include="src\InventoryComponent.h" />

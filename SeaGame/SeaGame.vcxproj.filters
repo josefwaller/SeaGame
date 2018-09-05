@@ -116,6 +116,9 @@
     <Filter Include="Files\Entity">
       <UniqueIdentifier>{c2bf30d8-c47c-4c05-9d35-7e1ad925ca8c}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Files\Components\Gui">
+      <UniqueIdentifier>{4cb305bc-347d-46c2-ba80-f6aea5ef0719}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\CannonBallController.cpp">
@@ -213,6 +216,9 @@
     </ClCompile>
     <ClCompile Include="src\main.cpp">
       <Filter>Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\GuiComponent.cpp">
+      <Filter>Files\Components\Gui</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -323,6 +329,9 @@
     </ClInclude>
     <ClInclude Include="src\Entity.h">
       <Filter>Files\Entity</Filter>
+    </ClInclude>
+    <ClInclude Include="src\GuiComponent.h">
+      <Filter>Files\Components\Gui</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
