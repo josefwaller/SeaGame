@@ -25,6 +25,33 @@ Game::Game(sf::RenderWindow& window, tgui::Gui& gui) : window(window), gui(gui)
 	this->entities.push_back(EntityPrefabs::miningBase(this, { 20, 5 }));
 	auto b2 = this->entities.back();
 	this->entities.push_back(EntityPrefabs::ferryShip(this, { 0.0f, 0.0f }, b1, b2));
+	// Add the build button
+	this->buildBtn = tgui::Button::create();
+	this->buildBtn->setText("Build");
+	this->gui.add(this->buildBtn);
+	this->buildBtn->connect("clicked", &Game::toggleBuildButtons, this);
+	this->isBuilding = false;
+	float width = 0.0f;
+	float height = this->buildBtn->getFullSize().y;
+	this->buildThingsBtns = {
+		tgui::Button::create(),
+		tgui::Button::create()
+	};
+	this->buildThingsBtns[0]->setText("Generation Base");
+	this->buildThingsBtns[0]->setPosition({ 0, this->buildBtn->getFullSize().y });
+	this->buildThingsBtns[0]->connect("clicked", [&](Game* game) {
+		game->startBuilding([&](Game* g, sf::Vector2f pos) {
+			return EntityPrefabs::miningBase(g, (sf::Vector2i)(pos / 64.0f));
+		});
+	}, this);
+	width += this->buildThingsBtns[0]->getFullSize().x;
+	this->buildThingsBtns[1]->setText("Military Base");
+	this->buildThingsBtns[1]->setPosition({ width, height });
+	this->buildThingsBtns[1]->connect("clicked", [&](Game * game) {
+		game->startBuilding([&](Game* g, sf::Vector2f pos) {
+			return EntityPrefabs::militaryBase(g, (sf::Vector2i)(pos / 64.0f));
+		});
+	}, this);
 }
 
 void Game::update(double delta)
@@ -71,11 +98,20 @@ void Game::render()
 void Game::handleEvent(sf::Event e) {
 	switch (e.type) {
 	case sf::Event::MouseButtonPressed:
-		if (e.key.code == sf::Mouse::Left)
-			for (auto e : this->entities)
-				if (e->inventory != nullptr) {
-					e->inventory->checkForOpen();
+		if (e.key.code == sf::Mouse::Left) {
+			if (!this->isBuilding) {
+				for (auto e : this->entities) {
+					if (e->inventory != nullptr) {
+						e->inventory->checkForOpen();
+					}
 				}
+			}
+			else {
+				sf::Vector2f mousePos = this->getMouseCoords();
+				this->entities.push_back(this->buildFunction(this, mousePos));
+				this->isBuilding = false;
+			}
+		}
 	}
 }
 std::vector<std::shared_ptr<Entity>> Game::getEntities()
@@ -106,4 +142,13 @@ std::weak_ptr<b2World> Game::getWorld()
 }
 tgui::Gui& Game::getGui() {
 	return this->gui;
+}
+void Game::toggleBuildButtons() {
+	for (auto btn : this->buildThingsBtns) {
+		this->gui.add(btn);
+	}
+}
+void Game::startBuilding(std::function<std::shared_ptr<Entity>(Game* g, sf::Vector2f pos)> func) {
+	this->isBuilding = true;
+	this->buildFunction = func;
 }

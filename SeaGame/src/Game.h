@@ -30,6 +30,13 @@ public:
 	std::weak_ptr<b2World> getWorld();
 	// Get the GUI world for adding/removing widgets
 	tgui::Gui& getGui();
+	// Whether or not the player is building something
+	// AKA what to do on a click
+	bool isBuilding;
+	// Method set by one of the buildThing buttons that decides what to build
+	std::function<std::shared_ptr<Entity>(Game* g, sf::Vector2f pos)> buildFunction;
+	// Set the above function, essentially deciding what to build
+	void startBuilding(std::function<std::shared_ptr<Entity>(Game* g, sf::Vector2f pos)> func);
 private:
 	// Window for ref
 	sf::RenderWindow& window;
@@ -46,4 +53,11 @@ private:
 	std::vector<std::shared_ptr<Entity>> entities;
 	// Entities to be removed after this frame
 	std::vector<std::weak_ptr<Entity>> toRemove;
+	// The build button
+	tgui::Button::Ptr buildBtn;
+	// The buttons specifying what to build
+	// Todo: think of a better name
+	std::vector<tgui::Button::Ptr> buildThingsBtns;
+	// Show/hide the different buttons of things to build
+	void toggleBuildButtons();
 };

@@ -42,8 +42,9 @@ std::string InventoryComponent::getResourceString(GameResource res) {
 void InventoryComponent::resetItems() {
 	this->inventoryText->deselectItem();
 	this->inventoryText->removeAllItems();
-	for (auto it = this->inventory.begin(); it != this->inventory.end(); it++) {
-		std::string itemString = this->getResourceString(it->first) + std::string(": ") + std::to_string(it->second);
+	auto inv = this->getInventory();
+	for (auto it : inv) {
+		std::string itemString = this->getResourceString(it.first) + std::string(": ") + std::to_string(it.second);
 		this->inventoryText->addItem(itemString);
 	}
 }
