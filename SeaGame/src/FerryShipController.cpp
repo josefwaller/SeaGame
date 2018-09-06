@@ -8,10 +8,14 @@ FerryShipController::FerryShipController(std::weak_ptr<Entity> parent, std::weak
 void FerryShipController::update(float delta) {
 	switch (this->currentAction) {
 	case Action::PickingUp:
-		this->moveToPoint(delta, this->takeFrom.lock()->transform->getPosition());
+		if (this->takeFrom.lock()) {
+			this->moveToPoint(delta, this->takeFrom.lock()->transform->getPosition());
+		}
 		break;
 	case Action::DropingOff:
-		this->moveToPoint(delta, this->giveTo.lock()->transform->getPosition());
+		if (this->giveTo.lock()) {
+			this->moveToPoint(delta, this->giveTo.lock()->transform->getPosition());
+		}
 		break;
 	}
 }

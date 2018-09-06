@@ -35,6 +35,7 @@ Game::Game(sf::RenderWindow& window, tgui::Gui& gui) : window(window), gui(gui)
 	float height = this->buildBtn->getFullSize().y;
 	this->buildThingsBtns = {
 		tgui::Button::create(),
+		tgui::Button::create(),
 		tgui::Button::create()
 	};
 	this->buildThingsBtns[0]->setText("Generation Base");
@@ -50,6 +51,14 @@ Game::Game(sf::RenderWindow& window, tgui::Gui& gui) : window(window), gui(gui)
 	this->buildThingsBtns[1]->connect("clicked", [&](Game * game) {
 		game->waitForGlobalClick(ClickState::Building, [&](Game* g, sf::Vector2f pos) {
 			g->addEntity(EntityPrefabs::militaryBase(g, (sf::Vector2i)(pos / 64.0f)));
+		});
+	}, this);
+	width += this->buildThingsBtns[1]->getFullSize().x;
+	this->buildThingsBtns[2]->setText("Ferry Ship");
+	this->buildThingsBtns[2]->setPosition({ width, height });
+	this->buildThingsBtns[2]->connect("clicked", [&](Game* game) {
+		game->waitForGlobalClick(ClickState::Building, [&](Game* g, sf::Vector2f pos) {
+			g->addEntity(EntityPrefabs::ferryShip(g, pos, {}, {}));
 		});
 	}, this);
 }
