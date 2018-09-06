@@ -2,7 +2,8 @@
 
 FerryShipController::FerryShipController(std::weak_ptr<Entity> parent, std::weak_ptr<Entity> from, std::weak_ptr<Entity> to)
 	: AutomatedShipController(parent) {
-	this->setTargets(from, to);
+	this->setDestination(to);
+	this->setSource(from);
 }
 void FerryShipController::update(float delta) {
 	switch (this->currentAction) {
@@ -14,11 +15,12 @@ void FerryShipController::update(float delta) {
 		break;
 	}
 }
-void FerryShipController::setTargets(std::weak_ptr<Entity> takeFrom, std::weak_ptr<Entity> givesTo) {
-	this->takeFrom = takeFrom;
-	this->giveTo = givesTo;
+void FerryShipController::setDestination(std::weak_ptr<Entity> dest) {
+	this->giveTo = dest;
 }
-
+void FerryShipController::setSource(std::weak_ptr<Entity> src) {
+	this->takeFrom = src;
+}
 void FerryShipController::onReachingTarget() {
 	if (this->currentAction == Action::PickingUp) {
 		// Take all of the base's things

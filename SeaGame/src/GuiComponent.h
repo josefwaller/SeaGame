@@ -5,7 +5,7 @@
 class GuiComponent : public Component {
 public:
 	GuiComponent(std::shared_ptr<Entity>);
-	void checkForClick(sf::Vector2f mousePos);
+	bool checkForClick(sf::Vector2f mousePos);
 	// Change the panel the component is currently showing
 	void changePanel(std::string selectedPanel);
 	void updateInventory();

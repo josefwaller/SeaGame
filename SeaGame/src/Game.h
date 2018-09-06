@@ -30,13 +30,22 @@ public:
 	std::weak_ptr<b2World> getWorld();
 	// Get the GUI world for adding/removing widgets
 	tgui::Gui& getGui();
-	// Whether or not the player is building something
-	// AKA what to do on a click
-	bool isBuilding;
-	// Method set by one of the buildThing buttons that decides what to build
-	std::function<std::shared_ptr<Entity>(Game* g, sf::Vector2f pos)> buildFunction;
+	// The clicking states, help determine what to do when clicking
+	enum ClickState {
+		// Nothing, i.e. clicking on stuff will show their gui
+		Nothing,
+		// Choosing where to place a building
+		Building,
+		// Selecting a building as a source/destination
+		Selecting
+	};
+	ClickState currentState;
+	// Callback function when clicking
+	std::function<void(Game* g, sf::Vector2f pos)> clickCallbackFunction;
 	// Set the above function, essentially deciding what to build
-	void startBuilding(std::function<std::shared_ptr<Entity>(Game* g, sf::Vector2f pos)> func);
+	void waitForGlobalClick(ClickState c, std::function<void(Game* g, sf::Vector2f pos)> func);
+	// Select an entity, then call the callback method with the entity
+	void selectEntity(std::function<void(std::weak_ptr<Entity>)> callback);
 private:
 	// Window for ref
 	sf::RenderWindow& window;
@@ -60,4 +69,6 @@ private:
 	std::vector<tgui::Button::Ptr> buildThingsBtns;
 	// Show/hide the different buttons of things to build
 	void toggleBuildButtons();
+	// The callback for selecting an entity (by clicking on it)
+	std::function<void(std::weak_ptr<Entity> entity)> selectCallback;
 };

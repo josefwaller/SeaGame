@@ -30,7 +30,7 @@ Game::Game(sf::RenderWindow& window, tgui::Gui& gui) : window(window), gui(gui)
 	this->buildBtn->setText("Build");
 	this->gui.add(this->buildBtn);
 	this->buildBtn->connect("clicked", &Game::toggleBuildButtons, this);
-	this->isBuilding = false;
+	this->currentState = ClickState::Nothing;
 	float width = 0.0f;
 	float height = this->buildBtn->getFullSize().y;
 	this->buildThingsBtns = {
@@ -40,16 +40,16 @@ Game::Game(sf::RenderWindow& window, tgui::Gui& gui) : window(window), gui(gui)
 	this->buildThingsBtns[0]->setText("Generation Base");
 	this->buildThingsBtns[0]->setPosition({ 0, this->buildBtn->getFullSize().y });
 	this->buildThingsBtns[0]->connect("clicked", [&](Game* game) {
-		game->startBuilding([&](Game* g, sf::Vector2f pos) {
-			return EntityPrefabs::miningBase(g, (sf::Vector2i)(pos / 64.0f));
+		game->waitForGlobalClick(ClickState::Building, [&](Game* g, sf::Vector2f pos) {
+			g->addEntity(EntityPrefabs::miningBase(g, (sf::Vector2i)(pos / 64.0f)));
 		});
 	}, this);
 	width += this->buildThingsBtns[0]->getFullSize().x;
 	this->buildThingsBtns[1]->setText("Military Base");
 	this->buildThingsBtns[1]->setPosition({ width, height });
 	this->buildThingsBtns[1]->connect("clicked", [&](Game * game) {
-		game->startBuilding([&](Game* g, sf::Vector2f pos) {
-			return EntityPrefabs::militaryBase(g, (sf::Vector2i)(pos / 64.0f));
+		game->waitForGlobalClick(ClickState::Building, [&](Game* g, sf::Vector2f pos) {
+			g->addEntity(EntityPrefabs::militaryBase(g, (sf::Vector2i)(pos / 64.0f)));
 		});
 	}, this);
 }
@@ -99,20 +99,36 @@ void Game::handleEvent(sf::Event e) {
 	switch (e.type) {
 	case sf::Event::MouseButtonPressed:
 		if (e.key.code == sf::Mouse::Left) {
-			if (!this->isBuilding) {
+			if (this->currentState == ClickState::Nothing) {
 				for (auto e : this->entities) {
 					if (e->gui != nullptr) {
-						e->gui->checkForClick(this->getMouseCoords());
+						if (e->gui->checkForClick(this->getMouseCoords())) {
+							break;
+						}
 					}
 				}
 			}
-			else {
+			else if (this->currentState == ClickState::Building) {
 				sf::Vector2f mousePos = this->getMouseCoords();
-				this->entities.push_back(this->buildFunction(this, mousePos));
-				this->isBuilding = false;
+				this->clickCallbackFunction(this, mousePos);
+				this->currentState = ClickState::Nothing;
+			}
+			else if (this->currentState == ClickState::Selecting) {
+				for (auto e : this->entities) {
+					if (e->gui) {
+						if (e->gui->checkForClick(this->getMouseCoords())) {
+							this->selectCallback(e);
+							this->currentState = ClickState::Nothing;
+						}
+					}
+				}
 			}
 		}
 	}
+}
+void Game::selectEntity(std::function<void(std::weak_ptr<Entity> entity)> callback) {
+	this->selectCallback = callback;
+	this->currentState = ClickState::Selecting;
 }
 std::vector<std::shared_ptr<Entity>> Game::getEntities()
 {
@@ -148,7 +164,7 @@ void Game::toggleBuildButtons() {
 		this->gui.add(btn);
 	}
 }
-void Game::startBuilding(std::function<std::shared_ptr<Entity>(Game* g, sf::Vector2f pos)> func) {
-	this->isBuilding = true;
-	this->buildFunction = func;
+void Game::waitForGlobalClick(ClickState c, std::function<void(Game* g, sf::Vector2f pos)> func) {
+	this->currentState = c;
+	this->clickCallbackFunction = func;
 }
