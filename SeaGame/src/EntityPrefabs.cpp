@@ -29,6 +29,7 @@ std::shared_ptr<Entity> EntityPrefabs::playerShip(Game* g, ShipRenderer::SAIL_CO
 std::shared_ptr<Entity> EntityPrefabs::cannonBall(Game* g, std::weak_ptr<Entity> spawner, sf::Vector2f pos, float rot)
 {
 	auto ball = std::shared_ptr<Entity>(new Entity(g));
+	ball->tag = EntityTag::Cannonball;
 	ball->renderer = std::shared_ptr<RenderComponent>(new SpriteRenderer(
 		ball,
 		"ships",
@@ -86,6 +87,7 @@ std::shared_ptr<Entity> EntityPrefabs::ship(Game* g, sf::Vector2f pos, float rot
 	shipFixture.density = 100;
 	// Create the actualy ship entity
 	auto ship = std::shared_ptr<Entity>(new Entity(g));
+	ship->tag = EntityTag::Ship;
 	ship->transform = std::shared_ptr<TransformComponent>(new Box2dTransform(ship, &shipDef, { shipFixture }));
 	ship->renderer = std::shared_ptr<RenderComponent>(new ShipRenderer(ship, c));
 	ship->physics = std::shared_ptr<PhysicsComponent>(new PhysicsComponent(ship));
@@ -128,6 +130,7 @@ std::shared_ptr<Entity> EntityPrefabs::base(Game* g, sf::Vector2i pos)
 	baseFixture.shape = &baseShape;
 
 	auto base = std::shared_ptr<Entity>(new Entity(g));
+	base->tag = EntityTag::Base;
 	base->transform = std::shared_ptr<TransformComponent>(new Box2dTransform(base, &baseDef, { baseFixture }));
 	base->renderer = std::shared_ptr<RenderComponent>(new BaseRenderer(base));
 	base->gui = std::shared_ptr<GuiComponent>(new GuiComponent(base));

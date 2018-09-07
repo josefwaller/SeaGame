@@ -22,7 +22,7 @@ GuiComponent::GuiComponent(std::shared_ptr<Entity> parent) : Component(parent) {
 			// Function which sets the destination to the entity
 			// Bind the FerryShipController to the callback, so as to properly set the destination
 			auto callback = std::bind([&](std::weak_ptr<Entity> e, std::weak_ptr<FerryShipController> c) {
-				if (c.lock()) {
+				if (c.lock() && e.lock()->tag == EntityTag::Base) {
 					c.lock()->setDestination(e);
 				}
 			}, std::placeholders::_1, cont);
@@ -36,7 +36,7 @@ GuiComponent::GuiComponent(std::shared_ptr<Entity> parent) : Component(parent) {
 		srcBtn->connect("clicked", [&](Game * game, std::weak_ptr<FerryShipController> cont) {
 			// Pretty much the same as above
 			auto callback = std::bind([&](std::weak_ptr<Entity> e, std::weak_ptr<FerryShipController> c) {
-				if (c.lock()) {
+				if (c.lock() && e.lock()->tag == EntityTag::Base) {
 					c.lock()->setSource(e);
 				}
 			}, std::placeholders::_1, cont);

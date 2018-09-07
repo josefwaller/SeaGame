@@ -15,6 +15,12 @@ class InventoryComponent;
 class GuiComponent;
 class ClickComponent;
 
+enum EntityTag {
+	Ship,
+	Base,
+	Cannonball
+};
+
 struct Entity
 {
 	Entity() : game(nullptr) {}
@@ -23,6 +29,8 @@ struct Entity
 	// The team this entity belongs to
 	// 0 is the player's team
 	int team;
+	// The entity's tag
+	EntityTag tag;
 	std::shared_ptr<TransformComponent> transform;
 	std::shared_ptr<RenderComponent> renderer;
 	std::shared_ptr<PhysicsComponent> physics;
