@@ -152,6 +152,7 @@
     <ClCompile Include="src\ShipRenderer.cpp" />
     <ClCompile Include="src\SimpleCollisionListener.cpp" />
     <ClCompile Include="src\SimpleHealth.cpp" />
+    <ClCompile Include="src\CraftRecipes.cpp" />
     <ClCompile Include="src\SpriteRenderer.cpp" />
     <ClCompile Include="src\BasicTransform.cpp" />
     <ClCompile Include="src\TransformComponent.cpp" />
@@ -165,6 +166,7 @@
     <ClInclude Include="src\Cannon.h" />
     <ClInclude Include="src\CannonBallController.h" />
     <ClInclude Include="src\ChasingShipController.h" />
+    <ClInclude Include="src\CraftRecipes.h" />
     <ClInclude Include="src\EntityPrefabs.h" />
     <ClInclude Include="src\FerryShipController.h" />
     <ClInclude Include="src\GameHud.h" />

@@ -122,6 +122,9 @@
     <Filter Include="Files\GameHud">
       <UniqueIdentifier>{70968fcc-056b-4d4b-a881-deacdd831982}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Files\Utils\CraftRecipes">
+      <UniqueIdentifier>{c2ad3ebf-f313-4e74-9c34-86bfd9bf475a}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\CannonBallController.cpp">
@@ -225,6 +228,9 @@
     </ClCompile>
     <ClCompile Include="src\GameHud.cpp">
       <Filter>Files\GameHud</Filter>
+    </ClCompile>
+    <ClCompile Include="src\CraftRecipes.cpp">
+      <Filter>Files\Utils\CraftRecipes</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -341,6 +347,9 @@
     </ClInclude>
     <ClInclude Include="src\GameHud.h">
       <Filter>Files\GameHud</Filter>
+    </ClInclude>
+    <ClInclude Include="src\CraftRecipes.h">
+      <Filter>Files\Utils\CraftRecipes</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
