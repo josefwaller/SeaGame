@@ -125,6 +125,12 @@
     <Filter Include="Files\Utils\CraftRecipes">
       <UniqueIdentifier>{c2ad3ebf-f313-4e74-9c34-86bfd9bf475a}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Files\Components\Click">
+      <UniqueIdentifier>{86a2f3c3-6cbd-48e8-8e55-9416f6cc2f0e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Files\Components\Click\Box2dClick">
+      <UniqueIdentifier>{7139c1b1-041c-4a80-abd1-d510e4d86548}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\CannonBallController.cpp">
@@ -231,6 +237,12 @@
     </ClCompile>
     <ClCompile Include="src\CraftRecipes.cpp">
       <Filter>Files\Utils\CraftRecipes</Filter>
+    </ClCompile>
+    <ClCompile Include="src\ClickComponent.cpp">
+      <Filter>Files\Components\Click</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Box2dClick.cpp">
+      <Filter>Files\Components\Click\Box2dClick</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -350,6 +362,12 @@
     </ClInclude>
     <ClInclude Include="src\CraftRecipes.h">
       <Filter>Files\Utils\CraftRecipes</Filter>
+    </ClInclude>
+    <ClInclude Include="src\ClickComponent.h">
+      <Filter>Files\Components\Click</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Box2dClick.h">
+      <Filter>Files\Components\Click\Box2dClick</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

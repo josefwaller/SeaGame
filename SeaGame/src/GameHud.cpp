@@ -51,9 +51,11 @@ void GameHud::tryToBuild(CraftingRecipes::CraftRecipe cr, sf::Vector2f pos) {
 void GameHud::onClick(sf::Vector2f pos) {
 	if (this->currentClickState == ClickState::Nothing) {
 		for (auto e : this->game->getEntities()) {
-			if (e->gui != nullptr) {
-				if (e->gui->checkForClick(pos)) {
-					break;
+			if (e->click != nullptr) {
+				if (e->click->checkForClick(pos)) {
+					if (e->controller != nullptr) {
+						e->controller->onClick();
+					}
 				}
 			}
 		}
@@ -64,8 +66,8 @@ void GameHud::onClick(sf::Vector2f pos) {
 	}
 	else if (this->currentClickState == ClickState::Selecting) {
 		for (auto e : this->game->getEntities()) {
-			if (e->gui) {
-				if (e->gui->checkForClick(pos)) {
+			if (e->click) {
+				if (e->click->checkForClick(pos)) {
 					this->selectCallback(e);
 					this->currentClickState = ClickState::Nothing;
 				}

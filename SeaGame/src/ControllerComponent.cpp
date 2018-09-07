@@ -17,3 +17,8 @@ void ControllerComponent::onHit(HealthType t, int damageAmount)
 	if (this->getParent()->health != nullptr)
 		this->getParent()->health->takeDamage(t, damageAmount);
 }
+void ControllerComponent::onClick() {
+	if (this->getParent()->gui) {
+		this->getParent()->gui->show();
+	}
+}

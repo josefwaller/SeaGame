@@ -16,6 +16,7 @@
 #include "MiningBaseController.h"
 #include "FerryShipController.h"
 #include "GuiComponent.h"
+#include "Box2dClick.h"
 
 std::shared_ptr<Entity> EntityPrefabs::playerShip(Game* g, ShipRenderer::SAIL_COLOR c)
 {
@@ -91,6 +92,7 @@ std::shared_ptr<Entity> EntityPrefabs::ship(Game* g, sf::Vector2f pos, float rot
 	ship->health = std::shared_ptr<HealthComponent>(new ShipHealth(ship));
 	ship->inventory = std::shared_ptr<InventoryComponent>(new InventoryComponent(ship));
 	ship->gui = std::shared_ptr<GuiComponent>(new GuiComponent(ship));
+	ship->click = std::shared_ptr<ClickComponent>(new Box2dClick(ship));
 	return ship;
 }
 std::shared_ptr<Entity> EntityPrefabs::militaryBase(Game* g, sf::Vector2i pos)
@@ -129,6 +131,7 @@ std::shared_ptr<Entity> EntityPrefabs::base(Game* g, sf::Vector2i pos)
 	base->transform = std::shared_ptr<TransformComponent>(new Box2dTransform(base, &baseDef, { baseFixture }));
 	base->renderer = std::shared_ptr<RenderComponent>(new BaseRenderer(base));
 	base->gui = std::shared_ptr<GuiComponent>(new GuiComponent(base));
+	base->click = std::shared_ptr<ClickComponent>(new Box2dClick(base));
 	return base;
 }
 std::shared_ptr<Entity> EntityPrefabs::explosion(Game* g, sf::Vector2f pos)

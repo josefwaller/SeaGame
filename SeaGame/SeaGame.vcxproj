@@ -124,9 +124,11 @@
     <ClCompile Include="src\AnimationRenderer.cpp" />
     <ClCompile Include="src\AutomatedShipController.cpp" />
     <ClCompile Include="src\BaseRenderer.cpp" />
+    <ClCompile Include="src\Box2dClick.cpp" />
     <ClCompile Include="src\Box2dTransform.cpp" />
     <ClCompile Include="src\CannonBallController.cpp" />
     <ClCompile Include="src\ChasingShipController.cpp" />
+    <ClCompile Include="src\ClickComponent.cpp" />
     <ClCompile Include="src\Component.cpp" />
     <ClCompile Include="src\ControllerComponent.cpp" />
     <ClCompile Include="src\EntityPrefabs.cpp" />
@@ -162,10 +164,12 @@
     <ClInclude Include="src\AutomatedShipController.h" />
     <ClInclude Include="src\BaseRenderer.h" />
     <ClInclude Include="src\BasicTransform.h" />
+    <ClInclude Include="src\Box2dClick.h" />
     <ClInclude Include="src\Box2dTransform.h" />
     <ClInclude Include="src\Cannon.h" />
     <ClInclude Include="src\CannonBallController.h" />
     <ClInclude Include="src\ChasingShipController.h" />
+    <ClInclude Include="src\ClickComponent.h" />
     <ClInclude Include="src\CraftRecipes.h" />
     <ClInclude Include="src\EntityPrefabs.h" />
     <ClInclude Include="src\FerryShipController.h" />

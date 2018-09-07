@@ -11,4 +11,6 @@ public:
 	virtual void onCollision(std::weak_ptr<Entity> other);
 	// Method when taking damage
 	virtual void onHit(HealthType t, int damageAmount);
+	// When the entity is clicked
+	virtual void onClick();
 };

@@ -59,18 +59,6 @@ void GuiComponent::changePanel(std::string selectedPanel) {
 	this->entityWindow->add(this->entityPanels[this->selectedPanel]);
 	this->entityPanels[this->selectedPanel]->setPosition({ 0, this->entityTabs->getFullSize().y });
 }
-bool GuiComponent::checkForClick(sf::Vector2f mouseCoords) {
-	if (auto trans = std::dynamic_pointer_cast<Box2dTransform>(this->getParent()->transform)) {
-		auto body = trans->getBody();
-		for (auto fix = body->GetFixtureList(); fix; fix = fix->GetNext()) {
-			if (fix->TestPoint(b2Vec2(mouseCoords.x, mouseCoords.y))) {
-				this->onClick();
-				return true;
-			}
-		}
-	}
-	return false;
-}
 std::string GuiComponent::getResourceString(GameResource res) {
 	switch (res) {
 	case GameResource::Gold: return "Gold";
@@ -96,4 +84,10 @@ void GuiComponent::onClick() {
 	if (!this->entityWindow->getParent()) {
 		this->getParent()->game->getGui().add(this->entityWindow);
 	}
+}
+void GuiComponent::show() {
+	this->getParent()->game->getGui().add(this->entityWindow);
+}
+void GuiComponent::hide() {
+	this->getParent()->game->getGui().remove(this->entityWindow);
 }

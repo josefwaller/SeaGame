@@ -5,11 +5,12 @@
 class GuiComponent : public Component {
 public:
 	GuiComponent(std::shared_ptr<Entity>);
-	bool checkForClick(sf::Vector2f mousePos);
 	// Change the panel the component is currently showing
 	void changePanel(std::string selectedPanel);
 	void updateInventory();
 	std::string getResourceString(GameResource res);
+	void show();
+	void hide();
 private:
 	void onClick();
 	// The window which shows the data for this entity
