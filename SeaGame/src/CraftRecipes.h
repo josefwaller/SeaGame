@@ -1,9 +1,11 @@
 #pragma once
 #include <string>
 #include <map>
+#include <vector>
+#include <functional>
 class Game;
 #include "GameResource.h"
-#include "EntityPrefabs.h"
+#include "SFML/Graphics.hpp"
 
 class CraftingRecipes {
 public:

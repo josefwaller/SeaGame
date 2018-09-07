@@ -21,10 +21,31 @@ GameHud::GameHud(Game* g) {
 		tgui::Button::Ptr btn = this->toBuildButtons.back();
 		btn->setText(cr.displayText);
 		btn->connect("clicked", [&](Game* g, CraftingRecipes::CraftRecipe cr) {
-			g->getHud()->selectPoint(ClickState::Building, cr.createMethod);
+			g->getHud()->selectPoint(ClickState::Building, std::bind(
+				[&](Game* g, sf::Vector2f pos, CraftingRecipes::CraftRecipe cr) {
+				g->getHud()->tryToBuild(cr, pos);
+			}, std::placeholders::_1, std::placeholders::_2, cr));
 		}, this->game, cr);
 		btn->setPosition({ x, y });
 		x += btn->getFullSize().x;
+	}
+}
+void GameHud::tryToBuild(CraftingRecipes::CraftRecipe cr, sf::Vector2f pos) {
+	// Get the player's inventory
+	auto player = this->game->getPlayer();
+	auto inv = player->inventory->getInventory();
+	// Check the player has all the resources required
+	for (auto res : cr.requiredResources) {
+		if (inv[res.first] < res.second) {
+			return;
+		}
+	}
+	// Add the thingy
+	if (cr.createMethod(this->game, pos)) {
+		// Remove the required resources
+		for (auto res : cr.requiredResources) {
+			player->inventory->removeItems(res.first, res.second);
+		}
 	}
 }
 void GameHud::onClick(sf::Vector2f pos) {

@@ -3,6 +3,7 @@
 // Forward dec of game + entity
 class Game;
 struct Entity;
+#include "CraftRecipes.h"
 
 // Manage the HUD interface, as well as selecting entities, etc
 class GameHud {
@@ -25,6 +26,8 @@ public:
 	void selectEntity(std::function<void(std::weak_ptr<Entity>)> callback);
 	// Show/hide the different buttons of things to build
 	void toggleBuildButtons();
+	// build something at the position if it is valid
+	void tryToBuild(CraftingRecipes::CraftRecipe cr, sf::Vector2f pos);
 private:
 	// The game the HUD belongs to
 	Game* game;
