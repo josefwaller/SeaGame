@@ -27,7 +27,7 @@ GuiComponent::GuiComponent(std::shared_ptr<Entity> parent) : Component(parent) {
 				}
 			}, std::placeholders::_1, cont);
 			// Set callback
-			game->selectEntity(callback);
+			game->getHud()->selectEntity(callback);
 		}, this->getParent()->game, controller);
 		this->entityPanels["Ferry"]->add(destBtn);
 		// Add the Change Source button
@@ -40,7 +40,7 @@ GuiComponent::GuiComponent(std::shared_ptr<Entity> parent) : Component(parent) {
 					c.lock()->setSource(e);
 				}
 			}, std::placeholders::_1, cont);
-			game->selectEntity(callback);
+			game->getHud()->selectEntity(callback);
 		}, this->getParent()->game, controller);
 		// Move below the set dest button
 		srcBtn->setPosition({ 0, destBtn->getFullSize().y });

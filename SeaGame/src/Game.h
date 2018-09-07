@@ -2,6 +2,7 @@
 #include "Box2D/Box2D.h"
 #include <SFML\Graphics.hpp>
 #include "GameMap.h"
+#include "GameHud.h"
 #include "Entity.h"
 #include "SimpleCollisionListener.h"
 #include "GameResource.h"
@@ -30,22 +31,7 @@ public:
 	std::weak_ptr<b2World> getWorld();
 	// Get the GUI world for adding/removing widgets
 	tgui::Gui& getGui();
-	// The clicking states, help determine what to do when clicking
-	enum ClickState {
-		// Nothing, i.e. clicking on stuff will show their gui
-		Nothing,
-		// Choosing where to place a building
-		Building,
-		// Selecting a building as a source/destination
-		Selecting
-	};
-	ClickState currentState;
-	// Callback function when clicking
-	std::function<void(Game* g, sf::Vector2f pos)> clickCallbackFunction;
-	// Set the above function, essentially deciding what to build
-	void waitForGlobalClick(ClickState c, std::function<void(Game* g, sf::Vector2f pos)> func);
-	// Select an entity, then call the callback method with the entity
-	void selectEntity(std::function<void(std::weak_ptr<Entity>)> callback);
+	GameHud* getHud();
 private:
 	// Window for ref
 	sf::RenderWindow& window;
@@ -59,6 +45,7 @@ private:
 	// Actual owner pointer is in entities
 	std::weak_ptr<Entity> player;
 	GameMap gMap;
+	GameHud gHud;
 	std::vector<std::shared_ptr<Entity>> entities;
 	// Entities to be removed after this frame
 	std::vector<std::weak_ptr<Entity>> toRemove;
@@ -67,8 +54,4 @@ private:
 	// The buttons specifying what to build
 	// Todo: think of a better name
 	std::vector<tgui::Button::Ptr> buildThingsBtns;
-	// Show/hide the different buttons of things to build
-	void toggleBuildButtons();
-	// The callback for selecting an entity (by clicking on it)
-	std::function<void(std::weak_ptr<Entity> entity)> selectCallback;
 };

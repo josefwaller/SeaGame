@@ -132,6 +132,7 @@
     <ClCompile Include="src\EntityPrefabs.cpp" />
     <ClCompile Include="src\FerryShipController.cpp" />
     <ClCompile Include="src\Game.cpp" />
+    <ClCompile Include="src\GameHud.cpp" />
     <ClCompile Include="src\GameMap.cpp" />
     <ClCompile Include="src\GuiComponent.cpp" />
     <ClCompile Include="src\HealthComponent.cpp" />
@@ -166,6 +167,7 @@
     <ClInclude Include="src\ChasingShipController.h" />
     <ClInclude Include="src\EntityPrefabs.h" />
     <ClInclude Include="src\FerryShipController.h" />
+    <ClInclude Include="src\GameHud.h" />
     <ClInclude Include="src\GameResource.h" />
     <ClInclude Include="src\GuiComponent.h" />
     <ClInclude Include="src\HealthComponent.h" />

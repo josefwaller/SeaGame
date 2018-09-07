@@ -18,6 +18,7 @@ Game::Game(sf::RenderWindow& window, tgui::Gui& gui) : window(window), gui(gui)
 	this->player.lock()->inventory->addItems(GameResource::Gold, 300);
 	// Create GameMap
 	this->gMap = GameMap(this);
+	this->gHud = GameHud(this);
 	//this->addEntity(EntityPrefabs::enemyChasingShip(this, { 200, 200 }, ShipRenderer::SAIL_COLOR::Black));
 	// Add a base
 	this->entities.push_back(EntityPrefabs::miningBase(this, { 5, 5 }));
@@ -25,42 +26,6 @@ Game::Game(sf::RenderWindow& window, tgui::Gui& gui) : window(window), gui(gui)
 	this->entities.push_back(EntityPrefabs::miningBase(this, { 20, 5 }));
 	auto b2 = this->entities.back();
 	this->entities.push_back(EntityPrefabs::ferryShip(this, { 0.0f, 0.0f }, b1, b2));
-	// Add the build button
-	this->buildBtn = tgui::Button::create();
-	this->buildBtn->setText("Build");
-	this->gui.add(this->buildBtn);
-	this->buildBtn->connect("clicked", &Game::toggleBuildButtons, this);
-	this->currentState = ClickState::Nothing;
-	float width = 0.0f;
-	float height = this->buildBtn->getFullSize().y;
-	this->buildThingsBtns = {
-		tgui::Button::create(),
-		tgui::Button::create(),
-		tgui::Button::create()
-	};
-	this->buildThingsBtns[0]->setText("Generation Base");
-	this->buildThingsBtns[0]->setPosition({ 0, this->buildBtn->getFullSize().y });
-	this->buildThingsBtns[0]->connect("clicked", [&](Game* game) {
-		game->waitForGlobalClick(ClickState::Building, [&](Game* g, sf::Vector2f pos) {
-			g->addEntity(EntityPrefabs::miningBase(g, (sf::Vector2i)(pos / 64.0f)));
-		});
-	}, this);
-	width += this->buildThingsBtns[0]->getFullSize().x;
-	this->buildThingsBtns[1]->setText("Military Base");
-	this->buildThingsBtns[1]->setPosition({ width, height });
-	this->buildThingsBtns[1]->connect("clicked", [&](Game * game) {
-		game->waitForGlobalClick(ClickState::Building, [&](Game* g, sf::Vector2f pos) {
-			g->addEntity(EntityPrefabs::militaryBase(g, (sf::Vector2i)(pos / 64.0f)));
-		});
-	}, this);
-	width += this->buildThingsBtns[1]->getFullSize().x;
-	this->buildThingsBtns[2]->setText("Ferry Ship");
-	this->buildThingsBtns[2]->setPosition({ width, height });
-	this->buildThingsBtns[2]->connect("clicked", [&](Game* game) {
-		game->waitForGlobalClick(ClickState::Building, [&](Game* g, sf::Vector2f pos) {
-			g->addEntity(EntityPrefabs::ferryShip(g, pos, {}, {}));
-		});
-	}, this);
 }
 
 void Game::update(double delta)
@@ -72,7 +37,7 @@ void Game::update(double delta)
 			e->controller->update((float)delta);
 	}
 	// Update world and resolve collisions
-	this->world->Step((float) delta, 8, 3);
+	this->world->Step((float)delta, 8, 3);
 	// Remove entities
 	for (auto it : this->toRemove) {
 		this->entities.erase(
@@ -108,36 +73,10 @@ void Game::handleEvent(sf::Event e) {
 	switch (e.type) {
 	case sf::Event::MouseButtonPressed:
 		if (e.key.code == sf::Mouse::Left) {
-			if (this->currentState == ClickState::Nothing) {
-				for (auto e : this->entities) {
-					if (e->gui != nullptr) {
-						if (e->gui->checkForClick(this->getMouseCoords())) {
-							break;
-						}
-					}
-				}
-			}
-			else if (this->currentState == ClickState::Building) {
-				sf::Vector2f mousePos = this->getMouseCoords();
-				this->clickCallbackFunction(this, mousePos);
-				this->currentState = ClickState::Nothing;
-			}
-			else if (this->currentState == ClickState::Selecting) {
-				for (auto e : this->entities) {
-					if (e->gui) {
-						if (e->gui->checkForClick(this->getMouseCoords())) {
-							this->selectCallback(e);
-							this->currentState = ClickState::Nothing;
-						}
-					}
-				}
-			}
+			this->gHud.onClick(this->getMouseCoords());
 		}
+		break;
 	}
-}
-void Game::selectEntity(std::function<void(std::weak_ptr<Entity> entity)> callback) {
-	this->selectCallback = callback;
-	this->currentState = ClickState::Selecting;
 }
 std::vector<std::shared_ptr<Entity>> Game::getEntities()
 {
@@ -168,12 +107,6 @@ std::weak_ptr<b2World> Game::getWorld()
 tgui::Gui& Game::getGui() {
 	return this->gui;
 }
-void Game::toggleBuildButtons() {
-	for (auto btn : this->buildThingsBtns) {
-		this->gui.add(btn);
-	}
-}
-void Game::waitForGlobalClick(ClickState c, std::function<void(Game* g, sf::Vector2f pos)> func) {
-	this->currentState = c;
-	this->clickCallbackFunction = func;
+GameHud* Game::getHud() {
+	return &this->gHud;
 }

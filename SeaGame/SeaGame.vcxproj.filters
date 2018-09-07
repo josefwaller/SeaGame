@@ -119,6 +119,9 @@
     <Filter Include="Files\Components\Gui">
       <UniqueIdentifier>{4cb305bc-347d-46c2-ba80-f6aea5ef0719}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Files\GameHud">
+      <UniqueIdentifier>{70968fcc-056b-4d4b-a881-deacdd831982}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\CannonBallController.cpp">
@@ -219,6 +222,9 @@
     </ClCompile>
     <ClCompile Include="src\GuiComponent.cpp">
       <Filter>Files\Components\Gui</Filter>
+    </ClCompile>
+    <ClCompile Include="src\GameHud.cpp">
+      <Filter>Files\GameHud</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -332,6 +338,9 @@
     </ClInclude>
     <ClInclude Include="src\GuiComponent.h">
       <Filter>Files\Components\Gui</Filter>
+    </ClInclude>
+    <ClInclude Include="src\GameHud.h">
+      <Filter>Files\GameHud</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
