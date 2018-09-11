@@ -17,6 +17,7 @@
 #include "FerryShipController.h"
 #include "GuiComponent.h"
 #include "Box2dClick.h"
+#include "CityController.h"
 
 std::shared_ptr<Entity> EntityPrefabs::playerShip(Game* g, ShipRenderer::SAIL_COLOR c)
 {
@@ -109,7 +110,6 @@ std::shared_ptr<Entity> EntityPrefabs::militaryBase(Game* g, sf::Vector2i pos)
 std::shared_ptr<Entity> EntityPrefabs::miningBase(Game* g, sf::Vector2i pos) {
 	auto b = base(g, pos);
 	b->controller = std::shared_ptr<ControllerComponent>(new MiningBaseController(b));
-	b->inventory = std::shared_ptr<InventoryComponent>(new InventoryComponent(b));
 	b->team = 1;
 	return b;
 }
@@ -135,6 +135,7 @@ std::shared_ptr<Entity> EntityPrefabs::base(Game* g, sf::Vector2i pos)
 	base->renderer = std::shared_ptr<RenderComponent>(new BaseRenderer(base));
 	base->gui = std::shared_ptr<GuiComponent>(new GuiComponent(base));
 	base->click = std::shared_ptr<ClickComponent>(new Box2dClick(base));
+	base->inventory = std::shared_ptr<InventoryComponent>(new InventoryComponent(base));
 	return base;
 }
 std::shared_ptr<Entity> EntityPrefabs::explosion(Game* g, sf::Vector2f pos)
@@ -158,4 +159,9 @@ std::shared_ptr<Entity> EntityPrefabs::ferryShip(Game* g, sf::Vector2f pos, std:
 	ship->controller = std::shared_ptr<ControllerComponent>(new FerryShipController(ship, from, to));
 	ship->gui = std::shared_ptr<GuiComponent>(new GuiComponent(ship));
 	return ship;
+}
+std::shared_ptr<Entity> EntityPrefabs::city(Game* g, sf::Vector2i pos) {
+	auto city = EntityPrefabs::base(g, pos);
+	city->controller = std::shared_ptr<ControllerComponent>(new CityController(city));
+	return city;
 }

@@ -27,6 +27,14 @@ std::vector<CraftingRecipes::CraftRecipe> CraftingRecipes::recipes = {
 			g->addEntity(EntityPrefabs::ferryShip(g, pos, {}, {}));
 			return true;
 		}
+	},
+	{
+		{},
+		"City",
+		[&](Game* g, sf::Vector2f pos) {
+			g->addEntity(EntityPrefabs::city(g, (sf::Vector2i)(pos / 64.0f)));
+			return true;
+		}
 	}
 };
 #include "Game.h"

@@ -128,6 +128,7 @@
     <ClCompile Include="src\Box2dTransform.cpp" />
     <ClCompile Include="src\CannonBallController.cpp" />
     <ClCompile Include="src\ChasingShipController.cpp" />
+    <ClCompile Include="src\CityController.cpp" />
     <ClCompile Include="src\ClickComponent.cpp" />
     <ClCompile Include="src\Component.cpp" />
     <ClCompile Include="src\ControllerComponent.cpp" />
@@ -169,6 +170,7 @@
     <ClInclude Include="src\Cannon.h" />
     <ClInclude Include="src\CannonBallController.h" />
     <ClInclude Include="src\ChasingShipController.h" />
+    <ClInclude Include="src\CityController.h" />
     <ClInclude Include="src\ClickComponent.h" />
     <ClInclude Include="src\CraftRecipes.h" />
     <ClInclude Include="src\EntityPrefabs.h" />
