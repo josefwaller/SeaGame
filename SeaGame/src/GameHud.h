@@ -26,6 +26,7 @@ public:
 	void selectEntity(std::function<void(std::weak_ptr<Entity>)> callback);
 	// Show/hide the different buttons of things to build
 	void toggleBuildButtons();
+	void toggleResearchButtons();
 	// build something at the position if it is valid
 	void tryToBuild(CraftingRecipes::CraftRecipe cr, sf::Vector2f pos);
 private:
@@ -34,10 +35,16 @@ private:
 	tgui::Button::Ptr buildButton;
 	// Buttons to decide what to build
 	std::vector<tgui::Button::Ptr> toBuildButtons;
+	// Button to show what to research
+	tgui::Button::Ptr researchButton;
+	// Buttons to decide what to research
+	std::vector<tgui::Button::Ptr> toResearchButtons;
+	// Reset the research buttons
+	void resetResearchButtons();
 	// Current Click state
 	ClickState currentClickState;
 	/*
-	 *There are two ways to select something via clicking on it
+	 * There are two ways to select something via clicking on it
 	 * Selecting a point, or selecting an entity
 	 */
 	// Callback function when clicking on a point

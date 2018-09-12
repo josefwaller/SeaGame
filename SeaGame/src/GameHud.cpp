@@ -1,9 +1,9 @@
 #include "GameHud.h"
 #include "EntityPrefabs.h"
 #include "CraftRecipes.h"
+#include "TechTree.h"
 
 GameHud::GameHud() {
-	auto x = 0;
 }
 GameHud::GameHud(Game* g) {
 	this->game = g;
@@ -29,6 +29,13 @@ GameHud::GameHud(Game* g) {
 		btn->setPosition({ x, y });
 		x += btn->getFullSize().x;
 	}
+	this->researchButton = tgui::Button::create();
+	this->researchButton->setText("Research");
+	this->researchButton->setPosition({ 500.0f, 0 });
+	this->researchButton->connect("clicked", [&](Game* g) {
+		g->getHud()->toggleResearchButtons();
+	}, this->game);
+	this->game->getGui().add(this->researchButton);
 }
 void GameHud::tryToBuild(CraftingRecipes::CraftRecipe cr, sf::Vector2f pos) {
 	// Get the player's inventory
@@ -86,5 +93,33 @@ void GameHud::selectEntity(std::function<void(std::weak_ptr<Entity> entity)> cal
 void GameHud::toggleBuildButtons() {
 	for (auto btn : this->toBuildButtons) {
 		this->game->getGui().add(btn);
+	}
+}
+void GameHud::resetResearchButtons() {
+	std::vector<tgui::Button::Ptr> buttons;
+	float height = this->researchButton->getFullSize().y;
+	for (auto it : TechTree::nodes) {
+		if (it.second.parent == Technology::Nothing
+			|| TechTree::nodes.find(it.second.parent)->second.isResearched) {
+			buttons.push_back(tgui::Button::create());
+			auto btn = buttons.back();
+			if (it.second.isResearched) {
+				btn->setEnabled(false);
+			}
+			btn->setText(it.second.name);
+			btn->setPosition({ 500.0f, height });
+			btn->connect("clicked", [&](Game* g, Technology tech) {
+				TechTree::nodes.find(tech)->second.isResearched = true;
+				g->getHud()->toggleResearchButtons();
+			}, this->game, it.first);
+			height += btn->getFullSize().y;
+		}
+	}
+	this->toResearchButtons = buttons;
+}
+void GameHud::toggleResearchButtons() {
+	this->resetResearchButtons();
+	for (auto b : this->toResearchButtons) {
+		this->game->getGui().add(b);
 	}
 }

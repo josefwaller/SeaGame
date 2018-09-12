@@ -110,3 +110,6 @@ tgui::Gui& Game::getGui() {
 GameHud* Game::getHud() {
 	return &this->gHud;
 }
+TechTree* Game::getTechTree() {
+	return &this->techTree;
+}

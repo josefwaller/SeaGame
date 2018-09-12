@@ -158,6 +158,7 @@
     <ClCompile Include="src\CraftRecipes.cpp" />
     <ClCompile Include="src\SpriteRenderer.cpp" />
     <ClCompile Include="src\BasicTransform.cpp" />
+    <ClCompile Include="src\TechTree.cpp" />
     <ClCompile Include="src\TransformComponent.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -201,6 +202,7 @@
     <ClInclude Include="src\SimpleCollisionListener.h" />
     <ClInclude Include="src\SimpleHealth.h" />
     <ClInclude Include="src\SpriteRenderer.h" />
+    <ClInclude Include="src\TechTree.h" />
     <ClInclude Include="src\TransformComponent.h" />
     <ClInclude Include="src\Triangle.h" />
   </ItemGroup>

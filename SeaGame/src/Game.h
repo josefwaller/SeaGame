@@ -7,6 +7,7 @@
 #include "SimpleCollisionListener.h"
 #include "GameResource.h"
 #include <TGUI/TGUI.hpp>
+#include "TechTree.h"
 
 class Game
 {
@@ -32,6 +33,7 @@ public:
 	// Get the GUI world for adding/removing widgets
 	tgui::Gui& getGui();
 	GameHud* getHud();
+	TechTree* getTechTree();
 private:
 	// Window for ref
 	sf::RenderWindow& window;
@@ -46,6 +48,7 @@ private:
 	std::weak_ptr<Entity> player;
 	GameMap gMap;
 	GameHud gHud;
+	TechTree techTree;
 	std::vector<std::shared_ptr<Entity>> entities;
 	// Entities to be removed after this frame
 	std::vector<std::weak_ptr<Entity>> toRemove;
