@@ -39,6 +39,23 @@ void GameHud::tryToBuild(CraftingRecipes::CraftRecipe cr, sf::Vector2f pos) {
 		}
 	}
 }
+void GameHud::transferItems(std::weak_ptr<Entity> e, GameResource res, unsigned int amount) {
+	this->selectCallback = std::bind([&](std::weak_ptr<Entity> to, std::weak_ptr<Entity> from) {
+		// TODO, make sure entities are close to each other
+		if (to.lock() && from.lock()) {
+			std::map<GameResource, unsigned int> resources = from.lock()->inventory->getInventory();
+			// Remove resources from entity one
+			for (auto it : resources) {
+				from.lock()->inventory->removeItems(it.first, it.second);
+			}
+			// Add resources to entity two
+			for (auto it : resources) {
+				to.lock()->inventory->addItems(it.first, it.second);
+			}
+		}
+	}, std::placeholders::_1, e);
+	this->currentClickState = ClickState::Selecting;
+}
 void GameHud::onClick(sf::Vector2f pos) {
 	if (this->currentClickState == ClickState::Nothing) {
 		for (auto e : this->game->getEntities()) {

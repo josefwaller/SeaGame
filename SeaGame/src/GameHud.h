@@ -27,8 +27,10 @@ public:
 	// Show/hide the different buttons of things to build
 	void toggleBuildButtons();
 	void toggleResearchButtons();
-	// build something at the position if it is valid
+	// Build something at the position if it is valid
 	void tryToBuild(CraftingRecipes::CraftRecipe cr, sf::Vector2f pos);
+	// Transfer items between entities
+	void transferItems(std::weak_ptr<Entity> entity, GameResource res, unsigned int amount);
 private:
 	// The game the HUD belongs to
 	Game* game;

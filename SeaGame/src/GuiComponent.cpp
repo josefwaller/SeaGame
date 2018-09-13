@@ -71,13 +71,26 @@ std::string GuiComponent::getResourceString(GameResource res) {
 
 void GuiComponent::updateInventory() {
 	this->entityPanels["Inventory"]->removeAllWidgets();
-	auto list = tgui::ListBox::create();
+	float y = 0.0f;
+	// Add a button for each of the resources
 	if (this->getParent()->inventory != nullptr) {
 		for (auto it : this->getParent()->inventory->getInventory()) {
-			list->addItem(this->getResourceString(it.first) + ": " + std::to_string(it.second));
+			tgui::Button::Ptr btn = tgui::Button::create();
+			btn->setText(getResourceString(it.first) + ": " + std::to_string(it.second));
+			btn->setPosition({ 0.0f, y });
+			// Make it transfer resources when clicked
+			btn->connect("clicked",
+				[&](Game* g, std::weak_ptr<Entity> e, GameResource res, unsigned int amount) {
+					e.lock()->game->getHud()->transferItems(e, res, amount);
+				},
+				this->getParent()->game,
+				this->getParent(),
+				it.first,
+				it.second);
+			this->entityPanels["Inventory"]->add(btn);
+			y += btn->getFullSize().y;
 		}
 	}
-	this->entityPanels["Inventory"]->add(list);
 }
 
 void GuiComponent::onClick() {
