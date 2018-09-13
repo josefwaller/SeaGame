@@ -13,22 +13,6 @@ GameHud::GameHud(Game* g) {
 	this->game->getGui().add(this->buildButton);
 	this->buildButton->connect("clicked", &GameHud::toggleBuildButtons, game->getHud());
 	this->currentClickState = ClickState::Nothing;
-	// Add the build buttons
-	float x = 0.0f;
-	float y = this->buildButton->getFullSize().y;
-	for (auto cr : CraftingRecipes::recipes) {
-		this->toBuildButtons.push_back(tgui::Button::create());
-		tgui::Button::Ptr btn = this->toBuildButtons.back();
-		btn->setText(cr.displayText);
-		btn->connect("clicked", [&](Game* g, CraftingRecipes::CraftRecipe cr) {
-			g->getHud()->selectPoint(ClickState::Building, std::bind(
-				[&](Game* g, sf::Vector2f pos, CraftingRecipes::CraftRecipe cr) {
-				g->getHud()->tryToBuild(cr, pos);
-			}, std::placeholders::_1, std::placeholders::_2, cr));
-		}, this->game, cr);
-		btn->setPosition({ x, y });
-		x += btn->getFullSize().x;
-	}
 	this->researchButton = tgui::Button::create();
 	this->researchButton->setText("Research");
 	this->researchButton->setPosition({ 500.0f, 0 });
@@ -91,6 +75,7 @@ void GameHud::selectEntity(std::function<void(std::weak_ptr<Entity> entity)> cal
 	this->currentClickState = ClickState::Selecting;
 }
 void GameHud::toggleBuildButtons() {
+	this->resetBuildButtons();
 	for (auto btn : this->toBuildButtons) {
 		this->game->getGui().add(btn);
 	}
@@ -116,6 +101,28 @@ void GameHud::resetResearchButtons() {
 		}
 	}
 	this->toResearchButtons = buttons;
+}
+void GameHud::resetBuildButtons() {
+	// Add the build buttons
+	float x = 0.0f;
+	float y = this->buildButton->getFullSize().y;
+	for (auto cr : CraftingRecipes::recipes) {
+		// Make sure the user can build this thing
+		if (cr.requiredTech == Technology::Nothing || TechTree::nodes[cr.requiredTech].isResearched) {
+			// Add the actual button
+			this->toBuildButtons.push_back(tgui::Button::create());
+			tgui::Button::Ptr btn = this->toBuildButtons.back();
+			btn->setText(cr.displayText);
+			btn->connect("clicked", [&](Game* g, CraftingRecipes::CraftRecipe cr) {
+				g->getHud()->selectPoint(ClickState::Building, std::bind(
+					[&](Game* g, sf::Vector2f pos, CraftingRecipes::CraftRecipe cr) {
+					g->getHud()->tryToBuild(cr, pos);
+				}, std::placeholders::_1, std::placeholders::_2, cr));
+			}, this->game, cr);
+			btn->setPosition({ x, y });
+			x += btn->getFullSize().x;
+		}
+	}
 }
 void GameHud::toggleResearchButtons() {
 	this->resetResearchButtons();
