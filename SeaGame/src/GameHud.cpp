@@ -94,8 +94,25 @@ void GameHud::resetResearchButtons() {
 			btn->setText(it.second.name);
 			btn->setPosition({ 500.0f, height });
 			btn->connect("clicked", [&](Game* g, Technology tech) {
-				TechTree::nodes.find(tech)->second.isResearched = true;
+				// Check the player has the correct resources for the technology
+				TechTreeNode* node = &TechTree::nodes.find(tech)->second;
+				std::shared_ptr<Entity> player = g->getPlayer();
+				std::map<GameResource, unsigned int> playerInventory = player->inventory->getInventory();
+				// Check for each item in the player's inventory
+				for (auto invIt : node->requiredResources) {
+					if (playerInventory[invIt.first] < invIt.second) {
+						return;
+					}
+				}
+				// Remove the items
+				for (auto invIt : node->requiredResources) {
+					player->inventory->removeItems(invIt.first, invIt.second);
+				}
+				// Set the node to researched
+				node->isResearched = true;
+				// Reset the buttons
 				g->getHud()->toggleResearchButtons();
+				g->getHud()->toggleBuildButtons();
 			}, this->game, it.first);
 			height += btn->getFullSize().y;
 		}

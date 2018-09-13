@@ -33,7 +33,7 @@ std::vector<CraftingRecipes::CraftRecipe> CraftingRecipes::recipes = {
 	},
 	{
 		{},
-		Technology::MakingStuff2,
+		Technology::Nothing,
 		"City",
 		[&](Game* g, sf::Vector2f pos) {
 			g->addEntity(EntityPrefabs::city(g, (sf::Vector2i)(pos / 64.0f)));
