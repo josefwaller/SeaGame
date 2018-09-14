@@ -146,6 +146,7 @@
     <ClCompile Include="src\MilitaryBaseController.cpp" />
     <ClCompile Include="src\MilitaryBaseRenderer.cpp" />
     <ClCompile Include="src\MiningBaseController.cpp" />
+    <ClCompile Include="src\MiningBaseRenderer.cpp" />
     <ClCompile Include="src\PhysicsComponent.cpp" />
     <ClCompile Include="src\PlayerShipController.cpp" />
     <ClCompile Include="src\RenderComponent.cpp" />
@@ -193,6 +194,7 @@
     <ClInclude Include="src\MilitaryBaseController.h" />
     <ClInclude Include="src\MilitaryBaseRenderer.h" />
     <ClInclude Include="src\MiningBaseController.h" />
+    <ClInclude Include="src\MiningBaseRenderer.h" />
     <ClInclude Include="src\PhysicsComponent.h" />
     <ClInclude Include="src\PlayerShipController.h" />
     <ClInclude Include="src\RenderComponent.h" />

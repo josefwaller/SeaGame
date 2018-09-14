@@ -140,6 +140,9 @@
     <Filter Include="Files\Components\Renderers\BaseRenderers\CityRenderer">
       <UniqueIdentifier>{bc84efd6-c546-4313-bdc6-ba8196301826}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Files\Components\Renderers\BaseRenderers\MiningBaseRenderer">
+      <UniqueIdentifier>{bd784fac-7606-44b0-9d37-f6d5575fd0e9}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\CannonBallController.cpp">
@@ -261,6 +264,9 @@
     </ClCompile>
     <ClCompile Include="src\CityRenderer.cpp">
       <Filter>Files\Components\Renderers\BaseRenderers\CityRenderer</Filter>
+    </ClCompile>
+    <ClCompile Include="src\MiningBaseRenderer.cpp">
+      <Filter>Files\Components\Renderers\BaseRenderers\MiningBaseRenderer</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -395,6 +401,9 @@
     </ClInclude>
     <ClInclude Include="src\CityRenderer.h">
       <Filter>Files\Components\Renderers\BaseRenderers\CityRenderer</Filter>
+    </ClInclude>
+    <ClInclude Include="src\MiningBaseRenderer.h">
+      <Filter>Files\Components\Renderers\BaseRenderers\MiningBaseRenderer</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

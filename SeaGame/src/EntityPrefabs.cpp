@@ -19,6 +19,7 @@
 #include "Box2dClick.h"
 #include "CityController.h"
 #include "CityRenderer.h"
+#include "MiningBaseRenderer.h"
 
 std::shared_ptr<Entity> EntityPrefabs::playerShip(Game* g, ShipRenderer::SAIL_COLOR c)
 {
@@ -111,6 +112,7 @@ std::shared_ptr<Entity> EntityPrefabs::militaryBase(Game* g, sf::Vector2i pos)
 std::shared_ptr<Entity> EntityPrefabs::miningBase(Game* g, sf::Vector2i pos) {
 	auto b = base(g, pos);
 	b->controller = std::shared_ptr<ControllerComponent>(new MiningBaseController(b));
+	b->renderer = std::shared_ptr<RenderComponent>(new MiningBaseRenderer(b, GameResource::Stone));
 	b->team = 1;
 	return b;
 }
