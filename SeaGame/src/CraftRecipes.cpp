@@ -39,6 +39,15 @@ std::vector<CraftingRecipes::CraftRecipe> CraftingRecipes::recipes = {
 			g->addEntity(EntityPrefabs::city(g, (sf::Vector2i)(pos / 64.0f)));
 			return true;
 		}
+	},
+	{
+		{},
+		Technology::Nothing,
+		"Forestry",
+		[&](Game* g, sf::Vector2f pos) {
+			g->addEntity(EntityPrefabs::forestryBase(g, (sf::Vector2i)(pos / 64.0f)));
+			return true;
+		}
 	}
 };
 #include "Game.h"

@@ -111,7 +111,7 @@ std::shared_ptr<Entity> EntityPrefabs::militaryBase(Game* g, sf::Vector2i pos)
 }
 std::shared_ptr<Entity> EntityPrefabs::miningBase(Game* g, sf::Vector2i pos) {
 	auto b = base(g, pos);
-	b->controller = std::shared_ptr<ControllerComponent>(new MiningBaseController(b));
+	b->controller = std::shared_ptr<ControllerComponent>(new MiningBaseController(b, GameResource::Stone));
 	b->renderer = std::shared_ptr<RenderComponent>(new MiningBaseRenderer(b, GameResource::Stone));
 	b->team = 1;
 	return b;
@@ -168,4 +168,10 @@ std::shared_ptr<Entity> EntityPrefabs::city(Game* g, sf::Vector2i pos) {
 	city->controller = std::shared_ptr<ControllerComponent>(new CityController(city));
 	city->renderer = std::shared_ptr<RenderComponent>(new CityRenderer(city));
 	return city;
+}
+std::shared_ptr<Entity> EntityPrefabs::forestryBase(Game* g, sf::Vector2i pos) {
+	auto base = EntityPrefabs::base(g, pos);
+	base->renderer = std::shared_ptr<RenderComponent>(new MiningBaseRenderer(base, GameResource::Wood));
+	base->controller = std::shared_ptr<ControllerComponent>(new MiningBaseController(base, GameResource::Wood));
+	return base;
 }

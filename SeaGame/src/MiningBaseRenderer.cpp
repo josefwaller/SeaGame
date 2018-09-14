@@ -10,5 +10,17 @@ void MiningBaseRenderer::render(RenderManager& rm) {
 	rm.add(this->resSprite, RenderManager::INDEX_BASE_TILES);
 }
 sf::Sprite MiningBaseRenderer::getResourceSprite(GameResource res) {
-	return ResourceManager::get()->getSprite("medievalRTS_spritesheet@2", "medievalEnvironment_11.png", true);
+	std::string spriteName;
+	switch (res) {
+	case GameResource::Stone:
+		spriteName = "medievalEnvironment_08.png";
+		break;
+	case GameResource::Gold:
+		spriteName = "medievalEnvironment_11.png";
+		break;
+	case GameResource::Wood:
+		spriteName = "medievalEnvironment_03.png";
+		break;
+	}
+	return ResourceManager::get()->getSprite("medievalRTS_spritesheet@2", spriteName, true);
 }
