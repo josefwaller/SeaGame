@@ -18,6 +18,7 @@
 #include "GuiComponent.h"
 #include "Box2dClick.h"
 #include "CityController.h"
+#include "CityRenderer.h"
 
 std::shared_ptr<Entity> EntityPrefabs::playerShip(Game* g, ShipRenderer::SAIL_COLOR c)
 {
@@ -163,5 +164,6 @@ std::shared_ptr<Entity> EntityPrefabs::ferryShip(Game* g, sf::Vector2f pos, std:
 std::shared_ptr<Entity> EntityPrefabs::city(Game* g, sf::Vector2i pos) {
 	auto city = EntityPrefabs::base(g, pos);
 	city->controller = std::shared_ptr<ControllerComponent>(new CityController(city));
+	city->renderer = std::shared_ptr<RenderComponent>(new CityRenderer(city));
 	return city;
 }

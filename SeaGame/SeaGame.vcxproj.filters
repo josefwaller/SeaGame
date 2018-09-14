@@ -137,6 +137,9 @@
     <Filter Include="Files\Utils\TechTree">
       <UniqueIdentifier>{3d574869-bdcc-4b1b-8ae0-50e111c1d1c4}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Files\Components\Renderers\BaseRenderers\CityRenderer">
+      <UniqueIdentifier>{bc84efd6-c546-4313-bdc6-ba8196301826}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\CannonBallController.cpp">
@@ -255,6 +258,9 @@
     </ClCompile>
     <ClCompile Include="src\TechTree.cpp">
       <Filter>Files\Utils\TechTree</Filter>
+    </ClCompile>
+    <ClCompile Include="src\CityRenderer.cpp">
+      <Filter>Files\Components\Renderers\BaseRenderers\CityRenderer</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -386,6 +392,9 @@
     </ClInclude>
     <ClInclude Include="src\TechTree.h">
       <Filter>Files\Utils\TechTree</Filter>
+    </ClInclude>
+    <ClInclude Include="src\CityRenderer.h">
+      <Filter>Files\Components\Renderers\BaseRenderers\CityRenderer</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

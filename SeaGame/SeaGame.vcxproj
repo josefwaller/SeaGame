@@ -111,12 +111,12 @@
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
-      <AdditionalIncludeDirectories>C:\Users\josef\Documents\Github\SeaGame\TGUI-0.8-dev;..\packages\rapidxml.1.13\build\native\include;..\SFML-2.4.2\include;</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\Users\josef\Documents\Github\SeaGame\TGUI-0.8\include;..\packages\rapidxml.1.13\build\native\include;..\SFML-2.4.2\include;C:\Users\josef\Documents\Github\SeaGame\</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
-      <AdditionalLibraryDirectories>..\SFML-2.4.2\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>C:\Users\josef\Documents\Github\SeaGame\TGUI-0.8\lib;..\SFML-2.4.2\lib;C:\Users\josef\Documents\Github\SeaGame\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <AdditionalDependencies>sfml-window.lib;sfml-graphics.lib;sfml-system.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
@@ -129,6 +129,7 @@
     <ClCompile Include="src\CannonBallController.cpp" />
     <ClCompile Include="src\ChasingShipController.cpp" />
     <ClCompile Include="src\CityController.cpp" />
+    <ClCompile Include="src\CityRenderer.cpp" />
     <ClCompile Include="src\ClickComponent.cpp" />
     <ClCompile Include="src\Component.cpp" />
     <ClCompile Include="src\ControllerComponent.cpp" />
@@ -172,6 +173,7 @@
     <ClInclude Include="src\CannonBallController.h" />
     <ClInclude Include="src\ChasingShipController.h" />
     <ClInclude Include="src\CityController.h" />
+    <ClInclude Include="src\CityRenderer.h" />
     <ClInclude Include="src\ClickComponent.h" />
     <ClInclude Include="src\CraftRecipes.h" />
     <ClInclude Include="src\EntityPrefabs.h" />
