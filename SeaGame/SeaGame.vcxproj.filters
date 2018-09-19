@@ -143,6 +143,9 @@
     <Filter Include="Files\Components\Renderers\BaseRenderers\MiningBaseRenderer">
       <UniqueIdentifier>{bd784fac-7606-44b0-9d37-f6d5575fd0e9}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Files\Components\Renderers\BaseRenderers\PirateBaseRenderer">
+      <UniqueIdentifier>{3dc84a7f-171b-4a2a-8097-418321fff3b6}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\CannonBallController.cpp">
@@ -267,6 +270,9 @@
     </ClCompile>
     <ClCompile Include="src\MiningBaseRenderer.cpp">
       <Filter>Files\Components\Renderers\BaseRenderers\MiningBaseRenderer</Filter>
+    </ClCompile>
+    <ClCompile Include="src\PirateBaseRenderer.cpp">
+      <Filter>Files\Components\Renderers\BaseRenderers\PirateBaseRenderer</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -404,6 +410,9 @@
     </ClInclude>
     <ClInclude Include="src\MiningBaseRenderer.h">
       <Filter>Files\Components\Renderers\BaseRenderers\MiningBaseRenderer</Filter>
+    </ClInclude>
+    <ClInclude Include="src\PirateBaseRenderer.h">
+      <Filter>Files\Components\Renderers\BaseRenderers\PirateBaseRenderer</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

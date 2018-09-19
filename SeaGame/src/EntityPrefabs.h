@@ -17,6 +17,7 @@ public:
 	static std::shared_ptr<Entity> forestryBase(Game* g, sf::Vector2i pos);
 	static std::shared_ptr<Entity> ferryShip(Game * g, sf::Vector2f pos, std::weak_ptr<Entity> from, std::weak_ptr<Entity> to);
 	static std::shared_ptr<Entity> city(Game* g, sf::Vector2i pos);
+	static std::shared_ptr<Entity> pirateBase(Game* g, sf::Vector2i pos);
 private:
 	static std::shared_ptr<Entity> ship(Game* g, sf::Vector2f pos, float rot, ShipRenderer::SAIL_COLOR c);
 	static std::shared_ptr<Entity> base(Game* g, sf::Vector2i pos);

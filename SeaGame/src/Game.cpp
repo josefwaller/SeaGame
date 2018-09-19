@@ -26,6 +26,8 @@ Game::Game(sf::RenderWindow& window, tgui::Gui& gui) : window(window), gui(gui)
 	this->entities.push_back(EntityPrefabs::miningBase(this, { 20, 5 }));
 	auto b2 = this->entities.back();
 	this->entities.push_back(EntityPrefabs::ferryShip(this, { 0.0f, 0.0f }, b1, b2));
+	this->entities.push_back(EntityPrefabs::pirateBase(this, { 20, 10 }));
+
 }
 
 void Game::update(double delta)

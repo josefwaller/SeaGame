@@ -20,6 +20,7 @@
 #include "CityController.h"
 #include "CityRenderer.h"
 #include "MiningBaseRenderer.h"
+#include "PirateBaseRenderer.h"
 
 std::shared_ptr<Entity> EntityPrefabs::playerShip(Game* g, ShipRenderer::SAIL_COLOR c)
 {
@@ -173,5 +174,10 @@ std::shared_ptr<Entity> EntityPrefabs::forestryBase(Game* g, sf::Vector2i pos) {
 	auto base = EntityPrefabs::base(g, pos);
 	base->renderer = std::shared_ptr<RenderComponent>(new MiningBaseRenderer(base, GameResource::Wood));
 	base->controller = std::shared_ptr<ControllerComponent>(new MiningBaseController(base, GameResource::Wood));
+	return base;
+}
+std::shared_ptr<Entity> EntityPrefabs::pirateBase(Game* g, sf::Vector2i pos) {
+	auto base = EntityPrefabs::base(g, pos);
+	base->renderer = std::shared_ptr<RenderComponent>(new PirateBaseRenderer(base));
 	return base;
 }
