@@ -148,6 +148,7 @@
     <ClCompile Include="src\MiningBaseController.cpp" />
     <ClCompile Include="src\MiningBaseRenderer.cpp" />
     <ClCompile Include="src\PhysicsComponent.cpp" />
+    <ClCompile Include="src\PirateBaseController.cpp" />
     <ClCompile Include="src\PirateBaseRenderer.cpp" />
     <ClCompile Include="src\PlayerShipController.cpp" />
     <ClCompile Include="src\RenderComponent.cpp" />
@@ -197,6 +198,7 @@
     <ClInclude Include="src\MiningBaseController.h" />
     <ClInclude Include="src\MiningBaseRenderer.h" />
     <ClInclude Include="src\PhysicsComponent.h" />
+    <ClInclude Include="src\PirateBaseController.h" />
     <ClInclude Include="src\PirateBaseRenderer.h" />
     <ClInclude Include="src\PlayerShipController.h" />
     <ClInclude Include="src\RenderComponent.h" />
