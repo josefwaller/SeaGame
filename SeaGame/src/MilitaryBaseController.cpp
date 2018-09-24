@@ -7,7 +7,7 @@ const float MilitaryBaseController::SHOOT_RANGE = 500.0f;
 MilitaryBaseController::MilitaryBaseController(std::weak_ptr<Entity> parent) : ControllerComponent(parent)
 {
 	this->cannons = {
-		Cannon(this->getParent(), sf::Vector2f(1.5 * 64.0f, 1.5 * 64.0f), 0.0f, SHOOT_DELAY)
+		Cannon(this->getParent().lock(), sf::Vector2f(1.5 * 64.0f, 1.5 * 64.0f), 0.0f, SHOOT_DELAY)
 	};
 }
 

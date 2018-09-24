@@ -3,13 +3,13 @@
 
 PhysicsComponent::PhysicsComponent(std::weak_ptr<Entity> parent) : Component(parent)
 {
-	if (!std::dynamic_pointer_cast<Box2dTransform>(this->getParent()->transform)) {
+	if (!std::dynamic_pointer_cast<Box2dTransform>(this->getParent().lock()->transform)) {
 		throw std::runtime_error("An entity has a physics component without a box2d transform, ya dummy");
 	}
-	this->body = std::dynamic_pointer_cast<Box2dTransform>(this->getParent()->transform)->getBody();
+	this->body = std::dynamic_pointer_cast<Box2dTransform>(this->getParent().lock()->transform)->getBody();
 	// Set the parent as the user data
 	this->body->SetUserData(this);
-	this->world = this->getParent()->game->getWorld();
+	this->world = this->getParent().lock()->game->getWorld();
 }
 PhysicsComponent::~PhysicsComponent()
 {

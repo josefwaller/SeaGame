@@ -9,7 +9,7 @@ const float ShipController::CANNON_INTERVAL = 2.0f;
 
 ShipController::ShipController(std::weak_ptr<Entity> e) : ControllerComponent(e)
 {
-	this->physicsComp = this->getParent()->physics;
+	this->physicsComp = this->getParent().lock()->physics;
 	this->cannon = Cannon(
 		this->getParent(),
 		sf::Vector2f(0.0f, 0.0f),
@@ -29,14 +29,14 @@ void ShipController::turnRight()
 void ShipController::accelerate()
 {
 	this->physicsComp.lock()->setAcceleration({
-		ShipController::ACCELERATION * cos(this->getParent()->transform->getRotation()),
-		ShipController::ACCELERATION * sin(this->getParent()->transform->getRotation())
+		ShipController::ACCELERATION * cos(this->getParent().lock()->transform->getRotation()),
+		ShipController::ACCELERATION * sin(this->getParent().lock()->transform->getRotation())
 	});
 }
 void ShipController::aimSwivel(float angle)
 {
 	this->cannon.rotation = angle;
-	this->getParent()->renderer->reset();
+	this->getParent().lock()->renderer->reset();
 }
 float ShipController::getSwivelAngle()
 {
@@ -48,8 +48,15 @@ void ShipController::shootSwivel()
 }
 void ShipController::onHit(HealthType t, int damageAmount)
 {
-	if (this->getParent()->health != nullptr) {
-		this->getParent()->health->takeDamage(t, damageAmount);
-		this->getParent()->renderer->reset();
+	if (this->getParent().lock()->health != nullptr) {
+		this->getParent().lock()->health->takeDamage(t, damageAmount);
+		this->getParent().lock()->renderer->reset();
 	}
+}
+void ShipController::onDeath() {
+	this->getParent().lock()->game->removeEntity(this->getParent().lock());
+	this->getParent().lock()->game->addEntity(EntityPrefabs::explosion(
+		this->getParent().lock()->game,
+		this->getParent().lock()->transform->getPosition()
+	));
 }

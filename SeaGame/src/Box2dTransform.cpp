@@ -7,7 +7,7 @@ Box2dTransform::Box2dTransform(std::weak_ptr<Entity> parent, b2BodyDef* def, std
 	: TransformComponent(parent)
 {
 	// Create the body
-	this->body = this->getParent()->game->getWorld().lock()->CreateBody(def);
+	this->body = this->getParent().lock()->game->getWorld().lock()->CreateBody(def);
 	this->body->SetLinearDamping(Box2dTransform::LINEAR_DAMPING);
 	this->body->SetAngularDamping(Box2dTransform::ANGULAR_DAMPING);
 	// Add fixtures

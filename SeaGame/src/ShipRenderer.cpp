@@ -53,8 +53,8 @@ void ShipRenderer::render(RenderManager& r)
 	// Get the layout
 	std::map<std::string, LayoutSprite> layout = ResourceManager::get()->getLayout("smallShip");
 	// Get this entity's position and rotation for easy access
-	sf::Vector2f pos = this->getParent()->transform->getPosition();
-	float rot = this->getParent()->transform->getRotation() * 180.0f / (float)M_PI;
+	sf::Vector2f pos = this->getParent().lock()->transform->getPosition();
+	float rot = this->getParent().lock()->transform->getRotation() * 180.0f / (float)M_PI;
 	// Position all sprites in the ship
 	positionLayoutSprite(this->hull, layout["hull"], pos, rot);
 	positionLayoutSprite(this->bigSail, layout["bigSail"], pos, rot);
@@ -71,7 +71,7 @@ void ShipRenderer::render(RenderManager& r)
 }
 void ShipRenderer::reset()
 {
-	if (auto cont = std::dynamic_pointer_cast<ShipController>(this->getParent()->controller)) {
+	if (auto cont = std::dynamic_pointer_cast<ShipController>(this->getParent().lock()->controller)) {
 		this->swivelAngle = cont->getSwivelAngle();
 	}
 	this->setSprites();
@@ -87,7 +87,7 @@ void ShipRenderer::setSprites()
 		// Small sails only have 1 destroyed sprite, rather than 1 for each color
 		// So if the small sail is destroyed, don't have a color string
 		std::string colorName = this->getSailColorString(this->sailColor);
-		if (this->getParent()->health != nullptr && this->getParent()->health->getHealth(HealthType::Sails) == 0)
+		if (this->getParent().lock()->health != nullptr && this->getParent().lock()->health->getHealth(HealthType::Sails) == 0)
 			colorName = "";
 		this->smallSail = ResourceManager::get()->getSprite(
 			"ships",
@@ -104,10 +104,10 @@ void ShipRenderer::setSprites()
 std::string ShipRenderer::getDamageString(HealthType t)
 {
 	int health;
-	if (this->getParent()->health == nullptr)
+	if (this->getParent().lock()->health == nullptr)
 		health = 100;
 	else
-		health = this->getParent()->health->getHealth(t);
+		health = this->getParent().lock()->health->getHealth(t);
 
 	if (health == 100)
 		return "";

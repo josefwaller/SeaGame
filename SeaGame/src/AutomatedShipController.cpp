@@ -5,7 +5,7 @@ AutomatedShipController::AutomatedShipController(std::weak_ptr<Entity> parent) :
 
 }
 void AutomatedShipController::moveToPoint(float delta, sf::Vector2f target) {
-	auto trans = this->getParent()->transform;
+	auto trans = this->getParent().lock()->transform;
 	sf::Vector2f difference = target - trans->getPosition();
 	float angle = atan2(difference.y, difference.x);
 	trans->setRotation(angle);

@@ -3,7 +3,7 @@
 Component::Component(std::weak_ptr<Entity> newParent): parent(newParent)
 {
 }
-std::shared_ptr<Entity> Component::getParent()
+std::weak_ptr<Entity> Component::getParent()
 {
-	return this->parent.lock();
+	return this->parent;
 }

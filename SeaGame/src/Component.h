@@ -8,7 +8,7 @@ class Component
 {
 public:
 	Component(std::weak_ptr<Entity> parent);
-	virtual std::shared_ptr<Entity> getParent();
+	virtual std::weak_ptr<Entity> getParent();
 private:
 	std::weak_ptr<Entity> parent;
 };

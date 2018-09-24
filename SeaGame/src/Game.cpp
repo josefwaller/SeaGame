@@ -19,7 +19,7 @@ Game::Game(sf::RenderWindow& window, tgui::Gui& gui) : window(window), gui(gui)
 	// Create GameMap
 	this->gMap = GameMap(this);
 	this->gHud = GameHud(this);
-	//this->addEntity(EntityPrefabs::enemyChasingShip(this, { 200, 200 }, ShipRenderer::SAIL_COLOR::Black));
+	this->addEntity(EntityPrefabs::enemyChasingShip(this, { 200, 200 }, ShipRenderer::SAIL_COLOR::Black));
 	// Add a base
 	this->entities.push_back(EntityPrefabs::miningBase(this, { 5, 5 }));
 	auto b1 = this->entities.back();
@@ -46,6 +46,15 @@ void Game::update(double delta)
 			std::remove(this->entities.begin(), this->entities.end(), it.lock()),
 			this->entities.end());
 	}
+	this->toRemove = {};
+#ifdef _DEBUG
+	if (this->entities.size() != Entity::trueEntityCount) {
+		// :(
+		auto a = this->entities.size();
+		auto b = Entity::trueEntityCount;
+		auto c = 0;
+	}
+#endif
 }
 
 void Game::render()

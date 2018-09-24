@@ -280,6 +280,9 @@
     <ClCompile Include="src\PirateBaseController.cpp">
       <Filter>Files\Components\Controllers\BaseControllers\PirateBaseController</Filter>
     </ClCompile>
+    <ClCompile Include="src\Entity.cpp">
+      <Filter>Files\Entity</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Component.h">

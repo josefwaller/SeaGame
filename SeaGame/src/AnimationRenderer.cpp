@@ -28,13 +28,13 @@ void AnimationRenderer::render(RenderManager& r)
 			}
 			else {
 				// Remove parent
-				this->getParent()->game->removeEntity(this->getParent());
+				this->getParent().lock()->game->removeEntity(this->getParent());
 				return;
 			}
 		}
 		this->sClock.restart();
 	}
 	sf::Sprite s = this->sprites[this->index];
-	s.setPosition(this->getParent()->transform->getPosition());
+	s.setPosition(this->getParent().lock()->transform->getPosition());
 	r.add(s, this->zIndex);
 }

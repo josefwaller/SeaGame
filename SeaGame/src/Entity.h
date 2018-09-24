@@ -24,8 +24,14 @@ enum EntityTag {
 struct Entity
 {
 	Entity() : game(nullptr) {}
-	Entity(Game* g) : game(g) {}
+	Entity(Game* g) : game(g) {
+		Entity::trueEntityCount++;
+	}
+	~Entity() {
+		Entity::trueEntityCount--;
+	}
 	Game* game;
+	static unsigned int trueEntityCount;
 	// The team this entity belongs to
 	// 0 is the player's team
 	int team;

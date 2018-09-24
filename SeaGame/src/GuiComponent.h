@@ -4,7 +4,7 @@
 
 class GuiComponent : public Component {
 public:
-	GuiComponent(std::shared_ptr<Entity>);
+	GuiComponent(std::weak_ptr<Entity>);
 	// Change the panel the component is currently showing
 	void changePanel(std::string selectedPanel);
 	void updateInventory();

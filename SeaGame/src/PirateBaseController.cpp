@@ -16,9 +16,9 @@ void PirateBaseController::update(float delta) {
 }
 
 void PirateBaseController::spawnShip() {
-	this->getParent()->game->addEntity(EntityPrefabs::enemyChasingShip(
-		this->getParent()->game,
-		this->getParent()->transform->getPosition() + sf::Vector2f(-64.0f, -64.0f),
+	this->getParent().lock()->game->addEntity(EntityPrefabs::enemyChasingShip(
+		this->getParent().lock()->game,
+		this->getParent().lock()->transform->getPosition() + sf::Vector2f(-64.0f, -64.0f),
 		ShipRenderer::SAIL_COLOR::Black
 	));
 }

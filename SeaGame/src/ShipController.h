@@ -20,6 +20,7 @@ public:
 	// Shoot the main swivel cannon in the direction specified
 	void shootSwivel();
 	virtual void onHit(HealthType t, int damageAmount) override;
+	virtual void onDeath() override;
 	// The acceration of all ship's turning/moving
 	const static float ACCELERATION;
 	const static float ANGULAR_ACCELERATION;

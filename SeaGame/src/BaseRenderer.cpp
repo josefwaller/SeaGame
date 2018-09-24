@@ -9,7 +9,7 @@ BaseRenderer::BaseRenderer(std::weak_ptr<Entity> parent) : RenderComponent(paren
 }
 void BaseRenderer::render(RenderManager& r)
 {
-	auto trans = this->getParent()->transform;
+	auto trans = this->getParent().lock()->transform;
 	// Draw walls connected the four corners
 	renderHorizontalWall(r, trans->getPosition(), 3);
 	renderHorizontalWall(r, trans->getPosition() + sf::Vector2f(0.0f, 2.0f * 64.0f), 3);
@@ -19,7 +19,7 @@ void BaseRenderer::render(RenderManager& r)
 	// Draw the 4 towers at the corners
 	for (int x = 0; x < 2; x++) {
 		for (int y = 0; y < 2; y++) {
-			this->tower.setPosition(this->getParent()->transform->getPosition() + sf::Vector2f(x * 2.0f * 64.0f, y * 2.0f * 64.0f));
+			this->tower.setPosition(this->getParent().lock()->transform->getPosition() + sf::Vector2f(x * 2.0f * 64.0f, y * 2.0f * 64.0f));
 			r.add(this->tower, RenderManager::INDEX_BASE_TILES);
 		}
 	}

@@ -16,6 +16,10 @@ public:
 	void update(double delta);
 	void render();
 
+	// Count the number of actual entities in the game
+	// Incremented by entity contructor, decremented by entity deconstructor
+	// static unsigned int trueEntityCount;
+
 	// Add an entity to the game
 	void addEntity(std::shared_ptr<Entity> newEnt);
 	// Remove an entity from the game

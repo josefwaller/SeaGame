@@ -3,7 +3,7 @@
 #include "FerryShipController.h"
 #include "MiningBaseController.h"
 
-GuiComponent::GuiComponent(std::shared_ptr<Entity> parent) : Component(parent) {
+GuiComponent::GuiComponent(std::weak_ptr<Entity> parent) : Component(parent) {
 	this->entityWindow = tgui::ChildWindow::create();
 	this->entityTabs = tgui::Tabs::create();
 	this->entityTabs->add("Inventory");
@@ -12,7 +12,7 @@ GuiComponent::GuiComponent(std::shared_ptr<Entity> parent) : Component(parent) {
 	this->entityPanels["Health"] = tgui::Panel::create();
 	this->entityPanels["Inventory"]->setPosition({ 0, this->entityTabs->getFullSize().y });
 	this->updateInventory();
-	if (auto controller = std::dynamic_pointer_cast<FerryShipController>(this->getParent()->controller)) {
+	if (auto controller = std::dynamic_pointer_cast<FerryShipController>(this->getParent().lock()->controller)) {
 
 		this->entityPanels["Ferry"] = tgui::Panel::create();
 		this->entityTabs->add("Ferry");
@@ -28,7 +28,7 @@ GuiComponent::GuiComponent(std::shared_ptr<Entity> parent) : Component(parent) {
 			}, std::placeholders::_1, cont);
 			// Set callback
 			game->getHud()->selectEntity(callback);
-		}, this->getParent()->game, controller);
+		}, this->getParent().lock()->game, controller);
 		this->entityPanels["Ferry"]->add(destBtn);
 		// Add the Change Source button
 		auto srcBtn = tgui::Button::create();
@@ -41,7 +41,7 @@ GuiComponent::GuiComponent(std::shared_ptr<Entity> parent) : Component(parent) {
 				}
 			}, std::placeholders::_1, cont);
 			game->getHud()->selectEntity(callback);
-		}, this->getParent()->game, controller);
+		}, this->getParent().lock()->game, controller);
 		// Move below the set dest button
 		srcBtn->setPosition({ 0, destBtn->getFullSize().y });
 		this->entityPanels["Ferry"]->add(srcBtn);
@@ -73,8 +73,8 @@ void GuiComponent::updateInventory() {
 	this->entityPanels["Inventory"]->removeAllWidgets();
 	float y = 0.0f;
 	// Add a button for each of the resources
-	if (this->getParent()->inventory != nullptr) {
-		for (auto it : this->getParent()->inventory->getInventory()) {
+	if (this->getParent().lock()->inventory != nullptr) {
+		for (auto it : this->getParent().lock()->inventory->getInventory()) {
 			tgui::Button::Ptr btn = tgui::Button::create();
 			btn->setText(getResourceString(it.first) + ": " + std::to_string(it.second));
 			btn->setPosition({ 0.0f, y });
@@ -83,7 +83,7 @@ void GuiComponent::updateInventory() {
 				[&](Game* g, std::weak_ptr<Entity> e, GameResource res, unsigned int amount) {
 					e.lock()->game->getHud()->transferItems(e, res, amount);
 				},
-				this->getParent()->game,
+				this->getParent().lock()->game,
 				this->getParent(),
 				it.first,
 				it.second);
@@ -95,12 +95,12 @@ void GuiComponent::updateInventory() {
 
 void GuiComponent::onClick() {
 	if (!this->entityWindow->getParent()) {
-		this->getParent()->game->getGui().add(this->entityWindow);
+		this->getParent().lock()->game->getGui().add(this->entityWindow);
 	}
 }
 void GuiComponent::show() {
-	this->getParent()->game->getGui().add(this->entityWindow);
+	this->getParent().lock()->game->getGui().add(this->entityWindow);
 }
 void GuiComponent::hide() {
-	this->getParent()->game->getGui().remove(this->entityWindow);
+	this->getParent().lock()->game->getGui().remove(this->entityWindow);
 }

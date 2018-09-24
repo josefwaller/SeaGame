@@ -31,14 +31,14 @@ void FerryShipController::onReachingTarget() {
 		auto inventory = this->takeFrom.lock()->inventory->getInventory();
 		for (auto it = inventory.begin(); it != inventory.end(); it++) {
 			this->takeFrom.lock()->inventory->removeItems(it->first, it->second);
-			this->getParent()->inventory->addItems(it->first, it->second);
+			this->getParent().lock()->inventory->addItems(it->first, it->second);
 		}
 		this->currentAction = Action::DropingOff;
 	}
 	else if (this->currentAction == Action::DropingOff) {
-		auto inventory = this->getParent()->inventory->getInventory();
+		auto inventory = this->getParent().lock()->inventory->getInventory();
 		for (auto it = inventory.begin(); it != inventory.end(); it++) {
-			this->getParent()->inventory->removeItems(it->first, it->second);
+			this->getParent().lock()->inventory->removeItems(it->first, it->second);
 			this->giveTo.lock()->inventory->addItems(it->first, it->second);
 		}
 		this->currentAction = Action::PickingUp;
