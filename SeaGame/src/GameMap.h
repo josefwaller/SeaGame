@@ -23,12 +23,10 @@ private:
 	std::vector<std::vector<TileType>> tiles;
 	// The Box2d bodies associated with the islands
 	std::vector<b2Body*> bodies;
-	// Get the string representation of the edge between two tiles
-	// Used for reading the correct sprite
-	std::string getEdgeType(sf::Vector2<size_t> one, sf::Vector2<size_t> two);
 	sf::Texture texture;
-	// Check if an index has a sea tile in any of its 8 surronding tiles
-	bool hasSeaAround(sf::Vector2<size_t> indexes);
+	void GameMap::drawTile(sf::RenderTexture* rt, size_t x, size_t y);
+	sf::Sprite GameMap::getSprite(TileType top, TileType right, TileType bottom, TileType left);
+	std::string GameMap::getTileString(TileType t);
 };
 
 #include "Game.h"

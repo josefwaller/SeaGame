@@ -10,7 +10,7 @@ GameMap::GameMap(Game* g)
 	const unsigned int WIDTH = 32;
 	const unsigned int HEIGHT = 17;
 	const float frequency = 5.0f;
-	siv::PerlinNoise noise(1234);
+	siv::PerlinNoise noise(9500061);
 	std::vector<std::vector<double>> noiseGrid;
 	// Generate noise grid
 	for (size_t x = 0; x < WIDTH; x++) {
@@ -73,56 +73,11 @@ GameMap::GameMap(Game* g)
 	// Render a 10x10 grid of sea tiles
 	for (size_t x = 0; x < this->tiles.size(); x++) {
 		for (size_t y = 0; y < this->tiles[x].size(); y++) {
-			sf::Sprite s;
-			// TEMPORARY EASY DRAWING
-			if (this->tiles[x][y] == TileType::Sea) {
-				s = ResourceManager::get()->getSprite("tiles", "sea-sea-sea-sea", false);
-			}
-			else {
-				s = ResourceManager::get()->getSprite("tiles", "land-land-land-land", false);
-			}
+			// Draw water behind
+			sf::Sprite s = ResourceManager::get()->getSprite("tiles", "sea-sea-sea-sea", false);
 			s.setPosition(64.0f * x, 64.0f * y);
 			rt.draw(s);
-			continue;
-			// First draw sea under it
-			sf::Sprite seaSprite = ResourceManager::get()->getSprite("tiles", "sea-sea-sea-sea", false);
-			seaSprite.setPosition({ 64 * (float)x, 64 * (float)y });
-			rt.draw(seaSprite);
-			// Draw the land if there is any
-			if (this->tiles[x][y] == TileType::Land) {
-				// Create a vector of the string name of the tile needed
-				std::vector<std::string> tileStringParts;
-				// Get the types of the tiles around it
-				std::vector<int> indexes = { -1, 0, 1, 0 };
-				for (size_t i = 0; i < indexes.size(); i++) {
-					size_t yOff = indexes[(size_t)i];
-					size_t xOff = indexes[(size_t)(i + 1) % indexes.size()];
-					// Check tile is on map
-					if (x + xOff >= 0 && x + xOff < this->tiles.size()) {
-						if (y + yOff >= 0 && y + yOff < this->tiles[x].size()) {
-							// Add string representation of edge between these two tiles
-							// e.g. "sea", "land", "shore"
-							tileStringParts.push_back(this->getEdgeType({ x, y }, { x + xOff, y + yOff }));
-							continue;
-						}
-					}
-					// Assume edge is sea if it is not on the map
-					tileStringParts.push_back("sea");
-				}
-				// Add dashes between string
-				std::string tileString = tileStringParts[0];
-				for (size_t i = 1; i < tileStringParts.size(); i++) {
-					tileString += "-" + tileStringParts[i];
-				}
-				// Get the tile
-				sf::Sprite s = ResourceManager::get()->getSprite("tiles", tileString, false);
-				s.setPosition(
-					x * (float)s.getTextureRect().width,
-					y * (float)s.getTextureRect().height
-				);
-				// Add it to be drawn
-				rt.draw(s);
-			}
+			this->drawTile(&rt, x, y);
 		}
 	}
 	rt.display();
@@ -156,33 +111,66 @@ void GameMap::render(RenderManager& r)
 	}
 
 }
-std::string GameMap::getEdgeType(sf::Vector2<size_t> one, sf::Vector2<size_t> two)
-{
-	TileType tOne = this->tiles[one.x][one.y];
-	TileType tTwo = this->tiles[two.x][two.y];
-	if (tOne == TileType::Sea || tTwo == TileType::Sea) {
-		return "sea";
-	} 
+void GameMap::drawTile(sf::RenderTexture* rt, size_t x, size_t y) {
+	if (this->tiles[x][y] == TileType::Sea) {
+		return;
+	}
+	TileType top, bottom, left, right, center;
+	if (x == 0) {
+		left = TileType::Sea;
+	}
 	else {
-		if (this->hasSeaAround(one) && this->hasSeaAround(two))
-			return "shore";
-		return "land";
+		left = this->tiles[x - 1][y];
+	}
+	if (x == this->tiles.size() - 1) {
+		right = TileType::Sea;
+	}
+	else {
+		right = this->tiles[x + 1][y];
+	}
+	if (y == 0) {
+		top = TileType::Sea;
+	}
+	else {
+		top = this->tiles[x][y - 1];
+	}
+	if (y == this->tiles[x].size() - 1) {
+		bottom = TileType::Sea;
+	}
+	else {
+		bottom = this->tiles[x][y + 1];
+	}
+	center = this->tiles[x][y];
+	// Get the sprites
+	sf::Sprite topLeftSprite, bottomLeftSprite, topRightSprite, bottomRightSprite;
+	topLeftSprite = getSprite(top, center, center, left);
+	topRightSprite = getSprite(top, right, center, center);
+	bottomRightSprite = getSprite(center, right, bottom, center);
+	bottomLeftSprite = getSprite(center, center, bottom, left);
+	std::vector<sf::Sprite> sprites = { topLeftSprite, topRightSprite, bottomLeftSprite, bottomRightSprite };
+	for (size_t i = 0; i < sprites.size(); i++) {
+		sprites[i].setScale(0.5f, 0.5f);
+		float pY = 64.0f * y;
+		if (i >= 2) {
+			pY += 32.0f;
+		}
+		sprites[i].setPosition(64.0f * x + (i % 2) * 32.0f, pY);
+		rt->draw(sprites[i]);
 	}
 }
-bool GameMap::hasSeaAround(sf::Vector2<size_t> indexes) {
-	std::vector<int> offsets = { -1, 0, 1 };
-
-	for (int x : offsets) {
-		for (int y : offsets) {
-			if (x != 0 || y != 0) {
-				if (indexes.x + x >= 0 && indexes.x + x < this->tiles.size()) {
-					if (indexes.y + y >= 0 && indexes.y + y < this->tiles.size()) {
-						if (this->tiles[indexes.x + x][indexes.y + y] == TileType::Sea)
-							return true;
-					}
-				}
-			}
-		}
+sf::Sprite GameMap::getSprite(TileType top, TileType right, TileType bottom, TileType left) {
+	return ResourceManager::get()->getSprite("tiles",
+		getTileString(top) + "-" +
+		getTileString(right) + "-" +
+		getTileString(bottom) + "-" +
+		getTileString(left),
+	false);
+}
+std::string GameMap::getTileString(TileType t) {
+	if (t == TileType::Land) {
+		return "land";
 	}
-	return false;
+	else {
+		return "sea";
+	}
 }
