@@ -2,18 +2,55 @@
 #include "GameMap.h"
 #include "ResourceManager.h"
 #include "Box2dTransform.h"
+#include <PerlinNoise.hpp>
 
 GameMap::GameMap() {}
 GameMap::GameMap(Game* g)
 {
+	const unsigned int WIDTH = 32;
+	const unsigned int HEIGHT = 17;
+	const float frequency = 5.0f;
+	siv::PerlinNoise noise(1234);
+	std::vector<std::vector<double>> noiseGrid;
+	// Generate noise grid
+	for (size_t x = 0; x < WIDTH; x++) {
+		noiseGrid.push_back({});
+		for (size_t y = 0; y < HEIGHT; y++) {
+			const float fx = WIDTH / frequency;
+			const float fy = HEIGHT / frequency;
+			noiseGrid[x].push_back(noise.octaveNoise0_1(x / fx, y / fy, 16));
+		}
+	}
+	// Smooth noise grid
+	for (size_t _ = 0; _ < 3; _++) {
+		std::vector<std::vector<double>> newNoiseGrid;
+		for (size_t x = 0; x < WIDTH; x++) {
+			newNoiseGrid.push_back({});
+			for (size_t y = 0; y < HEIGHT; y++) {
+				double total = 0;
+				unsigned int count = 0;
+				for (int xOff = -1; xOff <= 1; xOff++) {
+					if (x + xOff < WIDTH && x + xOff >= 0) {
+						for (int yOff = -1; yOff <= 1; yOff++) {
+							if (y + yOff < HEIGHT && y + yOff >= 0) {
+								total += noiseGrid[x + xOff][y + yOff];
+								count++;
+							}
+						}
+					}
+				}
+				newNoiseGrid[x].push_back(total / (double)count);
+			}
+		}
+		noiseGrid = newNoiseGrid;
+	}
 	// Add tiles
-	for (auto x = 0; x < 10; x++) {
+	for (auto x = 0; x < WIDTH; x++) {
 		this->tiles.push_back({});
-		for (auto y = 0; y < 10; y++) {
+		for (auto y = 0; y < HEIGHT; y++) {
 			// Add test island in the middle
-			if (x < 9 && x > 3 && y < 9 && y > 3) {
+			if (noiseGrid[x][y] > 0.5) {
 				this->tiles[x].push_back(TileType::Land);
-				continue;
 				// Add a box collider for this tile
 				b2PolygonShape box;
 				box.SetAsBox(32, 32);
@@ -31,16 +68,26 @@ GameMap::GameMap(Game* g)
 			}
 		}
 	}
-}
-void GameMap::render(RenderManager& r)
-{
+	sf::RenderTexture rt;
+	rt.create(64 * WIDTH, 64 * HEIGHT);
 	// Render a 10x10 grid of sea tiles
 	for (size_t x = 0; x < this->tiles.size(); x++) {
 		for (size_t y = 0; y < this->tiles[x].size(); y++) {
+			sf::Sprite s;
+			// TEMPORARY EASY DRAWING
+			if (this->tiles[x][y] == TileType::Sea) {
+				s = ResourceManager::get()->getSprite("tiles", "sea-sea-sea-sea", false);
+			}
+			else {
+				s = ResourceManager::get()->getSprite("tiles", "land-land-land-land", false);
+			}
+			s.setPosition(64.0f * x, 64.0f * y);
+			rt.draw(s);
+			continue;
 			// First draw sea under it
 			sf::Sprite seaSprite = ResourceManager::get()->getSprite("tiles", "sea-sea-sea-sea", false);
 			seaSprite.setPosition({ 64 * (float)x, 64 * (float)y });
-			r.add(seaSprite, RenderManager::INDEX_SEA_TILES);
+			rt.draw(seaSprite);
 			// Draw the land if there is any
 			if (this->tiles[x][y] == TileType::Land) {
 				// Create a vector of the string name of the tile needed
@@ -74,10 +121,18 @@ void GameMap::render(RenderManager& r)
 					y * (float)s.getTextureRect().height
 				);
 				// Add it to be drawn
-				r.add(s, RenderManager::INDEX_LAND_TILES);
+				rt.draw(s);
 			}
 		}
 	}
+	rt.display();
+	this->texture = rt.getTexture();
+}
+void GameMap::render(RenderManager& r)
+{
+	sf::Sprite s;
+	s.setTexture(this->texture);
+	r.add(s, RenderManager::INDEX_LAND_TILES);
 	// Draw collision bodies
 	for (auto b_it : this->bodies) {
 		for (b2Fixture* fix = b_it->GetFixtureList(); fix; fix = fix->GetNext()) {
@@ -99,6 +154,7 @@ void GameMap::render(RenderManager& r)
 			r.add(drawable, RenderManager::INDEX_DEBUG);
 		}
 	}
+
 }
 std::string GameMap::getEdgeType(sf::Vector2<size_t> one, sf::Vector2<size_t> two)
 {
@@ -119,8 +175,12 @@ bool GameMap::hasSeaAround(sf::Vector2<size_t> indexes) {
 	for (int x : offsets) {
 		for (int y : offsets) {
 			if (x != 0 || y != 0) {
-				if (this->tiles[indexes.x + x][indexes.y + y] == TileType::Sea)
-					return true;
+				if (indexes.x + x >= 0 && indexes.x + x < this->tiles.size()) {
+					if (indexes.y + y >= 0 && indexes.y + y < this->tiles.size()) {
+						if (this->tiles[indexes.x + x][indexes.y + y] == TileType::Sea)
+							return true;
+					}
+				}
 			}
 		}
 	}

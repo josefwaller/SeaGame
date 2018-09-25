@@ -19,19 +19,23 @@ Game::Game(sf::RenderWindow& window, tgui::Gui& gui) : window(window), gui(gui)
 	// Create GameMap
 	this->gMap = GameMap(this);
 	this->gHud = GameHud(this);
-	this->addEntity(EntityPrefabs::enemyChasingShip(this, { 200, 200 }, ShipRenderer::SAIL_COLOR::Black));
+	//this->addEntity(EntityPrefabs::enemyChasingShip(this, { 200, 200 }, ShipRenderer::SAIL_COLOR::Black));
 	// Add a base
 	this->entities.push_back(EntityPrefabs::miningBase(this, { 5, 5 }));
 	auto b1 = this->entities.back();
 	this->entities.push_back(EntityPrefabs::miningBase(this, { 20, 5 }));
 	auto b2 = this->entities.back();
 	this->entities.push_back(EntityPrefabs::ferryShip(this, { 0.0f, 0.0f }, b1, b2));
-	this->entities.push_back(EntityPrefabs::pirateBase(this, { 20, 10 }));
+	//this->entities.push_back(EntityPrefabs::pirateBase(this, { 20, 10 }));
+	this->fpsText = tgui::TextBox::create();
+	this->fpsText->setPosition({ this->window.getSize().x - 200.0f, 0.0f });
+	this->gui.add(this->fpsText);
 
 }
 
 void Game::update(double delta)
 {
+	this->fpsText->setText(std::to_string(1.0 / delta));
 	// Update all entities
 	for (size_t i = 0; i < this->entities.size(); i++) {
 		auto e = this->entities[i];

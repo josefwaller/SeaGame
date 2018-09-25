@@ -58,6 +58,8 @@ private:
 	std::vector<std::weak_ptr<Entity>> toRemove;
 	// The build button
 	tgui::Button::Ptr buildBtn;
+	// FPS text
+	tgui::TextBox::Ptr fpsText;
 	// The buttons specifying what to build
 	// Todo: think of a better name
 	std::vector<tgui::Button::Ptr> buildThingsBtns;
