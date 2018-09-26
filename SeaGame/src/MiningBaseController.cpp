@@ -2,7 +2,7 @@
 #include "GameResource.h"
 
 const float MiningBaseController::GENERATION_DELAY = 2000.0f;
-MiningBaseController::MiningBaseController(std::weak_ptr<Entity> parent, GameResource res) : ControllerComponent(parent) {
+MiningBaseController::MiningBaseController(std::weak_ptr<Entity> parent, GameResource res) : BaseController(parent) {
 	this->res = res;
 }
 void MiningBaseController::update(float delta) {

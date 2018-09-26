@@ -1,7 +1,7 @@
 #pragma once
 #include "CityController.h"
 
-CityController::CityController(std::weak_ptr<Entity> parent) : ControllerComponent(parent) {
+CityController::CityController(std::weak_ptr<Entity> parent) : BaseController(parent) {
 
 }
 

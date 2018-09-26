@@ -283,6 +283,9 @@
     <ClCompile Include="src\Entity.cpp">
       <Filter>Files\Entity</Filter>
     </ClCompile>
+    <ClCompile Include="src\BaseController.cpp">
+      <Filter>Files\Components\Controllers\BaseControllers</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Component.h">
@@ -425,6 +428,9 @@
     </ClInclude>
     <ClInclude Include="src\PirateBaseController.h">
       <Filter>Files\Components\Controllers\BaseControllers\PirateBaseController</Filter>
+    </ClInclude>
+    <ClInclude Include="src\BaseController.h">
+      <Filter>Files\Components\Controllers\BaseControllers</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

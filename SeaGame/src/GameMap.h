@@ -18,6 +18,8 @@ public:
 	GameMap(Game* g);
 	GameMap();
 	void render(RenderManager& r);
+	TileType getTileAt(size_t x, size_t y);
+	sf::Vector2<size_t> getMapSize();
 private:
 	// The tiles in the map
 	std::vector<std::vector<TileType>> tiles;

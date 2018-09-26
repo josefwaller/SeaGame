@@ -1,4 +1,5 @@
 #include "BaseRenderer.h"
+#include "BaseController.h"
 #include "ResourceManager.h"
 
 BaseRenderer::BaseRenderer(std::weak_ptr<Entity> parent) : RenderComponent(parent)
@@ -22,6 +23,13 @@ void BaseRenderer::render(RenderManager& r)
 			this->tower.setPosition(this->getParent().lock()->transform->getPosition() + sf::Vector2f(x * 2.0f * 64.0f, y * 2.0f * 64.0f));
 			r.add(this->tower, RenderManager::INDEX_BASE_TILES);
 		}
+	}
+	// Draw something at the dock coords
+	if (auto cont = std::dynamic_pointer_cast<BaseController>(this->getParent().lock()->controller)) {
+		sf::Vector2f dCoords = cont->getDockCoords();
+		sf::Sprite s = ResourceManager::get()->getSprite("tiles", "tower", false);
+		s.setPosition(dCoords);
+		r.add(s, RenderManager::INDEX_BASE_TILES);
 	}
 }
 void BaseRenderer::renderHorizontalWall(RenderManager& r, sf::Vector2f start, int length)

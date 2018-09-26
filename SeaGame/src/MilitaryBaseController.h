@@ -1,8 +1,8 @@
 #pragma once
-#include "ControllerComponent.h"
+#include "BaseController.h"
 #include "Cannon.h"
 
-class MilitaryBaseController: public ControllerComponent
+class MilitaryBaseController: public BaseController
 {
 public:
 	// How long between taking shots

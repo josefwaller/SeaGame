@@ -4,7 +4,7 @@
 // 30 seconds
 float PirateBaseController::SPAWN_DELAY = 30.0f * 1000.0f;
 
-PirateBaseController::PirateBaseController(std::weak_ptr<Entity> parent): ControllerComponent(parent) {
+PirateBaseController::PirateBaseController(std::weak_ptr<Entity> parent): BaseController(parent) {
 
 }
 

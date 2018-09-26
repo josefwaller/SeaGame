@@ -3,14 +3,15 @@
 #include "ResourceManager.h"
 #include "Box2dTransform.h"
 #include <PerlinNoise.hpp>
+#include <ctime>
 
 GameMap::GameMap() {}
 GameMap::GameMap(Game* g)
 {
 	const unsigned int WIDTH = 32;
 	const unsigned int HEIGHT = 17;
-	const float frequency = 5.0f;
-	siv::PerlinNoise noise(9500061);
+	const float frequency = 25.0f;
+	siv::PerlinNoise noise(time(0));
 	std::vector<std::vector<double>> noiseGrid;
 	// Generate noise grid
 	for (size_t x = 0; x < WIDTH; x++) {
@@ -110,6 +111,12 @@ void GameMap::render(RenderManager& r)
 		}
 	}
 
+}
+GameMap::TileType GameMap::getTileAt(size_t x, size_t y) {
+	return this->tiles[x][y];
+}
+sf::Vector2<size_t> GameMap::getMapSize() {
+	return { this->tiles.size(), this->tiles[0].size() };
 }
 void GameMap::drawTile(sf::RenderTexture* rt, size_t x, size_t y) {
 	if (this->tiles[x][y] == TileType::Sea) {

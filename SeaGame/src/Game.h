@@ -37,6 +37,7 @@ public:
 	// Get the GUI world for adding/removing widgets
 	tgui::Gui& getGui();
 	GameHud* getHud();
+	GameMap* getGameMap();
 	TechTree* getTechTree();
 private:
 	// Window for ref

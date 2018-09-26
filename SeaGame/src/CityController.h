@@ -1,7 +1,7 @@
 #pragma once
-#include "ControllerComponent.h"
+#include "BaseController.h"
 
-class CityController : public ControllerComponent {
+class CityController : public BaseController {
 public:
 	CityController(std::weak_ptr<Entity> parent);
 	virtual void update(float delta) override;

@@ -123,6 +123,7 @@
   <ItemGroup>
     <ClCompile Include="src\AnimationRenderer.cpp" />
     <ClCompile Include="src\AutomatedShipController.cpp" />
+    <ClCompile Include="src\BaseController.cpp" />
     <ClCompile Include="src\BaseRenderer.cpp" />
     <ClCompile Include="src\Box2dClick.cpp" />
     <ClCompile Include="src\Box2dTransform.cpp" />
@@ -169,6 +170,7 @@
   <ItemGroup>
     <ClInclude Include="src\AnimationRenderer.h" />
     <ClInclude Include="src\AutomatedShipController.h" />
+    <ClInclude Include="src\BaseController.h" />
     <ClInclude Include="src\BaseRenderer.h" />
     <ClInclude Include="src\BasicTransform.h" />
     <ClInclude Include="src\Box2dClick.h" />

@@ -21,11 +21,11 @@ Game::Game(sf::RenderWindow& window, tgui::Gui& gui) : window(window), gui(gui)
 	this->gHud = GameHud(this);
 	//this->addEntity(EntityPrefabs::enemyChasingShip(this, { 200, 200 }, ShipRenderer::SAIL_COLOR::Black));
 	// Add a base
-	this->entities.push_back(EntityPrefabs::miningBase(this, { 5, 5 }));
+	/*this->entities.push_back(EntityPrefabs::miningBase(this, { 5, 5 }));
 	auto b1 = this->entities.back();
 	this->entities.push_back(EntityPrefabs::miningBase(this, { 20, 5 }));
 	auto b2 = this->entities.back();
-	this->entities.push_back(EntityPrefabs::ferryShip(this, { 0.0f, 0.0f }, b1, b2));
+	this->entities.push_back(EntityPrefabs::ferryShip(this, { 0.0f, 0.0f }, b1, b2));*/
 	//this->entities.push_back(EntityPrefabs::pirateBase(this, { 20, 10 }));
 	this->fpsText = tgui::TextBox::create();
 	this->fpsText->setPosition({ this->window.getSize().x - 200.0f, 0.0f });
@@ -121,6 +121,9 @@ std::weak_ptr<b2World> Game::getWorld()
 }
 tgui::Gui& Game::getGui() {
 	return this->gui;
+}
+GameMap* Game::getGameMap() {
+	return &this->gMap;
 }
 GameHud* Game::getHud() {
 	return &this->gHud;
