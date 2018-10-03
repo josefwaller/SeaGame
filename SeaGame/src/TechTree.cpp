@@ -20,7 +20,7 @@ std::map<Technology, TechTreeNode> TechTree::nodes = {
 			{
 				{ GameResource::Gold, 200 }
 			},
-			false
+			true
 		}
 	}
 };

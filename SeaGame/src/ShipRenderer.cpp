@@ -1,6 +1,7 @@
 #include "ShipRenderer.h"
 #include "ResourceManager.h"
 #include "ShipController.h"
+#include "AutomatedShipController.h"
 
 std::string ShipRenderer::getSailColorString(ShipRenderer::SAIL_COLOR color)
 {
@@ -67,6 +68,13 @@ void ShipRenderer::render(RenderManager& r)
 	r.add(this->bigSail, RenderManager::INDEX_SAILS);
 	if (this->hasSmallSail)
 		r.add(this->smallSail, RenderManager::INDEX_SAILS);
+	if (auto c = std::dynamic_pointer_cast<AutomatedShipController>(this->getParent().lock()->controller)) {
+		sf::Sprite s = ResourceManager::get()->getSprite("ships", "crew (1).png", true);
+		for (auto it : c->points) {
+			s.setPosition(it);
+			r.add(s, RenderManager::INDEX_SAILS);
+		}
+	}
 
 }
 void ShipRenderer::reset()

@@ -7,7 +7,11 @@
 class AutomatedShipController : public ShipController {
 public:
 	AutomatedShipController(std::weak_ptr<Entity> parent);
+	std::vector<sf::Vector2f> points;
 protected:
-	void moveToPoint(float delta, sf::Vector2f target);
+	void move(float delta);
+	void setTarget(sf::Vector2f target);
 	virtual void onReachingTarget();
+private:
+	size_t pointsIndex;
 };

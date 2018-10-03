@@ -4,6 +4,7 @@
 #include "Box2dTransform.h"
 #include <PerlinNoise.hpp>
 #include <ctime>
+#include <cstdio>
 
 GameMap::GameMap() {}
 GameMap::GameMap(Game* g)
@@ -19,7 +20,7 @@ GameMap::GameMap(Game* g)
 		for (size_t y = 0; y < HEIGHT; y++) {
 			const float fx = WIDTH / frequency;
 			const float fy = HEIGHT / frequency;
-			noiseGrid[x].push_back(noise.octaveNoise0_1(x / fx, y / fy, 16));
+noiseGrid[x].push_back(noise.octaveNoise0_1(x / fx, y / fy, 16));
 		}
 	}
 	// Smooth noise grid
@@ -111,6 +112,28 @@ void GameMap::render(RenderManager& r)
 		}
 	}
 
+}
+void GameMap::addSaveData(rapidxml::xml_document<>* doc) {
+	rapidxml::xml_node<>* n = doc->allocate_node(rapidxml::node_element, "GameMap");
+	char* w = doc->allocate_string(std::to_string(this->getMapSize().x).c_str());
+	char* h = doc->allocate_string(std::to_string(this->getMapSize().y).c_str());
+	n->append_attribute(doc->allocate_attribute("width", w));
+	n->append_attribute(doc->allocate_attribute("height", h));
+	for (size_t x = 0; x < this->getMapSize().x; x++) {
+		for (size_t y = 0; y < this->getMapSize().y; y++) {
+			auto tileNode = doc->allocate_node(rapidxml::node_element, "Tile");
+			char* xStr = doc->allocate_string(std::to_string(x).c_str());
+			char* yStr = doc->allocate_string(std::to_string(y).c_str());
+			char* type = doc->allocate_string(
+				this->tiles[x][y] == TileType::Sea ? "Sea" : "Land"
+			);
+			tileNode->append_attribute(doc->allocate_attribute("x", xStr));
+			tileNode->append_attribute(doc->allocate_attribute("y", yStr));
+			tileNode->append_attribute(doc->allocate_attribute("type", type));
+			n->append_node(tileNode);
+		}
+	}
+	doc->append_node(n);
 }
 GameMap::TileType GameMap::getTileAt(size_t x, size_t y) {
 	return this->tiles[x][y];

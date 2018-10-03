@@ -1,4 +1,5 @@
 #pragma once
+#include <rapidxml\rapidxml.hpp>
 #include <SFML/Graphics.hpp>
 #include <Box2D/Box2D.h>
 #include "RenderManager.h"
@@ -15,11 +16,15 @@ public:
 		Land
 	};
 
+	// Generate a new map
 	GameMap(Game* g);
+	// Get map data from a document
+	GameMap(Game* g, rapidxml::xml_document<> data);
 	GameMap();
 	void render(RenderManager& r);
 	TileType getTileAt(size_t x, size_t y);
 	sf::Vector2<size_t> getMapSize();
+	void addSaveData(rapidxml::xml_document<>* doc);
 private:
 	// The tiles in the map
 	std::vector<std::vector<TileType>> tiles;

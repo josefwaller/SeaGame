@@ -12,8 +12,9 @@ public:
 		DropingOff
 	};
 private:
-	std::weak_ptr<Entity> takeFrom;
-	std::weak_ptr<Entity> giveTo;
+	std::weak_ptr<Entity> source;
+	std::weak_ptr<Entity> destination;
 	FerryShipController::Action currentAction;
 	virtual void onReachingTarget() override;
+	sf::Vector2f getCoordsForEntity(std::weak_ptr<Entity> e);
 };

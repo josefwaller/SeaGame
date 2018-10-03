@@ -5,6 +5,9 @@
 #include "RenderManager.h"
 #include "ShipRenderer.h"
 #include "SimpleCollisionListener.h"
+#include <fstream>
+#include <iostream>
+#include <rapidxml\rapidxml_print.hpp>
 
 Game::Game(sf::RenderWindow& window, tgui::Gui& gui) : window(window), gui(gui)
 {
@@ -18,6 +21,12 @@ Game::Game(sf::RenderWindow& window, tgui::Gui& gui) : window(window), gui(gui)
 	this->player.lock()->inventory->addItems(GameResource::Gold, 300);
 	// Create GameMap
 	this->gMap = GameMap(this);
+	rapidxml::xml_document<> saveData;
+	this->gMap.addSaveData(&saveData);
+	std::ofstream f;
+	f.open("test.txt");
+	f << saveData;
+	f.close();
 	this->gHud = GameHud(this);
 	//this->addEntity(EntityPrefabs::enemyChasingShip(this, { 200, 200 }, ShipRenderer::SAIL_COLOR::Black));
 	// Add a base
