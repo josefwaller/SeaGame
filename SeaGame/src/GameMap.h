@@ -19,7 +19,7 @@ public:
 	// Generate a new map
 	GameMap(Game* g);
 	// Get map data from a document
-	GameMap(Game* g, rapidxml::xml_document<> data);
+	GameMap(Game* g, rapidxml::xml_document<>* data);
 	GameMap();
 	void render(RenderManager& r);
 	TileType getTileAt(size_t x, size_t y);
@@ -34,6 +34,7 @@ private:
 	void GameMap::drawTile(sf::RenderTexture* rt, size_t x, size_t y);
 	sf::Sprite GameMap::getSprite(TileType top, TileType right, TileType bottom, TileType left);
 	std::string GameMap::getTileString(TileType t);
+	void resetTexture();
 };
 
 #include "Game.h"

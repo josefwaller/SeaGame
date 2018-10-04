@@ -8,6 +8,7 @@
 #include <fstream>
 #include <iostream>
 #include <rapidxml\rapidxml_print.hpp>
+#include <rapidxml\rapidxml_utils.hpp>
 
 Game::Game(sf::RenderWindow& window, tgui::Gui& gui) : window(window), gui(gui)
 {
@@ -20,13 +21,16 @@ Game::Game(sf::RenderWindow& window, tgui::Gui& gui) : window(window), gui(gui)
 	this->player = this->entities.back();
 	this->player.lock()->inventory->addItems(GameResource::Gold, 300);
 	// Create GameMap
-	this->gMap = GameMap(this);
-	rapidxml::xml_document<> saveData;
+	rapidxml::file<> file("test.txt");
+	rapidxml::xml_document<> doc;
+	doc.parse<0>(file.data());
+	this->gMap = GameMap(this, &doc);
+	/*rapidxml::xml_document<> saveData;
 	this->gMap.addSaveData(&saveData);
 	std::ofstream f;
 	f.open("test.txt");
 	f << saveData;
-	f.close();
+	f.close();*/
 	this->gHud = GameHud(this);
 	//this->addEntity(EntityPrefabs::enemyChasingShip(this, { 200, 200 }, ShipRenderer::SAIL_COLOR::Black));
 	// Add a base

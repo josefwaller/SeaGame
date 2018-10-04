@@ -70,8 +70,33 @@ noiseGrid[x].push_back(noise.octaveNoise0_1(x / fx, y / fy, 16));
 			}
 		}
 	}
+	resetTexture();
+}
+GameMap::GameMap(Game* g, rapidxml::xml_document<>* doc) {
+
+	auto x = 0;
+	auto gMapNode = doc->first_node("GameMap");
+	size_t w = std::stoi(gMapNode->first_attribute("width")->value());
+	size_t h = std::stoi(gMapNode->first_attribute("height")->value());
+	this->tiles.resize(w);
+	for (auto it = this->tiles.begin(); it != this->tiles.end(); ++it) {
+		it->resize(h);
+	}
+	auto xa = 0;
+	for (auto n = gMapNode->first_node(); n != nullptr; n = n->next_sibling()) {
+		size_t x = std::stoi(n->first_attribute("x")->value());
+		size_t y = std::stoi(n->first_attribute("y")->value());
+		std::string valStr = std::string(n->first_attribute("type")->value());
+		TileType val = valStr == std::string("Land") ?
+			TileType::Land : TileType::Sea;
+		this->tiles[x][y] = val;
+	}
+	resetTexture();
+}
+void GameMap::resetTexture() {
 	sf::RenderTexture rt;
-	rt.create(64 * WIDTH, 64 * HEIGHT);
+	sf::Vector2<size_t> size = this->getMapSize();
+	rt.create(64 * size.x, 64 * size.y);
 	// Render a 10x10 grid of sea tiles
 	for (size_t x = 0; x < this->tiles.size(); x++) {
 		for (size_t y = 0; y < this->tiles[x].size(); y++) {
@@ -84,6 +109,7 @@ noiseGrid[x].push_back(noise.octaveNoise0_1(x / fx, y / fy, 16));
 	}
 	rt.display();
 	this->texture = rt.getTexture();
+
 }
 void GameMap::render(RenderManager& r)
 {
