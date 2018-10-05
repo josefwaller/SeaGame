@@ -5,6 +5,8 @@
 #include "RenderManager.h"
 #include "ShipRenderer.h"
 #include "SimpleCollisionListener.h"
+#include "PlayerShipController.h"
+#include <memory>
 #include <fstream>
 #include <iostream>
 #include <rapidxml\rapidxml_print.hpp>
@@ -20,9 +22,9 @@ Game::Game(sf::RenderWindow& window, tgui::Gui& gui) : window(window), gui(gui)
 /*	this->entities.push_back(EntityPrefabs::playerShip(this, sf::Vector2f(0, 0)));
 	this->player = this->entities.back();
 	this->player.lock()->getSaveData();
-	this->player.lock()->components.inventory->addItems(GameResource::Gold, 300);*/
+	*/
 	// Create GameMap
-	rapidxml::file<> file("test.txt");
+	rapidxml::file<> file("test.xml");
 	rapidxml::xml_document<> doc;
 	doc.parse<0>(file.data());
 	this->gMap = GameMap(this, &doc);
@@ -37,6 +39,10 @@ Game::Game(sf::RenderWindow& window, tgui::Gui& gui) : window(window), gui(gui)
 	}
 	for (auto it : entityDatas) {
 		this->entities.push_back(EntityPrefabs::getEntityFromSaveData(this, it));
+		if (std::dynamic_pointer_cast<PlayerShipController>(this->entities.back()->components.controller)) {
+			this->player = this->entities.back();
+			this->player.lock()->components.inventory->addItems(GameResource::Gold, 300);
+		}
 	}
 	rapidxml::xml_document<> saveData;
 	this->gMap.addSaveData(&saveData);
@@ -57,7 +63,7 @@ Game::Game(sf::RenderWindow& window, tgui::Gui& gui) : window(window), gui(gui)
 	}
 	saveData.append_node(n);
 	std::ofstream f;
-	f.open("test.txt");
+	f.open("test.xml");
 	f << saveData;
 	f.close();
 	this->gHud = GameHud(this);

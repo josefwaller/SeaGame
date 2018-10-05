@@ -289,6 +289,9 @@
     <ClCompile Include="src\BaseController.cpp">
       <Filter>Files\Components\Controllers\BaseControllers</Filter>
     </ClCompile>
+    <ClCompile Include="src\ComponentList.cpp">
+      <Filter>Files\Entity\ComponentList</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Component.h">
