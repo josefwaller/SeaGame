@@ -19,3 +19,11 @@ void InventoryComponent::removeItems(GameResource res, unsigned int amount) {
 std::map<GameResource, unsigned int> InventoryComponent::getInventory() {
 	return this->inventory;
 }
+
+std::map<std::string, std::string> InventoryComponent::getSaveData() {
+	std::map<std::string, std::string> data;
+	for (auto it = this->inventory.begin(); it != this->inventory.end(); ++it) {
+		data.insert({ std::to_string(it->first), std::to_string(it->second) });
+	}
+	return data;
+}

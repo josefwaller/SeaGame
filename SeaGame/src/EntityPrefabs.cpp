@@ -23,10 +23,11 @@
 #include "PirateBaseRenderer.h"
 #include "PirateBaseController.h"
 
-std::shared_ptr<Entity> EntityPrefabs::playerShip(Game* g, ShipRenderer::SAIL_COLOR c)
+std::shared_ptr<Entity> EntityPrefabs::playerShip(Game* g, sf::Vector2f position)
 {
-	auto ship = EntityPrefabs::ship(g, { 30, 30 }, 0.0f, c);
+	auto ship = EntityPrefabs::ship(g, position, 0.0f, ShipRenderer::SAIL_COLOR::Blue);
 	ship->team = 0;
+	ship->type = EntityType::Player;
 	ship->controller = std::shared_ptr<ControllerComponent>(new PlayerShipController(ship));
 	return ship;
 }
@@ -60,9 +61,9 @@ std::shared_ptr<Entity> EntityPrefabs::cannonBall(Game* g, std::weak_ptr<Entity>
 	return ball;
 }
 
-std::shared_ptr<Entity> EntityPrefabs::enemyChasingShip(Game* g, sf::Vector2f pos, ShipRenderer::SAIL_COLOR c)
+std::shared_ptr<Entity> EntityPrefabs::enemyChasingShip(Game* g, sf::Vector2f pos)
 {
-	auto ship = EntityPrefabs::ship(g, pos, 0.0f, c);
+	auto ship = EntityPrefabs::ship(g, pos, 0.0f, ShipRenderer::SAIL_COLOR::Black);
 	ship->team = 1;
 	ship->controller = std::shared_ptr<ControllerComponent>(new ChasingShipController(ship));
 	return ship;
@@ -182,4 +183,19 @@ std::shared_ptr<Entity> EntityPrefabs::pirateBase(Game* g, sf::Vector2i pos) {
 	base->renderer = std::shared_ptr<RenderComponent>(new PirateBaseRenderer(base));
 	base->controller = std::shared_ptr<ControllerComponent>(new PirateBaseController(base));
 	return base;
+}
+
+std::shared_ptr<Entity> EntityPrefabs::getEntityFromSaveData(Game* g, std::map<std::string, std::string> data) {
+	EntityType type = (EntityType)std::stoi(data["type"]);
+	float x = std::stoi(data["x"]);
+	float y = std::stoi(data["y"]);
+	switch (type){
+	case EntityType::MiningBase:
+		return EntityPrefabs::miningBase(g, { (int)x, (int)y });
+	case EntityType::ForestryBase:
+		return EntityPrefabs::forestryBase(g, { (int)x, (int)y });
+	case EntityType::Player:
+		return EntityPrefabs::playerShip(g, { x, y });
+	}
+	return nullptr;
 }

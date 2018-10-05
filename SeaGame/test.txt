@@ -544,4 +544,7 @@
 	<Tile x="31" y="15" type="Sea"/>
 	<Tile x="31" y="16" type="Sea"/>
 </GameMap>
+<EntityList>
+	<Entity r="0.000000" type="0" x="0.000000" y="0.000000"/>
+</EntityList>
 

@@ -17,20 +17,49 @@ Game::Game(sf::RenderWindow& window, tgui::Gui& gui) : window(window), gui(gui)
 	this->listener = SimpleCollisionListener();
 	this->world->SetContactListener(&this->listener);
 	// Add entities
-	this->entities.push_back(EntityPrefabs::playerShip(this, ShipRenderer::SAIL_COLOR::Blue));
+/*	this->entities.push_back(EntityPrefabs::playerShip(this, sf::Vector2f(0, 0)));
 	this->player = this->entities.back();
-	this->player.lock()->inventory->addItems(GameResource::Gold, 300);
+	this->player.lock()->getSaveData();
+	this->player.lock()->inventory->addItems(GameResource::Gold, 300);*/
 	// Create GameMap
 	rapidxml::file<> file("test.txt");
 	rapidxml::xml_document<> doc;
 	doc.parse<0>(file.data());
 	this->gMap = GameMap(this, &doc);
-	/*rapidxml::xml_document<> saveData;
+	std::vector<std::map<std::string, std::string>> entityDatas;
+	auto eN = doc.first_node("EntityList");
+	for (auto n = eN->first_node("Entity"); n != nullptr; n = n->next_sibling()) {
+		std::map<std::string, std::string> data;
+		for (auto a = n->first_attribute(); a != nullptr; a = a->next_attribute()) {
+			data.insert({ a->name(), a->value() });
+		}
+		entityDatas.push_back(data);
+	}
+	for (auto it : entityDatas) {
+		this->entities.push_back(EntityPrefabs::getEntityFromSaveData(this, it));
+	}
+	rapidxml::xml_document<> saveData;
 	this->gMap.addSaveData(&saveData);
+	auto n = saveData.allocate_node(rapidxml::node_element, "EntityList");
+	for (auto e : this->entities) {
+		auto data = e->getSaveData();
+		auto eN = saveData.allocate_node(rapidxml::node_element, "Entity");
+		for (auto it : data) {
+			char* a = saveData.allocate_string(it.first.c_str());
+			char* b = saveData.allocate_string(it.second.c_str());
+			eN->append_attribute(
+				saveData.allocate_attribute(
+					a, b
+				)
+			);
+		}
+		n->append_node(eN);
+	}
+	saveData.append_node(n);
 	std::ofstream f;
 	f.open("test.txt");
 	f << saveData;
-	f.close();*/
+	f.close();
 	this->gHud = GameHud(this);
 	//this->addEntity(EntityPrefabs::enemyChasingShip(this, { 200, 200 }, ShipRenderer::SAIL_COLOR::Black));
 	// Add a base
