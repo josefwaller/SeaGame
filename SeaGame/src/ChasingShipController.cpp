@@ -14,10 +14,10 @@ void ChasingShipController::update(float delta)
 {
 	if (this->target.lock()) {
 		// Get the transform for easy reference
-		auto trans = this->getParent().lock()->transform;
+		auto trans = this->getParent().lock()->components.transform;
 		// Get the difference between this ship's position and the target's position
 		std::pair<sf::Vector2f, float> diff = trans->getDifference(
-			(this->target.lock()->transform)
+			(this->target.lock()->components.transform)
 		);
 		// Turn left or right if the ship is not facing the target
 		if (diff.second < -ANGLE_TURN_MARGIN) {
@@ -31,7 +31,7 @@ void ChasingShipController::update(float delta)
 			this->accelerate();
 		}
 		// Aim the swivel at the target
-		this->aimSwivel(diff.second + this->getParent().lock()->transform->getRotation());
+		this->aimSwivel(diff.second + this->getParent().lock()->components.transform->getRotation());
 		this->shootSwivel();
 	}
 	else {
@@ -41,8 +41,8 @@ void ChasingShipController::update(float delta)
 			if (it->team == this->getParent().lock()->team)
 				continue;
 			// Check how close the entity is
-			sf::Vector2f diff = this->getParent().lock()->transform->getDifference(
-				it->transform->getPosition()
+			sf::Vector2f diff = this->getParent().lock()->components.transform->getDifference(
+				it->components.transform->getPosition()
 			).first;
 			if (sqrt(pow(diff.x, 2) + pow(diff.y, 2)) < ChasingShipController::MAX_CHASE_RANGE) {
 				this->setTarget(it);

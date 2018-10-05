@@ -35,6 +35,6 @@ void AnimationRenderer::render(RenderManager& r)
 		this->sClock.restart();
 	}
 	sf::Sprite s = this->sprites[this->index];
-	s.setPosition(this->getParent().lock()->transform->getPosition());
+	s.setPosition(this->getParent().lock()->components.transform->getPosition());
 	r.add(s, this->zIndex);
 }

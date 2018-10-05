@@ -7,7 +7,7 @@ PlayerShipController::PlayerShipController(std::weak_ptr<Entity> e) : ShipContro
 
 void PlayerShipController::update(float delta)
 {
-	sf::Vector2f diff = this->getParent().lock()->game->getMouseCoords() - this->getParent().lock()->transform->getPosition();
+	sf::Vector2f diff = this->getParent().lock()->game->getMouseCoords() - this->getParent().lock()->components.transform->getPosition();
 	float angle = atan2(diff.y, diff.x);
 	this->aimSwivel(angle);
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up)) {
@@ -21,6 +21,5 @@ void PlayerShipController::update(float delta)
 	}
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space)) {
 		this->shootSwivel();
-		auto x = 0;
 	}
 }

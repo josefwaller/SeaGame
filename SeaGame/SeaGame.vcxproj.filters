@@ -149,6 +149,9 @@
     <Filter Include="Files\Components\Controllers\BaseControllers\PirateBaseController">
       <UniqueIdentifier>{775e8906-756a-4bdb-8041-1dd72cac7d1c}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Files\Entity\ComponentList">
+      <UniqueIdentifier>{2516d76f-3c72-4263-8523-667c6050099b}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\CannonBallController.cpp">
@@ -431,6 +434,9 @@
     </ClInclude>
     <ClInclude Include="src\BaseController.h">
       <Filter>Files\Components\Controllers\BaseControllers</Filter>
+    </ClInclude>
+    <ClInclude Include="src\ComponentList.h">
+      <Filter>Files\Entity\ComponentList</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

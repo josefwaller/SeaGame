@@ -24,20 +24,20 @@ void FerryShipController::setSource(std::weak_ptr<Entity> src) {
 void FerryShipController::onReachingTarget() {
 	if (this->currentAction == Action::PickingUp && this->source.lock()) {
 		// Take all of the base's things
-		auto inventory = this->source.lock()->inventory->getInventory();
+		auto inventory = this->source.lock()->components.inventory->getInventory();
 		for (auto it = inventory.begin(); it != inventory.end(); it++) {
-			this->source.lock()->inventory->removeItems(it->first, it->second);
-			this->getParent().lock()->inventory->addItems(it->first, it->second);
+			this->source.lock()->components.inventory->removeItems(it->first, it->second);
+			this->getParent().lock()->components.inventory->addItems(it->first, it->second);
 		}
 		// Go to the destination
 		this->currentAction = Action::DropingOff;
 		this->setTarget(this->getCoordsForEntity(this->destination));
 	}
 	else if (this->currentAction == Action::DropingOff && this->destination.lock()) {
-		auto inventory = this->getParent().lock()->inventory->getInventory();
+		auto inventory = this->getParent().lock()->components.inventory->getInventory();
 		for (auto it = inventory.begin(); it != inventory.end(); it++) {
-			this->getParent().lock()->inventory->removeItems(it->first, it->second);
-			this->destination.lock()->inventory->addItems(it->first, it->second);
+			this->getParent().lock()->components.inventory->removeItems(it->first, it->second);
+			this->destination.lock()->components.inventory->addItems(it->first, it->second);
 		}
 		// Go to the source
 		this->currentAction = Action::PickingUp;
@@ -45,10 +45,10 @@ void FerryShipController::onReachingTarget() {
 	}
 }
 sf::Vector2f FerryShipController::getCoordsForEntity(std::weak_ptr<Entity> e) {
-	if (auto b = std::dynamic_pointer_cast<BaseController>(e.lock()->controller)) {
+	if (auto b = std::dynamic_pointer_cast<BaseController>(e.lock()->components.controller)) {
 		return b->getDockCoords();
 	}
 	else {
-		return e.lock()->transform->getPosition();
+		return e.lock()->components.transform->getPosition();
 	}
 }

@@ -7,7 +7,7 @@ MiningBaseController::MiningBaseController(std::weak_ptr<Entity> parent, GameRes
 }
 void MiningBaseController::update(float delta) {
 	if (this->resourceClock.getElapsedTime().asMilliseconds() > MiningBaseController::GENERATION_DELAY) {
-		this->getParent().lock()->inventory->addItems(this->res, 1);
+		this->getParent().lock()->components.inventory->addItems(this->res, 1);
 		this->resourceClock.restart();
 	}
 }

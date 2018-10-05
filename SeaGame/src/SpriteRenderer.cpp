@@ -13,7 +13,7 @@ SpriteRenderer::SpriteRenderer(
 }
 void SpriteRenderer::render(RenderManager& r)
 {
-	if (auto transform = this->getParent().lock()->transform)
+	if (auto transform = this->getParent().lock()->components.transform)
 	{
 		this->spr.setPosition(transform->getPosition());
 		// Convert to degrees because dumbass SFML uses degrees

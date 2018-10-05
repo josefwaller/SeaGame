@@ -23,8 +23,8 @@ int HealthComponent::getHealth(HealthType t) {
 void HealthComponent::takeDamage(HealthType t, int damageAmount) {
 	if (this->healths.find(t) != this->healths.end())
 		this->healths[t] = std::max(0, this->healths[t] - damageAmount);
-	if (this->isDead() && this->getParent().lock()->controller) {
-		this->getParent().lock()->controller->onDeath();
+	if (this->isDead() && this->getParent().lock()->components.controller) {
+		this->getParent().lock()->components.controller->onDeath();
 	}
 }
 // Heal a type of health

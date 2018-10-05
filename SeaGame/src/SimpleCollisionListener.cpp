@@ -26,13 +26,13 @@ void SimpleCollisionListener::BeginContact(b2Contact* contact)
 	}
 	// Call the controller's collision methods
 	if (one.lock()) {
-		if (one.lock()->controller != nullptr) {
-			one.lock()->controller->onCollision(two);
+		if (one.lock()->components.controller != nullptr) {
+			one.lock()->components.controller->onCollision(two);
 		}
 	}
 	if (two.lock()) {
-		if (two.lock()->controller != nullptr) {
-			two.lock()->controller->onCollision(one);
+		if (two.lock()->components.controller != nullptr) {
+			two.lock()->components.controller->onCollision(one);
 		}
 	}
 }

@@ -20,7 +20,7 @@ Game::Game(sf::RenderWindow& window, tgui::Gui& gui) : window(window), gui(gui)
 /*	this->entities.push_back(EntityPrefabs::playerShip(this, sf::Vector2f(0, 0)));
 	this->player = this->entities.back();
 	this->player.lock()->getSaveData();
-	this->player.lock()->inventory->addItems(GameResource::Gold, 300);*/
+	this->player.lock()->components.inventory->addItems(GameResource::Gold, 300);*/
 	// Create GameMap
 	rapidxml::file<> file("test.txt");
 	rapidxml::xml_document<> doc;
@@ -81,8 +81,8 @@ void Game::update(double delta)
 	// Update all entities
 	for (size_t i = 0; i < this->entities.size(); i++) {
 		auto e = this->entities[i];
-		if (e->controller != nullptr)
-			e->controller->update((float)delta);
+		if (e->components.controller != nullptr)
+			e->components.controller->update((float)delta);
 	}
 	// Update world and resolve collisions
 	this->world->Step((float)delta, 8, 3);
@@ -110,15 +110,15 @@ void Game::render()
 	this->gMap.render(r);
 	for (size_t i = 0; i < this->entities.size(); i++) {
 		auto e = this->entities[i];
-		if (e->renderer != nullptr) {
-			e->renderer->render(r);
-			e->renderer->renderCollider(r);
+		if (e->components.renderer != nullptr) {
+			e->components.renderer->render(r);
+			e->components.renderer->renderCollider(r);
 		}
 	}
 	// Render debug info, i.e. hitboxes
 	for (auto e : this->entities) {
-		if (e->renderer != nullptr) {
-			e->renderer->renderCollider(r);
+		if (e->components.renderer != nullptr) {
+			e->components.renderer->renderCollider(r);
 		}
 	}
 	r.render(this->window);

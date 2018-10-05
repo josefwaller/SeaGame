@@ -6,7 +6,7 @@ AutomatedShipController::AutomatedShipController(std::weak_ptr<Entity> parent) :
 
 }
 void AutomatedShipController::move(float delta) {
-	auto trans = this->getParent().lock()->transform;
+	auto trans = this->getParent().lock()->components.transform;
 	sf::Vector2f difference = points[pointsIndex]  + sf::Vector2f(32.0f, 32.0f) - trans->getPosition();
 	float angle = atan2(difference.y, difference.x);
 	trans->setRotation(angle);
@@ -25,7 +25,7 @@ void AutomatedShipController::setTarget(sf::Vector2f target) {
 	// Ensure the target is on water
 	sf::Vector2<size_t> targetCoord = sf::Vector2<size_t>(target / 64.0f);
 	// Get the target the ship is on
-	sf::Vector2<size_t> startCoord = sf::Vector2<size_t>(this->getParent().lock()->transform->getPosition() / 64.0f);
+	sf::Vector2<size_t> startCoord = sf::Vector2<size_t>(this->getParent().lock()->components.transform->getPosition() / 64.0f);
 	// Build a list of tiles to go through
 	std::queue<sf::Vector2<size_t>> coords;
 	// The tiles that have been visited and/or are in the queue

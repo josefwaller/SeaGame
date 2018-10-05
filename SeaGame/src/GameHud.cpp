@@ -24,7 +24,7 @@ GameHud::GameHud(Game* g) {
 void GameHud::tryToBuild(CraftingRecipes::CraftRecipe cr, sf::Vector2f pos) {
 	// Get the player's inventory
 	auto player = this->game->getPlayer();
-	auto inv = player->inventory->getInventory();
+	auto inv = player->components.inventory->getInventory();
 	// Check the player has all the resources required
 	for (auto res : cr.requiredResources) {
 		if (inv[res.first] < res.second) {
@@ -35,7 +35,7 @@ void GameHud::tryToBuild(CraftingRecipes::CraftRecipe cr, sf::Vector2f pos) {
 	if (cr.createMethod(this->game, pos)) {
 		// Remove the required resources
 		for (auto res : cr.requiredResources) {
-			player->inventory->removeItems(res.first, res.second);
+			player->components.inventory->removeItems(res.first, res.second);
 		}
 	}
 }
@@ -43,14 +43,14 @@ void GameHud::transferItems(std::weak_ptr<Entity> e, GameResource res, unsigned 
 	this->selectCallback = std::bind([&](std::weak_ptr<Entity> to, std::weak_ptr<Entity> from) {
 		// TODO, make sure entities are close to each other
 		if (to.lock() && from.lock()) {
-			std::map<GameResource, unsigned int> resources = from.lock()->inventory->getInventory();
+			std::map<GameResource, unsigned int> resources = from.lock()->components.inventory->getInventory();
 			// Remove resources from entity one
 			for (auto it : resources) {
-				from.lock()->inventory->removeItems(it.first, it.second);
+				from.lock()->components.inventory->removeItems(it.first, it.second);
 			}
 			// Add resources to entity two
 			for (auto it : resources) {
-				to.lock()->inventory->addItems(it.first, it.second);
+				to.lock()->components.inventory->addItems(it.first, it.second);
 			}
 		}
 	}, std::placeholders::_1, e);
@@ -59,10 +59,10 @@ void GameHud::transferItems(std::weak_ptr<Entity> e, GameResource res, unsigned 
 void GameHud::onClick(sf::Vector2f pos) {
 	if (this->currentClickState == ClickState::Nothing) {
 		for (auto e : this->game->getEntities()) {
-			if (e->click != nullptr) {
-				if (e->click->checkForClick(pos)) {
-					if (e->controller != nullptr) {
-						e->controller->onClick();
+			if (e->components.click != nullptr) {
+				if (e->components.click->checkForClick(pos)) {
+					if (e->components.controller != nullptr) {
+						e->components.controller->onClick();
 					}
 				}
 			}
@@ -74,8 +74,8 @@ void GameHud::onClick(sf::Vector2f pos) {
 	}
 	else if (this->currentClickState == ClickState::Selecting) {
 		for (auto e : this->game->getEntities()) {
-			if (e->click) {
-				if (e->click->checkForClick(pos)) {
+			if (e->components.click) {
+				if (e->components.click->checkForClick(pos)) {
 					this->selectCallback(e);
 					this->currentClickState = ClickState::Nothing;
 				}
@@ -114,7 +114,7 @@ void GameHud::resetResearchButtons() {
 				// Check the player has the correct resources for the technology
 				TechTreeNode* node = &TechTree::nodes.find(tech)->second;
 				std::shared_ptr<Entity> player = g->getPlayer();
-				std::map<GameResource, unsigned int> playerInventory = player->inventory->getInventory();
+				std::map<GameResource, unsigned int> playerInventory = player->components.inventory->getInventory();
 				// Check for each item in the player's inventory
 				for (auto invIt : node->requiredResources) {
 					if (playerInventory[invIt.first] < invIt.second) {
@@ -123,7 +123,7 @@ void GameHud::resetResearchButtons() {
 				}
 				// Remove the items
 				for (auto invIt : node->requiredResources) {
-					player->inventory->removeItems(invIt.first, invIt.second);
+					player->components.inventory->removeItems(invIt.first, invIt.second);
 				}
 				// Set the node to researched
 				node->isResearched = true;

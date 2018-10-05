@@ -7,7 +7,7 @@ RenderComponent::RenderComponent(std::weak_ptr<Entity> newParent): Component(new
 
 void RenderComponent::renderCollider(RenderManager& r)
 {
-	if (std::shared_ptr<Box2dTransform> trans = std::dynamic_pointer_cast<Box2dTransform>(this->getParent().lock()->transform)) {
+	if (std::shared_ptr<Box2dTransform> trans = std::dynamic_pointer_cast<Box2dTransform>(this->getParent().lock()->components.transform)) {
 		// Get the body
 		b2Body* body = trans->getBody();
 		b2Transform bodyTrans = body->GetTransform();

@@ -2,7 +2,7 @@
 
 BaseController::BaseController(std::weak_ptr<Entity> parent) : ControllerComponent(parent) {
 	// Set the dock coords
-	sf::Vector2f pos = this->getParent().lock()->transform->getPosition();
+	sf::Vector2f pos = this->getParent().lock()->components.transform->getPosition();
 	std::queue<sf::Vector2i> coords;
 	std::vector<sf::Vector2i> visited;
 	coords.push((sf::Vector2i)(pos / 64.0f));

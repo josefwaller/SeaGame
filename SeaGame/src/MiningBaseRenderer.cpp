@@ -3,7 +3,7 @@
 
 MiningBaseRenderer::MiningBaseRenderer(std::weak_ptr<Entity> parent, GameResource res) : BaseRenderer(parent) {
 	this->resSprite = getResourceSprite(res);
-	this->resSprite.setPosition(this->getParent().lock()->transform->getPosition() + sf::Vector2f(64.0f * 1.5, 64.0f * 1.5));
+	this->resSprite.setPosition(this->getParent().lock()->components.transform->getPosition() + sf::Vector2f(64.0f * 1.5, 64.0f * 1.5));
 }
 void MiningBaseRenderer::render(RenderManager& rm) {
 	BaseRenderer::render(rm);

@@ -12,7 +12,7 @@ GuiComponent::GuiComponent(std::weak_ptr<Entity> parent) : Component(parent) {
 	this->entityPanels["Health"] = tgui::Panel::create();
 	this->entityPanels["Inventory"]->setPosition({ 0, this->entityTabs->getFullSize().y });
 	this->updateInventory();
-	if (auto controller = std::dynamic_pointer_cast<FerryShipController>(this->getParent().lock()->controller)) {
+	if (auto controller = std::dynamic_pointer_cast<FerryShipController>(this->getParent().lock()->components.controller)) {
 
 		this->entityPanels["Ferry"] = tgui::Panel::create();
 		this->entityTabs->add("Ferry");
@@ -73,8 +73,8 @@ void GuiComponent::updateInventory() {
 	this->entityPanels["Inventory"]->removeAllWidgets();
 	float y = 0.0f;
 	// Add a button for each of the resources
-	if (this->getParent().lock()->inventory != nullptr) {
-		for (auto it : this->getParent().lock()->inventory->getInventory()) {
+	if (this->getParent().lock()->components.inventory != nullptr) {
+		for (auto it : this->getParent().lock()->components.inventory->getInventory()) {
 			tgui::Button::Ptr btn = tgui::Button::create();
 			btn->setText(getResourceString(it.first) + ": " + std::to_string(it.second));
 			btn->setPosition({ 0.0f, y });

@@ -14,7 +14,7 @@ CannonBallController::CannonBallController(std::weak_ptr<Entity> parent, float a
 void CannonBallController::update(float delta)
 {
 	// Move the cannonball
-	auto physics = this->getParent().lock()->physics;
+	auto physics = this->getParent().lock()->components.physics;
 	physics->setVelocity({ SPEED * cos(this->angle), SPEED * sin(this->angle) });
 	// Check if it has gone far enough and should be destroyed
 	this->distance += delta * SPEED;
@@ -30,10 +30,10 @@ void CannonBallController::onCollision(std::weak_ptr<Entity> other)
 			// Add explosion
 			this->getParent().lock()->game->addEntity(EntityPrefabs::explosion(
 				this->getParent().lock()->game,
-				this->getParent().lock()->transform->getPosition()));
+				this->getParent().lock()->components.transform->getPosition()));
 			// Damage other entity
-			if (other.lock()->controller != nullptr)
-				other.lock()->controller->onHit(HealthType::Sails, 10);
+			if (other.lock()->components.controller != nullptr)
+				other.lock()->components.controller->onHit(HealthType::Sails, 10);
 			// Remove self
 			this->getParent().lock()->game->removeEntity(this->getParent().lock());
 		}
