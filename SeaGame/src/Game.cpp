@@ -84,6 +84,13 @@ void Game::update(double delta)
 		auto b = Entity::trueEntityCount;
 		auto c = 0;
 	}
+	for (auto it = this->entities.begin(); it != this->entities.end(); it++) {
+		for (auto x = it + 1; x != this->entities.end(); x++) {
+			if ((*it)->id == (*x)->id) {
+				auto y = 0;
+			}
+		}
+	}
 #endif
 }
 
@@ -146,6 +153,15 @@ void Game::handleEvent(sf::Event e) {
 std::vector<std::shared_ptr<Entity>> Game::getEntities()
 {
 	return this->entities;
+}
+std::weak_ptr<Entity> Game::getEntityById(unsigned long id) {
+	for (auto it = this->entities.begin(); it != this->entities.end(); it++) {
+		if ((*it)->id == id) {
+			return *it;
+		}
+	}
+	// Return nullptr if no entity has that id
+	return std::weak_ptr<Entity>();
 }
 void Game::addEntity(std::shared_ptr<Entity> newEnt)
 {

@@ -26,21 +26,25 @@ enum EntityType {
 	City = 8,
 	PirateBase = 9
 };
-
 struct Entity
 {
 	Entity() : game(nullptr) {}
 	Entity(Game* g) : game(g) {
 		Entity::trueEntityCount++;
+		this->id = Entity::currentId;
+		Entity::currentId++;
 	}
 	~Entity() {
 		Entity::trueEntityCount--;
 	}
 	Game* game;
 	static unsigned int trueEntityCount;
+	static unsigned long currentId;
 	// The team this entity belongs to
 	// 0 is the player's team
 	int team;
+	// The entity's id
+	unsigned long id;
 	// The entity's tag
 	EntityTag tag;
 	// The specific type of entity

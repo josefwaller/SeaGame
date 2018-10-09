@@ -14,6 +14,7 @@ std::vector<ComponentType> allTypes = {
 	ComponentType::Click
 };
 
+unsigned long Entity::currentId = 0;
 std::map<std::string, std::string> Entity::getSaveData() {
 	std::map<std::string, std::string> data = {
 		{"type", std::to_string((int)this->type)}

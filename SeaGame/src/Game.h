@@ -32,6 +32,8 @@ public:
 	std::shared_ptr<Entity> getPlayer();
 	// Get all entities
 	std::vector<std::shared_ptr<Entity>> getEntities();
+	// Get entity by id
+	std::weak_ptr<Entity> getEntityById(unsigned long id);
 	// Get the box2d world
 	std::weak_ptr<b2World> getWorld();
 	// Get the GUI world for adding/removing widgets

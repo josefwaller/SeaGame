@@ -45,6 +45,7 @@ struct ComponentList {
 		case ComponentType::Inventory: return std::dynamic_pointer_cast<Component>(inventory);
 		case ComponentType::Gui: return std::dynamic_pointer_cast<Component>(gui);
 		case ComponentType::Click: return std::dynamic_pointer_cast<Component>(click);
+		default: return nullptr;
 		}
 	}
 };
