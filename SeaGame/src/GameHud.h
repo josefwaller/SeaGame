@@ -41,6 +41,8 @@ private:
 	tgui::Button::Ptr researchButton;
 	// Buttons to decide what to research
 	std::vector<tgui::Button::Ptr> toResearchButtons;
+	// Save Button
+	tgui::Button::Ptr saveBtn;
 	// Reset the build buttons
 	void resetBuildButtons();
 	// Reset the research buttons

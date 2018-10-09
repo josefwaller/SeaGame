@@ -39,6 +39,7 @@ public:
 	GameHud* getHud();
 	GameMap* getGameMap();
 	TechTree* getTechTree();
+	void save();
 private:
 	// Window for ref
 	sf::RenderWindow& window;

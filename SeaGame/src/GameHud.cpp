@@ -20,6 +20,11 @@ GameHud::GameHud(Game* g) {
 		g->getHud()->toggleResearchButtons();
 	}, this->game);
 	this->game->getGui().add(this->researchButton);
+	this->saveBtn = tgui::Button::create();
+	this->saveBtn->setText("Save");
+	this->saveBtn->setPosition({ 250.0f, 0 });
+	this->saveBtn->connect("clicked", &Game::save, this->game);
+	this->game->getGui().add(this->saveBtn);
 }
 void GameHud::tryToBuild(CraftingRecipes::CraftRecipe cr, sf::Vector2f pos) {
 	// Get the player's inventory

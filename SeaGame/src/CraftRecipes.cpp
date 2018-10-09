@@ -9,7 +9,7 @@ std::vector<CraftingRecipes::CraftRecipe> CraftingRecipes::recipes = {
 		Technology::Nothing,
 		"Mining Base",
 		[&](Game* g, sf::Vector2f pos) {
-			g->addEntity(EntityPrefabs::miningBase(g, (sf::Vector2i)(pos / 64.0f)));
+			g->addEntity(EntityPrefabs::miningBase(g, (sf::Vector2i)(pos / 64.0f) * 64));
 			return true;
 		}
 	},
@@ -18,7 +18,7 @@ std::vector<CraftingRecipes::CraftRecipe> CraftingRecipes::recipes = {
 		Technology::MakingStuff,
 		"Military Base",
 		[&](Game* g, sf::Vector2f pos) {
-			g->addEntity(EntityPrefabs::militaryBase(g, (sf::Vector2i)(pos / 64.0f)));
+			g->addEntity(EntityPrefabs::militaryBase(g, (sf::Vector2i)(pos / 64.0f) * 64));
 			return true;
 		}
 	},
@@ -36,7 +36,7 @@ std::vector<CraftingRecipes::CraftRecipe> CraftingRecipes::recipes = {
 		Technology::Nothing,
 		"City",
 		[&](Game* g, sf::Vector2f pos) {
-			g->addEntity(EntityPrefabs::city(g, (sf::Vector2i)(pos / 64.0f)));
+			g->addEntity(EntityPrefabs::city(g, (sf::Vector2i)(pos / 64.0f) * 64));
 			return true;
 		}
 	},
@@ -45,7 +45,7 @@ std::vector<CraftingRecipes::CraftRecipe> CraftingRecipes::recipes = {
 		Technology::Nothing,
 		"Forestry",
 		[&](Game* g, sf::Vector2f pos) {
-			g->addEntity(EntityPrefabs::forestryBase(g, (sf::Vector2i)(pos / 64.0f)));
+			g->addEntity(EntityPrefabs::forestryBase(g, (sf::Vector2i)(pos / 64.0f) * 64));
 			return true;
 		}
 	}

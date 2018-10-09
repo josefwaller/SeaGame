@@ -162,7 +162,12 @@ void GameMap::addSaveData(rapidxml::xml_document<>* doc) {
 	doc->append_node(n);
 }
 GameMap::TileType GameMap::getTileAt(size_t x, size_t y) {
-	return this->tiles[x][y];
+	if (x >= 0 && x < this->tiles.size()) {
+		if (y >= 0 && y < this->tiles[0].size()) {
+			return this->tiles[x][y];
+		}
+	}
+	return TileType::Sea;
 }
 sf::Vector2<size_t> GameMap::getMapSize() {
 	return { this->tiles.size(), this->tiles[0].size() };

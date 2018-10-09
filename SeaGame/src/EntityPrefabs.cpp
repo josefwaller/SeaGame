@@ -35,6 +35,7 @@ std::shared_ptr<Entity> EntityPrefabs::playerShip(Game* g, sf::Vector2f position
 std::shared_ptr<Entity> EntityPrefabs::cannonBall(Game* g, std::weak_ptr<Entity> spawner, sf::Vector2f pos, float rot)
 {
 	auto ball = std::shared_ptr<Entity>(new Entity(g));
+	ball->type = EntityType::CannonBall;
 	ball->tag = EntityTag::Cannonball;
 	ball->components.renderer = std::shared_ptr<RenderComponent>(new SpriteRenderer(
 		ball,
@@ -64,6 +65,7 @@ std::shared_ptr<Entity> EntityPrefabs::cannonBall(Game* g, std::weak_ptr<Entity>
 std::shared_ptr<Entity> EntityPrefabs::enemyChasingShip(Game* g, sf::Vector2f pos)
 {
 	auto ship = EntityPrefabs::ship(g, pos, 0.0f, ShipRenderer::SAIL_COLOR::Black);
+	ship->type = EntityType::PirateShip;
 	ship->team = 1;
 	ship->components.controller = std::shared_ptr<ControllerComponent>(new ChasingShipController(ship));
 	return ship;
@@ -106,6 +108,7 @@ std::shared_ptr<Entity> EntityPrefabs::ship(Game* g, sf::Vector2f pos, float rot
 std::shared_ptr<Entity> EntityPrefabs::militaryBase(Game* g, sf::Vector2i pos)
 {
 	auto b = base(g, pos);
+	b->type = EntityType::MilitaryBase;
 	b->components.controller = std::shared_ptr<ControllerComponent>(new MilitaryBaseController(b));
 	b->components.renderer = std::shared_ptr<RenderComponent>(new MilitaryBaseRenderer(b));
 	// TODO: Make team a parameter
@@ -114,6 +117,7 @@ std::shared_ptr<Entity> EntityPrefabs::militaryBase(Game* g, sf::Vector2i pos)
 }
 std::shared_ptr<Entity> EntityPrefabs::miningBase(Game* g, sf::Vector2i pos) {
 	auto b = base(g, pos);
+	b->type = EntityType::MiningBase;
 	b->components.controller = std::shared_ptr<ControllerComponent>(new MiningBaseController(b, GameResource::Stone));
 	b->components.renderer = std::shared_ptr<RenderComponent>(new MiningBaseRenderer(b, GameResource::Stone));
 	b->team = 1;
@@ -123,7 +127,7 @@ std::shared_ptr<Entity> EntityPrefabs::base(Game* g, sf::Vector2i pos)
 {
 	b2BodyDef baseDef;
 	baseDef.type = b2_staticBody;
-	baseDef.position = b2Vec2(pos.x * 64, pos.y * 64);
+	baseDef.position = b2Vec2(pos.x, pos.y);
 	baseDef.angle = 0.0f;
 	b2FixtureDef baseFixture;
 	b2PolygonShape baseShape;
@@ -147,6 +151,7 @@ std::shared_ptr<Entity> EntityPrefabs::base(Game* g, sf::Vector2i pos)
 std::shared_ptr<Entity> EntityPrefabs::explosion(Game* g, sf::Vector2f pos)
 {
 	auto ex = std::shared_ptr<Entity>(new Entity(g));
+	ex->type = EntityType::Explosion;
 	ex->components.transform = std::shared_ptr<TransformComponent>(new BasicTransform(ex, pos, 0.0f));
 	ex->components.renderer = std::shared_ptr<RenderComponent>(new AnimationRenderer(
 		ex,
@@ -162,24 +167,28 @@ std::shared_ptr<Entity> EntityPrefabs::explosion(Game* g, sf::Vector2f pos)
 }
 std::shared_ptr<Entity> EntityPrefabs::ferryShip(Game* g, sf::Vector2f pos, std::weak_ptr<Entity> from, std::weak_ptr<Entity> to) {
 	auto ship = EntityPrefabs::ship(g, pos, 0.0f, ShipRenderer::SAIL_COLOR::Red);
+	ship->type = EntityType::Ferry;
 	ship->components.controller = std::shared_ptr<ControllerComponent>(new FerryShipController(ship, from, to));
 	ship->components.gui = std::shared_ptr<GuiComponent>(new GuiComponent(ship));
 	return ship;
 }
 std::shared_ptr<Entity> EntityPrefabs::city(Game* g, sf::Vector2i pos) {
 	auto city = EntityPrefabs::base(g, pos);
+	city->type = EntityType::City;
 	city->components.controller = std::shared_ptr<ControllerComponent>(new CityController(city));
 	city->components.renderer = std::shared_ptr<RenderComponent>(new CityRenderer(city));
 	return city;
 }
 std::shared_ptr<Entity> EntityPrefabs::forestryBase(Game* g, sf::Vector2i pos) {
 	auto base = EntityPrefabs::base(g, pos);
+	base->type = EntityType::ForestryBase;
 	base->components.renderer = std::shared_ptr<RenderComponent>(new MiningBaseRenderer(base, GameResource::Wood));
 	base->components.controller = std::shared_ptr<ControllerComponent>(new MiningBaseController(base, GameResource::Wood));
 	return base;
 }
 std::shared_ptr<Entity> EntityPrefabs::pirateBase(Game* g, sf::Vector2i pos) {
 	auto base = EntityPrefabs::base(g, pos);
+	base->type = EntityType::PirateBase;
 	base->components.renderer = std::shared_ptr<RenderComponent>(new PirateBaseRenderer(base));
 	base->components.controller = std::shared_ptr<ControllerComponent>(new PirateBaseController(base));
 	return base;
@@ -190,12 +199,22 @@ std::shared_ptr<Entity> EntityPrefabs::getEntityFromSaveData(Game* g, std::map<s
 	float x = std::stoi(data["x"]);
 	float y = std::stoi(data["y"]);
 	switch (type){
+	// Types of bases
 	case EntityType::MiningBase:
 		return EntityPrefabs::miningBase(g, { (int)x, (int)y });
 	case EntityType::ForestryBase:
 		return EntityPrefabs::forestryBase(g, { (int)x, (int)y });
+	case EntityType::City:
+		return EntityPrefabs::city(g, { (int)x, (int)y });
+	case EntityType::MilitaryBase:
+		return EntityPrefabs::militaryBase(g, { (int)x, (int)y });
+	case EntityType::PirateBase:
+		return EntityPrefabs::pirateBase(g, { (int)x, (int)y });
+	// Types of ships
 	case EntityType::Player:
 		return EntityPrefabs::playerShip(g, { x, y });
+	case EntityType::PirateShip:
+		return EntityPrefabs::enemyChasingShip(g, { x, y });
 	}
 	return nullptr;
 }

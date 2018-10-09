@@ -39,33 +39,11 @@ Game::Game(sf::RenderWindow& window, tgui::Gui& gui) : window(window), gui(gui)
 	}
 	for (auto it : entityDatas) {
 		this->entities.push_back(EntityPrefabs::getEntityFromSaveData(this, it));
-		if (std::dynamic_pointer_cast<PlayerShipController>(this->entities.back()->components.controller)) {
+		if (this->entities.back()->components.controller != nullptr && std::dynamic_pointer_cast<PlayerShipController>(this->entities.back()->components.controller)) {
 			this->player = this->entities.back();
 			this->player.lock()->components.inventory->addItems(GameResource::Gold, 300);
 		}
 	}
-	rapidxml::xml_document<> saveData;
-	this->gMap.addSaveData(&saveData);
-	auto n = saveData.allocate_node(rapidxml::node_element, "EntityList");
-	for (auto e : this->entities) {
-		auto data = e->getSaveData();
-		auto eN = saveData.allocate_node(rapidxml::node_element, "Entity");
-		for (auto it : data) {
-			char* a = saveData.allocate_string(it.first.c_str());
-			char* b = saveData.allocate_string(it.second.c_str());
-			eN->append_attribute(
-				saveData.allocate_attribute(
-					a, b
-				)
-			);
-		}
-		n->append_node(eN);
-	}
-	saveData.append_node(n);
-	std::ofstream f;
-	f.open("test.xml");
-	f << saveData;
-	f.close();
 	this->gHud = GameHud(this);
 	//this->addEntity(EntityPrefabs::enemyChasingShip(this, { 200, 200 }, ShipRenderer::SAIL_COLOR::Black));
 	// Add a base
@@ -131,6 +109,30 @@ void Game::render()
 	r.reset();
 	// Render GUI
 	this->gui.draw();
+}
+void Game::save() {
+	rapidxml::xml_document<> saveData;
+	this->gMap.addSaveData(&saveData);
+	auto n = saveData.allocate_node(rapidxml::node_element, "EntityList");
+	for (auto e : this->entities) {
+		auto data = e->getSaveData();
+		auto eN = saveData.allocate_node(rapidxml::node_element, "Entity");
+		for (auto it : data) {
+			char* a = saveData.allocate_string(it.first.c_str());
+			char* b = saveData.allocate_string(it.second.c_str());
+			eN->append_attribute(
+				saveData.allocate_attribute(
+					a, b
+				)
+			);
+		}
+		n->append_node(eN);
+	}
+	saveData.append_node(n);
+	std::ofstream f;
+	f.open("test.xml");
+	f << saveData;
+	f.close();
 }
 void Game::handleEvent(sf::Event e) {
 	switch (e.type) {
