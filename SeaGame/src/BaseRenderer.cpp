@@ -1,6 +1,7 @@
 #include "BaseRenderer.h"
 #include "BaseController.h"
 #include "ResourceManager.h"
+#include "TransformComponent.h"
 
 BaseRenderer::BaseRenderer(std::weak_ptr<Entity> parent) : RenderComponent(parent)
 {

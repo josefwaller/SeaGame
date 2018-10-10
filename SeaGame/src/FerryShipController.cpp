@@ -1,5 +1,6 @@
 #include "FerryShipController.h"
 #include "BaseController.h"
+#include "InventoryComponent.h"
 
 FerryShipController::FerryShipController(std::weak_ptr<Entity> parent, std::weak_ptr<Entity> from, std::weak_ptr<Entity> to)
 	: AutomatedShipController(parent) {

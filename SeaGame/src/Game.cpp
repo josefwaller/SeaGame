@@ -44,15 +44,9 @@ Game::Game(sf::RenderWindow& window, tgui::Gui& gui) : window(window), gui(gui)
 			this->player.lock()->components.inventory->addItems(GameResource::Gold, 300);
 		}
 	}
+	for (size_t i = 0; i < entityDatas.size(); i++) {
+	}
 	this->gHud = GameHud(this);
-	//this->addEntity(EntityPrefabs::enemyChasingShip(this, { 200, 200 }, ShipRenderer::SAIL_COLOR::Black));
-	// Add a base
-	/*this->entities.push_back(EntityPrefabs::miningBase(this, { 5, 5 }));
-	auto b1 = this->entities.back();
-	this->entities.push_back(EntityPrefabs::miningBase(this, { 20, 5 }));
-	auto b2 = this->entities.back();
-	this->entities.push_back(EntityPrefabs::ferryShip(this, { 0.0f, 0.0f }, b1, b2));*/
-	//this->entities.push_back(EntityPrefabs::pirateBase(this, { 20, 10 }));
 	this->fpsText = tgui::TextBox::create();
 	this->fpsText->setPosition({ this->window.getSize().x - 200.0f, 0.0f });
 	this->gui.add(this->fpsText);

@@ -1,4 +1,5 @@
 #include "BaseController.h"
+#include "GameMap.h"
 
 BaseController::BaseController(std::weak_ptr<Entity> parent) : ControllerComponent(parent) {
 	// Set the dock coords

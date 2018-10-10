@@ -54,13 +54,3 @@ struct Entity
 };
 
 #include "Game.h"
-#include "RenderComponent.h"
-#include "TransformComponent.h"
-#include "HealthComponent.h"
-#include "ControllerComponent.h"
-#include "PhysicsComponent.h"
-#include "InventoryComponent.h"
-#include "GuiComponent.h"
-#include "ClickComponent.h"
-
-

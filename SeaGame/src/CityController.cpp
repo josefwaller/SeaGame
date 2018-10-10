@@ -1,5 +1,6 @@
 #pragma once
 #include "CityController.h"
+#include "InventoryComponent.h"
 
 CityController::CityController(std::weak_ptr<Entity> parent) : BaseController(parent) {
 

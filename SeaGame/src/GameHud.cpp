@@ -2,6 +2,7 @@
 #include "EntityPrefabs.h"
 #include "CraftRecipes.h"
 #include "TechTree.h"
+#include "InventoryComponent.h"
 
 GameHud::GameHud() {
 }

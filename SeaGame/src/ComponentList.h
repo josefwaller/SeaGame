@@ -1,8 +1,9 @@
 #pragma once
 #include <memory>
-#include "Component.h"
+#include <vector>
 
 // Forward declaration of components
+class Component;
 class RenderComponent;
 class TransformComponent;
 class HealthComponent;
@@ -11,7 +12,6 @@ class PhysicsComponent;
 class InventoryComponent;
 class GuiComponent;
 class ClickComponent;
-
 
 // Hold the components for an entity. Is iterable and accessable
 enum ComponentType {
@@ -24,6 +24,7 @@ enum ComponentType {
 	Gui,
 	Click
 };
+
 struct ComponentList {
 	// The components
 	std::shared_ptr<TransformComponent> transform;
@@ -34,6 +35,9 @@ struct ComponentList {
 	std::shared_ptr<InventoryComponent> inventory;
 	std::shared_ptr<GuiComponent> gui;
 	std::shared_ptr<ClickComponent> click;
+
+	static std::vector<ComponentType> allTypes;
+
 	// Get the component 
 	std::shared_ptr<Component> get(ComponentType t) {
 		switch (t) {
@@ -49,3 +53,15 @@ struct ComponentList {
 		}
 	}
 };
+
+#include "Component.h"
+#include "RenderComponent.h"
+#include "TransformComponent.h"
+#include "HealthComponent.h"
+#include "ControllerComponent.h"
+#include "PhysicsComponent.h"
+#include "InventoryComponent.h"
+#include "GuiComponent.h"
+#include "ClickComponent.h"
+
+
