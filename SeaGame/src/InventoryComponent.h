@@ -13,6 +13,7 @@ public:
 	void removeItems(GameResource res, unsigned int amount);
 	std::map<GameResource, unsigned int> getInventory();
 	std::map<std::string, std::string> getSaveData() override;
+	void fromSaveData(std::map<std::string, std::string> data) override;
 private:
 	// Inventory data
 	std::map<GameResource, unsigned int> inventory;

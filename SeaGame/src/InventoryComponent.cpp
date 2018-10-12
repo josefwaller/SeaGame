@@ -23,7 +23,20 @@ std::map<GameResource, unsigned int> InventoryComponent::getInventory() {
 std::map<std::string, std::string> InventoryComponent::getSaveData() {
 	std::map<std::string, std::string> data;
 	for (auto it = this->inventory.begin(); it != this->inventory.end(); ++it) {
-		data.insert({ std::to_string(it->first), std::to_string(it->second) });
+		data.insert({ "inv-" + std::to_string(it->first), std::to_string(it->second) });
 	}
 	return data;
+}
+
+void InventoryComponent::fromSaveData(std::map<std::string, std::string> data) {
+	for (auto it = data.begin(); it != data.end(); ++it) {
+		// Check the string begins with inv-
+		if (it->first.find("inv-") == 0) {
+			// Get resource type and number of resource
+			int resNum = std::stoi(it->first.substr(4, it->first.size()));
+			int resCount = std::stoi(it->second);
+			// Add it
+			this->addItems((GameResource)resNum, resCount);
+		}
+	}
 }
