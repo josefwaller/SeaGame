@@ -215,6 +215,10 @@ std::shared_ptr<Entity> EntityPrefabs::getEntityFromSaveData(Game* g, std::map<s
 		return EntityPrefabs::playerShip(g, { x, y });
 	case EntityType::PirateShip:
 		return EntityPrefabs::enemyChasingShip(g, { x, y });
+	case EntityType::Ferry:
+		// Source/destination is set in Component::fromSvaeData after all entities are loaded
+		return EntityPrefabs::ferryShip(g, { x, y }, std::weak_ptr<Entity>(), std::weak_ptr<Entity>());
 	}
+	auto breakpoint = 0;
 	return nullptr;
 }

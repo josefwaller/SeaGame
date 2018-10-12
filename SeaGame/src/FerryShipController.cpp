@@ -53,3 +53,23 @@ sf::Vector2f FerryShipController::getCoordsForEntity(std::weak_ptr<Entity> e) {
 		return e.lock()->components.transform->getPosition();
 	}
 }
+
+std::map<std::string, std::string> FerryShipController::getSaveData() {
+	std::map<std::string, std::string> toReturn;
+	if (this->source.lock()) {
+		toReturn["source"] = std::to_string(this->source.lock()->id);
+	}
+	if (this->destination.lock()) {
+		toReturn["destination"] = std::to_string(this->destination.lock()->id);
+	}
+	return toReturn;
+}
+
+void FerryShipController::fromSaveData(std::map<std::string, std::string> data) {
+	if (data.find("source") != data.end()) {
+		this->setSource(this->getParent().lock()->game->getEntityById(std::stoi(data["source"])));
+	}
+	if (data.find("destination") != data.end()) {
+		this->setDestination(this->getParent().lock()->game->getEntityById(std::stoi(data["destination"])));
+	}
+}

@@ -11,12 +11,12 @@
 
 
 std::vector<ComponentType> ComponentList::allTypes = {
-/*	ComponentType::Transform,
+	ComponentType::Transform,
 	ComponentType::Renderer,
 	ComponentType::Physics,
 	ComponentType::Controller,
 	ComponentType::Health,
 	ComponentType::Inventory,
 	ComponentType::Gui,
-	ComponentType::Click*/
+	ComponentType::Click
 };

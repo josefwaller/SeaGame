@@ -11,6 +11,8 @@ public:
 		PickingUp,
 		DropingOff
 	};
+	virtual std::map<std::string, std::string> getSaveData() override;
+	virtual void fromSaveData(std::map<std::string, std::string> data) override;
 private:
 	std::weak_ptr<Entity> source;
 	std::weak_ptr<Entity> destination;

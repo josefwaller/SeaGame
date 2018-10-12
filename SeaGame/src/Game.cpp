@@ -18,11 +18,6 @@ Game::Game(sf::RenderWindow& window, tgui::Gui& gui) : window(window), gui(gui)
 	this->world = std::shared_ptr<b2World>(new b2World({ 0.0f, 0.0f }));
 	this->listener = SimpleCollisionListener();
 	this->world->SetContactListener(&this->listener);
-	// Add entities
-/*	this->entities.push_back(EntityPrefabs::playerShip(this, sf::Vector2f(0, 0)));
-	this->player = this->entities.back();
-	this->player.lock()->getSaveData();
-	*/
 	// Create GameMap
 	rapidxml::file<> file("test.xml");
 	rapidxml::xml_document<> doc;
@@ -45,6 +40,12 @@ Game::Game(sf::RenderWindow& window, tgui::Gui& gui) : window(window), gui(gui)
 		}
 	}
 	for (size_t i = 0; i < entityDatas.size(); i++) {
+		for (ComponentType c : ComponentList::allTypes) {
+			std::shared_ptr<Component> comp = this->entities[i]->components.get(c);
+			if (comp) {
+				comp->fromSaveData(entityDatas[i]);
+			}
+		}
 	}
 	this->gHud = GameHud(this);
 	this->fpsText = tgui::TextBox::create();
