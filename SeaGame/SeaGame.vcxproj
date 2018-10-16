@@ -122,6 +122,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="src\AnimationRenderer.cpp" />
+    <ClCompile Include="src\App.cpp" />
     <ClCompile Include="src\AutomatedShipController.cpp" />
     <ClCompile Include="src\BaseController.cpp" />
     <ClCompile Include="src\BaseRenderer.cpp" />
@@ -146,6 +147,7 @@
     <ClCompile Include="src\InventoryComponent.cpp" />
     <ClCompile Include="src\LayoutSprite.cpp" />
     <ClCompile Include="src\main.cpp" />
+    <ClCompile Include="src\MainMenu.cpp" />
     <ClCompile Include="src\MilitaryBaseController.cpp" />
     <ClCompile Include="src\MilitaryBaseRenderer.cpp" />
     <ClCompile Include="src\MiningBaseController.cpp" />
@@ -170,6 +172,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\AnimationRenderer.h" />
+    <ClInclude Include="src\App.h" />
     <ClInclude Include="src\AutomatedShipController.h" />
     <ClInclude Include="src\BaseController.h" />
     <ClInclude Include="src\BaseRenderer.h" />
@@ -198,6 +201,7 @@
     <ClInclude Include="src\Entity.h" />
     <ClInclude Include="src\Game.h" />
     <ClInclude Include="src\GameMap.h" />
+    <ClInclude Include="src\MainMenu.h" />
     <ClInclude Include="src\MilitaryBaseController.h" />
     <ClInclude Include="src\MilitaryBaseRenderer.h" />
     <ClInclude Include="src\MiningBaseController.h" />

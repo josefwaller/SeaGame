@@ -8,11 +8,14 @@
 #include "GameResource.h"
 #include <TGUI/TGUI.hpp>
 #include "TechTree.h"
+//For dec of app
+class App;
 
 class Game
 {
 public:
-	Game(sf::RenderWindow& window, tgui::Gui& gui);
+	Game();
+	Game(App* app);
 	void update(double delta);
 	void render();
 
@@ -37,16 +40,14 @@ public:
 	// Get the box2d world
 	std::weak_ptr<b2World> getWorld();
 	// Get the GUI world for adding/removing widgets
-	tgui::Gui& getGui();
+	tgui::Gui* getGui();
 	GameHud* getHud();
 	GameMap* getGameMap();
 	TechTree* getTechTree();
 	void save();
 private:
-	// Window for ref
-	sf::RenderWindow& window;
-	// TGUI handler
-	tgui::Gui& gui;
+	// App of the game, get window and gui through this pointer
+	App* app;
 	// The box2d world
 	std::shared_ptr<b2World> world;
 	// Box2d listener

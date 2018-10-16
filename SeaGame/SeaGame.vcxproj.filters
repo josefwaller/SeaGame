@@ -152,6 +152,12 @@
     <Filter Include="Files\Entity\ComponentList">
       <UniqueIdentifier>{2516d76f-3c72-4263-8523-667c6050099b}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Files\Utils\MainMenu">
+      <UniqueIdentifier>{05591215-6e57-4b2e-b267-1e9f95851a5b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Files\App">
+      <UniqueIdentifier>{1aac12cc-6629-4fab-9eb7-89d652812ac6}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\CannonBallController.cpp">
@@ -291,6 +297,12 @@
     </ClCompile>
     <ClCompile Include="src\ComponentList.cpp">
       <Filter>Files\Entity\ComponentList</Filter>
+    </ClCompile>
+    <ClCompile Include="src\MainMenu.cpp">
+      <Filter>Files\Utils\MainMenu</Filter>
+    </ClCompile>
+    <ClCompile Include="src\App.cpp">
+      <Filter>Files\App</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -440,6 +452,12 @@
     </ClInclude>
     <ClInclude Include="src\ComponentList.h">
       <Filter>Files\Entity\ComponentList</Filter>
+    </ClInclude>
+    <ClInclude Include="src\MainMenu.h">
+      <Filter>Files\Utils\MainMenu</Filter>
+    </ClInclude>
+    <ClInclude Include="src\App.h">
+      <Filter>Files\App</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

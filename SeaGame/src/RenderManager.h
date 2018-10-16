@@ -6,7 +6,7 @@ class RenderManager
 {
 public:
 	// Draw all sprites on the window
-	void render(sf::RenderWindow& window);
+	void render(sf::RenderWindow* window);
 	// Add a drawable to be drawn
 	void addPointer(sf::Drawable* s, size_t index);
 	// Convienence method so that new does not have to be called every time a sprite is added

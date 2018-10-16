@@ -11,7 +11,7 @@ GameHud::GameHud(Game* g) {
 	// Add the build button
 	this->buildButton = tgui::Button::create();
 	this->buildButton->setText("Build");
-	this->game->getGui().add(this->buildButton);
+	this->game->getGui()->add(this->buildButton);
 	this->buildButton->connect("clicked", &GameHud::toggleBuildButtons, game->getHud());
 	this->currentClickState = ClickState::Nothing;
 	this->researchButton = tgui::Button::create();
@@ -20,12 +20,12 @@ GameHud::GameHud(Game* g) {
 	this->researchButton->connect("clicked", [&](Game* g) {
 		g->getHud()->toggleResearchButtons();
 	}, this->game);
-	this->game->getGui().add(this->researchButton);
+	this->game->getGui()->add(this->researchButton);
 	this->saveBtn = tgui::Button::create();
 	this->saveBtn->setText("Save");
 	this->saveBtn->setPosition({ 250.0f, 0 });
 	this->saveBtn->connect("clicked", &Game::save, this->game);
-	this->game->getGui().add(this->saveBtn);
+	this->game->getGui()->add(this->saveBtn);
 }
 void GameHud::tryToBuild(CraftingRecipes::CraftRecipe cr, sf::Vector2f pos) {
 	// Get the player's inventory
@@ -100,7 +100,7 @@ void GameHud::selectEntity(std::function<void(std::weak_ptr<Entity> entity)> cal
 void GameHud::toggleBuildButtons() {
 	this->resetBuildButtons();
 	for (auto btn : this->toBuildButtons) {
-		this->game->getGui().add(btn);
+		this->game->getGui()->add(btn);
 	}
 }
 void GameHud::resetResearchButtons() {
@@ -167,6 +167,6 @@ void GameHud::resetBuildButtons() {
 void GameHud::toggleResearchButtons() {
 	this->resetResearchButtons();
 	for (auto b : this->toResearchButtons) {
-		this->game->getGui().add(b);
+		this->game->getGui()->add(b);
 	}
 }

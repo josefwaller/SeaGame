@@ -11,8 +11,10 @@
 #include <iostream>
 #include <rapidxml\rapidxml_print.hpp>
 #include <rapidxml\rapidxml_utils.hpp>
+#include "App.h"
 
-Game::Game(sf::RenderWindow& window, tgui::Gui& gui) : window(window), gui(gui)
+Game::Game() {}
+Game::Game(App* app): app(app)
 {
 	// Create world and make gravity 0, since it is top down
 	this->world = std::shared_ptr<b2World>(new b2World({ 0.0f, 0.0f }));
@@ -49,8 +51,8 @@ Game::Game(sf::RenderWindow& window, tgui::Gui& gui) : window(window), gui(gui)
 	}
 	this->gHud = GameHud(this);
 	this->fpsText = tgui::TextBox::create();
-	this->fpsText->setPosition({ this->window.getSize().x - 200.0f, 0.0f });
-	this->gui.add(this->fpsText);
+	this->fpsText->setPosition({ this->app->getWindow()->getSize().x - 200.0f, 0.0f });
+	this->app->getGui()->add(this->fpsText);
 
 }
 
@@ -60,6 +62,10 @@ void Game::update(double delta)
 	// Update all entities
 	for (size_t i = 0; i < this->entities.size(); i++) {
 		auto e = this->entities[i];
+#ifdef _DEBUG
+		if (e->game != this)
+			auto x = 0;
+#endif
 		if (e->components.controller != nullptr)
 			e->components.controller->update((float)delta);
 	}
@@ -107,10 +113,10 @@ void Game::render()
 			e->components.renderer->renderCollider(r);
 		}
 	}
-	r.render(this->window);
+	r.render(this->app->getWindow());
 	r.reset();
 	// Render GUI
-	this->gui.draw();
+	this->app->getGui()->draw();
 }
 void Game::save() {
 	rapidxml::xml_document<> saveData;
@@ -168,7 +174,7 @@ void Game::removeEntity(std::weak_ptr<Entity> e)
 }
 sf::Vector2f Game::getMouseCoords()
 {
-	return (sf::Vector2f)sf::Mouse::getPosition(this->window);
+	return (sf::Vector2f)sf::Mouse::getPosition(*this->app->getWindow());
 }
 
 std::shared_ptr<Entity> Game::getPlayer()
@@ -180,8 +186,8 @@ std::weak_ptr<b2World> Game::getWorld()
 {
 	return this->world;
 }
-tgui::Gui& Game::getGui() {
-	return this->gui;
+tgui::Gui* Game::getGui() {
+	return this->app->getGui();
 }
 GameMap* Game::getGameMap() {
 	return &this->gMap;

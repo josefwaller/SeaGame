@@ -95,12 +95,12 @@ void GuiComponent::updateInventory() {
 
 void GuiComponent::onClick() {
 	if (!this->entityWindow->getParent()) {
-		this->getParent().lock()->game->getGui().add(this->entityWindow);
+		this->getParent().lock()->game->getGui()->add(this->entityWindow);
 	}
 }
 void GuiComponent::show() {
-	this->getParent().lock()->game->getGui().add(this->entityWindow);
+	this->getParent().lock()->game->getGui()->add(this->entityWindow);
 }
 void GuiComponent::hide() {
-	this->getParent().lock()->game->getGui().remove(this->entityWindow);
+	this->getParent().lock()->game->getGui()->remove(this->entityWindow);
 }
