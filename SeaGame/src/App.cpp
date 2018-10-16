@@ -1,10 +1,12 @@
 #include "App.h"
 
-App::App(sf::RenderWindow* window, tgui::Gui* gui) :
+App::App() :
 	menu(this),
 	window(sf::VideoMode(1920, 1080), "SeaGame"),
-	gui(this->window),
-	game(this) {
+	gui(this->window) {
+
+	this->state = AppState::InMenu;
+	this->menu.show();
 }
 void App::gameLoop() {
 	// Delta time
@@ -17,15 +19,33 @@ void App::gameLoop() {
 			this->gui.handleEvent(e);
 			if (e.type == sf::Event::Closed)
 				this->window.close();
-			else
-				this->game.handleEvent(e);
+			else if (this->state == AppState::InGame)
+				this->game->handleEvent(e);
 		}
-		this->game.update(dClock.restart().asSeconds());
+		if (this->state == AppState::InGame) {
+			this->game->update(dClock.restart().asSeconds());
+		}
 		this->window.clear();
-		this->game.render();
+		if (this->state == AppState::InGame) {
+			this->game->render();
+		}
+		// Render GUI
+		this->gui.draw();
 		this->window.display();
 	}
 
+}
+void App::loadGame(std::string fileName) {
+	this->menu.hide();
+	this->game = std::unique_ptr<Game>(new Game(this));
+	this->game->loadFromFile(fileName);
+	this->state = AppState::InGame;
+}
+void App::newGame() {
+	this->state = AppState::InGame;
+	this->menu.hide();
+	this->game = std::unique_ptr<Game>(new Game(this));
+	this->game->generateNew();
 }
 sf::RenderWindow* App::getWindow() {
 	return &this->window;

@@ -4,9 +4,7 @@
 #include "App.h"
 int main()
 {
-	sf::RenderWindow w(sf::VideoMode(1920, 1080), "Sea Game");
-	tgui::Gui g(w);
-	App a(&w, &g);
+	App a;
 	a.gameLoop();
 	return 0;
 }

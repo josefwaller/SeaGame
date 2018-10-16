@@ -7,10 +7,11 @@ public:
 	enum State {
 		SplashScreen
 	};
-	MainMenu(App* g);
-	void loadGame(std::string fileName);
-	void newGame();
+	MainMenu(App* app);
+	void show();
+	void hide();
 private:
+	App* app;
 	// All the stuff on the main menu
 	tgui::VerticalLayout::Ptr container;
 };

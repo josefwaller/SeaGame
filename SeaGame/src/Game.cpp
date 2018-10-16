@@ -14,14 +14,41 @@
 #include "App.h"
 
 Game::Game() {}
+Game::~Game() {
+	this->app->getGui()->remove(this->guiContainer);
+}
 Game::Game(App* app): app(app)
 {
 	// Create world and make gravity 0, since it is top down
 	this->world = std::shared_ptr<b2World>(new b2World({ 0.0f, 0.0f }));
 	this->listener = SimpleCollisionListener();
 	this->world->SetContactListener(&this->listener);
+	this->guiContainer = tgui::Panel::create();
+	this->fpsText = tgui::TextBox::create();
+	this->fpsText->setPosition({ this->app->getWindow()->getSize().x - 200.0f, 0.0f });
+	this->guiContainer->add(this->fpsText);
+	this->guiContainer->getRenderer()->setBackgroundColor(tgui::Color::Transparent);
+	this->app->getGui()->add(this->guiContainer);
+	this->gHud = GameHud(this);
+}
+void Game::generateNew() {
+	// Generate new map
+	this->gMap = GameMap(this);
+	// Add the player in the first sea tile
+	for (size_t x = 0; x < this->gMap.getMapSize().x; x++) {
+		for (size_t y = 0; y < this->gMap.getMapSize().y; y++) {
+			if (this->gMap.getTileAt(x, y) == GameMap::TileType::Sea) {
+				// Add player
+				this->addEntity(EntityPrefabs::playerShip(this, { x * 64.0f, y * 64.0f }));
+				this->player = this->entities.back();
+				return;
+			}
+		}
+	}
+}
+void Game::loadFromFile(std::string fileName) {
 	// Create GameMap
-	rapidxml::file<> file("test.xml");
+	rapidxml::file<> file(fileName.c_str());
 	rapidxml::xml_document<> doc;
 	doc.parse<0>(file.data());
 	this->gMap = GameMap(this, &doc);
@@ -49,10 +76,6 @@ Game::Game(App* app): app(app)
 			}
 		}
 	}
-	this->gHud = GameHud(this);
-	this->fpsText = tgui::TextBox::create();
-	this->fpsText->setPosition({ this->app->getWindow()->getSize().x - 200.0f, 0.0f });
-	this->app->getGui()->add(this->fpsText);
 
 }
 
@@ -115,8 +138,6 @@ void Game::render()
 	}
 	r.render(this->app->getWindow());
 	r.reset();
-	// Render GUI
-	this->app->getGui()->draw();
 }
 void Game::save() {
 	rapidxml::xml_document<> saveData;
@@ -186,8 +207,8 @@ std::weak_ptr<b2World> Game::getWorld()
 {
 	return this->world;
 }
-tgui::Gui* Game::getGui() {
-	return this->app->getGui();
+tgui::Panel::Ptr Game::getGui() {
+	return this->guiContainer;
 }
 GameMap* Game::getGameMap() {
 	return &this->gMap;
