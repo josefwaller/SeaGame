@@ -49,7 +49,7 @@ void ShipController::shootSwivel()
 void ShipController::onHit(HealthType t, int damageAmount)
 {
 	if (this->getParent().lock()->components.health != nullptr) {
-		this->getParent().lock()->components.health->takeDamage(t, damageAmount);
+		this->getParent().lock()->components.health->takeDamage(damageAmount);
 		this->getParent().lock()->components.renderer->reset();
 	}
 }

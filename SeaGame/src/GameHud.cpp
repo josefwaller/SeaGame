@@ -44,7 +44,7 @@ void GameHud::update() {
 	// Update money display
 	this->moneyDisplay->setText("$" + std::to_string(this->game->getMoney()));
 	// Update player health
-	this->playerHealth->setValue(this->game->getPlayer()->components.health->getHealth(HealthType::Sails));
+	this->playerHealth->setValue(this->game->getPlayer()->components.health->getHealth());
 }
 void GameHud::tryToBuild(CraftingRecipes::CraftRecipe cr, sf::Vector2f pos) {
 	// Get the player's inventory

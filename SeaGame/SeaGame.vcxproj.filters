@@ -68,12 +68,6 @@
     <Filter Include="Files\Components\Health">
       <UniqueIdentifier>{12bf1484-a3d2-4889-9e3f-11d1e0d00d13}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Files\Components\Health\ShipHealth">
-      <UniqueIdentifier>{4bdc4ea6-8c2e-4718-b637-fc46ebfd8388}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Files\Components\Health\SimpleHealth">
-      <UniqueIdentifier>{65f5e034-5625-47ef-8402-95f63ba0a768}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Files\Components\Physics">
       <UniqueIdentifier>{33c081e4-37e7-4501-a3e4-0bdb71d4df76}</UniqueIdentifier>
     </Filter>
@@ -186,12 +180,6 @@
     </ClCompile>
     <ClCompile Include="src\ControllerComponent.cpp">
       <Filter>Files\Components\Controllers</Filter>
-    </ClCompile>
-    <ClCompile Include="src\ShipHealth.cpp">
-      <Filter>Files\Components\Health\ShipHealth</Filter>
-    </ClCompile>
-    <ClCompile Include="src\SimpleHealth.cpp">
-      <Filter>Files\Components\Health\SimpleHealth</Filter>
     </ClCompile>
     <ClCompile Include="src\HealthComponent.cpp">
       <Filter>Files\Components\Health</Filter>
@@ -353,12 +341,6 @@
     </ClInclude>
     <ClInclude Include="src\PlayerShipController.h">
       <Filter>Files\Components\Controllers\ShipControllers\PlayerShipController</Filter>
-    </ClInclude>
-    <ClInclude Include="src\ShipHealth.h">
-      <Filter>Files\Components\Health\ShipHealth</Filter>
-    </ClInclude>
-    <ClInclude Include="src\SimpleHealth.h">
-      <Filter>Files\Components\Health\SimpleHealth</Filter>
     </ClInclude>
     <ClInclude Include="src\AnimationRenderer.h">
       <Filter>Files\Components\Renderers\AnimationRenderer</Filter>

@@ -6,8 +6,7 @@
 #include "CannonBallController.h"
 #include "AnimationRenderer.h"
 #include "ResourceManager.h"
-#include "SimpleHealth.h"
-#include "ShipHealth.h"
+#include "HealthComponent.h"
 #include "BasicTransform.h"
 #include "Box2dTransform.h"
 #include "BaseRenderer.h"
@@ -99,7 +98,7 @@ std::shared_ptr<Entity> EntityPrefabs::ship(Game* g, sf::Vector2f pos, float rot
 	ship->components.transform = std::shared_ptr<TransformComponent>(new Box2dTransform(ship, &shipDef, { shipFixture }));
 	ship->components.renderer = std::shared_ptr<RenderComponent>(new ShipRenderer(ship, c));
 	ship->components.physics = std::shared_ptr<PhysicsComponent>(new PhysicsComponent(ship));
-	ship->components.health = std::shared_ptr<HealthComponent>(new ShipHealth(ship));
+	ship->components.health = std::shared_ptr<HealthComponent>(new HealthComponent(ship, 100));
 	ship->components.inventory = std::shared_ptr<InventoryComponent>(new InventoryComponent(ship));
 	ship->components.gui = std::shared_ptr<GuiComponent>(new GuiComponent(ship));
 	ship->components.click = std::shared_ptr<ClickComponent>(new Box2dClick(ship));

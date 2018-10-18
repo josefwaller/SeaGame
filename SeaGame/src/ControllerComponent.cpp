@@ -15,7 +15,7 @@ void ControllerComponent::onHit(HealthType t, int damageAmount)
 {
 	// Default, just reduces overall health
 	if (this->getParent().lock()->components.health != nullptr)
-		this->getParent().lock()->components.health->takeDamage(t, damageAmount);
+		this->getParent().lock()->components.health->takeDamage(damageAmount);
 }
 void ControllerComponent::onDeath() {}
 void ControllerComponent::onClick() {

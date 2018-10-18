@@ -32,5 +32,5 @@ private:
 	// Set the sprites to match the damage done to the ship
 	void setSprites();
 	// Get the string representation of the damage done for a certain health
-	std::string getDamageString(HealthType t);
+	std::string getDamageString();
 };
