@@ -34,6 +34,8 @@ Game::Game(App* app): app(app)
 void Game::generateNew() {
 	// Generate new map
 	this->gMap = GameMap(this);
+	// Start with the beginning amount of money
+	this->money = Game::STARTING_MONEY;
 	// Add the player in the first sea tile
 	for (size_t x = 0; x < this->gMap.getMapSize().x; x++) {
 		for (size_t y = 0; y < this->gMap.getMapSize().y; y++) {
@@ -41,6 +43,7 @@ void Game::generateNew() {
 				// Add player
 				this->addEntity(EntityPrefabs::playerShip(this, { x * 64.0f, y * 64.0f }));
 				this->player = this->entities.back();
+				// Todo: make a better algorithm than returning here
 				return;
 			}
 		}
@@ -52,6 +55,8 @@ void Game::loadFromFile(std::string fileName) {
 	rapidxml::xml_document<> doc;
 	doc.parse<0>(file.data());
 	this->gMap = GameMap(this, &doc);
+	// TBA: load money
+	this->money = 200;
 	std::vector<std::map<std::string, std::string>> entityDatas;
 	auto eN = doc.first_node("EntityList");
 	for (auto n = eN->first_node("Entity"); n != nullptr; n = n->next_sibling()) {
@@ -82,6 +87,7 @@ void Game::loadFromFile(std::string fileName) {
 void Game::update(double delta)
 {
 	this->fpsText->setText(std::to_string(1.0 / delta));
+	this->gHud.update();
 	// Update all entities
 	for (size_t i = 0; i < this->entities.size(); i++) {
 		auto e = this->entities[i];
@@ -218,4 +224,17 @@ GameHud* Game::getHud() {
 }
 TechTree* Game::getTechTree() {
 	return &this->techTree;
+}
+unsigned int Game::getMoney() {
+	return this->money;
+}
+void Game::addMoney(unsigned int amount) {
+	this->money += amount;
+}
+void Game::removeMoney(unsigned int amount) {
+	this->money -= amount;
+}
+
+sf::RenderWindow* Game::getWindow() {
+	return this->app->getWindow();
 }

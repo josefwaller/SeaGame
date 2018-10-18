@@ -2,8 +2,10 @@
 #include <map>
 #include "GameResource.h"
 
+// The different tachnologies in the game
 enum Technology {
 	// Used to signal that a technology has no prerequisite
+	// Cannot actually be researched
 	Nothing,
 	MakingStuff,
 	MakingStuff2
@@ -12,8 +14,8 @@ enum Technology {
 struct TechTreeNode {
 	Technology parent;
 	std::string name;
-	// The resources needed to research this technology
-	std::map<GameResource, unsigned int> requiredResources;
+	// The amount of money needed to discover this resource
+	unsigned int cost;
 	bool isResearched;
 };
 class TechTree {

@@ -6,9 +6,7 @@ std::map<Technology, TechTreeNode> TechTree::nodes = {
 		{
 			Technology::Nothing,
 			"MAking stuff",
-			{
-				{ GameResource::Gold, 150 }
-			},
+			250,
 			false,
 		},
 	},
@@ -17,9 +15,7 @@ std::map<Technology, TechTreeNode> TechTree::nodes = {
 		{
 			Technology::MakingStuff,
 			"Making Stuff 2",
-			{
-				{ GameResource::Gold, 200 }
-			},
+			500,
 			true
 		}
 	}

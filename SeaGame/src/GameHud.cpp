@@ -26,6 +26,13 @@ GameHud::GameHud(Game* g) {
 	this->saveBtn->setPosition({ 250.0f, 0 });
 	this->saveBtn->connect("clicked", &Game::save, this->game);
 	this->game->getGui()->add(this->saveBtn);
+	this->moneyDisplay = tgui::Label::create();
+	this->moneyDisplay->setPosition({ this->game->getWindow()->getSize().x - 300, 0 });
+	this->game->getGui()->add(this->moneyDisplay);
+}
+void GameHud::update() {
+	// Update money display
+	this->moneyDisplay->setText("$" + std::to_string(this->game->getMoney()));
 }
 void GameHud::tryToBuild(CraftingRecipes::CraftRecipe cr, sf::Vector2f pos) {
 	// Get the player's inventory
@@ -121,16 +128,12 @@ void GameHud::resetResearchButtons() {
 				TechTreeNode* node = &TechTree::nodes.find(tech)->second;
 				std::shared_ptr<Entity> player = g->getPlayer();
 				std::map<GameResource, unsigned int> playerInventory = player->components.inventory->getInventory();
-				// Check for each item in the player's inventory
-				for (auto invIt : node->requiredResources) {
-					if (playerInventory[invIt.first] < invIt.second) {
-						return;
-					}
+				// Check the player has enough money
+				if (this->game->getMoney() < node->cost) {
+					return false;
 				}
-				// Remove the items
-				for (auto invIt : node->requiredResources) {
-					player->components.inventory->removeItems(invIt.first, invIt.second);
-				}
+				// Remove the money
+				this->game->removeMoney(node->cost);
 				// Set the node to researched
 				node->isResearched = true;
 				// Reset the buttons

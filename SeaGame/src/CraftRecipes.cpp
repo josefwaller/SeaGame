@@ -4,7 +4,7 @@
 std::vector<CraftingRecipes::CraftRecipe> CraftingRecipes::recipes = {
 	{
 		{
-			{ GameResource::Gold, 50 }
+			{ GameResource::Gold, Wood }
 		},
 		Technology::Nothing,
 		"Mining Base",

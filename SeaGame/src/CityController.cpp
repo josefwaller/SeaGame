@@ -9,10 +9,12 @@ CityController::CityController(std::weak_ptr<Entity> parent) : BaseController(pa
 void CityController::update(float delta) {
 	// ToDo: Make sure citycontroller always has inventory on debug
 	for (auto it : this->getParent().lock()->components.inventory->getInventory()) {
-		// Don't sell gold, and make sure the city has at least one of the resource
-		if (it.first != GameResource::Gold && it.second > 0) {
+		// Check the city has at least one of this resource
+		if (it.second > 0) {
+			// Sell each one for $10 currently
+			// TBA: different thigns sell differently
+			this->getParent().lock()->game->addMoney(10 * it.second);
 			this->getParent().lock()->components.inventory->removeItems(it.first, it.second);
-			this->getParent().lock()->components.inventory->addItems(GameResource::Gold, 100);
 		}
 	}
 }

@@ -19,6 +19,8 @@ public:
 		// Selecting a building as a source/destination
 		Selecting
 	};
+	// Update widgets that need updating
+	void update();
 	void onClick(sf::Vector2f pos);
 	// Wait for a click, then call the callback with the point clicked
 	void selectPoint(ClickState c, std::function<void(Game* g, sf::Vector2f pos)> func);
@@ -43,6 +45,8 @@ private:
 	std::vector<tgui::Button::Ptr> toResearchButtons;
 	// Save Button
 	tgui::Button::Ptr saveBtn;
+	// Money display
+	tgui::Label::Ptr moneyDisplay;
 	// Reset the build buttons
 	void resetBuildButtons();
 	// Reset the research buttons

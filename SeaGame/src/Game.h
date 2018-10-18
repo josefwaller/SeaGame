@@ -14,6 +14,7 @@ class App;
 class Game
 {
 public:
+	static const unsigned int STARTING_MONEY = 200;
 	Game();
 	~Game();
 	Game(App* app);
@@ -48,6 +49,13 @@ public:
 	GameMap* getGameMap();
 	TechTree* getTechTree();
 	void save();
+	// Get the amount of money the player has
+	unsigned int getMoney();
+	// Add/remove money
+	void addMoney(unsigned int amount);
+	void removeMoney(unsigned int amount);
+	// Get window reference
+	sf::RenderWindow* getWindow();
 private:
 	// App of the game, get window and gui through this pointer
 	App* app;
@@ -73,4 +81,6 @@ private:
 	// The buttons specifying what to build
 	// Todo: think of a better name
 	std::vector<tgui::Button::Ptr> buildThingsBtns;
+	// The amount of money the player has
+	unsigned int money;
 };
