@@ -47,6 +47,8 @@ private:
 	tgui::Button::Ptr saveBtn;
 	// Money display
 	tgui::Label::Ptr moneyDisplay;
+	// Player health display
+	tgui::ProgressBar::Ptr playerHealth;
 	// Reset the build buttons
 	void resetBuildButtons();
 	// Reset the research buttons

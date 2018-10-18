@@ -8,12 +8,14 @@ GameHud::GameHud() {
 }
 GameHud::GameHud(Game* g) {
 	this->game = g;
+	// Set click state to nothing initially
+	this->currentClickState = ClickState::Nothing;
 	// Add the build button
 	this->buildButton = tgui::Button::create();
 	this->buildButton->setText("Build");
 	this->game->getGui()->add(this->buildButton);
 	this->buildButton->connect("clicked", &GameHud::toggleBuildButtons, game->getHud());
-	this->currentClickState = ClickState::Nothing;
+	// Add research button
 	this->researchButton = tgui::Button::create();
 	this->researchButton->setText("Research");
 	this->researchButton->setPosition({ 500.0f, 0 });
@@ -21,18 +23,28 @@ GameHud::GameHud(Game* g) {
 		g->getHud()->toggleResearchButtons();
 	}, this->game);
 	this->game->getGui()->add(this->researchButton);
+	// Add save button
 	this->saveBtn = tgui::Button::create();
 	this->saveBtn->setText("Save");
 	this->saveBtn->setPosition({ 250.0f, 0 });
 	this->saveBtn->connect("clicked", &Game::save, this->game);
 	this->game->getGui()->add(this->saveBtn);
+	// Add money display
 	this->moneyDisplay = tgui::Label::create();
 	this->moneyDisplay->setPosition({ this->game->getWindow()->getSize().x - 300, 0 });
 	this->game->getGui()->add(this->moneyDisplay);
+	// Add player health display
+	this->playerHealth = tgui::ProgressBar::create();
+	this->playerHealth->getRenderer()->setFillColor(tgui::Color(255, 0, 0, 255));
+	this->playerHealth->setMaximum(100);
+	this->playerHealth->setPosition({ 0, this->game->getWindow()->getSize().y - this->playerHealth->getFullSize().y });
+	this->game->getGui()->add(this->playerHealth);
 }
 void GameHud::update() {
 	// Update money display
 	this->moneyDisplay->setText("$" + std::to_string(this->game->getMoney()));
+	// Update player health
+	this->playerHealth->setValue(this->game->getPlayer()->components.health->getHealth(HealthType::Sails));
 }
 void GameHud::tryToBuild(CraftingRecipes::CraftRecipe cr, sf::Vector2f pos) {
 	// Get the player's inventory
