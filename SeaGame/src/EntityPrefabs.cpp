@@ -195,6 +195,7 @@ std::shared_ptr<Entity> EntityPrefabs::pirateBase(Game* g, sf::Vector2i pos) {
 }
 std::shared_ptr<Entity> EntityPrefabs::conversionBase(Game* g, sf::Vector2i pos, GameResource res) {
 	auto base = EntityPrefabs::base(g, pos);
+	base->type = EntityType::ConversionBase;
 	base->components.renderer = std::shared_ptr<RenderComponent>(new MiningBaseRenderer(base, res));
 	base->components.controller = std::shared_ptr<ControllerComponent>(new ConversionBaseController(base, res));
 	return base;
@@ -224,6 +225,8 @@ std::shared_ptr<Entity> EntityPrefabs::getEntityFromSaveData(Game* g, std::map<s
 	case EntityType::Ferry:
 		// Source/destination is set in Component::fromSvaeData after all entities are loaded
 		return EntityPrefabs::ferryShip(g, { x, y }, std::weak_ptr<Entity>(), std::weak_ptr<Entity>());
+	case EntityType::ConversionBase:
+		return EntityPrefabs::conversionBase(g, { (int)x, (int)y }, (GameResource)(std::stoi(data["product"])));
 	}
 	auto breakpoint = 0;
 	return nullptr;

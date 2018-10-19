@@ -14,6 +14,7 @@ ConversionBaseController::ConversionBaseController(std::weak_ptr<Entity> parent,
 }
 
 void ConversionBaseController::update(float delta) {
+	this->sinceLastConversion += delta;
 	ConversionRecipes::Recipe target = ConversionRecipes::recipes.find(this->product)->second;
 	// Check the base has the resources
 	bool hasResources = true;
@@ -21,14 +22,14 @@ void ConversionBaseController::update(float delta) {
 	for (auto it : target.cost) {
 		if (inv[it.first] < it.second) {
 			// Restart clock
-			this->conversionClock.restart();
+			this->sinceLastConversion = 0.0f;
 			hasResources = false;
 			break;
 		}
 	}
 	if (hasResources) {
 		// check enough time has gone by
-		if (this->conversionClock.getElapsedTime().asSeconds() >= target.duration) {
+		if (this->sinceLastConversion >= target.duration) {
 			// Remove items from inventory
 			for (auto it : target.cost) {
 				this->getParent().lock()->components.inventory->removeItems(it.first, it.second);
@@ -36,7 +37,19 @@ void ConversionBaseController::update(float delta) {
 			// Add a new product
 			this->getParent().lock()->components.inventory->addItems(this->product, 1);
 			// Restart clock
-			this->conversionClock.restart();
+			this->sinceLastConversion = 0.0f;
 		}
 	}
+}
+
+std::map<std::string, std::string> ConversionBaseController::getSaveData() {
+	return {
+		{ "product", std::to_string((unsigned int)this->product) },
+		{ "sinceLastConversion", std::to_string(this->sinceLastConversion) },
+	};
+}
+
+void ConversionBaseController::fromSaveData(std::map<std::string, std::string> data) {
+	this->product = (GameResource)std::stoi(data["product"]);
+	this->sinceLastConversion = std::stof(data["sinceLastConversion"]);
 }

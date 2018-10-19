@@ -24,7 +24,8 @@ enum EntityType {
 	ForestryBase = 6,
 	Ferry = 7,
 	City = 8,
-	PirateBase = 9
+	PirateBase = 9,
+	ConversionBase = 10
 };
 struct Entity
 {
