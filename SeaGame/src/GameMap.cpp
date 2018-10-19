@@ -7,12 +7,12 @@
 #include <cstdio>
 
 GameMap::GameMap() {}
-GameMap::GameMap(Game* g)
+GameMap::GameMap(Game* g): game(g)
 {
 	const unsigned int WIDTH = 32;
 	const unsigned int HEIGHT = 17;
 	const float frequency = 25.0f;
-	siv::PerlinNoise noise(time(0));
+	siv::PerlinNoise noise((uint32_t)time(0));
 	std::vector<std::vector<double>> noiseGrid;
 	// Generate noise grid
 	for (size_t x = 0; x < WIDTH; x++) {
@@ -46,57 +46,63 @@ noiseGrid[x].push_back(noise.octaveNoise0_1(x / fx, y / fy, 16));
 		}
 		noiseGrid = newNoiseGrid;
 	}
-	// Add tiles
+	// Fill grid with sea
+	this->tiles.resize(WIDTH);
+	for (auto it = this->tiles.begin(); it != this->tiles.end(); it++) {
+		it->resize(HEIGHT, TileType::Sea);
+	}
+	// Add land tiles
 	for (auto x = 0; x < WIDTH; x++) {
-		this->tiles.push_back({});
 		for (auto y = 0; y < HEIGHT; y++) {
 			// Add test island in the middle
 			if (noiseGrid[x][y] > 0.5) {
-				this->tiles[x].push_back(TileType::Land);
-				// Add a box collider for this tile
-				b2PolygonShape box;
-				box.SetAsBox(32, 32);
-				b2FixtureDef fix;
-				fix.shape = &box;
-				b2BodyDef bodyDef;
-				bodyDef.position.Set(32 + x * 64, 32 + y * 64);
-				bodyDef.type = b2_staticBody;
-				b2Body* body = g->getWorld().lock()->CreateBody(&bodyDef);
-				body->CreateFixture(&fix);
-				this->bodies.push_back(body);
-			}
-			else {
-				this->tiles[x].push_back(TileType::Sea);
+				// Add a land tile
+				this->addLandTile(x, y);
 			}
 		}
 	}
 	resetTexture();
 }
-GameMap::GameMap(Game* g, rapidxml::xml_document<>* doc) {
+GameMap::GameMap(Game* g, rapidxml::xml_document<>* doc): game(g) {
 
-	auto x = 0;
 	auto gMapNode = doc->first_node("GameMap");
 	size_t w = std::stoi(gMapNode->first_attribute("width")->value());
 	size_t h = std::stoi(gMapNode->first_attribute("height")->value());
 	this->tiles.resize(w);
+	// Fill tiles with sea
 	for (auto it = this->tiles.begin(); it != this->tiles.end(); ++it) {
-		it->resize(h);
+		it->resize(h, TileType::Sea);
 	}
-	auto xa = 0;
 	for (auto n = gMapNode->first_node(); n != nullptr; n = n->next_sibling()) {
-		size_t x = std::stoi(n->first_attribute("x")->value());
-		size_t y = std::stoi(n->first_attribute("y")->value());
+		size_t x = (size_t)std::stoi(n->first_attribute("x")->value());
+		size_t y = (size_t)std::stoi(n->first_attribute("y")->value());
 		std::string valStr = std::string(n->first_attribute("type")->value());
-		TileType val = valStr == std::string("Land") ?
-			TileType::Land : TileType::Sea;
-		this->tiles[x][y] = val;
+		TileType val = valStr == std::string("Land") ? TileType::Land : TileType::Sea;
+		if (val == TileType::Land) {
+			this->addLandTile(x, y);
+		}
 	}
 	resetTexture();
+}
+void GameMap::addLandTile(size_t x, size_t y) {
+	// Set the tile to land
+	this->tiles[x][y] = TileType::Land;
+	// Add collider
+	b2PolygonShape box;
+	box.SetAsBox(32, 32);
+	b2FixtureDef fix;
+	fix.shape = &box;
+	b2BodyDef bodyDef;
+	bodyDef.position.Set(32 + x * 64.0f, 32 + y * 64.0f);
+	bodyDef.type = b2_staticBody;
+	b2Body* body = this->game->getWorld().lock()->CreateBody(&bodyDef);
+	body->CreateFixture(&fix);
+	this->bodies.push_back(body);
 }
 void GameMap::resetTexture() {
 	sf::RenderTexture rt;
 	sf::Vector2<size_t> size = this->getMapSize();
-	rt.create(64 * size.x, 64 * size.y);
+	rt.create(64 * (unsigned int)size.x, 64 * (unsigned int)size.y);
 	// Render a 10x10 grid of sea tiles
 	for (size_t x = 0; x < this->tiles.size(); x++) {
 		for (size_t y = 0; y < this->tiles[x].size(); y++) {
