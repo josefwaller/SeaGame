@@ -1,6 +1,6 @@
 #include "ConversionRecipes.h"
 
-std::map<GameResource, ConversionRecipes::Recipe> recipes = {
+const std::map<GameResource, ConversionRecipes::Recipe> ConversionRecipes::recipes = {
 	{ GameResource::Planks, {
 		// What is needed
 		{ { GameResource::Wood, 5 } },

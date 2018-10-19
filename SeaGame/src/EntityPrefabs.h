@@ -19,6 +19,7 @@ public:
 	static std::shared_ptr<Entity> city(Game* g, sf::Vector2i pos);
 	static std::shared_ptr<Entity> pirateBase(Game* g, sf::Vector2i pos);
 	static std::shared_ptr<Entity> getEntityFromSaveData(Game* g, std::map<std::string, std::string> data);
+	static std::shared_ptr<Entity> conversionBase(Game* g, sf::Vector2i pos, GameResource res);
 	// Get the EntityType from a string representation
 	static EntityType getTypeFromString(std::string typeStr);
 	// Get a string representation from an EntityType

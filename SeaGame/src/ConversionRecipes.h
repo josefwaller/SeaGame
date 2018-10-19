@@ -13,5 +13,5 @@ public:
 		std::string recipeText;
 	};
 	// The recipes, ordered by what they make
-	static std::map<GameResource, Recipe> recipes;
+	static const std::map<GameResource, Recipe> recipes;
 };

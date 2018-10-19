@@ -21,6 +21,7 @@
 #include "MiningBaseRenderer.h"
 #include "PirateBaseRenderer.h"
 #include "PirateBaseController.h"
+#include "ConversionBaseController.h"
 
 std::shared_ptr<Entity> EntityPrefabs::playerShip(Game* g, sf::Vector2f position)
 {
@@ -190,6 +191,12 @@ std::shared_ptr<Entity> EntityPrefabs::pirateBase(Game* g, sf::Vector2i pos) {
 	base->type = EntityType::PirateBase;
 	base->components.renderer = std::shared_ptr<RenderComponent>(new PirateBaseRenderer(base));
 	base->components.controller = std::shared_ptr<ControllerComponent>(new PirateBaseController(base));
+	return base;
+}
+std::shared_ptr<Entity> EntityPrefabs::conversionBase(Game* g, sf::Vector2i pos, GameResource res) {
+	auto base = EntityPrefabs::base(g, pos);
+	base->components.renderer = std::shared_ptr<RenderComponent>(new MiningBaseRenderer(base, res));
+	base->components.controller = std::shared_ptr<ControllerComponent>(new ConversionBaseController(base, res));
 	return base;
 }
 

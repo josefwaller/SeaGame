@@ -48,6 +48,15 @@ std::vector<CraftingRecipes::CraftRecipe> CraftingRecipes::recipes = {
 			g->addEntity(EntityPrefabs::forestryBase(g, (sf::Vector2i)(pos / 64.0f) * 64));
 			return true;
 		}
+	},
+	{
+		{},
+		Technology::Nothing,
+		"WoodCutters",
+		[&](Game* g, sf::Vector2f pos) {
+			g->addEntity(EntityPrefabs::conversionBase(g, (sf::Vector2i)(pos / 64.0f) * 64, GameResource::Planks));
+			return true;
+		}
 	}
 };
 #include "Game.h"

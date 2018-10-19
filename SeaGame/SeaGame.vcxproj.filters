@@ -155,6 +155,9 @@
     <Filter Include="Files\Utils\ConversionRecipes">
       <UniqueIdentifier>{01f4ae0b-08dd-4ce8-b59d-811a78cbff1d}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Files\Components\Controllers\BaseControllers\ConversionBaseController">
+      <UniqueIdentifier>{fc4796c1-a07d-4512-af92-fa7546135ef4}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\CannonBallController.cpp">
@@ -297,6 +300,9 @@
     </ClCompile>
     <ClCompile Include="src\ConversionRecipes.cpp">
       <Filter>Files\Utils\ConversionRecipes</Filter>
+    </ClCompile>
+    <ClCompile Include="src\ConversionBaseController.cpp">
+      <Filter>Files\Components\Controllers\BaseControllers\ConversionBaseController</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -449,6 +455,9 @@
     </ClInclude>
     <ClInclude Include="src\ConversionRecipes.h">
       <Filter>Files\Utils\ConversionRecipes</Filter>
+    </ClInclude>
+    <ClInclude Include="src\ConversionBaseController.h">
+      <Filter>Files\Components\Controllers\BaseControllers\ConversionBaseController</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
