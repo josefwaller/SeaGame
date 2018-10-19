@@ -4,5 +4,7 @@ enum GameResource
 {
 	Stone,
 	Wood,
-	Gold
+	Gold,
+	Planks,
+	StoneBricks
 };

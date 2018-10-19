@@ -8,6 +8,9 @@ class Game;
 #include "SFML/Graphics.hpp"
 #include "TechTree.h"
 
+// Recipes for the player building an entity in the world
+// NOT for building resources from other resources, those
+// are called conversion recipes
 class CraftingRecipes {
 public:
 	struct CraftRecipe {

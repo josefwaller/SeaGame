@@ -136,6 +136,7 @@
     <ClCompile Include="src\Component.cpp" />
     <ClCompile Include="src\ComponentList.cpp" />
     <ClCompile Include="src\ControllerComponent.cpp" />
+    <ClCompile Include="src\ConversionRecipes.cpp" />
     <ClCompile Include="src\Entity.cpp" />
     <ClCompile Include="src\EntityPrefabs.cpp" />
     <ClCompile Include="src\FerryShipController.cpp" />
@@ -184,6 +185,7 @@
     <ClInclude Include="src\CityRenderer.h" />
     <ClInclude Include="src\ClickComponent.h" />
     <ClInclude Include="src\ComponentList.h" />
+    <ClInclude Include="src\ConversionRecipes.h" />
     <ClInclude Include="src\CraftRecipes.h" />
     <ClInclude Include="src\EntityPrefabs.h" />
     <ClInclude Include="src\FerryShipController.h" />
