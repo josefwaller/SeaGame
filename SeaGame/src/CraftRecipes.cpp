@@ -54,7 +54,25 @@ std::vector<CraftingRecipes::CraftRecipe> CraftingRecipes::recipes = {
 		Technology::Nothing,
 		"WoodCutters",
 		[&](Game* g, sf::Vector2f pos) {
-			g->addEntity(EntityPrefabs::conversionBase(g, (sf::Vector2i)(pos / 64.0f) * 64, GameResource::Planks));
+			g->addEntity(EntityPrefabs::conversionBase(g, (sf::Vector2i)(pos / 64.0f) * 64, GameResource::Plank));
+			return true;
+		}
+	},
+	{
+		{},
+		Technology::Nothing,
+		"Stone Cutters lol",
+		[&](Game* g, sf::Vector2f pos) {
+			g->addEntity(EntityPrefabs::conversionBase(g, (sf::Vector2i)(pos / 64.0f) * 64, GameResource::StoneBrick));
+			return true;
+		}
+	},
+	{
+		{},
+		Technology::Nothing,
+		"Statue Makers",
+		[&](Game* g, sf::Vector2f pos) {
+			g->addEntity(EntityPrefabs::conversionBase(g, (sf::Vector2i)(pos / 64.0f) * 64, GameResource::StoneStatue));
 			return true;
 		}
 	}

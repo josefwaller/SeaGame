@@ -5,6 +5,7 @@ enum GameResource
 	Stone,
 	Wood,
 	Gold,
-	Planks,
-	StoneBricks
+	Plank,
+	StoneBrick,
+	StoneStatue
 };
