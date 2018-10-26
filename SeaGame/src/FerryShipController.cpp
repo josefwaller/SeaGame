@@ -22,6 +22,21 @@ void FerryShipController::setSource(std::weak_ptr<Entity> src) {
 		this->setTarget(this->getCoordsForEntity(this->source));
 	}
 }
+std::vector<std::weak_ptr<Entity>> FerryShipController::getStops() {
+	return this->stops;
+}
+void FerryShipController::addStop(std::weak_ptr<Entity> stop) {
+	this->stops.push_back(stop);
+}
+// Move the stop at currentOrder to newOrder and shift the other stops down by one
+void FerryShipController::setStopOrder(size_t currentOrder, size_t newOrder) {
+	// Copy
+	std::weak_ptr<Entity> stop = this->stops[currentOrder];
+	// Remove
+	this->stops.erase(this->stops.begin() + currentOrder);
+	// Reinsert
+	this->stops.insert(this->stops.begin() + newOrder, stop);
+}
 void FerryShipController::onReachingTarget() {
 	if (this->currentAction == Action::PickingUp && this->source.lock()) {
 		// Take all of the base's things

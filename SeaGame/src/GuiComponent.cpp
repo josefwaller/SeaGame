@@ -5,52 +5,62 @@
 
 GuiComponent::GuiComponent(std::weak_ptr<Entity> parent) : Component(parent) {
 	this->entityWindow = tgui::ChildWindow::create();
+	this->selectedPanel = "Inventory";
 	this->entityTabs = tgui::Tabs::create();
 	this->entityTabs->add("Inventory");
 	this->entityTabs->add("Health");
 	this->entityPanels["Inventory"] = tgui::Panel::create();
 	this->entityPanels["Health"] = tgui::Panel::create();
 	this->entityPanels["Inventory"]->setPosition({ 0, this->entityTabs->getFullSize().y });
-	this->updateInventory();
-	if (auto controller = std::dynamic_pointer_cast<FerryShipController>(this->getParent().lock()->components.controller)) {
-
-		this->entityPanels["Ferry"] = tgui::Panel::create();
-		this->entityTabs->add("Ferry");
-		auto destBtn = tgui::Button::create();
-		destBtn->setText("Change Destination");
-		destBtn->connect("clicked", [&](Game* game, std::weak_ptr<FerryShipController> cont) {
-			// Function which sets the destination to the entity
-			// Bind the FerryShipController to the callback, so as to properly set the destination
-			auto callback = std::bind([&](std::weak_ptr<Entity> e, std::weak_ptr<FerryShipController> c) {
-				if (c.lock() && e.lock()->tag == EntityTag::Base) {
-					c.lock()->setDestination(e);
-				}
-			}, std::placeholders::_1, cont);
-			// Set callback
-			game->getHud()->selectEntity(callback);
-		}, this->getParent().lock()->game, controller);
-		this->entityPanels["Ferry"]->add(destBtn);
-		// Add the Change Source button
-		auto srcBtn = tgui::Button::create();
-		srcBtn->setText("Change Source");
-		srcBtn->connect("clicked", [&](Game * game, std::weak_ptr<FerryShipController> cont) {
-			// Pretty much the same as above
-			auto callback = std::bind([&](std::weak_ptr<Entity> e, std::weak_ptr<FerryShipController> c) {
-				if (c.lock() && e.lock()->tag == EntityTag::Base) {
-					c.lock()->setSource(e);
-				}
-			}, std::placeholders::_1, cont);
-			game->getHud()->selectEntity(callback);
-		}, this->getParent().lock()->game, controller);
-		// Move below the set dest button
-		srcBtn->setPosition({ 0, destBtn->getFullSize().y });
-		this->entityPanels["Ferry"]->add(srcBtn);
-	}
-	this->entityTabs->select("Inventory");
-	this->selectedPanel = "Inventory";
 	this->entityTabs->connect("TabSelected", &GuiComponent::changePanel, this);
 	this->entityWindow->add(this->entityTabs);
 	this->entityWindow->add(this->entityPanels["Inventory"]);
+	if (std::dynamic_pointer_cast<FerryShipController>(this->getParent().lock()->components.controller)) {
+		this->entityPanels["Ferry"] = tgui::Panel::create();
+		this->entityTabs->add("Ferry");
+	}
+
+	this->update();
+}
+void GuiComponent::update() {
+	this->updateInventory();
+	if (auto sharedController = std::dynamic_pointer_cast<FerryShipController>(this->getParent().lock()->components.controller)) {
+		this->entityPanels["Ferry"]->removeAllWidgets();
+		// Make sure to pass weak_ptr as parameter otherwise controller will not just have one owner
+		std::weak_ptr<FerryShipController> controller = sharedController;
+		// Add the layout
+		tgui::VerticalLayout::Ptr layout = tgui::VerticalLayout::create();
+		this->entityPanels["Ferry"]->add(layout);
+		// Add box of each stop
+		std::vector<std::weak_ptr<Entity>> stops = controller.lock()->getStops();
+		for (auto it = stops.begin(); it != stops.end(); it++) {
+			// Add label
+			tgui::HorizontalLayout::Ptr lay = tgui::HorizontalLayout::create();
+			// Add stop name
+			tgui::Label::Ptr label = tgui::Label::create();
+			label->setText(std::to_string(it->lock()->tag) + " (" + std::to_string(it->lock()->team) + ")");
+			lay->add(label);
+			// Add remove button
+			tgui::Button::Ptr removeButton = tgui::Button::create();
+			removeButton->setText("Remove Stop");
+			lay->add(removeButton);
+			// Add to larger layout
+			layout->add(lay);
+		}
+		// Add new stop button
+		tgui::Button::Ptr addStopButton = tgui::Button::create();
+		addStopButton->setText("Add new stop");
+		addStopButton->connect("clicked", [&](Game* g, std::weak_ptr<FerryShipController> cont) {
+			// Select the entity to add a stop to
+			g->getHud()->selectEntity(std::bind([&](std::weak_ptr<Entity> e, std::weak_ptr<FerryShipController> c) {
+				c.lock()->addStop(e);
+				c.lock()->getParent().lock()->components.gui->update();
+			}, std::placeholders::_1, cont));
+		}, this->getParent().lock()->game, controller);
+		layout->add(addStopButton);
+	}
+	this->entityTabs->select(this->selectedPanel);
+
 }
 
 void GuiComponent::changePanel(std::string selectedPanel) {

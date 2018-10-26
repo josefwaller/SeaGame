@@ -11,6 +11,8 @@ public:
 	std::string getResourceString(GameResource res);
 	void show();
 	void hide();
+	// Update the info in on the gui panels
+	void update();
 private:
 	void onClick();
 	// The window which shows the data for this entity
