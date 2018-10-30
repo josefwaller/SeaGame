@@ -40,6 +40,36 @@ void GuiComponent::update() {
 			tgui::Label::Ptr label = tgui::Label::create();
 			label->setText(std::to_string(it->lock()->tag) + " (" + std::to_string(it->lock()->team) + ")");
 			lay->add(label);
+			// Add menu for what to pick up/drop off
+			tgui::Button::Ptr exchangeButton = tgui::Button::create();
+			exchangeButton->setText("Pick up/drop off");
+			exchangeButton->connect("clicked", [&](Game* g) {
+				// Add the window
+				tgui::ChildWindow::Ptr exchangeWindow = tgui::ChildWindow::create();
+				// Add a vertical layout for th window
+				tgui::VerticalLayout::Ptr excLayout = tgui::VerticalLayout::create();
+				exchangeWindow->add(excLayout);
+				// ToDo: for each stop, choose what resources to take from it depending on its type
+				// Currently just use this list
+				std::vector<GameResource> resources = {
+					GameResource::Wood,
+					GameResource::Plank,
+					GameResource::Stone,
+					GameResource::StoneBrick,
+					GameResource::StoneStatue
+				};
+				for (auto res : resources) {
+					tgui::Button::Ptr pickup = tgui::Button::create();
+					pickup->setText("Pick up " + getResourceString(res));
+					excLayout->add(pickup);
+					tgui::Button::Ptr dropOff = tgui::Button::create();
+					dropOff->setText("Drop off " + getResourceString(res));
+					excLayout->add(dropOff);
+				}
+				// Add window to gui
+				g->getGui()->add(exchangeWindow);
+			}, this->getParent().lock()->game);
+			lay->add(exchangeButton);
 			// Add remove button
 			tgui::Button::Ptr removeButton = tgui::Button::create();
 			removeButton->setText("Remove Stop");

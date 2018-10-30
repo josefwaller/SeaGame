@@ -78,4 +78,5 @@ void FerryShipController::fromSaveData(std::map<std::string, std::string> data) 
 		unsigned int id = std::stoi(data["stop_" + std::to_string(i)]);
 		this->stops.push_back(this->getParent().lock()->game->getEntityById(id));
 	}
+	this->getParent().lock()->components.gui->update();
 }
