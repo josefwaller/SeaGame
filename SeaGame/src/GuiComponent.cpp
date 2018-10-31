@@ -32,18 +32,20 @@ void GuiComponent::update() {
 		tgui::VerticalLayout::Ptr layout = tgui::VerticalLayout::create();
 		this->entityPanels["Ferry"]->add(layout);
 		// Add box of each stop
-		std::vector<std::weak_ptr<Entity>> stops = controller.lock()->getStops();
+		std::vector<FerryShipController::FerryStop> stops = controller.lock()->getStops();
 		for (auto it = stops.begin(); it != stops.end(); it++) {
+			// Get index of this stop
+			size_t index = std::distance(stops.begin(), it);
 			// Add label
 			tgui::HorizontalLayout::Ptr lay = tgui::HorizontalLayout::create();
 			// Add stop name
 			tgui::Label::Ptr label = tgui::Label::create();
-			label->setText(std::to_string(it->lock()->tag) + " (" + std::to_string(it->lock()->team) + ")");
+			label->setText(std::to_string(it->target.lock()->tag) + " (" + std::to_string(it->target.lock()->team) + ")");
 			lay->add(label);
 			// Add menu for what to pick up/drop off
 			tgui::Button::Ptr exchangeButton = tgui::Button::create();
 			exchangeButton->setText("Pick up/drop off");
-			exchangeButton->connect("clicked", [&](Game* g) {
+			exchangeButton->connect("clicked", [&](Game* g, size_t index, std::weak_ptr<FerryShipController> cont, FerryShipController::FerryStop stop) {
 				// Add the window
 				tgui::ChildWindow::Ptr exchangeWindow = tgui::ChildWindow::create();
 				// Add a vertical layout for th window
@@ -60,15 +62,35 @@ void GuiComponent::update() {
 				};
 				for (auto res : resources) {
 					tgui::Button::Ptr pickup = tgui::Button::create();
-					pickup->setText("Pick up " + getResourceString(res));
+					bool isPickingUp = stop.toPickUp.find(res) != stop.toPickUp.end() && stop.toPickUp[res];
+					pickup->setText((isPickingUp ? "Dont' pick up " : "Pick up ") + getResourceString(res));
+					pickup->connect("clicked", [&](
+						std::weak_ptr<FerryShipController> cont,
+						size_t index,
+						GameResource res,
+						bool value
+						) {
+						cont.lock()->setStopPickUp(index, res, !isPickingUp);
+						cont.lock()->getParent().lock()->components.gui->update();
+					}, cont, index, res, true);
 					excLayout->add(pickup);
+					bool isDroppingOff = stop.toDropOff.find(res) != stop.toDropOff.end() && stop.toPickUp[res];
 					tgui::Button::Ptr dropOff = tgui::Button::create();
-					dropOff->setText("Drop off " + getResourceString(res));
+					dropOff->setText((isDroppingOff ? "Don't drop off " : "Drop off ") + getResourceString(res));
+					dropOff->connect("clicked", [&](
+						std::weak_ptr<FerryShipController> cont,
+						size_t index,
+						GameResource res,
+						bool value
+						) {
+						cont.lock()->setStopDropOff(index, res, value);
+						cont.lock()->getParent().lock()->components.gui->update();
+					}, cont, index, res, !isDroppingOff);
 					excLayout->add(dropOff);
 				}
 				// Add window to gui
 				g->getGui()->add(exchangeWindow);
-			}, this->getParent().lock()->game);
+			}, this->getParent().lock()->game, index, controller, *it);
 			lay->add(exchangeButton);
 			// Add remove button
 			tgui::Button::Ptr removeButton = tgui::Button::create();
