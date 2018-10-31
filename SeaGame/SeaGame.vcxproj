@@ -144,6 +144,7 @@
     <ClCompile Include="src\Game.cpp" />
     <ClCompile Include="src\GameHud.cpp" />
     <ClCompile Include="src\GameMap.cpp" />
+    <ClCompile Include="src\GameResource.cpp" />
     <ClCompile Include="src\GuiComponent.cpp" />
     <ClCompile Include="src\HealthComponent.cpp" />
     <ClCompile Include="src\InventoryComponent.cpp" />

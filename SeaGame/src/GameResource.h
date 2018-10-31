@@ -1,4 +1,5 @@
 #pragma once
+#include <string>
 
 enum GameResource
 {
@@ -9,3 +10,5 @@ enum GameResource
 	StoneBrick,
 	StoneStatue
 };
+
+std::string getResourceString(GameResource res);

@@ -19,6 +19,7 @@ public:
 	void setStopPickUp(size_t stopIndex, GameResource res, bool shouldPickUp);
 	void setStopDropOff(size_t stopIndex, GameResource res, bool shouldDropOff);
 	virtual std::map<std::string, std::string> getSaveData() override;
+	void updateGui(tgui::Tabs::Ptr tabs, std::map<std::string, tgui::Panel::Ptr>* panels) override;
 	virtual void fromSaveData(std::map<std::string, std::string> data) override;
 private:
 	// Current destination the ship is going to

@@ -14,3 +14,5 @@ std::map<std::string, std::string> Component::getSaveData() {
 
 void Component::fromSaveData(std::map<std::string, std::string> data) {
 }
+
+void Component::updateGui(tgui::Tabs::Ptr tabs, std::map<std::string, tgui::Panel::Ptr>* panels) {}

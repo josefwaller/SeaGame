@@ -304,6 +304,9 @@
     <ClCompile Include="src\ConversionBaseController.cpp">
       <Filter>Files\Components\Controllers\BaseControllers\ConversionBaseController</Filter>
     </ClCompile>
+    <ClCompile Include="src\GameResource.cpp">
+      <Filter>Files\Utils\GameResource</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Component.h">

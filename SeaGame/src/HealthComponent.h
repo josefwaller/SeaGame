@@ -15,6 +15,7 @@ public:
 	virtual void heal(int healAmount);
 	// Check if the entity is dead
 	virtual bool isDead();
+	void updateGui(tgui::Tabs::Ptr, std::map<std::string, tgui::Panel::Ptr>* panels) override;
 private:
 	// The amount of health
 	unsigned int health;

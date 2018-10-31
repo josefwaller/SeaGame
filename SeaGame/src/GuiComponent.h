@@ -7,7 +7,6 @@ public:
 	GuiComponent(std::weak_ptr<Entity>);
 	// Change the panel the component is currently showing
 	void changePanel(std::string selectedPanel);
-	void updateInventory();
 	std::string getResourceString(GameResource res);
 	void show();
 	void hide();

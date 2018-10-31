@@ -14,6 +14,7 @@ public:
 	std::map<GameResource, unsigned int> getInventory();
 	std::map<std::string, std::string> getSaveData() override;
 	void fromSaveData(std::map<std::string, std::string> data) override;
+	void updateGui(tgui::Tabs::Ptr tabs, std::map<std::string, tgui::Panel::Ptr>* panels) override;
 private:
 	// Inventory data
 	std::map<GameResource, unsigned int> inventory;
