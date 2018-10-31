@@ -25,7 +25,6 @@ void GuiComponent::update() {
 			this->entityWindow->getFullSize().x,
 			this->entityWindow->getFullSize().y - this->entityTabs->getFullSize().y});
 		it->second->setPosition({ 0, this->entityTabs->getFullSize().y });
-		this->changePanel(it->first);
 	}
 }
 
