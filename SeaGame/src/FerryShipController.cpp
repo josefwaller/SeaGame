@@ -76,16 +76,6 @@ sf::Vector2f FerryShipController::getCoordsForEntity(std::weak_ptr<Entity> e) {
 		return e.lock()->components.transform->getPosition();
 	}
 }
-
-std::map<std::string, std::string> FerryShipController::getSaveData() {
-	std::map<std::string, std::string> toReturn;
-	std::string stopCount = std::to_string(this->stops.size());
-	toReturn["stopCount"] = stopCount;
-	for (auto it = this->stops.begin(); it != this->stops.end(); it++) {
-		toReturn["stop_" + std::to_string(std::distance(this->stops.begin(), it))] = std::to_string(it->target.lock()->id);
-	}
-	return toReturn;
-}
 void FerryShipController::updateGui(tgui::Tabs::Ptr tabs, std::map<std::string, tgui::Panel::Ptr>* panels) {
 	tabs->add("Ferry", false);
 	panels->insert({ "Ferry", tgui::Panel::create() });
@@ -177,6 +167,18 @@ void FerryShipController::updateGui(tgui::Tabs::Ptr tabs, std::map<std::string, 
 	layout->add(addStopButton);
 
 }
+
+std::map<std::string, std::string> FerryShipController::getSaveData() {
+	std::map<std::string, std::string> toReturn;
+	std::string stopCount = std::to_string(this->stops.size());
+	toReturn["stopCount"] = stopCount;
+	for (auto it = this->stops.begin(); it != this->stops.end(); it++) {
+		toReturn["stop_" + std::to_string(std::distance(this->stops.begin(), it))] = std::to_string(it->target.lock()->id);
+	}
+	toReturn["currentIndex"] = std::to_string(this->currentStopIndex);
+	return toReturn;
+}
+
 void FerryShipController::fromSaveData(std::map<std::string, std::string> data) {
 	size_t count = std::stoi(data["stopCount"]);
 	for (size_t i = 0; i < count; i++) {
@@ -186,6 +188,12 @@ void FerryShipController::fromSaveData(std::map<std::string, std::string> data) 
 			{},
 			{}
 		});
+	}
+	this->currentStopIndex = std::stoi(data["currentIndex"]);
+	if (this->stops.size() > 0) {
+		this->destination = this->stops[this->currentStopIndex].target;
+		// Have to set target, so that it will create points for the ship to go to
+		this->setTarget(this->getCoordsForEntity(this->destination));
 	}
 	this->getParent().lock()->components.gui->update();
 }
