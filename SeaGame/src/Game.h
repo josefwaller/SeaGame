@@ -15,6 +15,7 @@ class Game
 {
 public:
 	static const unsigned int STARTING_MONEY = 200;
+	static const float METER_TO_PIXEL;
 	Game();
 	~Game();
 	Game(App* app);

@@ -41,6 +41,8 @@ void AutomatedShipController::setTarget(sf::Vector2f target) {
 	scores[startCoord.x][startCoord.y] = { {0, 0}, 0 };
 	GameMap* gMap = this->getParent().lock()->game->getGameMap();
 	while (true) {
+		if (coords.size() == 0)
+			break;
 		sf::Vector2<size_t> c = coords.front();
 		coords.pop();
 		// Check if the coord is the target

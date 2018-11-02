@@ -13,6 +13,7 @@
 #include <rapidxml\rapidxml_utils.hpp>
 #include "App.h"
 
+const float Game::METER_TO_PIXEL = 100.0f;
 Game::Game() {}
 Game::~Game() {
 	this->app->getGui()->remove(this->guiContainer);

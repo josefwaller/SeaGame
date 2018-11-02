@@ -5,7 +5,7 @@
 const float ShipController::ACCELERATION = 300.0f;
 const float ShipController::ANGULAR_ACCELERATION = 2.0f;
 
-const float ShipController::CANNON_INTERVAL = 2.0f;
+const float ShipController::CANNON_INTERVAL = 0.5f;
 
 ShipController::ShipController(std::weak_ptr<Entity> e) : ControllerComponent(e)
 {
@@ -29,8 +29,8 @@ void ShipController::turnRight()
 void ShipController::accelerate()
 {
 	this->physicsComp.lock()->setAcceleration({
-		ShipController::ACCELERATION * cos(this->getParent().lock()->components.transform->getRotation()),
-		ShipController::ACCELERATION * sin(this->getParent().lock()->components.transform->getRotation())
+		ShipController::ACCELERATION * cos(this->getParent().lock()->components.transform->getRotation()) / Game::METER_TO_PIXEL,
+		ShipController::ACCELERATION * sin(this->getParent().lock()->components.transform->getRotation()) / Game::METER_TO_PIXEL
 	});
 }
 void ShipController::aimSwivel(float angle)

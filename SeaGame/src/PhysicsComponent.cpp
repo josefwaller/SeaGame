@@ -27,7 +27,7 @@ void PhysicsComponent::setAngularAcceleration(float alpha)
 }
 void PhysicsComponent::setVelocity(sf::Vector2f v)
 {
-	this->body->SetLinearVelocity({ v.x, v.y });
+	this->body->SetLinearVelocity({ v.x * this->body->GetMass(), v.y * this->body->GetMass() });
 }
 void PhysicsComponent::setNetForce(sf::Vector2f force)
 {

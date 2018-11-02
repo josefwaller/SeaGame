@@ -14,6 +14,6 @@ public:
 	virtual void onCollision(std::weak_ptr<Entity> spawner) override;
 private:
 	float angle;
-	// Distance the cannonball has gone
-	float distance;
+	// Original position of the cannonball
+	sf::Vector2f startPos;
 };
