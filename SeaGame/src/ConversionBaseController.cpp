@@ -53,3 +53,7 @@ void ConversionBaseController::fromSaveData(std::map<std::string, std::string> d
 	this->product = (GameResource)std::stoi(data["product"]);
 	this->sinceLastConversion = std::stof(data["sinceLastConversion"]);
 }
+
+GameResource ConversionBaseController::getProduct() {
+	return this->product;
+}

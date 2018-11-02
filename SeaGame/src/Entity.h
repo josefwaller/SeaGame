@@ -52,6 +52,8 @@ struct Entity
 	EntityType type;
 	ComponentList components;
 	std::map<std::string, std::string> getSaveData();
+	// Get a string representation of the entity to be used in UI
+	std::string getStringRep();
 };
 
 #include "Game.h"

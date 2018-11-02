@@ -11,6 +11,7 @@ GuiComponent::GuiComponent(std::weak_ptr<Entity> parent) : Component(parent) {
 }
 void GuiComponent::update() {
 	this->entityWindow->removeAllWidgets();
+	this->entityWindow->setTitle(this->getParent().lock()->getStringRep());
 	this->entityWindow->add(this->entityTabs);
 	this->entityPanels = {};
 	this->entityTabs->removeAll();

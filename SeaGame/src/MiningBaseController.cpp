@@ -11,3 +11,6 @@ void MiningBaseController::update(float delta) {
 		this->resourceClock.restart();
 	}
 }
+GameResource MiningBaseController::getResource() {
+	return this->res;
+}
