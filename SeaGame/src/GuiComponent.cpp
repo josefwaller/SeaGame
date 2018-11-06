@@ -5,33 +5,38 @@
 
 GuiComponent::GuiComponent(std::weak_ptr<Entity> parent) : Component(parent) {
 	this->entityWindow = tgui::ChildWindow::create();
+	this->entityWindow->setTitle(this->getParent().lock()->getStringRep());
 	this->entityTabs = tgui::Tabs::create();
 	this->entityTabs->connect("TabSelected", &GuiComponent::changePanel, this);
 	this->entityWindow->add(this->entityTabs);
 }
 void GuiComponent::update() {
 	this->entityWindow->removeAllWidgets();
-	this->entityWindow->setTitle(this->getParent().lock()->getStringRep());
-	this->entityWindow->setPosition(this->getParent().lock()->components.transform->getPosition());
 	this->entityWindow->add(this->entityTabs);
-	this->entityPanels = {};
 	this->entityTabs->removeAll();
+	this->entityPanels = {};
 	for (ComponentType c : ComponentList::allTypes) {
 		if (std::shared_ptr<Component> comp = this->getParent().lock()->components.get(c)) {
 			comp->updateGui(this->entityTabs, &this->entityPanels);
 		}
 	}
 	for (auto it = this->entityPanels.begin(); it != this->entityPanels.end(); ++it) {
-		//this->entityWindow->add(it->second);
 		it->second->setSize({
 			this->entityWindow->getFullSize().x,
 			this->entityWindow->getFullSize().y - this->entityTabs->getFullSize().y});
 		it->second->setPosition({ 0, this->entityTabs->getFullSize().y });
 	}
+	// Reselect the panel that was selected
+	if (this->selectedPanel != "") {
+		this->changePanel(this->selectedPanel);
+	}
 }
 
 void GuiComponent::changePanel(std::string selectedPanel) {
-	this->entityWindow->remove(this->entityPanels[this->selectedPanel]);
+	if (this->selectedPanel != "") {
+		this->entityWindow->remove(this->entityPanels[this->selectedPanel]);
+	}
+	this->entityTabs->select(selectedPanel);
 	this->selectedPanel = selectedPanel;
 	this->entityWindow->add(this->entityPanels[this->selectedPanel]);
 	this->entityPanels[this->selectedPanel]->setPosition({ 0, this->entityTabs->getFullSize().y });
@@ -49,11 +54,12 @@ std::string GuiComponent::getResourceString(GameResource res) {
 }
 void GuiComponent::onClick() {
 	if (!this->entityWindow->getParent()) {
-		this->getParent().lock()->game->getGui()->add(this->entityWindow);
+		this->show();
 	}
 }
 void GuiComponent::show() {
 	this->getParent().lock()->game->getGui()->add(this->entityWindow);
+	this->entityWindow->setPosition(this->getParent().lock()->components.transform->getPosition());
 }
 void GuiComponent::hide() {
 	this->getParent().lock()->game->getGui()->remove(this->entityWindow);

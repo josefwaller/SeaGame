@@ -11,4 +11,3 @@ std::string getResourceString(GameResource res) {
 	}
 	return "N/A";
 }
-

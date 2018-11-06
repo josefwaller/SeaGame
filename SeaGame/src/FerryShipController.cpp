@@ -95,7 +95,7 @@ void FerryShipController::updateGui(tgui::Tabs::Ptr tabs, std::map<std::string, 
 		tgui::HorizontalLayout::Ptr lay = tgui::HorizontalLayout::create();
 		// Add stop name
 		tgui::Label::Ptr label = tgui::Label::create();
-		label->setText(std::to_string(it->target.lock()->tag) + " (" + std::to_string(it->target.lock()->team) + ")");
+		label->setText(it->target.lock()->getStringRep() + " (team " + std::to_string(it->target.lock()->team) + ")");
 		lay->add(label);
 		// Add menu for what to pick up/drop off
 		tgui::Button::Ptr exchangeButton = tgui::Button::create();
