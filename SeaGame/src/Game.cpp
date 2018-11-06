@@ -25,11 +25,10 @@ Game::Game(App* app): app(app)
 	this->world = std::shared_ptr<b2World>(new b2World({ 0.0f, 0.0f }));
 	this->listener = SimpleCollisionListener();
 	this->world->SetContactListener(&this->listener);
-	this->guiContainer = tgui::Panel::create();
+	this->guiContainer = tgui::Group::create();
 	this->fpsText = tgui::TextBox::create();
 	this->fpsText->setPosition({ this->app->getWindow()->getSize().x - 200.0f, 0.0f });
 	this->guiContainer->add(this->fpsText);
-	this->guiContainer->getRenderer()->setBackgroundColor(tgui::Color::Transparent);
 	this->app->getGui()->add(this->guiContainer);
 	this->gHud = GameHud(this);
 }
@@ -215,7 +214,7 @@ std::weak_ptr<b2World> Game::getWorld()
 {
 	return this->world;
 }
-tgui::Panel::Ptr Game::getGui() {
+tgui::Group::Ptr Game::getGui() {
 	return this->guiContainer;
 }
 GameMap* Game::getGameMap() {

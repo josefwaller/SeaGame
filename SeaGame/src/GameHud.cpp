@@ -13,8 +13,8 @@ GameHud::GameHud(Game* g) {
 	// Add the build button
 	this->buildButton = tgui::Button::create();
 	this->buildButton->setText("Build");
-	this->game->getGui()->add(this->buildButton);
 	this->buildButton->connect("clicked", &GameHud::toggleBuildButtons, game->getHud());
+	this->game->getGui()->add(this->buildButton);
 	// Add research button
 	this->researchButton = tgui::Button::create();
 	this->researchButton->setText("Research");

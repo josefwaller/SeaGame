@@ -16,10 +16,10 @@ void App::gameLoop() {
 		sf::Event e;
 		while (this->window.pollEvent(e))
 		{
-			this->gui.handleEvent(e);
+			bool clickedGui = this->gui.handleEvent(e);
 			if (e.type == sf::Event::Closed)
 				this->window.close();
-			else if (this->state == AppState::InGame)
+			else if (!clickedGui && this->state == AppState::InGame)
 				this->game->handleEvent(e);
 		}
 		if (this->state == AppState::InGame) {

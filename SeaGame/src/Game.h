@@ -47,7 +47,7 @@ public:
 	// Get the box2d world
 	std::weak_ptr<b2World> getWorld();
 	// Get the GUI world for adding/removing widgets
-	tgui::Panel::Ptr getGui();
+	tgui::Group::Ptr getGui();
 	GameHud* getHud();
 	GameMap* getGameMap();
 	TechTree* getTechTree();
@@ -63,7 +63,7 @@ private:
 	// App of the game, get window and gui through this pointer
 	App* app;
 	// Container of all gui items the game uses
-	tgui::Panel::Ptr guiContainer;
+	tgui::Group::Ptr guiContainer;
 	// The box2d world
 	std::shared_ptr<b2World> world;
 	// Box2d listener
