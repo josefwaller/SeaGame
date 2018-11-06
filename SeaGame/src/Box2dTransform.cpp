@@ -22,12 +22,12 @@ sf::Vector2f Box2dTransform::getPosition()
 {
 	// Convert position to sf::Vector2f
 	b2Vec2 pos = this->body->GetPosition();
-	return sf::Vector2f(pos.x , pos.y) * Game::METER_TO_PIXEL;
+	return sf::Vector2f(pos.x , pos.y) * Game::BOX2D_TO_WORLD;
 }
 void Box2dTransform::setPosition(sf::Vector2f pos)
 {
 	// Set the body's position
-	this->body->SetTransform({ pos.x / Game::METER_TO_PIXEL , pos.y / Game::METER_TO_PIXEL }, this->body->GetAngle());
+	this->body->SetTransform({ pos.x * Game::WORLD_TO_BOX2D , pos.y * Game::WORLD_TO_BOX2D }, this->body->GetAngle());
 }
 float Box2dTransform::getRotation()
 {

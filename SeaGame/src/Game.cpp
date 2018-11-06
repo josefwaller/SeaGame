@@ -13,7 +13,8 @@
 #include <rapidxml\rapidxml_utils.hpp>
 #include "App.h"
 
-const float Game::METER_TO_PIXEL = 100.0f;
+const float Game::BOX2D_TO_WORLD = 100.0f;
+const float Game::WORLD_TO_BOX2D = 1 / Game::BOX2D_TO_WORLD;
 Game::Game() {}
 Game::~Game() {
 	this->app->getGui()->remove(this->guiContainer);

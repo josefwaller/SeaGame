@@ -89,11 +89,11 @@ void GameMap::addLandTile(size_t x, size_t y) {
 	this->tiles[x][y] = TileType::Land;
 	// Add collider
 	b2PolygonShape box;
-	box.SetAsBox(32 / Game::METER_TO_PIXEL, 32 / Game::METER_TO_PIXEL);
+	box.SetAsBox(32 * Game::WORLD_TO_BOX2D, 32 * Game::WORLD_TO_BOX2D);
 	b2FixtureDef fix;
 	fix.shape = &box;
 	b2BodyDef bodyDef;
-	bodyDef.position.Set((32 + x * 64.0f) / Game::METER_TO_PIXEL, (32 + y * 64.0f) / Game::METER_TO_PIXEL);
+	bodyDef.position.Set((32 + x * 64.0f) * Game::WORLD_TO_BOX2D, (32 + y * 64.0f) * Game::WORLD_TO_BOX2D);
 	bodyDef.type = b2_staticBody;
 	b2Body* body = this->game->getWorld().lock()->CreateBody(&bodyDef);
 	body->CreateFixture(&fix);
@@ -132,8 +132,8 @@ void GameMap::render(RenderManager& r)
 			// Add all points
 			for (int i = 0; i < shape->m_count; i++) {
 				drawable[i].position = {
-					(b_it->GetPosition().x + shape->m_vertices[i].x) * Game::METER_TO_PIXEL,
-					(b_it->GetPosition().y + shape->m_vertices[i].y) * Game::METER_TO_PIXEL
+					(b_it->GetPosition().x + shape->m_vertices[i].x) * Game::BOX2D_TO_WORLD,
+					(b_it->GetPosition().y + shape->m_vertices[i].y) * Game::BOX2D_TO_WORLD
 				};
 				drawable[i].color = sf::Color::Red;
 			}

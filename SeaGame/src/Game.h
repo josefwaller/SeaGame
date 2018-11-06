@@ -15,7 +15,9 @@ class Game
 {
 public:
 	static const unsigned int STARTING_MONEY = 200;
-	static const float METER_TO_PIXEL;
+	// Convert between world units and box2d units
+	static const float BOX2D_TO_WORLD;
+	static const float WORLD_TO_BOX2D;
 	Game();
 	~Game();
 	Game(App* app);

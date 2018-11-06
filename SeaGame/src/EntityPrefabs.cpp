@@ -46,12 +46,12 @@ std::shared_ptr<Entity> EntityPrefabs::cannonBall(Game* g, std::weak_ptr<Entity>
 	b2BodyDef ballDef;
 	ballDef.type = b2_dynamicBody;
 	ballDef.gravityScale = 0.0f;
-	ballDef.position.Set(pos.x / Game::METER_TO_PIXEL, pos.y / Game::METER_TO_PIXEL);
+	ballDef.position.Set(pos.x * Game::WORLD_TO_BOX2D, pos.y * Game::WORLD_TO_BOX2D);
 	b2FixtureDef ballFixture;
 	b2CircleShape ballShape;
 	// Set up shape for the hitbox
-	ballShape.m_radius = 5 / Game::METER_TO_PIXEL;
-	ballShape.m_p.Set(-5.0f / Game::METER_TO_PIXEL, -5.0f / Game::METER_TO_PIXEL);
+	ballShape.m_radius = 5 * Game::WORLD_TO_BOX2D;
+	ballShape.m_p.Set(-5.0f * Game::WORLD_TO_BOX2D, -5.0f * Game::WORLD_TO_BOX2D);
 	ballFixture.shape = &ballShape;
 	// Make sensor so that the ball creates an explosion when it hits something
 	ballFixture.isSensor = true;
@@ -77,7 +77,7 @@ std::shared_ptr<Entity> EntityPrefabs::ship(Game* g, sf::Vector2f pos, float rot
 	// Create a ship definition for the new ship
 	b2BodyDef shipDef;
 	shipDef.type = b2_dynamicBody;
-	shipDef.position.Set(pos.x / Game::METER_TO_PIXEL, pos.y / Game::METER_TO_PIXEL);
+	shipDef.position.Set(pos.x * Game::WORLD_TO_BOX2D, pos.y * Game::WORLD_TO_BOX2D);
 	shipDef.angle = rot;
 	// Create a new fixture and add it to the definition
 	b2FixtureDef shipFixture;
@@ -85,11 +85,11 @@ std::shared_ptr<Entity> EntityPrefabs::ship(Game* g, sf::Vector2f pos, float rot
 	b2PolygonShape shipShape; // lol
 	// Set the shape to a ship-like pentagon
 	b2Vec2 verts[5];
-	verts[0].Set(-50 / Game::METER_TO_PIXEL, -20 / Game::METER_TO_PIXEL);
-	verts[1].Set(30 / Game::METER_TO_PIXEL, -20 / Game::METER_TO_PIXEL);
-	verts[2].Set(50 / Game::METER_TO_PIXEL, 0);
-	verts[3].Set(30 / Game::METER_TO_PIXEL, 20 / Game::METER_TO_PIXEL);
-	verts[4].Set(-50 / Game::METER_TO_PIXEL, 20 / Game::METER_TO_PIXEL);
+	verts[0].Set(-50 * Game::WORLD_TO_BOX2D, -20 * Game::WORLD_TO_BOX2D);
+	verts[1].Set(30 * Game::WORLD_TO_BOX2D, -20 * Game::WORLD_TO_BOX2D);
+	verts[2].Set(50 * Game::WORLD_TO_BOX2D, 0);
+	verts[3].Set(30 * Game::WORLD_TO_BOX2D, 20 * Game::WORLD_TO_BOX2D);
+	verts[4].Set(-50 * Game::WORLD_TO_BOX2D, 20 * Game::WORLD_TO_BOX2D);
 	shipShape.Set(verts, 5);
 	shipFixture.shape = &shipShape;
 	// PhysicsComponent will calculate the volume/mass itself, so this value doesn't really matter
@@ -128,15 +128,15 @@ std::shared_ptr<Entity> EntityPrefabs::base(Game* g, sf::Vector2i pos)
 {
 	b2BodyDef baseDef;
 	baseDef.type = b2_staticBody;
-	baseDef.position = b2Vec2(pos.x / Game::METER_TO_PIXEL, pos.y / Game::METER_TO_PIXEL);
+	baseDef.position = b2Vec2(pos.x * Game::WORLD_TO_BOX2D, pos.y * Game::WORLD_TO_BOX2D);
 	baseDef.angle = 0.0f;
 	b2FixtureDef baseFixture;
 	b2PolygonShape baseShape;
 	b2Vec2 verts[4];
 	verts[0] = b2Vec2(0, 0);
-	verts[1] = b2Vec2(0, 3 * 64 / Game::METER_TO_PIXEL);
-	verts[2] = b2Vec2(3 * 64 / Game::METER_TO_PIXEL, 3 * 64 / Game::METER_TO_PIXEL);
-	verts[3] = b2Vec2(3 * 64 / Game::METER_TO_PIXEL, 0);
+	verts[1] = b2Vec2(0, 3 * 64 * Game::WORLD_TO_BOX2D);
+	verts[2] = b2Vec2(3 * 64 * Game::WORLD_TO_BOX2D, 3 * 64 * Game::WORLD_TO_BOX2D);
+	verts[3] = b2Vec2(3 * 64 * Game::WORLD_TO_BOX2D, 0);
 	baseShape.Set(verts, 4);
 	baseFixture.shape = &baseShape;
 

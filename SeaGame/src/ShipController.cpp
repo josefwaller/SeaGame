@@ -29,8 +29,8 @@ void ShipController::turnRight()
 void ShipController::accelerate()
 {
 	this->physicsComp.lock()->setAcceleration({
-		ShipController::ACCELERATION * cos(this->getParent().lock()->components.transform->getRotation()) / Game::METER_TO_PIXEL,
-		ShipController::ACCELERATION * sin(this->getParent().lock()->components.transform->getRotation()) / Game::METER_TO_PIXEL
+		ShipController::ACCELERATION * cos(this->getParent().lock()->components.transform->getRotation()) * Game::WORLD_TO_BOX2D,
+		ShipController::ACCELERATION * sin(this->getParent().lock()->components.transform->getRotation()) * Game::WORLD_TO_BOX2D
 	});
 }
 void ShipController::aimSwivel(float angle)
