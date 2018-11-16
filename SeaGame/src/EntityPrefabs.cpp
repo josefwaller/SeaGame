@@ -170,7 +170,7 @@ std::shared_ptr<Entity> EntityPrefabs::ferryShip(Game* g, sf::Vector2f pos, std:
 	auto ship = EntityPrefabs::ship(g, pos, 0.0f, ShipRenderer::SAIL_COLOR::Red);
 	ship->type = EntityType::Ferry;
 	ship->components.controller = std::shared_ptr<ControllerComponent>(new FerryShipController(ship));
-	ship->components.gui = std::shared_ptr<GuiComponent>(new GuiComponent(ship));
+	ship->components.gui->update();
 	return ship;
 }
 std::shared_ptr<Entity> EntityPrefabs::city(Game* g, sf::Vector2i pos) {
