@@ -43,8 +43,8 @@ b2Body* Box2dTransform::getBody()
 }
 std::map<std::string, std::string> Box2dTransform::getSaveData() {
 	return {
-		{"x", std::to_string(this->getPosition().x / 100.0f)},
-		{"y", std::to_string(this->getPosition().y / 100.0f)},
+		{"x", std::to_string(this->getPosition().x)},
+		{"y", std::to_string(this->getPosition().y)},
 		{"r", std::to_string(this->getRotation())}
 	};
 }
