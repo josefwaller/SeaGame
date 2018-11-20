@@ -24,8 +24,15 @@ public:
 private:
 	// Current destination the ship is going to
 	std::weak_ptr<Entity> destination;
+	// The stops the ferry goes to
 	std::vector<FerryStop> stops;
+	// The index of the current stop
 	size_t currentStopIndex;
+	// Method on reaching target, see AutomatedShipController::onReachingTarget
 	virtual void onReachingTarget() override;
+	// Get the coordinates for reaching an entity
+	// Basically if the entity is on land, return its dock coordinates
 	sf::Vector2f getCoordsForEntity(std::weak_ptr<Entity> e);
+	// The window for managing what to pick up/drop off
+	tgui::ChildWindow::Ptr window;
 };

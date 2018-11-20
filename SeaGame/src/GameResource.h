@@ -1,6 +1,7 @@
 #pragma once
 #include <string>
 #include <map>
+#include <vector>
 
 enum GameResource
 {
@@ -10,6 +11,15 @@ enum GameResource
 	Plank,
 	StoneBrick,
 	StoneStatue
+};
+
+const std::vector<GameResource> ALL_RESOURCES = {
+	GameResource::Stone,
+	GameResource::Wood,
+	GameResource::Gold,
+	GameResource::Plank,
+	GameResource::StoneBrick,
+	GameResource::StoneStatue
 };
 
 // How much the player gets for selling these resources

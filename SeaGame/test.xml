@@ -545,7 +545,11 @@
 	<Tile x="31" y="16" type="Sea"/>
 </GameMap>
 <EntityList>
-	<Entity id="0" inv-1="500" r="0.216904" type="0" x="-1.760376" y="276.843536"/>
-	<Entity currentIndex="0" id="1" inv-1="500" r="0.000000" stopCount="0" type="7" x="682.000000" y="341.000000"/>
+	<Entity id="0" inv-1="1000" inv-2="299" r="-1.035194" type="0" x="-76.566505" y="262.043610"/>
+	<Entity currentIndex="1" id="1" inv-0="0" inv-1="1000" inv-4="0" inv-5="0" r="-1.142292" stopCount="4" stop_0="3" stop_1="4" stop_2="2" stop_3="5" type="7" x="62.344845" y="357.563507"/>
+	<Entity id="2" inv-1="500" inv-4="0" product="5" r="0.000000" sinceLastConversion="0.000000" type="10" x="1216.000000" y="128.000000"/>
+	<Entity id="3" inv-0="42" inv-1="500" r="0.000000" type="5" x="639.999939" y="576.000000"/>
+	<Entity id="4" inv-0="0" inv-1="500" product="4" r="0.000000" sinceLastConversion="0.000000" type="10" x="319.999969" y="128.000000"/>
+	<Entity id="5" inv-1="0" inv-5="0" r="0.000000" type="8" x="896.000000" y="448.000000"/>
 </EntityList>
 
