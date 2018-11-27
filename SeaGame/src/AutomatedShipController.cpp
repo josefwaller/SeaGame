@@ -27,30 +27,41 @@ void AutomatedShipController::setTarget(sf::Vector2f target) {
 	// Get the target the ship is on
 	sf::Vector2<size_t> startCoord = sf::Vector2<size_t>(this->getParent().lock()->components.transform->getPosition() / 64.0f);
 	// Build a list of tiles to go through
-	std::queue<sf::Vector2<size_t>> coords;
+	std::vector<sf::Vector2<size_t>> coords;
 	// The tiles that have been visited and/or are in the queue
 	// i.e. don't add these tiles
 	std::vector<sf::Vector2<size_t>> visited;
 	// Add the  starting coord to the coords
-	coords.push(startCoord);
+	coords.push_back(startCoord);
 	visited.push_back(startCoord);
-	// The "scores" each tile has
+	// The "steps" each tile has
 	// Basically the number of tiles away from the source, and the previous tile
 	// to go to directly before this one
-	std::map<size_t, std::map<size_t, std::pair<sf::Vector2<size_t>, unsigned int>>> scores;
-	scores[startCoord.x][startCoord.y] = { {0, 0}, 0 };
+	std::map<size_t, std::map<size_t, std::pair<sf::Vector2<size_t>, unsigned int>>> steps;
+	steps[startCoord.x][startCoord.y] = { {0, 0}, 0 };
+	// Get game map for easy reference
 	GameMap* gMap = this->getParent().lock()->game->getGameMap();
 	while (true) {
 		if (coords.size() == 0)
 			break;
-		sf::Vector2<size_t> c = coords.front();
-		coords.pop();
+		// Get the coord with the minimum score
+		sf::Vector2<size_t> c = *(coords.begin());
+		auto cIt = coords.begin();
+		for (auto it = coords.begin(); it != coords.end(); it++) {
+			// Check if it has the minimum distance to the target
+			// Checks the one with the minimum distance first
+			if (pow(it->x - targetCoord.x, 2) + pow(it->y - targetCoord.y, 2) < pow(c.x - targetCoord.x, 2) + pow(c.y - targetCoord.y, 2)) {
+				c = *it;
+				cIt = it;
+			}
+		}
+		coords.erase(cIt);
 		// Check if the coord is the target
 		if (c == targetCoord) {
 			std::vector<sf::Vector2f> trail;
 			trail.push_back(sf::Vector2f(c) * 64.0f);
 			while (true) {
-				sf::Vector2<size_t> next = scores[c.x][c.y].first;
+				sf::Vector2<size_t> next = steps[c.x][c.y].first;
 				if (next.x == 0 && next.y == 0) {
 					break;
 				}
@@ -81,9 +92,9 @@ void AutomatedShipController::setTarget(sf::Vector2f target) {
 			}
 			for (auto it : toAdd) {
 				if (std::find(visited.begin(), visited.end(), it) == visited.end()) {
-					coords.push(it);
+					coords.push_back(it);
 					visited.push_back(it);
-					scores[it.x][it.y] = { c, scores[c.x][c.y].second + 1 };
+					steps[it.x][it.y] = { c, steps[c.x][c.y].second + 1 };
 				}
 			}
 		}
