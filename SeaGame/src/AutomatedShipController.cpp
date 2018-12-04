@@ -83,7 +83,7 @@ void AutomatedShipController::setTarget(sf::Vector2f target) {
 					if ((int)c.x + xOff >= 0 && (int)c.x + xOff < gMap->getMapSize().x) {
 						if ((int)c.y + yOff >= 0 && (int)c.y + yOff < gMap->getMapSize().y) {
 							if (gMap->getTileAt(c.x + xOff, c.y + yOff) == GameMap::TileType::Sea) {
-								// Add the til
+								// Add the tile
 								toAdd.push_back(sf::Vector2<size_t>(c.x + xOff, c.y + yOff));
 							}
 						}
