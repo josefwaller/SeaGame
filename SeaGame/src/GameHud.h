@@ -53,6 +53,8 @@ private:
 	void resetBuildButtons();
 	// Reset the research buttons
 	void resetResearchButtons();
+	// Check if an entity is valid and can be built
+	bool ensureValid(std::shared_ptr<Entity> e);
 	// Current Click state
 	ClickState currentClickState;
 	/*

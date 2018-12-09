@@ -56,12 +56,32 @@ void GameHud::tryToBuild(CraftingRecipes::CraftRecipe cr, sf::Vector2f pos) {
 			return;
 		}
 	}
-	// Add the thingy
-	this->game->addEntity(cr.createMethod(this->game, pos));
-	// Remove the required resources
-	for (auto res : cr.requiredResources) {
-		player->components.inventory->removeItems(res.first, res.second);
+	std::shared_ptr<Entity> e = cr.createMethod(this->game, pos);
+	// Check the entity is valid
+	if (this->ensureValid(e)) {
+		// Add the thingy
+		this->game->addEntity(e);
+		// Remove the required resources
+		for (auto res : cr.requiredResources) {
+			player->components.inventory->removeItems(res.first, res.second);
+		}
 	}
+}
+bool GameHud::ensureValid(std::shared_ptr<Entity> e) {
+	if (e->tag == EntityTag::Base) {
+		// Ensure the base is on the land
+		sf::Vector2i pos = (sf::Vector2i)(e->components.transform->getPosition() / 64.0f);
+		for (size_t x = 0; x < 3; x++) {
+			for (size_t y = 0; y < 3; y++) {
+				if (this->game->getGameMap()->getTileAt(pos.x + x, pos.y + y) == GameMap::TileType::Sea) {
+					return false;
+				}
+			}
+		}
+		return true;
+	}
+	// TBA
+	return true;
 }
 void GameHud::transferItems(std::weak_ptr<Entity> e, GameResource res, unsigned int amount) {
 	this->selectCallback = std::bind([&](std::weak_ptr<Entity> to, std::weak_ptr<Entity> from) {
