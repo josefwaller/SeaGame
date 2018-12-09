@@ -47,6 +47,15 @@ std::vector<CraftingRecipes::CraftRecipe> CraftingRecipes::recipes = {
 			g->addEntity(EntityPrefabs::generationBase(g, sf::Vector2i(pos / 64.0f) * 64, GameResource::Copper));
 			return true;
 		}
+	},
+	{
+		{},
+		Technology::GoldMining,
+		"Gold Mine",
+		[&](Game* g, sf::Vector2f pos) {
+			g->addEntity(EntityPrefabs::generationBase(g, sf::Vector2i(pos / 64.0f) * 64, GameResource::Gold));
+			return true;
+		}
 	}
 };
 #include "Game.h"
