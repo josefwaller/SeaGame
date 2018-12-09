@@ -8,6 +8,8 @@ std::string getResourceString(GameResource res) {
 	case GameResource::Plank: return "Plank";
 	case GameResource::StoneBrick: return "Stone Bricks";
 	case GameResource::StoneStatue: return "Statue";
+	case GameResource::Copper: return "Copper Ore";
+	case GameResource::Iron: return "Iron Ore";
 	}
-	return "N/A";
+	return "Missing Resource String (oh nooooooo)";
 }

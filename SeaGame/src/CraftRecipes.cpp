@@ -2,35 +2,7 @@
 #include "EntityPrefabs.h"
 
 std::vector<CraftingRecipes::CraftRecipe> CraftingRecipes::recipes = {
-	{
-		{
-			{ GameResource::Gold, Wood }
-		},
-		Technology::Nothing,
-		"Mining Base",
-		[&](Game* g, sf::Vector2f pos) {
-			g->addEntity(EntityPrefabs::miningBase(g, (sf::Vector2i)(pos / 64.0f) * 64));
-			return true;
-		}
-	},
-	{
-		{},
-		Technology::MakingStuff,
-		"Military Base",
-		[&](Game* g, sf::Vector2f pos) {
-			g->addEntity(EntityPrefabs::militaryBase(g, (sf::Vector2i)(pos / 64.0f) * 64));
-			return true;
-		}
-	},
-	{
-		{},
-		Technology::MakingStuff2,
-		"Ferry Ship",
-		[&](Game* g, sf::Vector2f pos) {
-			g->addEntity(EntityPrefabs::ferryShip(g, pos, {}, {}));
-			return true;
-		}
-	},
+	// TODO: Remove this and make cities generated automatically on the map
 	{
 		{},
 		Technology::Nothing,
@@ -42,37 +14,37 @@ std::vector<CraftingRecipes::CraftRecipe> CraftingRecipes::recipes = {
 	},
 	{
 		{},
-		Technology::Nothing,
-		"Forestry",
+		Technology::Ferries,
+		"Ferry",
 		[&](Game* g, sf::Vector2f pos) {
-			g->addEntity(EntityPrefabs::forestryBase(g, (sf::Vector2i)(pos / 64.0f) * 64));
+			g->addEntity(EntityPrefabs::ferryShip(g, pos, {}, {}));
 			return true;
 		}
 	},
 	{
 		{},
-		Technology::Nothing,
-		"WoodCutters",
+		Technology::Mines,
+		"Mine",
 		[&](Game* g, sf::Vector2f pos) {
-			g->addEntity(EntityPrefabs::conversionBase(g, (sf::Vector2i)(pos / 64.0f) * 64, GameResource::Plank));
+			g->addEntity(EntityPrefabs::generationBase(g, sf::Vector2i(pos / 64.0f) * 64, GameResource::Stone));
 			return true;
 		}
 	},
 	{
 		{},
-		Technology::Nothing,
-		"Stone Cutters lol",
+		Technology::IronMining,
+		"Iron Mine",
 		[&](Game* g, sf::Vector2f pos) {
-			g->addEntity(EntityPrefabs::conversionBase(g, (sf::Vector2i)(pos / 64.0f) * 64, GameResource::StoneBrick));
+			g->addEntity(EntityPrefabs::generationBase(g, sf::Vector2i(pos / 64.0f) * 64, GameResource::Iron));
 			return true;
 		}
 	},
 	{
 		{},
-		Technology::Nothing,
-		"Statue Makers",
+		Technology::CopperMining,
+		"Copper Mine",
 		[&](Game* g, sf::Vector2f pos) {
-			g->addEntity(EntityPrefabs::conversionBase(g, (sf::Vector2i)(pos / 64.0f) * 64, GameResource::StoneStatue));
+			g->addEntity(EntityPrefabs::generationBase(g, sf::Vector2i(pos / 64.0f) * 64, GameResource::Copper));
 			return true;
 		}
 	}

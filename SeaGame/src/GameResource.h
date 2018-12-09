@@ -9,6 +9,8 @@ enum GameResource
 	Wood,
 	Gold,
 	Plank,
+	Iron,
+	Copper,
 	StoneBrick,
 	StoneStatue
 };

@@ -116,11 +116,12 @@ std::shared_ptr<Entity> EntityPrefabs::militaryBase(Game* g, sf::Vector2i pos)
 	b->team = 1;
 	return b;
 }
-std::shared_ptr<Entity> EntityPrefabs::miningBase(Game* g, sf::Vector2i pos) {
+std::shared_ptr<Entity> EntityPrefabs::generationBase(Game* g, sf::Vector2i pos, GameResource res) {
 	auto b = base(g, pos);
+	// Todo: Fix this somehow
 	b->type = EntityType::MiningBase;
-	b->components.controller = std::shared_ptr<ControllerComponent>(new MiningBaseController(b, GameResource::Stone));
-	b->components.renderer = std::shared_ptr<RenderComponent>(new MiningBaseRenderer(b, GameResource::Stone));
+	b->components.controller = std::shared_ptr<ControllerComponent>(new MiningBaseController(b, res));
+	b->components.renderer = std::shared_ptr<RenderComponent>(new MiningBaseRenderer(b, res));
 	b->team = 1;
 	return b;
 }
@@ -209,7 +210,7 @@ std::shared_ptr<Entity> EntityPrefabs::getEntityFromSaveData(Game* g, std::map<s
 	switch (type){
 	// Types of bases
 	case EntityType::MiningBase:
-		return EntityPrefabs::miningBase(g, { (int)x, (int)y });
+		return EntityPrefabs::generationBase(g, { (int)x, (int)y }, GameResource::Stone);
 	case EntityType::ForestryBase:
 		return EntityPrefabs::forestryBase(g, { (int)x, (int)y });
 	case EntityType::City:

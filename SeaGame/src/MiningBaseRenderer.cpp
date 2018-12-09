@@ -30,6 +30,12 @@ sf::Sprite MiningBaseRenderer::getResourceSprite(GameResource res) {
 	case GameResource::StoneStatue:
 		spriteName = "medievalStructure_12.png";
 		break;
+	case GameResource::Copper:
+		spriteName = "medievalEnvironment_10.png";
+		break;
+	case GameResource::Iron:
+		spriteName = "medievalEnvironment_17.png";
+		break;
 	}
 	return ResourceManager::get()->getSprite("medievalRTS_spritesheet@2", spriteName, true);
 }

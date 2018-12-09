@@ -13,7 +13,7 @@ public:
 	static std::shared_ptr<Entity> enemyChasingShip(Game* g, sf::Vector2f pos);
 	static std::shared_ptr<Entity> explosion(Game* g, sf::Vector2f pos);
 	static std::shared_ptr<Entity> militaryBase(Game* g, sf::Vector2i pos);
-	static std::shared_ptr<Entity> miningBase(Game* g, sf::Vector2i pos);
+	static std::shared_ptr<Entity> generationBase(Game* g, sf::Vector2i pos, GameResource res);
 	static std::shared_ptr<Entity> forestryBase(Game* g, sf::Vector2i pos);
 	static std::shared_ptr<Entity> ferryShip(Game * g, sf::Vector2f pos, std::weak_ptr<Entity> from, std::weak_ptr<Entity> to);
 	static std::shared_ptr<Entity> city(Game* g, sf::Vector2i pos);
