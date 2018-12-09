@@ -3,7 +3,9 @@
 #include <map>
 #include <vector>
 #include <functional>
+#include <memory>
 class Game;
+struct Entity;
 #include "GameResource.h"
 #include "SFML/Graphics.hpp"
 #include "TechTree.h"
@@ -21,8 +23,8 @@ public:
 		// Text to display on the button
 		std::string displayText;
 		// Method to build the entity
-		// Returns true if successful, false otherwise
-		std::function<bool(Game* game, sf::Vector2f pos)> createMethod;
+		// Returns the entity, may be invalid because of position or other reason, will check before building:w
+		std::function<std::shared_ptr<Entity>(Game* game, sf::Vector2f pos)> createMethod;
 	};
 	static std::vector<CraftRecipe> recipes;
 };

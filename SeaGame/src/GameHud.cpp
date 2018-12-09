@@ -57,11 +57,10 @@ void GameHud::tryToBuild(CraftingRecipes::CraftRecipe cr, sf::Vector2f pos) {
 		}
 	}
 	// Add the thingy
-	if (cr.createMethod(this->game, pos)) {
-		// Remove the required resources
-		for (auto res : cr.requiredResources) {
-			player->components.inventory->removeItems(res.first, res.second);
-		}
+	this->game->addEntity(cr.createMethod(this->game, pos));
+	// Remove the required resources
+	for (auto res : cr.requiredResources) {
+		player->components.inventory->removeItems(res.first, res.second);
 	}
 }
 void GameHud::transferItems(std::weak_ptr<Entity> e, GameResource res, unsigned int amount) {

@@ -8,8 +8,7 @@ std::vector<CraftingRecipes::CraftRecipe> CraftingRecipes::recipes = {
 		Technology::Nothing,
 		"City",
 		[&](Game* g, sf::Vector2f pos) {
-			g->addEntity(EntityPrefabs::city(g, (sf::Vector2i)(pos / 64.0f) * 64));
-			return true;
+			return EntityPrefabs::city(g, (sf::Vector2i)(pos / 64.0f) * 64);
 		}
 	},
 	{
@@ -17,8 +16,7 @@ std::vector<CraftingRecipes::CraftRecipe> CraftingRecipes::recipes = {
 		Technology::Ferries,
 		"Ferry",
 		[&](Game* g, sf::Vector2f pos) {
-			g->addEntity(EntityPrefabs::ferryShip(g, pos, {}, {}));
-			return true;
+			return EntityPrefabs::ferryShip(g, pos, {}, {});
 		}
 	},
 	{
@@ -26,8 +24,7 @@ std::vector<CraftingRecipes::CraftRecipe> CraftingRecipes::recipes = {
 		Technology::Mines,
 		"Mine",
 		[&](Game* g, sf::Vector2f pos) {
-			g->addEntity(EntityPrefabs::generationBase(g, sf::Vector2i(pos / 64.0f) * 64, GameResource::Stone));
-			return true;
+			return EntityPrefabs::generationBase(g, sf::Vector2i(pos / 64.0f) * 64, GameResource::Stone);
 		}
 	},
 	{
@@ -35,8 +32,7 @@ std::vector<CraftingRecipes::CraftRecipe> CraftingRecipes::recipes = {
 		Technology::IronMining,
 		"Iron Mine",
 		[&](Game* g, sf::Vector2f pos) {
-			g->addEntity(EntityPrefabs::generationBase(g, sf::Vector2i(pos / 64.0f) * 64, GameResource::Iron));
-			return true;
+			return EntityPrefabs::generationBase(g, sf::Vector2i(pos / 64.0f) * 64, GameResource::Iron);
 		}
 	},
 	{
@@ -44,8 +40,7 @@ std::vector<CraftingRecipes::CraftRecipe> CraftingRecipes::recipes = {
 		Technology::CopperMining,
 		"Copper Mine",
 		[&](Game* g, sf::Vector2f pos) {
-			g->addEntity(EntityPrefabs::generationBase(g, sf::Vector2i(pos / 64.0f) * 64, GameResource::Copper));
-			return true;
+			return EntityPrefabs::generationBase(g, sf::Vector2i(pos / 64.0f) * 64, GameResource::Copper);
 		}
 	},
 	{
@@ -53,8 +48,7 @@ std::vector<CraftingRecipes::CraftRecipe> CraftingRecipes::recipes = {
 		Technology::GoldMining,
 		"Gold Mine",
 		[&](Game* g, sf::Vector2f pos) {
-			g->addEntity(EntityPrefabs::generationBase(g, sf::Vector2i(pos / 64.0f) * 64, GameResource::Gold));
-			return true;
+			return EntityPrefabs::generationBase(g, sf::Vector2i(pos / 64.0f) * 64, GameResource::Gold);
 		}
 	}
 };
