@@ -1,4 +1,5 @@
 #include "GameHud.h"
+#include "MiningBaseController.h"
 #include "EntityPrefabs.h"
 #include "CraftRecipes.h"
 #include "TechTree.h"
@@ -14,7 +15,7 @@ GameHud::GameHud(Game* g) {
 	this->buildButton = tgui::Button::create();
 	this->buildButton->setText("Build");
 	this->buildButton->connect("clicked", &GameHud::toggleBuildButtons, game->getHud());
-	//this->game->getGui()->add(this->buildButton);
+	this->game->getGui()->add(this->buildButton);
 	// Add research button
 	this->researchButton = tgui::Button::create();
 	this->researchButton->setText("Research");
@@ -75,6 +76,32 @@ bool GameHud::ensureValid(std::shared_ptr<Entity> e) {
 			for (size_t y = 0; y < 3; y++) {
 				if (this->game->getGameMap()->getTileAt(pos.x + x, pos.y + y) == GameMap::TileType::Sea) {
 					return false;
+				}
+			}
+		}
+		// If the base is a mining/forestry/something base, make sure it's on the right resource
+		// Check it's a generation base
+		if (auto cont = std::dynamic_pointer_cast<MiningBaseController>(e->components.controller)) {
+			// get the resource
+			GameResource neededRes = cont->getResource();
+			bool hasResource = false;
+			// Check the resource is present
+			for (std::shared_ptr<Entity> other : this->game->getEntities()) {
+				if (other->type == EntityType::IronVein) {
+					sf::Vector2i otherPos = sf::Vector2i(other->components.transform->getPosition()) / 64;
+					if (otherPos.x - pos.x < 3 && otherPos.x - pos.x > 0) {
+						if (otherPos.y - pos.y < 3 && otherPos.y - pos.y > 0) {
+							hasResource = true;
+							break;
+						}
+					}
+				}
+			}
+			if (!hasResource)
+				return false;
+
+			for (size_t x = 0; x < 3; x++) {
+				for (size_t y = 0; y < 3; y++) {
 				}
 			}
 		}
