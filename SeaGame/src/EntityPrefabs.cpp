@@ -188,6 +188,23 @@ std::shared_ptr<Entity> EntityPrefabs::forestryBase(Game* g, sf::Vector2i pos) {
 	base->components.controller = std::shared_ptr<ControllerComponent>(new MiningBaseController(base, GameResource::Wood));
 	return base;
 }
+std::shared_ptr<Entity> EntityPrefabs::resourceSource(Game* g, sf::Vector2i pos, GameResource res) {
+	std::shared_ptr<Entity> e = std::shared_ptr<Entity>(new Entity(g));
+	e->tag = EntityTag::Resource;
+	// Set tag
+	// Todo: add the rest of the tags
+	switch (res) {
+	case GameResource::Iron: e->type = EntityType::IronVein; break;
+	case GameResource::Gold: e->type = EntityType::GoldVein; break;
+	}
+	e->components.transform = std::shared_ptr<TransformComponent>(new BasicTransform(e, sf::Vector2f(pos) * 64.0f, 0.0f));
+	e->components.renderer = std::shared_ptr<RenderComponent>(new SpriteRenderer(e,
+		"medievalRTS_spritesheet@2",
+		"medievalEnvironment_08.png",
+		RenderManager::INDEX_HULL));
+
+	return e;
+}
 std::shared_ptr<Entity> EntityPrefabs::pirateBase(Game* g, sf::Vector2i pos) {
 	auto base = EntityPrefabs::base(g, pos);
 	base->type = EntityType::PirateBase;

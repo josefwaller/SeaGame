@@ -134,13 +134,12 @@ void Game::render()
 		auto e = this->entities[i];
 		if (e->components.renderer != nullptr) {
 			e->components.renderer->render(r);
-			e->components.renderer->renderCollider(r);
 		}
 	}
 	// Render debug info, i.e. hitboxes
 	for (auto e : this->entities) {
 		if (e->components.renderer != nullptr) {
-			e->components.renderer->renderCollider(r);
+//			e->components.renderer->renderCollider(r);
 		}
 	}
 	r.render(this->app->getWindow());

@@ -10,7 +10,8 @@ class Game;
 enum EntityTag {
 	Ship,
 	Base,
-	Cannonball
+	Cannonball,
+	Resource
 };
 
 // CHANGING THESE VALUES WILL CAUSE SAVE FILES TO BE BROKEN AF
@@ -25,7 +26,9 @@ enum EntityType {
 	Ferry = 7,
 	City = 8,
 	PirateBase = 9,
-	ConversionBase = 10
+	ConversionBase = 10,
+	IronVein,
+	GoldVein
 };
 struct Entity
 {

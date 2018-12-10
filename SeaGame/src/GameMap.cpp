@@ -2,6 +2,7 @@
 #include "GameMap.h"
 #include "ResourceManager.h"
 #include "Box2dTransform.h"
+#include "EntityPrefabs.h"
 #include <PerlinNoise.hpp>
 #include <ctime>
 #include <cstdio>
@@ -98,6 +99,11 @@ void GameMap::addLandTile(size_t x, size_t y) {
 	b2Body* body = this->game->getWorld().lock()->CreateBody(&bodyDef);
 	body->CreateFixture(&fix);
 	this->bodies.push_back(body);
+	// Temporarily, have a 5% chance to add a resource to it
+	// Eventually will make actually spawn randomly
+	if (rand() % 100 < 5) {
+		this->game->addEntity(EntityPrefabs::resourceSource(this->game, sf::Vector2i((int)x, (int)y), GameResource::Iron));
+	}
 }
 void GameMap::resetTexture() {
 	sf::RenderTexture rt;
