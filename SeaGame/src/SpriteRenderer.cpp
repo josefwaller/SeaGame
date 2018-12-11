@@ -11,6 +11,10 @@ SpriteRenderer::SpriteRenderer(
 	this->spr = ResourceManager::get()->getSprite(sheetName, spriteName, true);
 	this->zIndex = zIndex;
 }
+SpriteRenderer::SpriteRenderer(std::weak_ptr<Entity> parent, sf::Sprite spr, size_t zIndex) : RenderComponent(parent) {
+	this->spr = spr;
+	this->zIndex = zIndex;
+}
 void SpriteRenderer::render(RenderManager& r)
 {
 	if (auto transform = this->getParent().lock()->components.transform)

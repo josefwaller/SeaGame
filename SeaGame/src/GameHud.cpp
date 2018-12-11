@@ -4,6 +4,7 @@
 #include "CraftRecipes.h"
 #include "TechTree.h"
 #include "InventoryComponent.h"
+#include "ResourceController.h"
 
 GameHud::GameHud() {
 }
@@ -82,17 +83,20 @@ bool GameHud::ensureValid(std::shared_ptr<Entity> e) {
 		// If the base is a mining/forestry/something base, make sure it's on the right resource
 		// Check it's a generation base
 		if (auto cont = std::dynamic_pointer_cast<MiningBaseController>(e->components.controller)) {
-			// get the resource
+			// Get the resource
 			GameResource neededRes = cont->getResource();
 			bool hasResource = false;
 			// Check the resource is present
 			for (std::shared_ptr<Entity> other : this->game->getEntities()) {
-				if (other->type == EntityType::IronVein) {
-					sf::Vector2i otherPos = sf::Vector2i(other->components.transform->getPosition()) / 64;
-					if (otherPos.x - pos.x < 3 && otherPos.x - pos.x > 0) {
-						if (otherPos.y - pos.y < 3 && otherPos.y - pos.y > 0) {
-							hasResource = true;
-							break;
+				// Check the entity is a resource and is the correct resource
+				if (auto otherCont = std::dynamic_pointer_cast<ResourceController>(other->components.controller)) {
+					if (otherCont->getResource() == neededRes) {
+						sf::Vector2i otherPos = sf::Vector2i(other->components.transform->getPosition()) / 64;
+						if (otherPos.x - pos.x < 3 && otherPos.x - pos.x > 0) {
+							if (otherPos.y - pos.y < 3 && otherPos.y - pos.y > 0) {
+								hasResource = true;
+								break;
+							}
 						}
 					}
 				}

@@ -102,7 +102,25 @@ void GameMap::addLandTile(size_t x, size_t y) {
 	// Temporarily, have a 5% chance to add a resource to it
 	// Eventually will make actually spawn randomly
 	if (rand() % 100 < 5) {
-		this->game->addEntity(EntityPrefabs::resourceSource(this->game, sf::Vector2i((int)x, (int)y), GameResource::Iron));
+		GameResource res;
+		switch (rand() % 5) {
+		case 0:
+			res = GameResource::Wood;
+			break;
+		case 1:
+			res = GameResource::Stone;
+			break;
+		case 2:
+			res = GameResource::Copper;
+			break;
+		case 3:
+			res = GameResource::Iron;
+			break;
+		case 4:
+			res = GameResource::Gold;
+			break;
+		}
+		this->game->addEntity(EntityPrefabs::resourceSource(this->game, sf::Vector2i((int)x, (int)y), res));
 	}
 }
 void GameMap::resetTexture() {

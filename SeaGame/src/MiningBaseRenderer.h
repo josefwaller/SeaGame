@@ -7,5 +7,4 @@ public:
 	virtual void render(RenderManager& rm) override;
 private:
 	sf::Sprite resSprite;
-	static sf::Sprite getResourceSprite(GameResource res);
 };

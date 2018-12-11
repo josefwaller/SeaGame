@@ -22,6 +22,8 @@
 #include "PirateBaseRenderer.h"
 #include "PirateBaseController.h"
 #include "ConversionBaseController.h"
+#include "ResourceController.h"
+#include "ResourceRenderer.h"
 
 std::shared_ptr<Entity> EntityPrefabs::playerShip(Game* g, sf::Vector2f position)
 {
@@ -197,12 +199,11 @@ std::shared_ptr<Entity> EntityPrefabs::resourceSource(Game* g, sf::Vector2i pos,
 	case GameResource::Iron: e->type = EntityType::IronVein; break;
 	case GameResource::Gold: e->type = EntityType::GoldVein; break;
 	}
-	e->components.transform = std::shared_ptr<TransformComponent>(new BasicTransform(e, sf::Vector2f(pos) * 64.0f, 0.0f));
-	e->components.renderer = std::shared_ptr<RenderComponent>(new SpriteRenderer(e,
-		"medievalRTS_spritesheet@2",
-		"medievalEnvironment_08.png",
-		RenderManager::INDEX_HULL));
-
+	e->components.transform = std::shared_ptr<TransformComponent>(new BasicTransform(e,
+		sf::Vector2f(pos) * 64.0f,
+		0.0f));
+	e->components.controller = std::shared_ptr<ControllerComponent>(new ResourceController(e, res, 200));
+	e->components.renderer = std::shared_ptr<RenderComponent>(new ResourceRenderer(e, res));
 	return e;
 }
 std::shared_ptr<Entity> EntityPrefabs::pirateBase(Game* g, sf::Vector2i pos) {

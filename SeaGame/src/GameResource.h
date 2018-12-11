@@ -2,6 +2,7 @@
 #include <string>
 #include <map>
 #include <vector>
+#include <SFML/Graphics.hpp>
 
 enum GameResource
 {
@@ -35,3 +36,4 @@ const std::map<GameResource, unsigned int> RESOURCE_VALUES = {
 };
 
 std::string getResourceString(GameResource res);
+sf::Sprite getResourceSprite(GameResource res, bool center = true);

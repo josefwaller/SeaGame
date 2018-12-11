@@ -158,6 +158,12 @@
     <Filter Include="Files\Components\Controllers\BaseControllers\ConversionBaseController">
       <UniqueIdentifier>{fc4796c1-a07d-4512-af92-fa7546135ef4}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Files\Components\Controllers\ResourceController">
+      <UniqueIdentifier>{3341130e-9c9c-4872-b8d1-af223fdb0827}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Files\Components\Renderers\ResourceRenderer">
+      <UniqueIdentifier>{6b230493-50bc-45b8-901e-2c3f32dbcb70}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\CannonBallController.cpp">
@@ -306,6 +312,12 @@
     </ClCompile>
     <ClCompile Include="src\GameResource.cpp">
       <Filter>Files\Utils\GameResource</Filter>
+    </ClCompile>
+    <ClCompile Include="src\ResourceController.cpp">
+      <Filter>Files\Components\Controllers\ResourceController</Filter>
+    </ClCompile>
+    <ClCompile Include="src\ResourceRenderer.cpp">
+      <Filter>Files\Components\Renderers\ResourceRenderer</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -461,6 +473,12 @@
     </ClInclude>
     <ClInclude Include="src\ConversionBaseController.h">
       <Filter>Files\Components\Controllers\BaseControllers\ConversionBaseController</Filter>
+    </ClInclude>
+    <ClInclude Include="src\ResourceController.h">
+      <Filter>Files\Components\Controllers\ResourceController</Filter>
+    </ClInclude>
+    <ClInclude Include="src\ResourceRenderer.h">
+      <Filter>Files\Components\Renderers\ResourceRenderer</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
