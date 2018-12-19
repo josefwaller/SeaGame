@@ -38,5 +38,17 @@ std::map<Technology, TechTreeNode> TechTree::nodes = {
 	{
 		Technology::Counterfeiting,
 		TechTreeNode("Counterfeiting", Technology::GoldMining, TIER_3_COST)
+	},
+	{
+		Technology::Forestries,
+		TechTreeNode("Forestries", Technology::Nothing, TIER_1_COST)
+	},
+	{
+		Technology::Woodcutting,
+		TechTreeNode("Woodcutting", Technology::Forestries, TIER_2_COST)
+	},
+	{
+		Technology::Farming,
+		TechTreeNode("Farming", Technology::Forestries, TIER_2_COST)
 	}
 };
