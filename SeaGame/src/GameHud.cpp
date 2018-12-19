@@ -30,6 +30,10 @@ GameHud::GameHud(Game* g) {
 		g->getHud()->toggleResearchButtons();
 	}, this->game);
 	this->game->getGui()->add(this->researchButton);
+	// Add research group
+	this->researchGroup = tgui::Group::create();
+	this->researchGroup->setVisible(false);
+	this->game->getGui()->add(this->researchGroup);
 	// Add save button
 	this->saveBtn = tgui::Button::create();
 	this->saveBtn->setText("Save");
@@ -182,19 +186,24 @@ void GameHud::toggleBuildButtons() {
 		this->resetBuildButtons();
 	}
 }
+// Reset the buttons inside researchGroup
 void GameHud::resetResearchButtons() {
-	std::vector<tgui::Button::Ptr> buttons;
-	float height = this->researchButton->getFullSize().y;
+	// Remove all current buttons
+	this->researchGroup->removeAllWidgets();
+	// The y coordinate of the next button to be added
+	// Used to prevent the buttons from overlapping
+	float y = this->researchButton->getFullSize().y;
+	// Add a button for each technology that is unresearched and is able to be researched
 	for (auto it : TechTree::nodes) {
 		if (it.second.parent == Technology::Nothing
 			|| TechTree::nodes.find(it.second.parent)->second.isResearched) {
-			buttons.push_back(tgui::Button::create());
-			auto btn = buttons.back();
+			// Create a button for it
+			auto btn = tgui::Button::create();
 			if (it.second.isResearched) {
 				btn->setEnabled(false);
 			}
 			btn->setText(it.second.name);
-			btn->setPosition({ 500.0f, height });
+			btn->setPosition({ 500.0f, y });
 			btn->connect("clicked", [&](Game* g, Technology tech) {
 				// Check the player has the correct resources for the technology
 				TechTreeNode* node = &TechTree::nodes.find(tech)->second;
@@ -212,10 +221,11 @@ void GameHud::resetResearchButtons() {
 				g->getHud()->resetBuildButtons();
 				g->getHud()->resetResearchButtons();
 			}, this->game, it.first);
-			height += btn->getFullSize().y;
+			// Add the button to the group
+			this->researchGroup->add(btn);
+			y += btn->getFullSize().y;
 		}
 	}
-	this->toResearchButtons = buttons;
 }
 void GameHud::resetBuildButtons() {
 	// Add the build buttons
@@ -241,8 +251,11 @@ void GameHud::resetBuildButtons() {
 	}
 }
 void GameHud::toggleResearchButtons() {
-	this->resetResearchButtons();
-	for (auto b : this->toResearchButtons) {
-		this->game->getGui()->add(b);
+	if (this->researchGroup->isVisible()) {
+		this->researchGroup->setVisible(false);
+	}
+	else {
+		this->researchGroup->setVisible(true);
+		this->resetResearchButtons();
 	}
 }

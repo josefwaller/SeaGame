@@ -46,8 +46,8 @@ private:
 	tgui::Group::Ptr buildGroup;
 	// Button to show what to research
 	tgui::Button::Ptr researchButton;
-	// Buttons to decide what to research
-	std::vector<tgui::Button::Ptr> toResearchButtons;
+	// The buttons to decide what to research
+	tgui::Group::Ptr researchGroup;
 	// Save Button
 	tgui::Button::Ptr saveBtn;
 	// Money display
