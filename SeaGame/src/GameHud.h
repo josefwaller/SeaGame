@@ -33,12 +33,17 @@ public:
 	void tryToBuild(CraftingRecipes::CraftRecipe cr, sf::Vector2f pos);
 	// Transfer items between entities
 	void transferItems(std::weak_ptr<Entity> entity, GameResource res, unsigned int amount);
+	// Reset the build buttons
+	void resetBuildButtons();
+	// Reset the research buttons
+	void resetResearchButtons();
 private:
 	// The game the HUD belongs to
 	Game* game;
+	// Build button
 	tgui::Button::Ptr buildButton;
-	// Buttons to decide what to build
-	std::vector<tgui::Button::Ptr> toBuildButtons;
+	// The buttons to decide what to build
+	tgui::Group::Ptr buildGroup;
 	// Button to show what to research
 	tgui::Button::Ptr researchButton;
 	// Buttons to decide what to research
@@ -49,10 +54,6 @@ private:
 	tgui::Label::Ptr moneyDisplay;
 	// Player health display
 	tgui::ProgressBar::Ptr playerHealth;
-	// Reset the build buttons
-	void resetBuildButtons();
-	// Reset the research buttons
-	void resetResearchButtons();
 	// Check if an entity is valid and can be built
 	bool ensureValid(std::shared_ptr<Entity> e);
 	// Current Click state
