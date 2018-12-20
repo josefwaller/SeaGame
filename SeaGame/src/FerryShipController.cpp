@@ -2,8 +2,6 @@
 #include "BaseController.h"
 #include "InventoryComponent.h"
 
-FerryShipController::FerryShipController(std::weak_ptr<Entity> parent): AutomatedShipController(parent) {
-}
 void FerryShipController::update(float delta) {
 	// Move towards destination if it exists
 	if (this->destination.lock()) {

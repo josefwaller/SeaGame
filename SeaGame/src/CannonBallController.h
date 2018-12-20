@@ -9,7 +9,7 @@ public:
 	// Speed at which cannonballs move
 	static const float SPEED;
 
-	CannonBallController(std::weak_ptr<Entity> parent, float angle);
+	CannonBallController(float angle);
 	virtual void update(float delta) override;
 	virtual void onCollision(std::weak_ptr<Entity> spawner) override;
 private:

@@ -3,7 +3,7 @@
 #include "ResourceManager.h"
 #include "TransformComponent.h"
 
-BaseRenderer::BaseRenderer(std::weak_ptr<Entity> parent) : RenderComponent(parent)
+BaseRenderer::BaseRenderer()
 {
 	this->tower = ResourceManager::get()->getSprite("tiles", "tower", false);
 	this->horizWall = ResourceManager::get()->getSprite("tiles", "wall-horizontal", false);

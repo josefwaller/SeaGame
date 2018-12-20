@@ -4,8 +4,8 @@
 
 const float CannonBallController::SPEED = 50000.0f;
 const float CannonBallController::MAX_DISTANCE = 1500.0f;
-CannonBallController::CannonBallController(std::weak_ptr<Entity> parent, float angle)
-	: ControllerComponent(parent)
+CannonBallController::CannonBallController(float angle)
+	: ControllerComponent()
 {
 	this->angle = angle;
 	this->startPos = this->getParent().lock()->components.transform->getPosition();

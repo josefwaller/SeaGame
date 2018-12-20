@@ -3,7 +3,7 @@
 
 class PirateBaseRenderer : public BaseRenderer {
 public:
-	PirateBaseRenderer(std::weak_ptr<Entity> parent);
+	PirateBaseRenderer();
 	virtual void render(RenderManager& r) override;
 private:
 	// The sprites of the ship to draw at the middle of the base

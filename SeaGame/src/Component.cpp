@@ -1,12 +1,15 @@
 #include "Component.h"
 #include "Game.h"
 
-Component::Component(std::weak_ptr<Entity> newParent): parent(newParent)
+Component::Component()
 {
 }
 std::weak_ptr<Entity> Component::getParent()
 {
 	return this->parent;
+}
+void Component::setParent(std::weak_ptr<Entity> parent) {
+	this->parent = parent;
 }
 std::map<std::string, std::string> Component::getSaveData() {
 	return {};

@@ -2,9 +2,6 @@
 #include "RenderComponent.h"
 #include "Box2dTransform.h"
 
-InventoryComponent::InventoryComponent(std::shared_ptr<Entity> parent) : Component(parent) {
-	this->addItems(GameResource::Wood, 500);
-}
 void InventoryComponent::addItems(GameResource res, unsigned int amount) {
 	this->inventory[res] += amount;
 	if (this->getParent().lock()->components.gui != nullptr) {

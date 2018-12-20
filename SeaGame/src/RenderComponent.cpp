@@ -1,10 +1,6 @@
 #include "RenderComponent.h"
 #include "Box2dTransform.h"
 
-RenderComponent::RenderComponent(std::weak_ptr<Entity> newParent): Component(newParent)
-{
-}
-
 void RenderComponent::renderCollider(RenderManager& r)
 {
 	if (std::shared_ptr<Box2dTransform> trans = std::dynamic_pointer_cast<Box2dTransform>(this->getParent().lock()->components.transform)) {

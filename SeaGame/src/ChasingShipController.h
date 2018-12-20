@@ -4,7 +4,6 @@
 class ChasingShipController : public ShipController
 {
 public:
-	ChasingShipController(std::weak_ptr<Entity> parent);
 	virtual void update(float delta) override;
 
 	void setTarget(std::weak_ptr<Entity>);

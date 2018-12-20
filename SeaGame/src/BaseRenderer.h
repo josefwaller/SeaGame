@@ -4,7 +4,7 @@
 class BaseRenderer : public RenderComponent
 {
 public:
-	BaseRenderer(std::weak_ptr<Entity> parent);
+	BaseRenderer();
 	virtual void render(RenderManager& r) override;
 private:
 	sf::Sprite tower;

@@ -8,7 +8,7 @@ public:
 	static const float LINEAR_DAMPING;
 	static const float ANGULAR_DAMPING;
 
-	Box2dTransform(std::weak_ptr<Entity> parent, b2BodyDef* def, std::vector<b2FixtureDef> fixtures, bool addDamp = true);
+	Box2dTransform(b2Body* body);
 
 	sf::Vector2f getPosition() override;
 	virtual void setPosition(sf::Vector2f newPos) override;

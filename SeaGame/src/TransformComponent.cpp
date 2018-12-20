@@ -1,7 +1,7 @@
 #include "TransformComponent.h"
 #include "MilitaryBaseController.h"
 
-TransformComponent::TransformComponent(std::weak_ptr<Entity> parent): Component(parent)
+TransformComponent::TransformComponent(): Component()
 {
 
 }

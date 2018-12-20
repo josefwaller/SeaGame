@@ -6,7 +6,7 @@ class HealthComponent : public Component
 {
 public:
 
-	HealthComponent(std::weak_ptr<Entity> parent, unsigned int maxHealth);
+	HealthComponent(unsigned int maxHealth);
 	// Get the health this entity has
 	virtual int getHealth();
 	// Deal damage to this entity

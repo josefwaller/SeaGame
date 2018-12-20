@@ -10,7 +10,6 @@
 class RenderComponent: public Component
 {
 public:
-	RenderComponent(std::weak_ptr<Entity> parent);
 	virtual void render(RenderManager& r) = 0;
 	void renderCollider(RenderManager& r);
 	// Update what to render

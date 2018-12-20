@@ -3,7 +3,8 @@
 #include "FerryShipController.h"
 #include "MiningBaseController.h"
 
-GuiComponent::GuiComponent(std::weak_ptr<Entity> parent) : Component(parent) {
+void GuiComponent::setParent(std::weak_ptr<Entity> parent) {
+	Component::setParent(parent);
 	this->entityWindow = tgui::ChildWindow::create();
 	this->entityWindow->setTitle(this->getParent().lock()->getStringRep());
 	this->entityTabs = tgui::Tabs::create();

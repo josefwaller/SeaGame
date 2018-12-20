@@ -1,7 +1,8 @@
 #include "BaseController.h"
 #include "GameMap.h"
 
-BaseController::BaseController(std::weak_ptr<Entity> parent) : ControllerComponent(parent) {
+void BaseController::setParent(std::weak_ptr<Entity> parent) {
+	Component::setParent(parent);
 	// Set the dock coords
 	sf::Vector2f pos = this->getParent().lock()->components.transform->getPosition();
 	std::queue<sf::Vector2i> coords;

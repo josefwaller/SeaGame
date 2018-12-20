@@ -4,6 +4,6 @@
 class MilitaryBaseRenderer : public BaseRenderer
 {
 public:
-	MilitaryBaseRenderer(std::weak_ptr<Entity> parent);
+	MilitaryBaseRenderer();
 	virtual void render(RenderManager& r) override;
 };

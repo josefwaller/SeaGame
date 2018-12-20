@@ -8,7 +8,13 @@
 #include "GuiComponent.h"
 #include "ClickComponent.h"
 
-
+void ComponentList::set(std::weak_ptr<Entity> parent) {
+	for (ComponentType t : allTypes) {
+		if (this->get(t)) {
+			this->get(t)->setParent(parent);
+		}
+	}
+}
 
 std::vector<ComponentType> ComponentList::allTypes = {
 	ComponentType::Transform,

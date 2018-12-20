@@ -1,12 +1,10 @@
 #include "AnimationRenderer.h"
 
 AnimationRenderer::AnimationRenderer(
-	std::weak_ptr<Entity> parent,
 	std::vector<sf::Sprite> sprites,
 	float dur,
 	size_t z,
 	bool loop)
-	: RenderComponent(parent)
 {
 	this->sprites = sprites;
 	this->duration = dur;

@@ -1,6 +1,6 @@
 #include "HealthComponent.h"
 
-HealthComponent::HealthComponent(std::weak_ptr<Entity> parent, unsigned int maxHealth) : Component(parent)
+HealthComponent::HealthComponent(unsigned int maxHealth) : Component()
 {
 	this->maxHealth = maxHealth;
 	this->health = maxHealth;

@@ -7,10 +7,10 @@
  */
 class InventoryComponent : public Component {
 public:
-	InventoryComponent(std::shared_ptr<Entity> parent);
 	// Add/remove items to/from the inventory
 	void addItems(GameResource res, unsigned int amount);
 	void removeItems(GameResource res, unsigned int amount);
+	// Retrieve a copy of the inventory's data
 	std::map<GameResource, unsigned int> getInventory();
 	std::map<std::string, std::string> getSaveData() override;
 	void fromSaveData(std::map<std::string, std::string> data) override;

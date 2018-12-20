@@ -4,7 +4,7 @@
 // Contains the methods for getting the resources and amount left in this resource deposit
 class ResourceController : public ControllerComponent {
 public:
-	ResourceController(std::weak_ptr<Entity> parent, GameResource res, unsigned int count);
+	ResourceController(GameResource res, unsigned int count);
 	// Get the resource
 	GameResource getResource();
 	// Get the number of resources left

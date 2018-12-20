@@ -8,7 +8,6 @@ public:
 		std::map<GameResource, bool> toPickUp;
 		std::map<GameResource, bool> toDropOff;
 	};
-	FerryShipController(std::weak_ptr<Entity> parent);
 	virtual void update(float delta) override;
 	std::vector<FerryStop> getStops();
 	// Add a stop

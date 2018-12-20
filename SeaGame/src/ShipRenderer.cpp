@@ -22,7 +22,7 @@ std::string ShipRenderer::getSailColorString(ShipRenderer::SAIL_COLOR color)
 		return "White";
 	}
 }
-ShipRenderer::ShipRenderer(std::weak_ptr<Entity> parent, SAIL_COLOR sailColor) : RenderComponent(parent)
+ShipRenderer::ShipRenderer(SAIL_COLOR sailColor)
 {
 	this->hull = ResourceManager::get()->getSprite("ships", "hullLarge.png", true);
 	this->bigSail = ResourceManager::get()->getSprite(

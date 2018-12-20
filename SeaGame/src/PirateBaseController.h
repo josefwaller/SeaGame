@@ -3,7 +3,7 @@
 
 class PirateBaseController : public BaseController {
 public:
-	PirateBaseController(std::weak_ptr<Entity> parent);
+	PirateBaseController();
 	virtual void update(float delta) override;
 	static float SPAWN_DELAY;
 private:

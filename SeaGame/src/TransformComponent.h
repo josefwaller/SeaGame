@@ -5,7 +5,7 @@
 class TransformComponent : public Component
 {
 public:
-	TransformComponent(std::weak_ptr<Entity> parent);
+	TransformComponent();
 	
 	virtual sf::Vector2f getPosition() = 0;
 	virtual void setPosition(sf::Vector2f newPos) = 0;

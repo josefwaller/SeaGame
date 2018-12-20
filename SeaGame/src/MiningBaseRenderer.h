@@ -3,7 +3,8 @@
 
 class MiningBaseRenderer : public BaseRenderer {
 public:
-	MiningBaseRenderer(std::weak_ptr<Entity> parent, GameResource res);
+	MiningBaseRenderer(GameResource res);
+	virtual void setParent(std::weak_ptr<Entity> parent) override;
 	virtual void render(RenderManager& rm) override;
 private:
 	sf::Sprite resSprite;

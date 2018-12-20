@@ -2,9 +2,6 @@
 #include <map>
 #include <math.h>
 
-AutomatedShipController::AutomatedShipController(std::weak_ptr<Entity> parent) : ShipController(parent) {
-
-}
 void AutomatedShipController::move(float delta) {
 	auto trans = this->getParent().lock()->components.transform;
 	sf::Vector2f difference = points[pointsIndex]  + sf::Vector2f(32.0f, 32.0f) - trans->getPosition();

@@ -6,10 +6,6 @@ const float ChasingShipController::ANGLE_MOVE_MARGIN = (float)M_PI;
 const float ChasingShipController::MIN_MOVE_DISTANCE = 300.0f;
 const float ChasingShipController::MAX_CHASE_RANGE = 500.0f;
 
-ChasingShipController::ChasingShipController(std::weak_ptr<Entity> parent) : ShipController(parent)
-{
-}
-
 void ChasingShipController::update(float delta)
 {
 	if (this->target.lock()) {

@@ -3,7 +3,7 @@
 
 class CityRenderer : public BaseRenderer {
 public:
-	CityRenderer(std::weak_ptr<Entity> parent);
+	virtual void setParent(std::weak_ptr<Entity> parent) override;
 	virtual void render(RenderManager& rm) override;
 private:
 	std::vector<sf::Sprite> houses;

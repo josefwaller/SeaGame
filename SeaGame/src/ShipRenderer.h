@@ -14,7 +14,7 @@ public:
 	// Used by ShipController
 	void setSwivel(float Angle);
 
-	ShipRenderer(std::weak_ptr<Entity> e, SAIL_COLOR sailColor);
+	ShipRenderer(SAIL_COLOR sailColor);
 	virtual void render(RenderManager& r) override;
 	virtual void reset() override;
 private:

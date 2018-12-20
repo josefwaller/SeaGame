@@ -4,7 +4,7 @@
 class AnimationRenderer : public RenderComponent
 {
 public:
-	AnimationRenderer(std::weak_ptr<Entity> parent, std::vector<sf::Sprite> sprites, float dur, size_t z, bool loop);
+	AnimationRenderer(std::vector<sf::Sprite> sprites, float dur, size_t z, bool loop);
 	virtual void render(RenderManager& r) override;
 private:
 	// The sprites to flip through

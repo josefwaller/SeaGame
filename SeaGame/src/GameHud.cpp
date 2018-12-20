@@ -69,6 +69,7 @@ void GameHud::tryToBuild(CraftingRecipes::CraftRecipe cr, sf::Vector2f pos) {
 	}
 	std::shared_ptr<Entity> e = cr.createMethod(this->game, pos);
 	// Check the entity is valid
+	auto x = e->components.transform->getPosition();
 	if (this->ensureValid(e)) {
 		// Add the thingy
 		this->game->addEntity(e);

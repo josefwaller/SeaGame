@@ -1,8 +1,9 @@
 #include "PhysicsComponent.h"
 #include "Box2dTransform.h"
 
-PhysicsComponent::PhysicsComponent(std::weak_ptr<Entity> parent) : Component(parent)
-{
+void PhysicsComponent::setParent(std::weak_ptr<Entity> parent) {
+	Component::setParent(parent);
+	// Check the transform is a box2d transform
 	if (!std::dynamic_pointer_cast<Box2dTransform>(this->getParent().lock()->components.transform)) {
 		throw std::runtime_error("An entity has a physics component without a box2d transform, ya dummy");
 	}

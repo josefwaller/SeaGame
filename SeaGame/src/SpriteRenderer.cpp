@@ -2,16 +2,14 @@
 #include "ResourceManager.h"
 
 SpriteRenderer::SpriteRenderer(
-	std::weak_ptr<Entity> parent,
 	std::string sheetName,
 	std::string spriteName,
 	size_t zIndex)
-	: RenderComponent(parent)
 {
 	this->spr = ResourceManager::get()->getSprite(sheetName, spriteName, true);
 	this->zIndex = zIndex;
 }
-SpriteRenderer::SpriteRenderer(std::weak_ptr<Entity> parent, sf::Sprite spr, size_t zIndex) : RenderComponent(parent) {
+SpriteRenderer::SpriteRenderer( sf::Sprite spr, size_t zIndex) : RenderComponent() {
 	this->spr = spr;
 	this->zIndex = zIndex;
 }

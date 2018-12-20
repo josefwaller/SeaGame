@@ -3,10 +3,6 @@
 #include "InventoryComponent.h"
 #include "GameResource.h"
 
-CityController::CityController(std::weak_ptr<Entity> parent) : BaseController(parent) {
-
-}
-
 void CityController::update(float delta) {
 	// ToDo: Make sure citycontroller always has inventory on debug
 	for (auto it : this->getParent().lock()->components.inventory->getInventory()) {

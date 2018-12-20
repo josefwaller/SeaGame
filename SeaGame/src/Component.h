@@ -9,7 +9,11 @@ struct Entity;
 class Component
 {
 public:
-	Component(std::weak_ptr<Entity> parent);
+	Component();
+	// Set the parent
+	// May be overridden by a component to allow set up after all other components are initialized
+	virtual void setParent(std::weak_ptr<Entity> parent);
+	// Get the parent
 	virtual std::weak_ptr<Entity> getParent();
 	virtual std::map<std::string, std::string> getSaveData();
 	// Runs after all entities have been added, thus can reference

@@ -25,63 +25,43 @@
 #include "ResourceController.h"
 #include "ResourceRenderer.h"
 
+// Wrap entity in shared pointer and set parent/component relationship
+std::shared_ptr<Entity> EntityPrefabs::buildEntity(Entity* entity) {
+	// Wrap in shared pointer
+	std::shared_ptr<Entity> e = std::shared_ptr<Entity>(entity);
+	// Set the parent
+	e->components.set(e);
+	// Return entity
+	return e;
+}
+
 std::shared_ptr<Entity> EntityPrefabs::playerShip(Game* g, sf::Vector2f position)
 {
-	auto ship = EntityPrefabs::ship(g, position, 0.0f, ShipRenderer::SAIL_COLOR::Blue);
-	ship->team = 0;
-	ship->type = EntityType::Player;
-	ship->components.controller = std::shared_ptr<ControllerComponent>(new PlayerShipController(ship));
-	return ship;
+	return EntityPrefabs::buildEntity(new Entity(
+		g,
+		0,
+		EntityType::Player,
+		EntityTag::Ship,
+		ComponentList(
+			new Box2dTransform(EntityPrefabs::getShipBody(g, position, 0.0f)),
+			new PlayerShipController(),
+			new ShipRenderer(ShipRenderer::SAIL_COLOR::Blue),
+			new PhysicsComponent(),
+			new HealthComponent(100),
+			new InventoryComponent(),
+			new GuiComponent(),
+			new Box2dClick()
+		)
+	));
 }
-
-std::shared_ptr<Entity> EntityPrefabs::cannonBall(Game* g, std::weak_ptr<Entity> spawner, sf::Vector2f pos, float rot)
-{
-	auto ball = std::shared_ptr<Entity>(new Entity(g));
-	ball->type = EntityType::CannonBall;
-	ball->tag = EntityTag::Cannonball;
-	ball->components.renderer = std::shared_ptr<RenderComponent>(new SpriteRenderer(
-		ball,
-		"ships",
-		"cannonBall.png",
-		RenderManager::INDEX_CANNONBALLS));
-	// Set up Box2d definition
-	b2BodyDef ballDef;
-	ballDef.type = b2_dynamicBody;
-	ballDef.gravityScale = 0.0f;
-	ballDef.position.Set(pos.x * Game::WORLD_TO_BOX2D, pos.y * Game::WORLD_TO_BOX2D);
-	b2FixtureDef ballFixture;
-	b2CircleShape ballShape;
-	// Set up shape for the hitbox
-	ballShape.m_radius = 5 * Game::WORLD_TO_BOX2D;
-	ballShape.m_p.Set(-5.0f * Game::WORLD_TO_BOX2D, -5.0f * Game::WORLD_TO_BOX2D);
-	ballFixture.shape = &ballShape;
-	// Make sensor so that the ball creates an explosion when it hits something
-	ballFixture.isSensor = true;
-	// Set ball team to it's creator's team
-	ball->team = spawner.lock()->team;
-	ball->components.transform = std::shared_ptr<Box2dTransform>(new Box2dTransform(ball, &ballDef, { ballFixture }, false));
-	ball->components.physics = std::shared_ptr<PhysicsComponent>(new PhysicsComponent(ball));
-	ball->components.controller = std::shared_ptr<ControllerComponent>(new CannonBallController(ball, rot));
-	return ball;
-}
-
-std::shared_ptr<Entity> EntityPrefabs::enemyChasingShip(Game* g, sf::Vector2f pos)
-{
-	auto ship = EntityPrefabs::ship(g, pos, 0.0f, ShipRenderer::SAIL_COLOR::Black);
-	ship->type = EntityType::PirateShip;
-	ship->team = 1;
-	ship->components.controller = std::shared_ptr<ControllerComponent>(new ChasingShipController(ship));
-	return ship;
-}
-
-std::shared_ptr<Entity> EntityPrefabs::ship(Game* g, sf::Vector2f pos, float rot, ShipRenderer::SAIL_COLOR c)
-{
+// Create a new ship body
+b2Body* EntityPrefabs::getShipBody(Game* g, sf::Vector2f pos, float rot) {
 	// Create a ship definition for the new ship
 	b2BodyDef shipDef;
 	shipDef.type = b2_dynamicBody;
 	shipDef.position.Set(pos.x * Game::WORLD_TO_BOX2D, pos.y * Game::WORLD_TO_BOX2D);
 	shipDef.angle = rot;
-	// Create a new fixture and add it to the definition
+	// Add the fixture
 	b2FixtureDef shipFixture;
 	// Create shape for the fixture to have
 	b2PolygonShape shipShape; // lol
@@ -96,39 +76,165 @@ std::shared_ptr<Entity> EntityPrefabs::ship(Game* g, sf::Vector2f pos, float rot
 	shipFixture.shape = &shipShape;
 	// PhysicsComponent will calculate the volume/mass itself, so this value doesn't really matter
 	shipFixture.density = 100;
-	// Create the actualy ship entity
-	auto ship = std::shared_ptr<Entity>(new Entity(g));
-	ship->tag = EntityTag::Ship;
-	ship->components.transform = std::shared_ptr<TransformComponent>(new Box2dTransform(ship, &shipDef, { shipFixture }));
-	ship->components.renderer = std::shared_ptr<RenderComponent>(new ShipRenderer(ship, c));
-	ship->components.physics = std::shared_ptr<PhysicsComponent>(new PhysicsComponent(ship));
-	ship->components.health = std::shared_ptr<HealthComponent>(new HealthComponent(ship, 100));
-	ship->components.inventory = std::shared_ptr<InventoryComponent>(new InventoryComponent(ship));
-	ship->components.gui = std::shared_ptr<GuiComponent>(new GuiComponent(ship));
-	ship->components.click = std::shared_ptr<ClickComponent>(new Box2dClick(ship));
-	return ship;
+	// Create the body
+	b2Body* b = g->getWorld().lock()->CreateBody(&shipDef);
+	// Set linear dampning to simulate water
+	b->SetLinearDamping(Box2dTransform::LINEAR_DAMPING);
+	b->SetAngularDamping(Box2dTransform::ANGULAR_DAMPING);
+	// Add fixture
+	b->CreateFixture(&shipFixture);
+	return b;
+}
+std::shared_ptr<Entity> EntityPrefabs::cannonBall(Game* g, std::weak_ptr<Entity> spawner, sf::Vector2f pos, float rot)
+{
+	return buildEntity(new Entity(
+		g,
+		spawner.lock()->team,
+		EntityType::CannonBall,
+		EntityTag::Cannonball,
+		ComponentList(
+			new Box2dTransform(EntityPrefabs::getCannonBallBody(g, pos, rot)),
+			new CannonBallController(rot),
+			new SpriteRenderer("ships", "cannonBall.png", RenderManager::INDEX_CANNONBALLS),
+			new PhysicsComponent(),
+			nullptr,
+			nullptr,
+			nullptr,
+			nullptr
+		)
+	));
+}
+b2Body* EntityPrefabs::getCannonBallBody(Game* g, sf::Vector2f pos, float rot) {
+	// Set up Box2d definition
+	b2BodyDef ballDef;
+	ballDef.type = b2_dynamicBody;
+	ballDef.gravityScale = 0.0f;
+	ballDef.position.Set(pos.x * Game::WORLD_TO_BOX2D, pos.y * Game::WORLD_TO_BOX2D);
+	b2FixtureDef ballFixture;
+	b2CircleShape ballShape;
+	// Set up shape for the hitbox
+	ballShape.m_radius = 5 * Game::WORLD_TO_BOX2D;
+	ballShape.m_p.Set(-5.0f * Game::WORLD_TO_BOX2D, -5.0f * Game::WORLD_TO_BOX2D);
+	ballFixture.shape = &ballShape;
+	// Make sensor so that the ball creates an explosion when it hits something
+	ballFixture.isSensor = true;
+	// Create the body
+	b2Body* b = g->getWorld().lock()->CreateBody(&ballDef);
+	b->CreateFixture(&ballFixture);
+	return b;
+}
+std::shared_ptr<Entity> EntityPrefabs::enemyChasingShip(Game* g, sf::Vector2f pos)
+{
+	return buildEntity(new Entity(
+		g,
+		1,
+		EntityType::PirateShip,
+		EntityTag::Ship,
+		ComponentList(
+			new Box2dTransform(EntityPrefabs::getShipBody(g, pos, 0.0f)),
+			new ChasingShipController(),
+			new ShipRenderer(ShipRenderer::SAIL_COLOR::Black),
+			new PhysicsComponent(),
+			new HealthComponent(100),
+			new InventoryComponent(),
+			new GuiComponent(),
+			new Box2dClick()
+		)
+	));
+}
+std::shared_ptr<Entity> EntityPrefabs::ferryShip(Game* g, sf::Vector2f pos, std::weak_ptr<Entity> from, std::weak_ptr<Entity> to) {
+	return EntityPrefabs::buildEntity(new Entity(
+		g,
+		0,
+		EntityType::Ferry,
+		EntityTag::Ship,
+		ComponentList(
+			new Box2dTransform(EntityPrefabs::getShipBody(g, pos, 0.0f)),
+			new FerryShipController(),
+			new ShipRenderer(ShipRenderer::SAIL_COLOR::Red),
+			new PhysicsComponent(),
+			new HealthComponent(100),
+			new InventoryComponent(),
+			new GuiComponent(),
+			new Box2dClick()
+		)
+	));
 }
 std::shared_ptr<Entity> EntityPrefabs::militaryBase(Game* g, sf::Vector2i pos)
 {
-	auto b = base(g, pos);
-	b->type = EntityType::MilitaryBase;
-	b->components.controller = std::shared_ptr<ControllerComponent>(new MilitaryBaseController(b));
-	b->components.renderer = std::shared_ptr<RenderComponent>(new MilitaryBaseRenderer(b));
-	// TODO: Make team a parameter
-	b->team = 1;
-	return b;
+	return buildEntity(new Entity(
+		g,
+		0,
+		EntityType::MilitaryBase,
+		EntityTag::Base,
+		ComponentList(
+			new Box2dTransform(EntityPrefabs::getBaseBody(g, sf::Vector2f(pos), 0.0f)),
+			new MilitaryBaseController(),
+			new MilitaryBaseRenderer(),
+			nullptr,
+			new HealthComponent(100),
+			new InventoryComponent(),
+			new GuiComponent(),
+			new Box2dClick()
+		)
+	));
 }
 std::shared_ptr<Entity> EntityPrefabs::generationBase(Game* g, sf::Vector2i pos, GameResource res) {
-	auto b = base(g, pos);
-	// Todo: Fix this somehow
-	b->type = EntityType::MiningBase;
-	b->components.controller = std::shared_ptr<ControllerComponent>(new MiningBaseController(b, res));
-	b->components.renderer = std::shared_ptr<RenderComponent>(new MiningBaseRenderer(b, res));
-	b->team = 1;
-	return b;
+	return EntityPrefabs::buildEntity(new Entity(
+		g,
+		0,
+		// ToDo: Have more specific types for this
+		EntityType::MiningBase,
+		EntityTag::Base,
+		ComponentList(
+			new Box2dTransform(EntityPrefabs::getBaseBody(g, sf::Vector2f(pos), 0.0f)),
+			new MiningBaseController(res),
+			new MiningBaseRenderer(res),
+			nullptr,
+			new HealthComponent(100),
+			new InventoryComponent(),
+			new GuiComponent(),
+			new Box2dClick()
+		)
+	));
 }
-std::shared_ptr<Entity> EntityPrefabs::base(Game* g, sf::Vector2i pos)
-{
+std::shared_ptr<Entity> EntityPrefabs::pirateBase(Game* g, sf::Vector2i pos) {
+	return EntityPrefabs::buildEntity(new Entity(
+		g,
+		1,
+		EntityType::PirateBase,
+		EntityTag::Base,
+		ComponentList(
+			new Box2dTransform(EntityPrefabs::getBaseBody(g, sf::Vector2f(pos), 0.0f)),
+			new PirateBaseController(),
+			new PirateBaseRenderer(),
+			nullptr,
+			new HealthComponent(100),
+			new InventoryComponent(),
+			new GuiComponent(),
+			new Box2dClick()
+		)
+	));
+}
+std::shared_ptr<Entity> EntityPrefabs::conversionBase(Game* g, sf::Vector2i pos, GameResource res) {
+	return EntityPrefabs::buildEntity(new Entity(
+		g,
+		0,
+		EntityType::ConversionBase,
+		EntityTag::Base,
+		ComponentList(
+			new Box2dTransform(EntityPrefabs::getBaseBody(g, sf::Vector2f(pos), 0.0f)),
+			new ConversionBaseController(res),
+			new MiningBaseRenderer(res),
+			nullptr,
+			new HealthComponent(100),
+			new InventoryComponent(),
+			new GuiComponent(),
+			new Box2dClick()
+		)
+	));
+}
+b2Body* EntityPrefabs::getBaseBody(Game* g, sf::Vector2f pos, float rot) {
 	b2BodyDef baseDef;
 	baseDef.type = b2_staticBody;
 	baseDef.position = b2Vec2(pos.x * Game::WORLD_TO_BOX2D, pos.y * Game::WORLD_TO_BOX2D);
@@ -142,85 +248,74 @@ std::shared_ptr<Entity> EntityPrefabs::base(Game* g, sf::Vector2i pos)
 	verts[3] = b2Vec2(3 * 64 * Game::WORLD_TO_BOX2D, 0);
 	baseShape.Set(verts, 4);
 	baseFixture.shape = &baseShape;
-
-	auto base = std::shared_ptr<Entity>(new Entity(g));
-	base->tag = EntityTag::Base;
-	base->components.transform = std::shared_ptr<TransformComponent>(new Box2dTransform(base, &baseDef, { baseFixture }));
-	base->components.renderer = std::shared_ptr<RenderComponent>(new BaseRenderer(base));
-	base->components.gui = std::shared_ptr<GuiComponent>(new GuiComponent(base));
-	base->components.click = std::shared_ptr<ClickComponent>(new Box2dClick(base));
-	base->components.inventory = std::shared_ptr<InventoryComponent>(new InventoryComponent(base));
-	return base;
+	b2Body* b = g->getWorld().lock()->CreateBody(&baseDef);
+	b->CreateFixture(&baseFixture);
+	return b;
 }
 std::shared_ptr<Entity> EntityPrefabs::explosion(Game* g, sf::Vector2f pos)
 {
-	auto ex = std::shared_ptr<Entity>(new Entity(g));
-	ex->type = EntityType::Explosion;
-	ex->components.transform = std::shared_ptr<TransformComponent>(new BasicTransform(ex, pos, 0.0f));
-	ex->components.renderer = std::shared_ptr<RenderComponent>(new AnimationRenderer(
-		ex,
-		{
-			ResourceManager::get()->getSprite("ships", "explosion3.png", true),
-			ResourceManager::get()->getSprite("ships", "explosion2.png", true),
-			ResourceManager::get()->getSprite("ships", "explosion1.png", true)
-		},
-		100,
-		RenderManager::INDEX_EFFECT,
-		false));
-	return ex;
-}
-std::shared_ptr<Entity> EntityPrefabs::ferryShip(Game* g, sf::Vector2f pos, std::weak_ptr<Entity> from, std::weak_ptr<Entity> to) {
-	auto ship = EntityPrefabs::ship(g, pos, 0.0f, ShipRenderer::SAIL_COLOR::Red);
-	ship->type = EntityType::Ferry;
-	ship->components.controller = std::shared_ptr<ControllerComponent>(new FerryShipController(ship));
-	ship->components.gui->update();
-	return ship;
+	return EntityPrefabs::buildEntity(new Entity(
+		g,
+		0,
+		EntityType::Explosion,
+		EntityTag::Effect,
+		ComponentList(
+			new BasicTransform(pos, 0.0f),
+			nullptr,
+			new AnimationRenderer(
+				{
+					ResourceManager::get()->getSprite("ships", "explosion3.png", true),
+					ResourceManager::get()->getSprite("ships", "explosion2.png", true),
+					ResourceManager::get()->getSprite("ships", "explosion1.png", true)
+				},
+				100.0f,
+				RenderManager::INDEX_EFFECT,
+				false
+			),
+			nullptr,
+			nullptr,
+			nullptr,
+			nullptr,
+			nullptr
+		)
+	));
 }
 std::shared_ptr<Entity> EntityPrefabs::city(Game* g, sf::Vector2i pos) {
-	auto city = EntityPrefabs::base(g, pos);
-	city->type = EntityType::City;
-	city->components.controller = std::shared_ptr<ControllerComponent>(new CityController(city));
-	city->components.renderer = std::shared_ptr<RenderComponent>(new CityRenderer(city));
-	return city;
-}
-std::shared_ptr<Entity> EntityPrefabs::forestryBase(Game* g, sf::Vector2i pos) {
-	auto base = EntityPrefabs::base(g, pos);
-	base->type = EntityType::ForestryBase;
-	base->components.renderer = std::shared_ptr<RenderComponent>(new MiningBaseRenderer(base, GameResource::Wood));
-	base->components.controller = std::shared_ptr<ControllerComponent>(new MiningBaseController(base, GameResource::Wood));
-	return base;
+	return buildEntity(new Entity(
+		g,
+		0,
+		EntityType::City,
+		EntityTag::Base,
+		ComponentList(
+			new Box2dTransform(getBaseBody(g, sf::Vector2f(pos), 0.0f)),
+			new CityController(),
+			new CityRenderer(),
+			nullptr,
+			nullptr,
+			new InventoryComponent(),
+			new GuiComponent(),
+			new Box2dClick()
+		)
+	));
 }
 std::shared_ptr<Entity> EntityPrefabs::resourceSource(Game* g, sf::Vector2i pos, GameResource res) {
-	std::shared_ptr<Entity> e = std::shared_ptr<Entity>(new Entity(g));
-	e->tag = EntityTag::Resource;
-	// Set tag
-	// Todo: add the rest of the tags
-	switch (res) {
-	case GameResource::Iron: e->type = EntityType::IronVein; break;
-	case GameResource::Gold: e->type = EntityType::GoldVein; break;
-	}
-	e->components.transform = std::shared_ptr<TransformComponent>(new BasicTransform(e,
-		sf::Vector2f(pos) * 64.0f,
-		0.0f));
-	e->components.controller = std::shared_ptr<ControllerComponent>(new ResourceController(e, res, 200));
-	e->components.renderer = std::shared_ptr<RenderComponent>(new ResourceRenderer(e, res));
-	return e;
+	return buildEntity(new Entity(
+		g,
+		0,
+		EntityType::IronVein,
+		EntityTag::Resource,
+		ComponentList(
+			new BasicTransform(sf::Vector2f(pos) * 64.0f, 0.0f),
+			new ResourceController(res, 200),
+			new ResourceRenderer(res),
+			nullptr,
+			nullptr,
+			new InventoryComponent(),
+			new GuiComponent(),
+			nullptr
+		)
+	));
 }
-std::shared_ptr<Entity> EntityPrefabs::pirateBase(Game* g, sf::Vector2i pos) {
-	auto base = EntityPrefabs::base(g, pos);
-	base->type = EntityType::PirateBase;
-	base->components.renderer = std::shared_ptr<RenderComponent>(new PirateBaseRenderer(base));
-	base->components.controller = std::shared_ptr<ControllerComponent>(new PirateBaseController(base));
-	return base;
-}
-std::shared_ptr<Entity> EntityPrefabs::conversionBase(Game* g, sf::Vector2i pos, GameResource res) {
-	auto base = EntityPrefabs::base(g, pos);
-	base->type = EntityType::ConversionBase;
-	base->components.renderer = std::shared_ptr<RenderComponent>(new MiningBaseRenderer(base, res));
-	base->components.controller = std::shared_ptr<ControllerComponent>(new ConversionBaseController(base, res));
-	return base;
-}
-
 std::shared_ptr<Entity> EntityPrefabs::getEntityFromSaveData(Game* g, std::map<std::string, std::string> data) {
 	EntityType type = (EntityType)std::stoi(data["type"]);
 	float x = std::stoi(data["x"]);
@@ -230,7 +325,7 @@ std::shared_ptr<Entity> EntityPrefabs::getEntityFromSaveData(Game* g, std::map<s
 	case EntityType::MiningBase:
 		return EntityPrefabs::generationBase(g, { (int)x, (int)y }, GameResource::Stone);
 	case EntityType::ForestryBase:
-		return EntityPrefabs::forestryBase(g, { (int)x, (int)y });
+		return EntityPrefabs::generationBase(g, { (int)x, (int)y }, GameResource::Wood);
 	case EntityType::City:
 		return EntityPrefabs::city(g, { (int)x, (int)y });
 	case EntityType::MilitaryBase:

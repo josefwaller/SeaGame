@@ -1,7 +1,8 @@
 #include "CityRenderer.h"
 #include "ResourceManager.h"
 
-CityRenderer::CityRenderer(std::weak_ptr<Entity> parent) : BaseRenderer(parent) {
+void CityRenderer::setParent(std::weak_ptr<Entity> parent) {
+	Component::setParent(parent);
 	// Add house
 	// ToDo: make there more houses
 	this->houses = {

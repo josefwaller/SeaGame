@@ -2,7 +2,8 @@
 #include "RenderComponent.h"
 class ResourceRenderer : public RenderComponent {
 public:
-	ResourceRenderer(std::weak_ptr<Entity> parent, GameResource res);
+	ResourceRenderer(GameResource res);
+	virtual void setParent(std::weak_ptr<Entity> parent) override;
 	virtual void render(RenderManager& rm) override;
 private:
 	sf::Sprite spr;

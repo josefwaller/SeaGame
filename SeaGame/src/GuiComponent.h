@@ -4,7 +4,7 @@
 
 class GuiComponent : public Component {
 public:
-	GuiComponent(std::weak_ptr<Entity>);
+	virtual void setParent(std::weak_ptr<Entity> parent) override;
 	// Change the panel the component is currently showing
 	void changePanel(std::string selectedPanel);
 	std::string getResourceString(GameResource res);

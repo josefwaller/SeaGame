@@ -1,8 +1,8 @@
 #include "BasicTransform.h"
 #include <iostream>
 
-BasicTransform::BasicTransform(std::weak_ptr<Entity> e, sf::Vector2f initPos = { 0, 0 }, float initRot = 0.0f)
-	: TransformComponent(e)
+BasicTransform::BasicTransform(sf::Vector2f initPos = { 0, 0 }, float initRot = 0.0f)
+	: TransformComponent()
 {
 	this->position = initPos;
 	this->rotation = initRot;

@@ -6,7 +6,6 @@
 // towards a point given
 class AutomatedShipController : public ShipController {
 public:
-	AutomatedShipController(std::weak_ptr<Entity> parent);
 	std::vector<sf::Vector2f> points;
 protected:
 	void move(float delta);

@@ -7,8 +7,9 @@ const float ShipController::ANGULAR_ACCELERATION = 2.0f;
 
 const float ShipController::CANNON_INTERVAL = 0.5f;
 
-ShipController::ShipController(std::weak_ptr<Entity> e) : ControllerComponent(e)
+void ShipController::setParent(std::weak_ptr<Entity> parent)
 {
+	Component::setParent(parent);
 	this->physicsComp = this->getParent().lock()->components.physics;
 	this->cannon = Cannon(
 		this->getParent(),

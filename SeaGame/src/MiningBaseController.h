@@ -7,7 +7,7 @@
  */
 class MiningBaseController : public BaseController {
 public:
-	MiningBaseController(std::weak_ptr<Entity> parent, GameResource res);
+	MiningBaseController(GameResource res);
 	virtual void update(float deltaTime) override;
 	// Get the resource this base generates
 	GameResource getResource();

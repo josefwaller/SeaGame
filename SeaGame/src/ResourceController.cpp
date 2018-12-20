@@ -1,7 +1,7 @@
 #include "ResourceController.h"
 
-ResourceController::ResourceController(std::weak_ptr<Entity> parent, GameResource res, unsigned int count)
-	: ControllerComponent(parent) {
+ResourceController::ResourceController(GameResource res, unsigned int count)
+	: ControllerComponent() {
 	this->res = res;
 	this->count = count;
 }

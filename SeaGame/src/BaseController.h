@@ -6,8 +6,7 @@
 // Must be on water
 class BaseController : public ControllerComponent {
 public:
-	BaseController();
-	BaseController(std::weak_ptr<Entity> parent);
+	virtual void setParent(std::weak_ptr<Entity> parent) override;
 	sf::Vector2f getDockCoords();
 private:
 	sf::Vector2f dockCoords;

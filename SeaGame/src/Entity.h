@@ -11,7 +11,8 @@ enum EntityTag {
 	Ship,
 	Base,
 	Cannonball,
-	Resource
+	Resource,
+	Effect
 };
 
 // CHANGING THESE VALUES WILL CAUSE SAVE FILES TO BE BROKEN AF
@@ -33,7 +34,9 @@ enum EntityType {
 struct Entity
 {
 	Entity() : game(nullptr) {}
-	Entity(Game* g) : game(g) {
+	Entity(Game* g, int team, EntityType type, EntityTag tag, ComponentList c)
+		: game(g), team(team), type(type), tag(tag), components(c) {
+		// Set id
 		Entity::trueEntityCount++;
 		this->id = Entity::currentId;
 		Entity::currentId++;

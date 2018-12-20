@@ -1,7 +1,7 @@
 #include "PirateBaseRenderer.h"
 #include "ResourceManager.h"
 
-PirateBaseRenderer::PirateBaseRenderer(std::weak_ptr<Entity> parent) : BaseRenderer(parent) {
+PirateBaseRenderer::PirateBaseRenderer() : BaseRenderer() {
 	this->shipSprites = {
 		ResourceManager::get()->getSprite("ships", "hullLarge.png", true),
 		ResourceManager::get()->getSprite("ships", "sailLargeBlack.png", true)

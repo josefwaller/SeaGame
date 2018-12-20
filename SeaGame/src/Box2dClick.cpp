@@ -1,7 +1,7 @@
 #include "Box2dClick.h"
 #include "Box2dTransform.h"
 
-Box2dClick::Box2dClick(std::weak_ptr<Entity> parent) : ClickComponent(parent) {
+Box2dClick::Box2dClick() : ClickComponent() {
 }
 
 bool Box2dClick::checkForClick(sf::Vector2f mousePos) {
