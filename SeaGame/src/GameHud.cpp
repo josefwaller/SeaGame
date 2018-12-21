@@ -102,8 +102,8 @@ bool GameHud::ensureValid(std::shared_ptr<Entity> e) {
 				if (auto otherCont = std::dynamic_pointer_cast<ResourceController>(other->components.controller)) {
 					if (otherCont->getResource() == neededRes) {
 						sf::Vector2i otherPos = sf::Vector2i(other->components.transform->getPosition()) / 64;
-						if (otherPos.x - pos.x < 3 && otherPos.x - pos.x > 0) {
-							if (otherPos.y - pos.y < 3 && otherPos.y - pos.y > 0) {
+						if (otherPos.x - pos.x < 3 && otherPos.x - pos.x >= 0) {
+							if (otherPos.y - pos.y < 3 && otherPos.y - pos.y >= 0) {
 								hasResource = true;
 								break;
 							}
