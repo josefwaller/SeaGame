@@ -24,6 +24,7 @@
 #include "ConversionBaseController.h"
 #include "ResourceController.h"
 #include "ResourceRenderer.h"
+#include "RectangleClick.h"
 
 // Wrap entity in shared pointer and set parent/component relationship
 std::shared_ptr<Entity> EntityPrefabs::buildEntity(Entity* entity) {
@@ -312,7 +313,7 @@ std::shared_ptr<Entity> EntityPrefabs::resourceSource(Game* g, sf::Vector2i pos,
 			nullptr,
 			new InventoryComponent(),
 			new GuiComponent(),
-			nullptr
+			new RectangleClick(sf::Vector2i(0, 0), sf::Vector2i(64, 64))
 		)
 	));
 }

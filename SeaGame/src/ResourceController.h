@@ -5,6 +5,7 @@
 class ResourceController : public ControllerComponent {
 public:
 	ResourceController(GameResource res, unsigned int count);
+	virtual void onClick() override;
 	// Get the resource
 	GameResource getResource();
 	// Get the number of resources left

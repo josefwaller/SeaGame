@@ -164,6 +164,9 @@
     <Filter Include="Files\Components\Renderers\ResourceRenderer">
       <UniqueIdentifier>{6b230493-50bc-45b8-901e-2c3f32dbcb70}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Files\Components\Click\RectangleClick">
+      <UniqueIdentifier>{bf5ce1bd-27e7-40d6-ac42-df2724944c8f}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\CannonBallController.cpp">
@@ -318,6 +321,9 @@
     </ClCompile>
     <ClCompile Include="src\ResourceRenderer.cpp">
       <Filter>Files\Components\Renderers\ResourceRenderer</Filter>
+    </ClCompile>
+    <ClCompile Include="src\RectangleClick.cpp">
+      <Filter>Files\Components\Click\RectangleClick</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -479,6 +485,9 @@
     </ClInclude>
     <ClInclude Include="src\ResourceRenderer.h">
       <Filter>Files\Components\Renderers\ResourceRenderer</Filter>
+    </ClInclude>
+    <ClInclude Include="src\RectangleClick.h">
+      <Filter>Files\Components\Click\RectangleClick</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
