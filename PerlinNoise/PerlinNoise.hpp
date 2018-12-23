@@ -74,7 +74,7 @@ namespace siv
 		{
 			for (size_t i = 0; i < 256; ++i)
 			{
-				p[i] = i;
+				p[i] = (std::uint32_t)i;
 			}
 
 			std::shuffle(std::begin(p), std::begin(p) + 256, std::default_random_engine(seed));

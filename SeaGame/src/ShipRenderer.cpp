@@ -3,33 +3,33 @@
 #include "ShipController.h"
 #include "AutomatedShipController.h"
 
-std::string ShipRenderer::getSailColorString(ShipRenderer::SAIL_COLOR color)
+std::string ShipRenderer::getSailColorString(ShipRenderer::SailColor color)
 {
 	switch (color) {
-	case SAIL_COLOR::Red:
+	case SailColor::Red:
 		return "Red";
-	case SAIL_COLOR::Blue:
+	case SailColor::Blue:
 		return "Blue";
-	case SAIL_COLOR::Yellow:
+	case SailColor::Yellow:
 		return "Yellow";
-	case SAIL_COLOR::Green:
+	case SailColor::Green:
 		return "Green";
-	case SAIL_COLOR::Black:
+	case SailColor::Black:
 		return "Black";
-	case SAIL_COLOR::White:
+	case SailColor::White:
 		return "White";
 	default:
 		return "White";
 	}
 }
-ShipRenderer::ShipRenderer(SAIL_COLOR sailColor)
+ShipRenderer::ShipRenderer(SailColor sailColor)
 {
 	this->hull = ResourceManager::get()->getSprite("ships", "hullLarge.png", true);
 	this->bigSail = ResourceManager::get()->getSprite(
 		"ships",
 		"sailLarge" + getSailColorString(sailColor) + ".png",
 		true);
-	this->hasSmallSail = (sailColor != SAIL_COLOR::Black && sailColor != SAIL_COLOR::White);
+	this->hasSmallSail = (sailColor != SailColor::Black && sailColor != SailColor::White);
 	if (this->hasSmallSail) {
 		this->smallSail = ResourceManager::get()->getSprite(
 			"ships",

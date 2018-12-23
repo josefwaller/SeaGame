@@ -1,7 +1,7 @@
 #pragma once
 #include "ControllerComponent.h"
 
-class CannonBallController : public ControllerComponent
+class CannonballController : public ControllerComponent
 {
 public:
 	// How far each cannonball goes before being destroyed
@@ -9,7 +9,7 @@ public:
 	// Speed at which cannonballs move
 	static const float SPEED;
 
-	CannonBallController(float angle);
+	CannonballController(float angle);
 	virtual void update(float delta) override;
 	virtual void onCollision(std::weak_ptr<Entity> spawner) override;
 private:

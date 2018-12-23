@@ -3,7 +3,7 @@
 #include "SpriteRenderer.h"
 #include "PlayerShipController.h"
 #include "ChasingShipController.h"
-#include "CannonBallController.h"
+#include "CannonballController.h"
 #include "AnimationRenderer.h"
 #include "ResourceManager.h"
 #include "HealthComponent.h"
@@ -45,7 +45,7 @@ std::shared_ptr<Entity> EntityPrefabs::playerShip(Game* g, sf::Vector2f position
 		ComponentList(
 			new Box2dTransform(EntityPrefabs::getShipBody(g, position, 0.0f)),
 			new PlayerShipController(),
-			new ShipRenderer(ShipRenderer::SAIL_COLOR::Blue),
+			new ShipRenderer(ShipRenderer::SailColor::Blue),
 			new PhysicsComponent(),
 			new HealthComponent(100),
 			new InventoryComponent(),
@@ -90,11 +90,11 @@ std::shared_ptr<Entity> EntityPrefabs::cannonBall(Game* g, std::weak_ptr<Entity>
 	return buildEntity(new Entity(
 		g,
 		spawner.lock()->team,
-		EntityType::CannonBall,
+		EntityType::Cannonball,
 		EntityTag::Cannonball,
 		ComponentList(
-			new Box2dTransform(EntityPrefabs::getCannonBallBody(g, pos, rot)),
-			new CannonBallController(rot),
+			new Box2dTransform(EntityPrefabs::getCannonballBody(g, pos, rot)),
+			new CannonballController(rot),
 			new SpriteRenderer("ships", "cannonBall.png", RenderManager::INDEX_CANNONBALLS),
 			new PhysicsComponent(),
 			nullptr,
@@ -104,7 +104,7 @@ std::shared_ptr<Entity> EntityPrefabs::cannonBall(Game* g, std::weak_ptr<Entity>
 		)
 	));
 }
-b2Body* EntityPrefabs::getCannonBallBody(Game* g, sf::Vector2f pos, float rot) {
+b2Body* EntityPrefabs::getCannonballBody(Game* g, sf::Vector2f pos, float rot) {
 	// Set up Box2d definition
 	b2BodyDef ballDef;
 	ballDef.type = b2_dynamicBody;
@@ -133,7 +133,7 @@ std::shared_ptr<Entity> EntityPrefabs::enemyChasingShip(Game* g, sf::Vector2f po
 		ComponentList(
 			new Box2dTransform(EntityPrefabs::getShipBody(g, pos, 0.0f)),
 			new ChasingShipController(),
-			new ShipRenderer(ShipRenderer::SAIL_COLOR::Black),
+			new ShipRenderer(ShipRenderer::SailColor::Black),
 			new PhysicsComponent(),
 			new HealthComponent(100),
 			new InventoryComponent(),
@@ -151,7 +151,7 @@ std::shared_ptr<Entity> EntityPrefabs::ferryShip(Game* g, sf::Vector2f pos, std:
 		ComponentList(
 			new Box2dTransform(EntityPrefabs::getShipBody(g, pos, 0.0f)),
 			new FerryShipController(),
-			new ShipRenderer(ShipRenderer::SAIL_COLOR::Red),
+			new ShipRenderer(ShipRenderer::SailColor::Red),
 			new PhysicsComponent(),
 			new HealthComponent(100),
 			new InventoryComponent(),
@@ -318,8 +318,8 @@ std::shared_ptr<Entity> EntityPrefabs::resourceSource(Game* g, sf::Vector2i pos,
 }
 std::shared_ptr<Entity> EntityPrefabs::getEntityFromSaveData(Game* g, std::map<std::string, std::string> data) {
 	EntityType type = (EntityType)std::stoi(data["type"]);
-	float x = std::stoi(data["x"]);
-	float y = std::stoi(data["y"]);
+	float x = (float)std::stoi(data["x"]);
+	float y = (float)std::stoi(data["y"]);
 	switch (type){
 	// Types of bases
 	case EntityType::MiningBase:

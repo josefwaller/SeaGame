@@ -205,7 +205,7 @@ void GameHud::resetResearchButtons() {
 			}
 			btn->setText(it.second.name);
 			btn->setPosition({ 500.0f, y });
-			btn->connect("clicked", [&](Game* g, Technology tech) {
+			btn->connect("clicked", [=](Game* g, Technology tech) {
 				// Check the player has the correct resources for the technology
 				TechTreeNode* node = &TechTree::nodes.find(tech)->second;
 				std::shared_ptr<Entity> player = g->getPlayer();
@@ -221,6 +221,7 @@ void GameHud::resetResearchButtons() {
 				// Reset the buttons
 				g->getHud()->resetBuildButtons();
 				g->getHud()->resetResearchButtons();
+				return true;
 			}, this->game, it.first);
 			// Add the button to the group
 			this->researchGroup->add(btn);

@@ -1,10 +1,10 @@
-#include "CannonBallController.h"
+#include "CannonballController.h"
 #include "EntityPrefabs.h"
 #include "PhysicsComponent.h"
 
-const float CannonBallController::SPEED = 50000.0f;
-const float CannonBallController::MAX_DISTANCE = 1500.0f;
-CannonBallController::CannonBallController(float angle)
+const float CannonballController::SPEED = 50000.0f;
+const float CannonballController::MAX_DISTANCE = 1500.0f;
+CannonballController::CannonballController(float angle)
 	: ControllerComponent()
 {
 	this->angle = angle;
@@ -17,7 +17,7 @@ CannonBallController::CannonBallController(float angle)
 	});
 }
 
-void CannonBallController::update(float delta)
+void CannonballController::update(float delta)
 {
 	// Check if it has gone far enough and should be destroyed
 	sf::Vector2f pos = this->getParent().lock()->components.transform->getPosition();
@@ -26,7 +26,7 @@ void CannonBallController::update(float delta)
 	}
 
 }
-void CannonBallController::onCollision(std::weak_ptr<Entity> other)
+void CannonballController::onCollision(std::weak_ptr<Entity> other)
 {
 	if (other.lock()) {
 		if (other.lock()->team != this->getParent().lock()->team) {

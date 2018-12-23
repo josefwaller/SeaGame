@@ -24,7 +24,7 @@ std::string Entity::getStringRep() {
 	std::shared_ptr<ConversionBaseController> cont;
 	switch (this->type) {
 	case EntityType::Player: return "Player";
-	case EntityType::CannonBall: return "Cannon Ball";
+	case EntityType::Cannonball: return "Cannon Ball";
 	case EntityType::PirateShip: return "Pirate Ship";
 	case EntityType::MilitaryBase: return "Defense Base";
 	case EntityType::MiningBase: return "Quary";

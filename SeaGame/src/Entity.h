@@ -7,7 +7,7 @@
 // Forward declaration of Game
 class Game;
 
-enum EntityTag {
+enum class EntityTag {
 	Ship,
 	Base,
 	Cannonball,
@@ -16,9 +16,9 @@ enum EntityTag {
 };
 
 // CHANGING THESE VALUES WILL CAUSE SAVE FILES TO BE BROKEN AF
-enum EntityType {
+enum class EntityType {
 	Player = 0,
-	CannonBall = 1,
+	Cannonball = 1,
 	PirateShip = 2,
 	Explosion = 3,
 	MilitaryBase = 4,

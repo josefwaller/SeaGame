@@ -26,7 +26,7 @@ public:
 	static std::shared_ptr<Entity> resourceSource(Game* g, sf::Vector2i pos, GameResource res);
 	// Get the Box2d BodyDef and fixtures needed for specific entities
 	static b2Body* getShipBody(Game* g, sf::Vector2f pos, float rot);
-	static b2Body* getCannonBallBody(Game* g, sf::Vector2f pos, float rot);
+	static b2Body* getCannonballBody(Game* g, sf::Vector2f pos, float rot);
 	static b2Body* getBaseBody(Game* g, sf::Vector2f pos, float rot);
 	// Get the EntityType from a string representation
 	static EntityType getTypeFromString(std::string typeStr);

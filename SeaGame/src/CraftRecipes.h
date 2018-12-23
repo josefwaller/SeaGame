@@ -17,7 +17,7 @@ class CraftingRecipes {
 public:
 	struct CraftRecipe {
 		// Resources required to build this entity
-		std::map<GameResource, int> requiredResources;
+		std::map<GameResource, unsigned int> requiredResources;
 		// The technology needed to build this item, or Nothing if nothing is needed
 		Technology requiredTech;
 		// Text to display on the button
