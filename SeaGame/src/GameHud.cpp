@@ -5,6 +5,7 @@
 #include "TechTree.h"
 #include "InventoryComponent.h"
 #include "ResourceController.h"
+#include "GameResource.h"
 
 GameHud::GameHud() {
 }
@@ -95,27 +96,25 @@ bool GameHud::ensureValid(std::shared_ptr<Entity> e) {
 		if (auto cont = std::dynamic_pointer_cast<MiningBaseController>(e->components.controller)) {
 			// Get the resource
 			GameResource neededRes = cont->getResource();
-			bool hasResource = false;
-			// Check the resource is present
-			for (std::shared_ptr<Entity> other : this->game->getEntities()) {
-				// Check the entity is a resource and is the correct resource
-				if (auto otherCont = std::dynamic_pointer_cast<ResourceController>(other->components.controller)) {
-					if (otherCont->getResource() == neededRes) {
-						sf::Vector2i otherPos = sf::Vector2i(other->components.transform->getPosition()) / 64;
-						if (otherPos.x - pos.x < 3 && otherPos.x - pos.x >= 0) {
-							if (otherPos.y - pos.y < 3 && otherPos.y - pos.y >= 0) {
-								hasResource = true;
-								break;
+			if (generationBaseNeedsSource(neededRes)) {
+				bool hasResource = false;
+				// Check the resource is present
+				for (std::shared_ptr<Entity> other : this->game->getEntities()) {
+					// Check the entity is a resource and is the correct resource
+					if (auto otherCont = std::dynamic_pointer_cast<ResourceController>(other->components.controller)) {
+						if (otherCont->getResource() == neededRes) {
+							sf::Vector2i otherPos = sf::Vector2i(other->components.transform->getPosition()) / 64;
+							if (otherPos.x - pos.x < 3 && otherPos.x - pos.x >= 0) {
+								if (otherPos.y - pos.y < 3 && otherPos.y - pos.y >= 0) {
+									hasResource = true;
+									break;
+								}
 							}
 						}
 					}
 				}
-			}
-			if (!hasResource)
-				return false;
-
-			for (size_t x = 0; x < 3; x++) {
-				for (size_t y = 0; y < 3; y++) {
+				if (!hasResource) {
+					return false;
 				}
 			}
 		}

@@ -11,6 +11,7 @@ std::string getResourceString(GameResource res) {
 	case GameResource::StoneStatue: return "Statue";
 	case GameResource::Copper: return "Copper Ore";
 	case GameResource::Iron: return "Iron Ore";
+	case GameResource::Wheat: return "Wheat";
 	}
 	return "Missing Resource String (oh nooooooo)";
 }
@@ -41,6 +42,20 @@ sf::Sprite getResourceSprite(GameResource res, bool center) {
 	case GameResource::Iron:
 		spriteName = "medievalEnvironment_17.png";
 		break;
+	case GameResource::Wheat:
+		spriteName = "medievalEnvironment_20.png";
+		break;
 	}
 	return ResourceManager::get()->getSprite("medievalRTS_spritesheet@2", spriteName, center);
+}
+
+bool generationBaseNeedsSource(GameResource res) {
+	std::vector<GameResource> need = {
+		GameResource::Stone,
+		GameResource::Iron,
+		GameResource::Gold,
+		GameResource::Copper,
+		GameResource::Wood
+	};
+	return std::find(need.begin(), need.end(), res) != need.end();
 }

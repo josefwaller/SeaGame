@@ -13,7 +13,8 @@ enum GameResource
 	Iron,
 	Copper,
 	StoneBrick,
-	StoneStatue
+	StoneStatue,
+	Wheat
 };
 
 const std::vector<GameResource> ALL_RESOURCES = {
@@ -21,8 +22,11 @@ const std::vector<GameResource> ALL_RESOURCES = {
 	GameResource::Wood,
 	GameResource::Gold,
 	GameResource::Plank,
+	GameResource::Iron,
+	GameResource::Copper,
 	GameResource::StoneBrick,
-	GameResource::StoneStatue
+	GameResource::StoneStatue,
+	GameResource::Wheat
 };
 
 // How much the player gets for selling these resources
@@ -37,3 +41,5 @@ const std::map<GameResource, unsigned int> RESOURCE_VALUES = {
 
 std::string getResourceString(GameResource res);
 sf::Sprite getResourceSprite(GameResource res, bool center = true);
+// Get whether the base generating the given resource needs a resource source
+bool generationBaseNeedsSource(GameResource res);
