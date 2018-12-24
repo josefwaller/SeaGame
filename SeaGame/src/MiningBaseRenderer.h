@@ -6,6 +6,7 @@ public:
 	MiningBaseRenderer(GameResource res);
 	virtual void setParent(std::weak_ptr<Entity> parent) override;
 	virtual void render(RenderManager& rm) override;
+	virtual void reset() override;
 private:
 	sf::Sprite resSprite;
 };

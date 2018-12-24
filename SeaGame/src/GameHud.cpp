@@ -6,6 +6,7 @@
 #include "InventoryComponent.h"
 #include "ResourceController.h"
 #include "GameResource.h"
+#include "BasicTransform.h"
 
 GameHud::GameHud() {
 }
@@ -58,26 +59,14 @@ void GameHud::update() {
 	// Update player health
 	this->playerHealth->setValue(this->game->getPlayer()->components.health->getHealth());
 }
-void GameHud::tryToBuild(CraftingRecipes::CraftRecipe cr, sf::Vector2f pos) {
-	// Get the player's inventory
-	auto player = this->game->getPlayer();
-	auto inv = player->components.inventory->getInventory();
-	// Check the player has all the resources required
-	for (auto res : cr.requiredResources) {
-		if (inv[res.first] < res.second) {
-			return;
-		}
-	}
-	std::shared_ptr<Entity> e = cr.createMethod(this->game, pos);
-	// Check the entity is valid
-	auto x = e->components.transform->getPosition();
-	if (this->ensureValid(e)) {
-		// Add the thingy
-		this->game->addEntity(e);
-		// Remove the required resources
-		for (auto res : cr.requiredResources) {
-			player->components.inventory->removeItems(res.first, res.second);
-		}
+void GameHud::render(RenderManager& rm) {
+	if (this->currentClickState == ClickState::Building && this->toBuild) {
+		// Move to mouse coords
+		this->toBuild->components.transform->setPosition(sf::Vector2f(this->game->getMouseCoords()));
+		// Reset the texture
+		this->toBuild->components.renderer->reset();
+		// Render
+		this->toBuild->components.renderer->render(rm);
 	}
 }
 bool GameHud::ensureValid(std::shared_ptr<Entity> e) {
@@ -153,8 +142,28 @@ void GameHud::onClick(sf::Vector2f pos) {
 		}
 	}
 	else if (this->currentClickState == ClickState::Building) {
-		this->clickCallback(this->game, pos);
-		this->currentClickState = ClickState::Nothing;
+		// Remove the money required for the entity
+		std::map<GameResource, unsigned int> playerInv = this->game->getPlayer()->components.inventory->getInventory();
+		std::map<GameResource, unsigned int> neededInv = this->buildRecipe.requiredResources;
+		for (auto it = neededInv.begin(); it != neededInv.end(); it++) {
+			if (playerInv[it->first] < it->second) {
+				// Todo: tell the player they don't have the stuff to build the entity
+				this->currentClickState = Nothing;
+				return;
+			}
+		}
+		// Remove the inventory from the player
+		for (auto it = neededInv.begin(); it != neededInv.end(); it++) {
+			this->game->getPlayer()->components.inventory->removeItems(it->first, it->second);
+		}
+		// Create the entity
+		std::shared_ptr<Entity> e = this->buildRecipe.createMethod(this->game, this->game->getMouseCoords());
+		// Check if it works
+		if (this->ensureValid(e)) {
+			// Add it to the game
+			this->game->addEntity(e);
+			this->currentClickState = ClickState::Nothing;
+		}
 	}
 	else if (this->currentClickState == ClickState::Selecting) {
 		for (auto e : this->game->getEntities()) {
@@ -166,10 +175,6 @@ void GameHud::onClick(sf::Vector2f pos) {
 			}
 		}
 	}
-}
-void GameHud::selectPoint(ClickState c, std::function<void(Game* g, sf::Vector2f pos)> func) {
-	this->currentClickState = c;
-	this->clickCallback = func;
 }
 void GameHud::selectEntity(std::function<void(std::weak_ptr<Entity> entity)> callback) {
 	this->selectCallback = callback;
@@ -240,16 +245,39 @@ void GameHud::resetBuildButtons() {
 			tgui::Button::Ptr btn = tgui::Button::create();
 			btn->setText(cr.displayText);
 			btn->connect("clicked", [&](Game* g, CraftingRecipes::CraftRecipe cr) {
-				g->getHud()->selectPoint(ClickState::Building, std::bind(
-					[&](Game* g, sf::Vector2f pos, CraftingRecipes::CraftRecipe cr) {
-					g->getHud()->tryToBuild(cr, pos);
-				}, std::placeholders::_1, std::placeholders::_2, cr));
+				g->getHud()->chooseEntityToBuild(cr);
 			}, this->game, cr);
 			btn->setPosition({ 0, y });
 			this->buildGroup->add(btn);
 			y += btn->getFullSize().y;
 		}
 	}
+}
+void GameHud::chooseEntityToBuild(CraftingRecipes::CraftRecipe cr) {
+	// Create the entity
+	std::shared_ptr<Entity> e = cr.createMethod(this->game, { 0.0f, 0.0f });
+	// Overwrite all their components except for renderer
+	// Set all to nullptr except transform, which is set to simple transform
+	std::shared_ptr<RenderComponent> r = e->components.renderer;
+	e->components = ComponentList(
+		new BasicTransform({ 0.0f, 0.0f }, 0.0f),
+		nullptr,
+		nullptr,
+		nullptr,
+		nullptr,
+		nullptr,
+		nullptr,
+		nullptr
+	);
+	e->components.renderer = r;
+	// Save this modified entity to be used to draw for a hovering effect
+	this->toBuild = e;
+	// Save the method to build the entity
+	this->buildRecipe = cr;
+	// Set click state
+	this->currentClickState = ClickState::Building;
+}
+void GameHud::buildEntity() {
 }
 void GameHud::toggleResearchButtons() {
 	if (this->researchGroup->isVisible()) {

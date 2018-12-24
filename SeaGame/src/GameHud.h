@@ -4,6 +4,7 @@
 class Game;
 struct Entity;
 #include "CraftRecipes.h"
+#include "RenderManager.h"
 
 // Manage the HUD interface, as well as selecting entities, etc
 class GameHud {
@@ -21,22 +22,24 @@ public:
 	};
 	// Update widgets that need updating
 	void update();
+	// Render things not in the GUI, i.e. the entity being built
+	void render(RenderManager& rm);
+	// Chose an entity to build on the next click
+	void chooseEntityToBuild(CraftingRecipes::CraftRecipe cr);
+	// Build an entity from a crafting recipe given
+	void buildEntity();
 	void onClick(sf::Vector2f pos);
-	// Wait for a click, then call the callback with the point clicked
-	void selectPoint(ClickState c, std::function<void(Game* g, sf::Vector2f pos)> func);
 	// Select an entity, then call the callback method with the entity
 	void selectEntity(std::function<void(std::weak_ptr<Entity>)> callback);
 	// Show/hide the different buttons of things to build
 	void toggleBuildButtons();
 	void toggleResearchButtons();
-	// Build something at the position if it is valid
-	void tryToBuild(CraftingRecipes::CraftRecipe cr, sf::Vector2f pos);
-	// Transfer items between entities
-	void transferItems(std::weak_ptr<Entity> entity, GameResource res, unsigned int amount);
 	// Reset the build buttons
 	void resetBuildButtons();
 	// Reset the research buttons
 	void resetResearchButtons();
+	// Transfer items between entities by clicking between them
+	void transferItems(std::weak_ptr<Entity> e, GameResource res, unsigned int amount);
 private:
 	// The game the HUD belongs to
 	Game* game;
@@ -58,6 +61,11 @@ private:
 	bool ensureValid(std::shared_ptr<Entity> e);
 	// Current Click state
 	ClickState currentClickState;
+	// A modified version of the entity with only a render and transform component,
+	// used to show the entity hovering at the moues coords
+	std::shared_ptr<Entity> toBuild;
+	// The crafting recipe of the entity currently being build
+	CraftingRecipes::CraftRecipe buildRecipe;
 	/*
 	 * There are two ways to select something via clicking on it
 	 * Selecting a point, or selecting an entity

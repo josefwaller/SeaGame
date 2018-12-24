@@ -12,7 +12,9 @@ std::vector<CraftingRecipes::CraftRecipe> CraftingRecipes::recipes = {
 		}
 	},
 	{
-		{},
+		{
+			{ GameResource::Wood, 5 }
+		},
 		Technology::Ferries,
 		"Ferry",
 		[&](Game* g, sf::Vector2f pos) {

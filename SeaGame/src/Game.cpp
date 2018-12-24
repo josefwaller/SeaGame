@@ -136,6 +136,8 @@ void Game::render()
 			e->components.renderer->render(r);
 		}
 	}
+	// Render HUD that isn't part of tgui
+	this->gHud.render(r);
 	// Render debug info, i.e. hitboxes
 	for (auto e : this->entities) {
 		if (e->components.renderer != nullptr) {
