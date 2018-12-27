@@ -120,7 +120,7 @@ void GameMap::addLandTile(size_t x, size_t y) {
 			res = GameResource::Gold;
 			break;
 		}
-		this->game->addEntity(EntityPrefabs::resourceSource(this->game, sf::Vector2i((int)x, (int)y), res));
+		this->game->addEntity(EntityPrefabs::resourceSource(this->game, sf::Vector2i((int)x * 64, (int)y * 64), res));
 	}
 }
 void GameMap::resetTexture() {

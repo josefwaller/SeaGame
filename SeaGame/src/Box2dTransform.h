@@ -15,7 +15,6 @@ public:
 
 	virtual float getRotation() override;
 	virtual void setRotation(float newAngle) override;
-	std::map<std::string, std::string> getSaveData() override;
 	// Get the box2d body
 	// Used by PhysicsComponent, which will then hold a weak_ptr for reference
 	b2Body* getBody();

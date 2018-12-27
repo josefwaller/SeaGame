@@ -303,10 +303,10 @@ entity_ptr EntityPrefabs::resourceSource(Game* g, sf::Vector2i pos, GameResource
 	return buildEntity(new Entity(
 		g,
 		0,
-		EntityType::IronVein,
+		EntityType::ResourceDeposit,
 		EntityTag::Resource,
 		ComponentList(
-			new BasicTransform(sf::Vector2f(pos) * 64.0f, 0.0f),
+			new BasicTransform(sf::Vector2f(pos), 0.0f),
 			new ResourceController(res, 200),
 			new ResourceRenderer(res),
 			nullptr,
@@ -343,6 +343,8 @@ entity_ptr EntityPrefabs::getEntityFromSaveData(Game* g, std::map<std::string, s
 		return EntityPrefabs::ferryShip(g, { x, y }, std::weak_ptr<Entity>(), std::weak_ptr<Entity>());
 	case EntityType::ConversionBase:
 		return EntityPrefabs::conversionBase(g, { (int)x, (int)y }, (GameResource)(std::stoi(data["product"])));
+	case EntityType::ResourceDeposit:
+		return EntityPrefabs::resourceSource(g, { (int)x, (int)y }, (GameResource)(std::stoi(data["res"])));
 	}
 	auto breakpoint = 0;
 	return nullptr;

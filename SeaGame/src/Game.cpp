@@ -56,6 +56,7 @@ void Game::loadFromFile(std::string fileName) {
 	rapidxml::xml_document<> doc;
 	doc.parse<0>(file.data());
 	this->gMap = GameMap(this, &doc);
+	this->entities = {};
 	// TBA: load money
 	this->money = 200;
 	std::vector<std::map<std::string, std::string>> entityDatas;

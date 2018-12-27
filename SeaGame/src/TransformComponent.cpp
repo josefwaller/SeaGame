@@ -29,3 +29,10 @@ std::pair<sf::Vector2f, float> TransformComponent::getDifference(sf::Vector2f ot
 	return { diff, angle };
 
 }
+std::map<std::string, std::string> TransformComponent::getSaveData() {
+	return {
+		{"x", std::to_string(this->getPosition().x)},
+		{"y", std::to_string(this->getPosition().y)},
+		{"r", std::to_string(this->getRotation())}
+	};
+}

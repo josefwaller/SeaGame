@@ -28,8 +28,7 @@ enum class EntityType {
 	City = 8,
 	PirateBase = 9,
 	ConversionBase = 10,
-	IronVein,
-	GoldVein
+	ResourceDeposit = 11
 };
 struct Entity
 {

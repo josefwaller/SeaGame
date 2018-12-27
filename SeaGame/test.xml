@@ -1,147 +1,147 @@
 <GameMap width="32" height="17">
-	<Tile x="0" y="0" type="Sea"/>
-	<Tile x="0" y="1" type="Sea"/>
-	<Tile x="0" y="2" type="Sea"/>
-	<Tile x="0" y="3" type="Sea"/>
-	<Tile x="0" y="4" type="Land"/>
-	<Tile x="0" y="5" type="Land"/>
-	<Tile x="0" y="6" type="Land"/>
+	<Tile x="0" y="0" type="Land"/>
+	<Tile x="0" y="1" type="Land"/>
+	<Tile x="0" y="2" type="Land"/>
+	<Tile x="0" y="3" type="Land"/>
+	<Tile x="0" y="4" type="Sea"/>
+	<Tile x="0" y="5" type="Sea"/>
+	<Tile x="0" y="6" type="Sea"/>
 	<Tile x="0" y="7" type="Land"/>
 	<Tile x="0" y="8" type="Land"/>
-	<Tile x="0" y="9" type="Sea"/>
+	<Tile x="0" y="9" type="Land"/>
 	<Tile x="0" y="10" type="Sea"/>
 	<Tile x="0" y="11" type="Sea"/>
 	<Tile x="0" y="12" type="Sea"/>
 	<Tile x="0" y="13" type="Sea"/>
 	<Tile x="0" y="14" type="Sea"/>
-	<Tile x="0" y="15" type="Land"/>
+	<Tile x="0" y="15" type="Sea"/>
 	<Tile x="0" y="16" type="Land"/>
-	<Tile x="1" y="0" type="Sea"/>
-	<Tile x="1" y="1" type="Sea"/>
-	<Tile x="1" y="2" type="Sea"/>
-	<Tile x="1" y="3" type="Sea"/>
+	<Tile x="1" y="0" type="Land"/>
+	<Tile x="1" y="1" type="Land"/>
+	<Tile x="1" y="2" type="Land"/>
+	<Tile x="1" y="3" type="Land"/>
 	<Tile x="1" y="4" type="Sea"/>
-	<Tile x="1" y="5" type="Land"/>
-	<Tile x="1" y="6" type="Land"/>
+	<Tile x="1" y="5" type="Sea"/>
+	<Tile x="1" y="6" type="Sea"/>
 	<Tile x="1" y="7" type="Land"/>
-	<Tile x="1" y="8" type="Sea"/>
-	<Tile x="1" y="9" type="Sea"/>
+	<Tile x="1" y="8" type="Land"/>
+	<Tile x="1" y="9" type="Land"/>
 	<Tile x="1" y="10" type="Sea"/>
 	<Tile x="1" y="11" type="Sea"/>
 	<Tile x="1" y="12" type="Sea"/>
 	<Tile x="1" y="13" type="Sea"/>
 	<Tile x="1" y="14" type="Sea"/>
-	<Tile x="1" y="15" type="Sea"/>
+	<Tile x="1" y="15" type="Land"/>
 	<Tile x="1" y="16" type="Land"/>
-	<Tile x="2" y="0" type="Sea"/>
-	<Tile x="2" y="1" type="Sea"/>
-	<Tile x="2" y="2" type="Sea"/>
+	<Tile x="2" y="0" type="Land"/>
+	<Tile x="2" y="1" type="Land"/>
+	<Tile x="2" y="2" type="Land"/>
 	<Tile x="2" y="3" type="Sea"/>
 	<Tile x="2" y="4" type="Sea"/>
 	<Tile x="2" y="5" type="Sea"/>
 	<Tile x="2" y="6" type="Land"/>
 	<Tile x="2" y="7" type="Land"/>
-	<Tile x="2" y="8" type="Sea"/>
-	<Tile x="2" y="9" type="Sea"/>
-	<Tile x="2" y="10" type="Sea"/>
-	<Tile x="2" y="11" type="Sea"/>
-	<Tile x="2" y="12" type="Sea"/>
-	<Tile x="2" y="13" type="Sea"/>
-	<Tile x="2" y="14" type="Sea"/>
+	<Tile x="2" y="8" type="Land"/>
+	<Tile x="2" y="9" type="Land"/>
+	<Tile x="2" y="10" type="Land"/>
+	<Tile x="2" y="11" type="Land"/>
+	<Tile x="2" y="12" type="Land"/>
+	<Tile x="2" y="13" type="Land"/>
+	<Tile x="2" y="14" type="Land"/>
 	<Tile x="2" y="15" type="Land"/>
 	<Tile x="2" y="16" type="Land"/>
-	<Tile x="3" y="0" type="Sea"/>
-	<Tile x="3" y="1" type="Sea"/>
-	<Tile x="3" y="2" type="Sea"/>
-	<Tile x="3" y="3" type="Sea"/>
-	<Tile x="3" y="4" type="Sea"/>
-	<Tile x="3" y="5" type="Sea"/>
-	<Tile x="3" y="6" type="Sea"/>
+	<Tile x="3" y="0" type="Land"/>
+	<Tile x="3" y="1" type="Land"/>
+	<Tile x="3" y="2" type="Land"/>
+	<Tile x="3" y="3" type="Land"/>
+	<Tile x="3" y="4" type="Land"/>
+	<Tile x="3" y="5" type="Land"/>
+	<Tile x="3" y="6" type="Land"/>
 	<Tile x="3" y="7" type="Sea"/>
-	<Tile x="3" y="8" type="Land"/>
+	<Tile x="3" y="8" type="Sea"/>
 	<Tile x="3" y="9" type="Land"/>
-	<Tile x="3" y="10" type="Sea"/>
-	<Tile x="3" y="11" type="Sea"/>
-	<Tile x="3" y="12" type="Sea"/>
-	<Tile x="3" y="13" type="Sea"/>
-	<Tile x="3" y="14" type="Sea"/>
-	<Tile x="3" y="15" type="Sea"/>
-	<Tile x="3" y="16" type="Sea"/>
+	<Tile x="3" y="10" type="Land"/>
+	<Tile x="3" y="11" type="Land"/>
+	<Tile x="3" y="12" type="Land"/>
+	<Tile x="3" y="13" type="Land"/>
+	<Tile x="3" y="14" type="Land"/>
+	<Tile x="3" y="15" type="Land"/>
+	<Tile x="3" y="16" type="Land"/>
 	<Tile x="4" y="0" type="Sea"/>
 	<Tile x="4" y="1" type="Sea"/>
 	<Tile x="4" y="2" type="Sea"/>
-	<Tile x="4" y="3" type="Sea"/>
-	<Tile x="4" y="4" type="Sea"/>
-	<Tile x="4" y="5" type="Sea"/>
-	<Tile x="4" y="6" type="Sea"/>
-	<Tile x="4" y="7" type="Sea"/>
-	<Tile x="4" y="8" type="Land"/>
+	<Tile x="4" y="3" type="Land"/>
+	<Tile x="4" y="4" type="Land"/>
+	<Tile x="4" y="5" type="Land"/>
+	<Tile x="4" y="6" type="Land"/>
+	<Tile x="4" y="7" type="Land"/>
+	<Tile x="4" y="8" type="Sea"/>
 	<Tile x="4" y="9" type="Land"/>
 	<Tile x="4" y="10" type="Land"/>
-	<Tile x="4" y="11" type="Sea"/>
-	<Tile x="4" y="12" type="Sea"/>
-	<Tile x="4" y="13" type="Sea"/>
-	<Tile x="4" y="14" type="Sea"/>
-	<Tile x="4" y="15" type="Sea"/>
-	<Tile x="4" y="16" type="Sea"/>
+	<Tile x="4" y="11" type="Land"/>
+	<Tile x="4" y="12" type="Land"/>
+	<Tile x="4" y="13" type="Land"/>
+	<Tile x="4" y="14" type="Land"/>
+	<Tile x="4" y="15" type="Land"/>
+	<Tile x="4" y="16" type="Land"/>
 	<Tile x="5" y="0" type="Sea"/>
 	<Tile x="5" y="1" type="Sea"/>
 	<Tile x="5" y="2" type="Sea"/>
-	<Tile x="5" y="3" type="Sea"/>
-	<Tile x="5" y="4" type="Sea"/>
-	<Tile x="5" y="5" type="Sea"/>
-	<Tile x="5" y="6" type="Sea"/>
-	<Tile x="5" y="7" type="Sea"/>
+	<Tile x="5" y="3" type="Land"/>
+	<Tile x="5" y="4" type="Land"/>
+	<Tile x="5" y="5" type="Land"/>
+	<Tile x="5" y="6" type="Land"/>
+	<Tile x="5" y="7" type="Land"/>
 	<Tile x="5" y="8" type="Land"/>
 	<Tile x="5" y="9" type="Land"/>
 	<Tile x="5" y="10" type="Land"/>
-	<Tile x="5" y="11" type="Sea"/>
-	<Tile x="5" y="12" type="Sea"/>
-	<Tile x="5" y="13" type="Sea"/>
-	<Tile x="5" y="14" type="Sea"/>
-	<Tile x="5" y="15" type="Sea"/>
-	<Tile x="5" y="16" type="Sea"/>
+	<Tile x="5" y="11" type="Land"/>
+	<Tile x="5" y="12" type="Land"/>
+	<Tile x="5" y="13" type="Land"/>
+	<Tile x="5" y="14" type="Land"/>
+	<Tile x="5" y="15" type="Land"/>
+	<Tile x="5" y="16" type="Land"/>
 	<Tile x="6" y="0" type="Sea"/>
 	<Tile x="6" y="1" type="Sea"/>
-	<Tile x="6" y="2" type="Sea"/>
-	<Tile x="6" y="3" type="Sea"/>
-	<Tile x="6" y="4" type="Sea"/>
-	<Tile x="6" y="5" type="Sea"/>
-	<Tile x="6" y="6" type="Sea"/>
-	<Tile x="6" y="7" type="Sea"/>
-	<Tile x="6" y="8" type="Sea"/>
+	<Tile x="6" y="2" type="Land"/>
+	<Tile x="6" y="3" type="Land"/>
+	<Tile x="6" y="4" type="Land"/>
+	<Tile x="6" y="5" type="Land"/>
+	<Tile x="6" y="6" type="Land"/>
+	<Tile x="6" y="7" type="Land"/>
+	<Tile x="6" y="8" type="Land"/>
 	<Tile x="6" y="9" type="Land"/>
 	<Tile x="6" y="10" type="Land"/>
-	<Tile x="6" y="11" type="Sea"/>
-	<Tile x="6" y="12" type="Sea"/>
-	<Tile x="6" y="13" type="Sea"/>
-	<Tile x="6" y="14" type="Sea"/>
-	<Tile x="6" y="15" type="Sea"/>
-	<Tile x="6" y="16" type="Sea"/>
+	<Tile x="6" y="11" type="Land"/>
+	<Tile x="6" y="12" type="Land"/>
+	<Tile x="6" y="13" type="Land"/>
+	<Tile x="6" y="14" type="Land"/>
+	<Tile x="6" y="15" type="Land"/>
+	<Tile x="6" y="16" type="Land"/>
 	<Tile x="7" y="0" type="Land"/>
-	<Tile x="7" y="1" type="Sea"/>
-	<Tile x="7" y="2" type="Sea"/>
-	<Tile x="7" y="3" type="Sea"/>
-	<Tile x="7" y="4" type="Sea"/>
-	<Tile x="7" y="5" type="Sea"/>
-	<Tile x="7" y="6" type="Sea"/>
-	<Tile x="7" y="7" type="Sea"/>
+	<Tile x="7" y="1" type="Land"/>
+	<Tile x="7" y="2" type="Land"/>
+	<Tile x="7" y="3" type="Land"/>
+	<Tile x="7" y="4" type="Land"/>
+	<Tile x="7" y="5" type="Land"/>
+	<Tile x="7" y="6" type="Land"/>
+	<Tile x="7" y="7" type="Land"/>
 	<Tile x="7" y="8" type="Sea"/>
-	<Tile x="7" y="9" type="Sea"/>
-	<Tile x="7" y="10" type="Sea"/>
-	<Tile x="7" y="11" type="Sea"/>
-	<Tile x="7" y="12" type="Sea"/>
+	<Tile x="7" y="9" type="Land"/>
+	<Tile x="7" y="10" type="Land"/>
+	<Tile x="7" y="11" type="Land"/>
+	<Tile x="7" y="12" type="Land"/>
 	<Tile x="7" y="13" type="Sea"/>
 	<Tile x="7" y="14" type="Sea"/>
 	<Tile x="7" y="15" type="Sea"/>
 	<Tile x="7" y="16" type="Sea"/>
-	<Tile x="8" y="0" type="Land"/>
-	<Tile x="8" y="1" type="Land"/>
+	<Tile x="8" y="0" type="Sea"/>
+	<Tile x="8" y="1" type="Sea"/>
 	<Tile x="8" y="2" type="Land"/>
-	<Tile x="8" y="3" type="Sea"/>
-	<Tile x="8" y="4" type="Sea"/>
-	<Tile x="8" y="5" type="Sea"/>
-	<Tile x="8" y="6" type="Sea"/>
+	<Tile x="8" y="3" type="Land"/>
+	<Tile x="8" y="4" type="Land"/>
+	<Tile x="8" y="5" type="Land"/>
+	<Tile x="8" y="6" type="Land"/>
 	<Tile x="8" y="7" type="Sea"/>
 	<Tile x="8" y="8" type="Sea"/>
 	<Tile x="8" y="9" type="Sea"/>
@@ -150,14 +150,14 @@
 	<Tile x="8" y="12" type="Sea"/>
 	<Tile x="8" y="13" type="Sea"/>
 	<Tile x="8" y="14" type="Sea"/>
-	<Tile x="8" y="15" type="Land"/>
-	<Tile x="8" y="16" type="Land"/>
-	<Tile x="9" y="0" type="Land"/>
-	<Tile x="9" y="1" type="Land"/>
+	<Tile x="8" y="15" type="Sea"/>
+	<Tile x="8" y="16" type="Sea"/>
+	<Tile x="9" y="0" type="Sea"/>
+	<Tile x="9" y="1" type="Sea"/>
 	<Tile x="9" y="2" type="Land"/>
 	<Tile x="9" y="3" type="Land"/>
-	<Tile x="9" y="4" type="Sea"/>
-	<Tile x="9" y="5" type="Sea"/>
+	<Tile x="9" y="4" type="Land"/>
+	<Tile x="9" y="5" type="Land"/>
 	<Tile x="9" y="6" type="Sea"/>
 	<Tile x="9" y="7" type="Sea"/>
 	<Tile x="9" y="8" type="Sea"/>
@@ -167,14 +167,14 @@
 	<Tile x="9" y="12" type="Sea"/>
 	<Tile x="9" y="13" type="Sea"/>
 	<Tile x="9" y="14" type="Sea"/>
-	<Tile x="9" y="15" type="Land"/>
-	<Tile x="9" y="16" type="Land"/>
-	<Tile x="10" y="0" type="Land"/>
-	<Tile x="10" y="1" type="Land"/>
+	<Tile x="9" y="15" type="Sea"/>
+	<Tile x="9" y="16" type="Sea"/>
+	<Tile x="10" y="0" type="Sea"/>
+	<Tile x="10" y="1" type="Sea"/>
 	<Tile x="10" y="2" type="Land"/>
 	<Tile x="10" y="3" type="Land"/>
 	<Tile x="10" y="4" type="Land"/>
-	<Tile x="10" y="5" type="Sea"/>
+	<Tile x="10" y="5" type="Land"/>
 	<Tile x="10" y="6" type="Sea"/>
 	<Tile x="10" y="7" type="Sea"/>
 	<Tile x="10" y="8" type="Sea"/>
@@ -184,39 +184,39 @@
 	<Tile x="10" y="12" type="Sea"/>
 	<Tile x="10" y="13" type="Sea"/>
 	<Tile x="10" y="14" type="Sea"/>
-	<Tile x="10" y="15" type="Land"/>
-	<Tile x="10" y="16" type="Land"/>
+	<Tile x="10" y="15" type="Sea"/>
+	<Tile x="10" y="16" type="Sea"/>
 	<Tile x="11" y="0" type="Land"/>
-	<Tile x="11" y="1" type="Land"/>
+	<Tile x="11" y="1" type="Sea"/>
 	<Tile x="11" y="2" type="Land"/>
 	<Tile x="11" y="3" type="Land"/>
 	<Tile x="11" y="4" type="Land"/>
 	<Tile x="11" y="5" type="Land"/>
-	<Tile x="11" y="6" type="Land"/>
+	<Tile x="11" y="6" type="Sea"/>
 	<Tile x="11" y="7" type="Sea"/>
 	<Tile x="11" y="8" type="Sea"/>
-	<Tile x="11" y="9" type="Sea"/>
-	<Tile x="11" y="10" type="Sea"/>
-	<Tile x="11" y="11" type="Sea"/>
-	<Tile x="11" y="12" type="Land"/>
+	<Tile x="11" y="9" type="Land"/>
+	<Tile x="11" y="10" type="Land"/>
+	<Tile x="11" y="11" type="Land"/>
+	<Tile x="11" y="12" type="Sea"/>
 	<Tile x="11" y="13" type="Sea"/>
 	<Tile x="11" y="14" type="Sea"/>
 	<Tile x="11" y="15" type="Sea"/>
-	<Tile x="11" y="16" type="Land"/>
+	<Tile x="11" y="16" type="Sea"/>
 	<Tile x="12" y="0" type="Land"/>
 	<Tile x="12" y="1" type="Land"/>
 	<Tile x="12" y="2" type="Land"/>
 	<Tile x="12" y="3" type="Land"/>
 	<Tile x="12" y="4" type="Land"/>
 	<Tile x="12" y="5" type="Land"/>
-	<Tile x="12" y="6" type="Land"/>
-	<Tile x="12" y="7" type="Land"/>
+	<Tile x="12" y="6" type="Sea"/>
+	<Tile x="12" y="7" type="Sea"/>
 	<Tile x="12" y="8" type="Sea"/>
-	<Tile x="12" y="9" type="Sea"/>
-	<Tile x="12" y="10" type="Sea"/>
+	<Tile x="12" y="9" type="Land"/>
+	<Tile x="12" y="10" type="Land"/>
 	<Tile x="12" y="11" type="Land"/>
 	<Tile x="12" y="12" type="Land"/>
-	<Tile x="12" y="13" type="Land"/>
+	<Tile x="12" y="13" type="Sea"/>
 	<Tile x="12" y="14" type="Sea"/>
 	<Tile x="12" y="15" type="Sea"/>
 	<Tile x="12" y="16" type="Sea"/>
@@ -227,26 +227,26 @@
 	<Tile x="13" y="4" type="Land"/>
 	<Tile x="13" y="5" type="Land"/>
 	<Tile x="13" y="6" type="Land"/>
-	<Tile x="13" y="7" type="Land"/>
+	<Tile x="13" y="7" type="Sea"/>
 	<Tile x="13" y="8" type="Sea"/>
-	<Tile x="13" y="9" type="Sea"/>
+	<Tile x="13" y="9" type="Land"/>
 	<Tile x="13" y="10" type="Land"/>
 	<Tile x="13" y="11" type="Land"/>
 	<Tile x="13" y="12" type="Land"/>
-	<Tile x="13" y="13" type="Land"/>
+	<Tile x="13" y="13" type="Sea"/>
 	<Tile x="13" y="14" type="Sea"/>
 	<Tile x="13" y="15" type="Sea"/>
 	<Tile x="13" y="16" type="Sea"/>
-	<Tile x="14" y="0" type="Sea"/>
-	<Tile x="14" y="1" type="Sea"/>
-	<Tile x="14" y="2" type="Sea"/>
-	<Tile x="14" y="3" type="Sea"/>
-	<Tile x="14" y="4" type="Sea"/>
-	<Tile x="14" y="5" type="Sea"/>
+	<Tile x="14" y="0" type="Land"/>
+	<Tile x="14" y="1" type="Land"/>
+	<Tile x="14" y="2" type="Land"/>
+	<Tile x="14" y="3" type="Land"/>
+	<Tile x="14" y="4" type="Land"/>
+	<Tile x="14" y="5" type="Land"/>
 	<Tile x="14" y="6" type="Land"/>
 	<Tile x="14" y="7" type="Sea"/>
 	<Tile x="14" y="8" type="Sea"/>
-	<Tile x="14" y="9" type="Sea"/>
+	<Tile x="14" y="9" type="Land"/>
 	<Tile x="14" y="10" type="Land"/>
 	<Tile x="14" y="11" type="Land"/>
 	<Tile x="14" y="12" type="Land"/>
@@ -254,156 +254,156 @@
 	<Tile x="14" y="14" type="Sea"/>
 	<Tile x="14" y="15" type="Sea"/>
 	<Tile x="14" y="16" type="Sea"/>
-	<Tile x="15" y="0" type="Sea"/>
-	<Tile x="15" y="1" type="Sea"/>
-	<Tile x="15" y="2" type="Sea"/>
-	<Tile x="15" y="3" type="Sea"/>
-	<Tile x="15" y="4" type="Sea"/>
-	<Tile x="15" y="5" type="Sea"/>
-	<Tile x="15" y="6" type="Sea"/>
-	<Tile x="15" y="7" type="Sea"/>
+	<Tile x="15" y="0" type="Land"/>
+	<Tile x="15" y="1" type="Land"/>
+	<Tile x="15" y="2" type="Land"/>
+	<Tile x="15" y="3" type="Land"/>
+	<Tile x="15" y="4" type="Land"/>
+	<Tile x="15" y="5" type="Land"/>
+	<Tile x="15" y="6" type="Land"/>
+	<Tile x="15" y="7" type="Land"/>
 	<Tile x="15" y="8" type="Sea"/>
-	<Tile x="15" y="9" type="Sea"/>
+	<Tile x="15" y="9" type="Land"/>
 	<Tile x="15" y="10" type="Land"/>
-	<Tile x="15" y="11" type="Land"/>
-	<Tile x="15" y="12" type="Land"/>
+	<Tile x="15" y="11" type="Sea"/>
+	<Tile x="15" y="12" type="Sea"/>
 	<Tile x="15" y="13" type="Sea"/>
 	<Tile x="15" y="14" type="Sea"/>
 	<Tile x="15" y="15" type="Sea"/>
 	<Tile x="15" y="16" type="Sea"/>
-	<Tile x="16" y="0" type="Sea"/>
-	<Tile x="16" y="1" type="Sea"/>
-	<Tile x="16" y="2" type="Sea"/>
-	<Tile x="16" y="3" type="Sea"/>
-	<Tile x="16" y="4" type="Sea"/>
-	<Tile x="16" y="5" type="Sea"/>
-	<Tile x="16" y="6" type="Sea"/>
+	<Tile x="16" y="0" type="Land"/>
+	<Tile x="16" y="1" type="Land"/>
+	<Tile x="16" y="2" type="Land"/>
+	<Tile x="16" y="3" type="Land"/>
+	<Tile x="16" y="4" type="Land"/>
+	<Tile x="16" y="5" type="Land"/>
+	<Tile x="16" y="6" type="Land"/>
 	<Tile x="16" y="7" type="Land"/>
 	<Tile x="16" y="8" type="Sea"/>
 	<Tile x="16" y="9" type="Sea"/>
 	<Tile x="16" y="10" type="Sea"/>
-	<Tile x="16" y="11" type="Land"/>
-	<Tile x="16" y="12" type="Land"/>
+	<Tile x="16" y="11" type="Sea"/>
+	<Tile x="16" y="12" type="Sea"/>
 	<Tile x="16" y="13" type="Sea"/>
 	<Tile x="16" y="14" type="Sea"/>
 	<Tile x="16" y="15" type="Sea"/>
 	<Tile x="16" y="16" type="Sea"/>
-	<Tile x="17" y="0" type="Sea"/>
-	<Tile x="17" y="1" type="Sea"/>
-	<Tile x="17" y="2" type="Sea"/>
-	<Tile x="17" y="3" type="Sea"/>
-	<Tile x="17" y="4" type="Sea"/>
-	<Tile x="17" y="5" type="Sea"/>
+	<Tile x="17" y="0" type="Land"/>
+	<Tile x="17" y="1" type="Land"/>
+	<Tile x="17" y="2" type="Land"/>
+	<Tile x="17" y="3" type="Land"/>
+	<Tile x="17" y="4" type="Land"/>
+	<Tile x="17" y="5" type="Land"/>
 	<Tile x="17" y="6" type="Land"/>
 	<Tile x="17" y="7" type="Land"/>
-	<Tile x="17" y="8" type="Land"/>
-	<Tile x="17" y="9" type="Land"/>
-	<Tile x="17" y="10" type="Land"/>
+	<Tile x="17" y="8" type="Sea"/>
+	<Tile x="17" y="9" type="Sea"/>
+	<Tile x="17" y="10" type="Sea"/>
 	<Tile x="17" y="11" type="Sea"/>
 	<Tile x="17" y="12" type="Sea"/>
 	<Tile x="17" y="13" type="Sea"/>
 	<Tile x="17" y="14" type="Sea"/>
 	<Tile x="17" y="15" type="Sea"/>
 	<Tile x="17" y="16" type="Sea"/>
-	<Tile x="18" y="0" type="Sea"/>
-	<Tile x="18" y="1" type="Sea"/>
-	<Tile x="18" y="2" type="Sea"/>
-	<Tile x="18" y="3" type="Sea"/>
-	<Tile x="18" y="4" type="Sea"/>
-	<Tile x="18" y="5" type="Sea"/>
+	<Tile x="18" y="0" type="Land"/>
+	<Tile x="18" y="1" type="Land"/>
+	<Tile x="18" y="2" type="Land"/>
+	<Tile x="18" y="3" type="Land"/>
+	<Tile x="18" y="4" type="Land"/>
+	<Tile x="18" y="5" type="Land"/>
 	<Tile x="18" y="6" type="Land"/>
-	<Tile x="18" y="7" type="Land"/>
-	<Tile x="18" y="8" type="Land"/>
-	<Tile x="18" y="9" type="Land"/>
+	<Tile x="18" y="7" type="Sea"/>
+	<Tile x="18" y="8" type="Sea"/>
+	<Tile x="18" y="9" type="Sea"/>
 	<Tile x="18" y="10" type="Sea"/>
 	<Tile x="18" y="11" type="Sea"/>
 	<Tile x="18" y="12" type="Sea"/>
-	<Tile x="18" y="13" type="Land"/>
+	<Tile x="18" y="13" type="Sea"/>
 	<Tile x="18" y="14" type="Sea"/>
 	<Tile x="18" y="15" type="Sea"/>
 	<Tile x="18" y="16" type="Sea"/>
-	<Tile x="19" y="0" type="Sea"/>
-	<Tile x="19" y="1" type="Sea"/>
-	<Tile x="19" y="2" type="Sea"/>
-	<Tile x="19" y="3" type="Sea"/>
-	<Tile x="19" y="4" type="Sea"/>
+	<Tile x="19" y="0" type="Land"/>
+	<Tile x="19" y="1" type="Land"/>
+	<Tile x="19" y="2" type="Land"/>
+	<Tile x="19" y="3" type="Land"/>
+	<Tile x="19" y="4" type="Land"/>
 	<Tile x="19" y="5" type="Land"/>
 	<Tile x="19" y="6" type="Land"/>
 	<Tile x="19" y="7" type="Land"/>
 	<Tile x="19" y="8" type="Land"/>
 	<Tile x="19" y="9" type="Land"/>
-	<Tile x="19" y="10" type="Land"/>
-	<Tile x="19" y="11" type="Land"/>
-	<Tile x="19" y="12" type="Land"/>
-	<Tile x="19" y="13" type="Land"/>
-	<Tile x="19" y="14" type="Land"/>
+	<Tile x="19" y="10" type="Sea"/>
+	<Tile x="19" y="11" type="Sea"/>
+	<Tile x="19" y="12" type="Sea"/>
+	<Tile x="19" y="13" type="Sea"/>
+	<Tile x="19" y="14" type="Sea"/>
 	<Tile x="19" y="15" type="Sea"/>
-	<Tile x="19" y="16" type="Sea"/>
-	<Tile x="20" y="0" type="Sea"/>
-	<Tile x="20" y="1" type="Sea"/>
-	<Tile x="20" y="2" type="Sea"/>
-	<Tile x="20" y="3" type="Sea"/>
-	<Tile x="20" y="4" type="Sea"/>
-	<Tile x="20" y="5" type="Sea"/>
+	<Tile x="19" y="16" type="Land"/>
+	<Tile x="20" y="0" type="Land"/>
+	<Tile x="20" y="1" type="Land"/>
+	<Tile x="20" y="2" type="Land"/>
+	<Tile x="20" y="3" type="Land"/>
+	<Tile x="20" y="4" type="Land"/>
+	<Tile x="20" y="5" type="Land"/>
 	<Tile x="20" y="6" type="Land"/>
 	<Tile x="20" y="7" type="Land"/>
 	<Tile x="20" y="8" type="Land"/>
 	<Tile x="20" y="9" type="Land"/>
-	<Tile x="20" y="10" type="Land"/>
-	<Tile x="20" y="11" type="Land"/>
-	<Tile x="20" y="12" type="Land"/>
-	<Tile x="20" y="13" type="Land"/>
-	<Tile x="20" y="14" type="Land"/>
+	<Tile x="20" y="10" type="Sea"/>
+	<Tile x="20" y="11" type="Sea"/>
+	<Tile x="20" y="12" type="Sea"/>
+	<Tile x="20" y="13" type="Sea"/>
+	<Tile x="20" y="14" type="Sea"/>
 	<Tile x="20" y="15" type="Land"/>
 	<Tile x="20" y="16" type="Land"/>
-	<Tile x="21" y="0" type="Sea"/>
-	<Tile x="21" y="1" type="Sea"/>
-	<Tile x="21" y="2" type="Sea"/>
-	<Tile x="21" y="3" type="Sea"/>
-	<Tile x="21" y="4" type="Sea"/>
-	<Tile x="21" y="5" type="Sea"/>
-	<Tile x="21" y="6" type="Sea"/>
-	<Tile x="21" y="7" type="Sea"/>
-	<Tile x="21" y="8" type="Sea"/>
+	<Tile x="21" y="0" type="Land"/>
+	<Tile x="21" y="1" type="Land"/>
+	<Tile x="21" y="2" type="Land"/>
+	<Tile x="21" y="3" type="Land"/>
+	<Tile x="21" y="4" type="Land"/>
+	<Tile x="21" y="5" type="Land"/>
+	<Tile x="21" y="6" type="Land"/>
+	<Tile x="21" y="7" type="Land"/>
+	<Tile x="21" y="8" type="Land"/>
 	<Tile x="21" y="9" type="Land"/>
-	<Tile x="21" y="10" type="Land"/>
-	<Tile x="21" y="11" type="Land"/>
-	<Tile x="21" y="12" type="Land"/>
-	<Tile x="21" y="13" type="Land"/>
-	<Tile x="21" y="14" type="Land"/>
+	<Tile x="21" y="10" type="Sea"/>
+	<Tile x="21" y="11" type="Sea"/>
+	<Tile x="21" y="12" type="Sea"/>
+	<Tile x="21" y="13" type="Sea"/>
+	<Tile x="21" y="14" type="Sea"/>
 	<Tile x="21" y="15" type="Land"/>
 	<Tile x="21" y="16" type="Land"/>
-	<Tile x="22" y="0" type="Sea"/>
-	<Tile x="22" y="1" type="Sea"/>
-	<Tile x="22" y="2" type="Sea"/>
-	<Tile x="22" y="3" type="Sea"/>
-	<Tile x="22" y="4" type="Sea"/>
-	<Tile x="22" y="5" type="Sea"/>
-	<Tile x="22" y="6" type="Sea"/>
-	<Tile x="22" y="7" type="Sea"/>
-	<Tile x="22" y="8" type="Sea"/>
-	<Tile x="22" y="9" type="Sea"/>
-	<Tile x="22" y="10" type="Land"/>
-	<Tile x="22" y="11" type="Land"/>
-	<Tile x="22" y="12" type="Land"/>
-	<Tile x="22" y="13" type="Land"/>
-	<Tile x="22" y="14" type="Land"/>
+	<Tile x="22" y="0" type="Land"/>
+	<Tile x="22" y="1" type="Land"/>
+	<Tile x="22" y="2" type="Land"/>
+	<Tile x="22" y="3" type="Land"/>
+	<Tile x="22" y="4" type="Land"/>
+	<Tile x="22" y="5" type="Land"/>
+	<Tile x="22" y="6" type="Land"/>
+	<Tile x="22" y="7" type="Land"/>
+	<Tile x="22" y="8" type="Land"/>
+	<Tile x="22" y="9" type="Land"/>
+	<Tile x="22" y="10" type="Sea"/>
+	<Tile x="22" y="11" type="Sea"/>
+	<Tile x="22" y="12" type="Sea"/>
+	<Tile x="22" y="13" type="Sea"/>
+	<Tile x="22" y="14" type="Sea"/>
 	<Tile x="22" y="15" type="Land"/>
 	<Tile x="22" y="16" type="Land"/>
-	<Tile x="23" y="0" type="Sea"/>
-	<Tile x="23" y="1" type="Sea"/>
-	<Tile x="23" y="2" type="Sea"/>
-	<Tile x="23" y="3" type="Sea"/>
-	<Tile x="23" y="4" type="Sea"/>
-	<Tile x="23" y="5" type="Sea"/>
+	<Tile x="23" y="0" type="Land"/>
+	<Tile x="23" y="1" type="Land"/>
+	<Tile x="23" y="2" type="Land"/>
+	<Tile x="23" y="3" type="Land"/>
+	<Tile x="23" y="4" type="Land"/>
+	<Tile x="23" y="5" type="Land"/>
 	<Tile x="23" y="6" type="Sea"/>
-	<Tile x="23" y="7" type="Sea"/>
-	<Tile x="23" y="8" type="Sea"/>
+	<Tile x="23" y="7" type="Land"/>
+	<Tile x="23" y="8" type="Land"/>
 	<Tile x="23" y="9" type="Sea"/>
-	<Tile x="23" y="10" type="Land"/>
-	<Tile x="23" y="11" type="Land"/>
-	<Tile x="23" y="12" type="Land"/>
-	<Tile x="23" y="13" type="Land"/>
+	<Tile x="23" y="10" type="Sea"/>
+	<Tile x="23" y="11" type="Sea"/>
+	<Tile x="23" y="12" type="Sea"/>
+	<Tile x="23" y="13" type="Sea"/>
 	<Tile x="23" y="14" type="Land"/>
 	<Tile x="23" y="15" type="Land"/>
 	<Tile x="23" y="16" type="Land"/>
@@ -412,49 +412,49 @@
 	<Tile x="24" y="2" type="Land"/>
 	<Tile x="24" y="3" type="Land"/>
 	<Tile x="24" y="4" type="Land"/>
-	<Tile x="24" y="5" type="Land"/>
+	<Tile x="24" y="5" type="Sea"/>
 	<Tile x="24" y="6" type="Sea"/>
 	<Tile x="24" y="7" type="Sea"/>
 	<Tile x="24" y="8" type="Sea"/>
 	<Tile x="24" y="9" type="Sea"/>
 	<Tile x="24" y="10" type="Sea"/>
-	<Tile x="24" y="11" type="Land"/>
-	<Tile x="24" y="12" type="Land"/>
+	<Tile x="24" y="11" type="Sea"/>
+	<Tile x="24" y="12" type="Sea"/>
 	<Tile x="24" y="13" type="Land"/>
-	<Tile x="24" y="14" type="Sea"/>
-	<Tile x="24" y="15" type="Sea"/>
-	<Tile x="24" y="16" type="Sea"/>
+	<Tile x="24" y="14" type="Land"/>
+	<Tile x="24" y="15" type="Land"/>
+	<Tile x="24" y="16" type="Land"/>
 	<Tile x="25" y="0" type="Land"/>
 	<Tile x="25" y="1" type="Land"/>
 	<Tile x="25" y="2" type="Land"/>
 	<Tile x="25" y="3" type="Land"/>
-	<Tile x="25" y="4" type="Land"/>
-	<Tile x="25" y="5" type="Land"/>
-	<Tile x="25" y="6" type="Land"/>
+	<Tile x="25" y="4" type="Sea"/>
+	<Tile x="25" y="5" type="Sea"/>
+	<Tile x="25" y="6" type="Sea"/>
 	<Tile x="25" y="7" type="Sea"/>
 	<Tile x="25" y="8" type="Sea"/>
-	<Tile x="25" y="9" type="Sea"/>
-	<Tile x="25" y="10" type="Sea"/>
-	<Tile x="25" y="11" type="Sea"/>
-	<Tile x="25" y="12" type="Sea"/>
-	<Tile x="25" y="13" type="Sea"/>
-	<Tile x="25" y="14" type="Sea"/>
-	<Tile x="25" y="15" type="Sea"/>
+	<Tile x="25" y="9" type="Land"/>
+	<Tile x="25" y="10" type="Land"/>
+	<Tile x="25" y="11" type="Land"/>
+	<Tile x="25" y="12" type="Land"/>
+	<Tile x="25" y="13" type="Land"/>
+	<Tile x="25" y="14" type="Land"/>
+	<Tile x="25" y="15" type="Land"/>
 	<Tile x="25" y="16" type="Land"/>
 	<Tile x="26" y="0" type="Land"/>
 	<Tile x="26" y="1" type="Land"/>
 	<Tile x="26" y="2" type="Land"/>
 	<Tile x="26" y="3" type="Land"/>
-	<Tile x="26" y="4" type="Land"/>
-	<Tile x="26" y="5" type="Land"/>
-	<Tile x="26" y="6" type="Land"/>
+	<Tile x="26" y="4" type="Sea"/>
+	<Tile x="26" y="5" type="Sea"/>
+	<Tile x="26" y="6" type="Sea"/>
 	<Tile x="26" y="7" type="Sea"/>
 	<Tile x="26" y="8" type="Sea"/>
-	<Tile x="26" y="9" type="Sea"/>
-	<Tile x="26" y="10" type="Sea"/>
-	<Tile x="26" y="11" type="Sea"/>
-	<Tile x="26" y="12" type="Sea"/>
-	<Tile x="26" y="13" type="Sea"/>
+	<Tile x="26" y="9" type="Land"/>
+	<Tile x="26" y="10" type="Land"/>
+	<Tile x="26" y="11" type="Land"/>
+	<Tile x="26" y="12" type="Land"/>
+	<Tile x="26" y="13" type="Land"/>
 	<Tile x="26" y="14" type="Land"/>
 	<Tile x="26" y="15" type="Land"/>
 	<Tile x="26" y="16" type="Land"/>
@@ -462,15 +462,15 @@
 	<Tile x="27" y="1" type="Land"/>
 	<Tile x="27" y="2" type="Land"/>
 	<Tile x="27" y="3" type="Land"/>
-	<Tile x="27" y="4" type="Land"/>
-	<Tile x="27" y="5" type="Land"/>
+	<Tile x="27" y="4" type="Sea"/>
+	<Tile x="27" y="5" type="Sea"/>
 	<Tile x="27" y="6" type="Sea"/>
 	<Tile x="27" y="7" type="Sea"/>
 	<Tile x="27" y="8" type="Sea"/>
-	<Tile x="27" y="9" type="Sea"/>
-	<Tile x="27" y="10" type="Sea"/>
-	<Tile x="27" y="11" type="Sea"/>
-	<Tile x="27" y="12" type="Sea"/>
+	<Tile x="27" y="9" type="Land"/>
+	<Tile x="27" y="10" type="Land"/>
+	<Tile x="27" y="11" type="Land"/>
+	<Tile x="27" y="12" type="Land"/>
 	<Tile x="27" y="13" type="Land"/>
 	<Tile x="27" y="14" type="Land"/>
 	<Tile x="27" y="15" type="Land"/>
@@ -478,87 +478,96 @@
 	<Tile x="28" y="0" type="Land"/>
 	<Tile x="28" y="1" type="Land"/>
 	<Tile x="28" y="2" type="Land"/>
-	<Tile x="28" y="3" type="Land"/>
-	<Tile x="28" y="4" type="Land"/>
-	<Tile x="28" y="5" type="Land"/>
+	<Tile x="28" y="3" type="Sea"/>
+	<Tile x="28" y="4" type="Sea"/>
+	<Tile x="28" y="5" type="Sea"/>
 	<Tile x="28" y="6" type="Sea"/>
 	<Tile x="28" y="7" type="Sea"/>
-	<Tile x="28" y="8" type="Sea"/>
-	<Tile x="28" y="9" type="Sea"/>
-	<Tile x="28" y="10" type="Sea"/>
-	<Tile x="28" y="11" type="Sea"/>
+	<Tile x="28" y="8" type="Land"/>
+	<Tile x="28" y="9" type="Land"/>
+	<Tile x="28" y="10" type="Land"/>
+	<Tile x="28" y="11" type="Land"/>
 	<Tile x="28" y="12" type="Land"/>
 	<Tile x="28" y="13" type="Land"/>
 	<Tile x="28" y="14" type="Land"/>
 	<Tile x="28" y="15" type="Land"/>
 	<Tile x="28" y="16" type="Land"/>
-	<Tile x="29" y="0" type="Sea"/>
-	<Tile x="29" y="1" type="Sea"/>
+	<Tile x="29" y="0" type="Land"/>
+	<Tile x="29" y="1" type="Land"/>
 	<Tile x="29" y="2" type="Land"/>
 	<Tile x="29" y="3" type="Land"/>
-	<Tile x="29" y="4" type="Land"/>
-	<Tile x="29" y="5" type="Land"/>
+	<Tile x="29" y="4" type="Sea"/>
+	<Tile x="29" y="5" type="Sea"/>
 	<Tile x="29" y="6" type="Sea"/>
 	<Tile x="29" y="7" type="Sea"/>
-	<Tile x="29" y="8" type="Sea"/>
-	<Tile x="29" y="9" type="Sea"/>
-	<Tile x="29" y="10" type="Sea"/>
-	<Tile x="29" y="11" type="Sea"/>
+	<Tile x="29" y="8" type="Land"/>
+	<Tile x="29" y="9" type="Land"/>
+	<Tile x="29" y="10" type="Land"/>
+	<Tile x="29" y="11" type="Land"/>
 	<Tile x="29" y="12" type="Land"/>
-	<Tile x="29" y="13" type="Land"/>
-	<Tile x="29" y="14" type="Land"/>
-	<Tile x="29" y="15" type="Land"/>
-	<Tile x="29" y="16" type="Land"/>
-	<Tile x="30" y="0" type="Sea"/>
-	<Tile x="30" y="1" type="Sea"/>
-	<Tile x="30" y="2" type="Sea"/>
+	<Tile x="29" y="13" type="Sea"/>
+	<Tile x="29" y="14" type="Sea"/>
+	<Tile x="29" y="15" type="Sea"/>
+	<Tile x="29" y="16" type="Sea"/>
+	<Tile x="30" y="0" type="Land"/>
+	<Tile x="30" y="1" type="Land"/>
+	<Tile x="30" y="2" type="Land"/>
 	<Tile x="30" y="3" type="Land"/>
 	<Tile x="30" y="4" type="Land"/>
 	<Tile x="30" y="5" type="Land"/>
 	<Tile x="30" y="6" type="Land"/>
-	<Tile x="30" y="7" type="Sea"/>
-	<Tile x="30" y="8" type="Sea"/>
-	<Tile x="30" y="9" type="Sea"/>
-	<Tile x="30" y="10" type="Sea"/>
-	<Tile x="30" y="11" type="Sea"/>
+	<Tile x="30" y="7" type="Land"/>
+	<Tile x="30" y="8" type="Land"/>
+	<Tile x="30" y="9" type="Land"/>
+	<Tile x="30" y="10" type="Land"/>
+	<Tile x="30" y="11" type="Land"/>
 	<Tile x="30" y="12" type="Land"/>
-	<Tile x="30" y="13" type="Land"/>
-	<Tile x="30" y="14" type="Land"/>
-	<Tile x="30" y="15" type="Land"/>
-	<Tile x="30" y="16" type="Land"/>
-	<Tile x="31" y="0" type="Sea"/>
-	<Tile x="31" y="1" type="Sea"/>
-	<Tile x="31" y="2" type="Sea"/>
+	<Tile x="30" y="13" type="Sea"/>
+	<Tile x="30" y="14" type="Sea"/>
+	<Tile x="30" y="15" type="Sea"/>
+	<Tile x="30" y="16" type="Sea"/>
+	<Tile x="31" y="0" type="Land"/>
+	<Tile x="31" y="1" type="Land"/>
+	<Tile x="31" y="2" type="Land"/>
 	<Tile x="31" y="3" type="Land"/>
 	<Tile x="31" y="4" type="Land"/>
 	<Tile x="31" y="5" type="Land"/>
 	<Tile x="31" y="6" type="Land"/>
-	<Tile x="31" y="7" type="Sea"/>
-	<Tile x="31" y="8" type="Sea"/>
-	<Tile x="31" y="9" type="Sea"/>
-	<Tile x="31" y="10" type="Sea"/>
-	<Tile x="31" y="11" type="Sea"/>
-	<Tile x="31" y="12" type="Land"/>
-	<Tile x="31" y="13" type="Land"/>
-	<Tile x="31" y="14" type="Land"/>
-	<Tile x="31" y="15" type="Land"/>
-	<Tile x="31" y="16" type="Land"/>
+	<Tile x="31" y="7" type="Land"/>
+	<Tile x="31" y="8" type="Land"/>
+	<Tile x="31" y="9" type="Land"/>
+	<Tile x="31" y="10" type="Land"/>
+	<Tile x="31" y="11" type="Land"/>
+	<Tile x="31" y="12" type="Sea"/>
+	<Tile x="31" y="13" type="Sea"/>
+	<Tile x="31" y="14" type="Sea"/>
+	<Tile x="31" y="15" type="Sea"/>
+	<Tile x="31" y="16" type="Sea"/>
 </GameMap>
 <EntityList>
-	<Entity id="0" type="12"/>
-	<Entity id="1" type="-842150451"/>
-	<Entity id="2" type="-842150451"/>
-	<Entity id="3" type="11"/>
-	<Entity id="4" type="-842150451"/>
-	<Entity id="5" type="-842150451"/>
-	<Entity id="6" type="-842150451"/>
-	<Entity id="7" type="11"/>
-	<Entity id="8" type="12"/>
-	<Entity id="9" type="12"/>
-	<Entity id="10" type="-842150451"/>
-	<Entity id="11" type="11"/>
-	<Entity id="12" type="11"/>
-	<Entity id="13" inv-1="500" r="0.000000" type="0" x="0.000000" y="0.000000"/>
-	<Entity id="14" inv-1="0" r="0.000000" type="8" x="704.000000" y="256.000000"/>
+	<Entity count="200" id="0" r="0.000000" res="2" type="11" x="0.000000" y="192.000000"/>
+	<Entity count="200" id="1" r="0.000000" res="5" type="11" x="128.000000" y="384.000000"/>
+	<Entity count="200" id="2" r="0.000000" res="0" type="11" x="192.000000" y="576.000000"/>
+	<Entity count="200" id="3" r="0.000000" res="4" type="11" x="384.000000" y="192.000000"/>
+	<Entity count="200" id="4" r="0.000000" res="1" type="11" x="512.000000" y="128.000000"/>
+	<Entity count="200" id="5" r="0.000000" res="0" type="11" x="896.000000" y="704.000000"/>
+	<Entity count="200" id="6" r="0.000000" res="1" type="11" x="960.000000" y="640.000000"/>
+	<Entity count="200" id="7" r="0.000000" res="4" type="11" x="1152.000000" y="0.000000"/>
+	<Entity count="200" id="8" r="0.000000" res="2" type="11" x="1216.000000" y="1024.000000"/>
+	<Entity count="200" id="9" r="0.000000" res="2" type="11" x="1280.000000" y="192.000000"/>
+	<Entity count="200" id="10" r="0.000000" res="1" type="11" x="1280.000000" y="512.000000"/>
+	<Entity count="200" id="11" r="0.000000" res="4" type="11" x="1344.000000" y="192.000000"/>
+	<Entity count="200" id="12" r="0.000000" res="4" type="11" x="1344.000000" y="256.000000"/>
+	<Entity count="200" id="13" r="0.000000" res="2" type="11" x="1472.000000" y="256.000000"/>
+	<Entity count="200" id="14" r="0.000000" res="1" type="11" x="1600.000000" y="896.000000"/>
+	<Entity count="200" id="15" r="0.000000" res="2" type="11" x="1600.000000" y="960.000000"/>
+	<Entity count="200" id="16" r="0.000000" res="2" type="11" x="1664.000000" y="64.000000"/>
+	<Entity count="200" id="17" r="0.000000" res="1" type="11" x="1664.000000" y="576.000000"/>
+	<Entity count="200" id="18" r="0.000000" res="0" type="11" x="1920.000000" y="448.000000"/>
+	<Entity id="19" r="0.216904" type="0" x="-1.760376" y="276.843536"/>
+	<Entity id="21" r="0.000000" type="8" x="832.000000" y="192.000000"/>
+	<Entity id="23" inv-8="3" r="0.000000" type="5" x="319.999969" y="319.999969"/>
+	<Entity id="25" product="9" r="0.000000" sinceLastConversion="0.000000" type="10" x="704.000000" y="576.000000"/>
+	<Entity id="27" product="10" r="0.000000" sinceLastConversion="0.000000" type="10" x="319.999969" y="639.999939"/>
 </EntityList>
 
