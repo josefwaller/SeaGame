@@ -201,7 +201,7 @@ void GameHud::resetResearchButtons() {
 	// Add a button for each technology that is unresearched and is able to be researched
 	for (auto it : TechTree::nodes) {
 		if (it.second.parent == Technology::Nothing
-			|| TechTree::nodes.find(it.second.parent)->second.isResearched) {
+			|| TechTree::nodes[it.second.parent].isResearched) {
 			// Create a button for it
 			auto btn = tgui::Button::create();
 			if (it.second.isResearched) {

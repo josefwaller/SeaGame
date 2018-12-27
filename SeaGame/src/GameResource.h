@@ -14,7 +14,9 @@ enum GameResource
 	Copper,
 	StoneBrick,
 	StoneStatue,
-	Wheat
+	Wheat,
+	Flour,
+	Bread
 };
 
 const std::vector<GameResource> ALL_RESOURCES = {
@@ -26,7 +28,9 @@ const std::vector<GameResource> ALL_RESOURCES = {
 	GameResource::Copper,
 	GameResource::StoneBrick,
 	GameResource::StoneStatue,
-	GameResource::Wheat
+	GameResource::Wheat,
+	GameResource::Flour,
+	GameResource::Bread
 };
 
 // How much the player gets for selling these resources

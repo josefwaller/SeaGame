@@ -21,5 +21,19 @@ const std::map<GameResource, ConversionRecipes::Recipe> ConversionRecipes::recip
 		20.0f,
 		"MAke a sonte statue"
 		}
+	},
+	// Grind wheat into flour
+	{ GameResource::Flour, {
+		{ {GameResource::Wheat, 2} },
+		2.0f,
+		"Grind wheat into flour"
+		}
+	},
+	// Bake flour into bread
+	{ GameResource::Bread, {
+		{ {GameResource::Flour, 5}},
+		5.0f,
+		"Bake flour into bread"
+		}
 	}
 };

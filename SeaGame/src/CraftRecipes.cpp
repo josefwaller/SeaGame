@@ -60,6 +60,22 @@ std::vector<CraftingRecipes::CraftRecipe> CraftingRecipes::recipes = {
 		[&](Game* g, sf::Vector2f pos) {
 			return EntityPrefabs::generationBase(g, sf::Vector2i(pos / 64.0f) * 64, GameResource::Wheat);
 		}
-	}
+	},
+	{
+		{},
+		Technology::Mills,
+		"Mill",
+		[&](Game* g, sf::Vector2f pos) {
+			return EntityPrefabs::conversionBase(g, sf::Vector2i(pos / 64.0f) * 64, GameResource::Flour);
+		}
+	},
+	{
+		{},
+		Technology::Baking,
+		"Bakery",
+		[&](Game* g, sf::Vector2f pos) {
+			return EntityPrefabs::conversionBase(g, sf::Vector2i(pos / 64.0f) * 64, GameResource::Bread);
+		}
+}
 };
 #include "Game.h"

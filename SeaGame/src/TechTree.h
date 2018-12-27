@@ -23,6 +23,7 @@ enum Technology {
 	Furniture,
 	Farming,
 	Mills,
+	Baking,
 	Orchards,
 	Breweries,
 	MilitaryBases,

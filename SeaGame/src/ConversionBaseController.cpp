@@ -1,8 +1,11 @@
 #include "ConversionBaseController.h"
 #include "ConversionRecipes.h"
 
-ConversionBaseController::ConversionBaseController( GameResource res) {
+ConversionBaseController::ConversionBaseController(GameResource res) {
 	this->product = res;
+}
+void ConversionBaseController::setParent(std::weak_ptr<Entity> parent) {
+	BaseController::setParent(parent);
 #ifdef _DEBUG
 	if (this->getParent().lock()->components.inventory == nullptr) {
 		auto x = 0;

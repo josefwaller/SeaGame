@@ -12,6 +12,8 @@ std::string getResourceString(GameResource res) {
 	case GameResource::Copper: return "Copper Ore";
 	case GameResource::Iron: return "Iron Ore";
 	case GameResource::Wheat: return "Wheat";
+	case GameResource::Flour: return "Flour";
+	case GameResource::Bread: return "Bread";
 	}
 	return "Missing Resource String (oh nooooooo)";
 }

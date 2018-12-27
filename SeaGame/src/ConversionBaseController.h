@@ -5,6 +5,7 @@
 class ConversionBaseController : public BaseController {
 public:
 	ConversionBaseController( GameResource product);
+	virtual void setParent(std::weak_ptr<Entity> parent) override;
 	virtual void update(float delta) override;
 	virtual std::map<std::string, std::string> getSaveData() override;
 	virtual void fromSaveData(std::map<std::string, std::string> data) override;
