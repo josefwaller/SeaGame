@@ -27,16 +27,16 @@
 #include "RectangleClick.h"
 
 // Wrap entity in shared pointer and set parent/component relationship
-std::shared_ptr<Entity> EntityPrefabs::buildEntity(Entity* entity) {
+entity_ptr EntityPrefabs::buildEntity(Entity* entity) {
 	// Wrap in shared pointer
-	std::shared_ptr<Entity> e = std::shared_ptr<Entity>(entity);
+	entity_ptr e = entity_ptr(entity);
 	// Set the parent
 	e->components.set(e);
 	// Return entity
 	return e;
 }
 
-std::shared_ptr<Entity> EntityPrefabs::playerShip(Game* g, sf::Vector2f position)
+entity_ptr EntityPrefabs::playerShip(Game* g, sf::Vector2f position)
 {
 	return EntityPrefabs::buildEntity(new Entity(
 		g,
@@ -86,7 +86,7 @@ b2Body* EntityPrefabs::getShipBody(Game* g, sf::Vector2f pos, float rot) {
 	b->CreateFixture(&shipFixture);
 	return b;
 }
-std::shared_ptr<Entity> EntityPrefabs::cannonBall(Game* g, std::weak_ptr<Entity> spawner, sf::Vector2f pos, float rot)
+entity_ptr EntityPrefabs::cannonBall(Game* g, std::weak_ptr<Entity> spawner, sf::Vector2f pos, float rot)
 {
 	return buildEntity(new Entity(
 		g,
@@ -124,7 +124,7 @@ b2Body* EntityPrefabs::getCannonballBody(Game* g, sf::Vector2f pos, float rot) {
 	b->CreateFixture(&ballFixture);
 	return b;
 }
-std::shared_ptr<Entity> EntityPrefabs::enemyChasingShip(Game* g, sf::Vector2f pos)
+entity_ptr EntityPrefabs::enemyChasingShip(Game* g, sf::Vector2f pos)
 {
 	return buildEntity(new Entity(
 		g,
@@ -143,7 +143,7 @@ std::shared_ptr<Entity> EntityPrefabs::enemyChasingShip(Game* g, sf::Vector2f po
 		)
 	));
 }
-std::shared_ptr<Entity> EntityPrefabs::ferryShip(Game* g, sf::Vector2f pos, std::weak_ptr<Entity> from, std::weak_ptr<Entity> to) {
+entity_ptr EntityPrefabs::ferryShip(Game* g, sf::Vector2f pos, std::weak_ptr<Entity> from, std::weak_ptr<Entity> to) {
 	return EntityPrefabs::buildEntity(new Entity(
 		g,
 		0,
@@ -161,7 +161,7 @@ std::shared_ptr<Entity> EntityPrefabs::ferryShip(Game* g, sf::Vector2f pos, std:
 		)
 	));
 }
-std::shared_ptr<Entity> EntityPrefabs::militaryBase(Game* g, sf::Vector2i pos)
+entity_ptr EntityPrefabs::militaryBase(Game* g, sf::Vector2i pos)
 {
 	return buildEntity(new Entity(
 		g,
@@ -180,7 +180,7 @@ std::shared_ptr<Entity> EntityPrefabs::militaryBase(Game* g, sf::Vector2i pos)
 		)
 	));
 }
-std::shared_ptr<Entity> EntityPrefabs::generationBase(Game* g, sf::Vector2i pos, GameResource res) {
+entity_ptr EntityPrefabs::generationBase(Game* g, sf::Vector2i pos, GameResource res) {
 	return EntityPrefabs::buildEntity(new Entity(
 		g,
 		0,
@@ -199,7 +199,7 @@ std::shared_ptr<Entity> EntityPrefabs::generationBase(Game* g, sf::Vector2i pos,
 		)
 	));
 }
-std::shared_ptr<Entity> EntityPrefabs::pirateBase(Game* g, sf::Vector2i pos) {
+entity_ptr EntityPrefabs::pirateBase(Game* g, sf::Vector2i pos) {
 	return EntityPrefabs::buildEntity(new Entity(
 		g,
 		1,
@@ -217,7 +217,7 @@ std::shared_ptr<Entity> EntityPrefabs::pirateBase(Game* g, sf::Vector2i pos) {
 		)
 	));
 }
-std::shared_ptr<Entity> EntityPrefabs::conversionBase(Game* g, sf::Vector2i pos, GameResource res) {
+entity_ptr EntityPrefabs::conversionBase(Game* g, sf::Vector2i pos, GameResource res) {
 	return EntityPrefabs::buildEntity(new Entity(
 		g,
 		0,
@@ -253,7 +253,7 @@ b2Body* EntityPrefabs::getBaseBody(Game* g, sf::Vector2f pos, float rot) {
 	b->CreateFixture(&baseFixture);
 	return b;
 }
-std::shared_ptr<Entity> EntityPrefabs::explosion(Game* g, sf::Vector2f pos)
+entity_ptr EntityPrefabs::explosion(Game* g, sf::Vector2f pos)
 {
 	return EntityPrefabs::buildEntity(new Entity(
 		g,
@@ -281,7 +281,7 @@ std::shared_ptr<Entity> EntityPrefabs::explosion(Game* g, sf::Vector2f pos)
 		)
 	));
 }
-std::shared_ptr<Entity> EntityPrefabs::city(Game* g, sf::Vector2i pos) {
+entity_ptr EntityPrefabs::city(Game* g, sf::Vector2i pos) {
 	return buildEntity(new Entity(
 		g,
 		0,
@@ -299,7 +299,7 @@ std::shared_ptr<Entity> EntityPrefabs::city(Game* g, sf::Vector2i pos) {
 		)
 	));
 }
-std::shared_ptr<Entity> EntityPrefabs::resourceSource(Game* g, sf::Vector2i pos, GameResource res) {
+entity_ptr EntityPrefabs::resourceSource(Game* g, sf::Vector2i pos, GameResource res) {
 	return buildEntity(new Entity(
 		g,
 		0,
@@ -317,7 +317,7 @@ std::shared_ptr<Entity> EntityPrefabs::resourceSource(Game* g, sf::Vector2i pos,
 		)
 	));
 }
-std::shared_ptr<Entity> EntityPrefabs::getEntityFromSaveData(Game* g, std::map<std::string, std::string> data) {
+entity_ptr EntityPrefabs::getEntityFromSaveData(Game* g, std::map<std::string, std::string> data) {
 	EntityType type = (EntityType)std::stoi(data["type"]);
 	float x = (float)std::stoi(data["x"]);
 	float y = (float)std::stoi(data["y"]);

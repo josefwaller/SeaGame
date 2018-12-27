@@ -4,26 +4,27 @@
 #include "Entity.h"
 #include "ShipRenderer.h"
 
+using entity_ptr = std::shared_ptr<Entity>;
 // Contain methods to easily create different types of entities
 class EntityPrefabs
 {
 public:
 	// Called for every entity before being created in the game
 	// Anything to initialize each entity (ex: wrap in shared_ptr) should be done in here
-	static std::shared_ptr<Entity> buildEntity(Entity* entity);
+	static entity_ptr buildEntity(Entity* entity);
 	// Return the different type of entities in the game
-	static std::shared_ptr<Entity> playerShip(Game* g, sf::Vector2f position);
-	static std::shared_ptr<Entity> cannonBall(Game* g, std::weak_ptr<Entity> spawner, sf::Vector2f pos, float rot);
-	static std::shared_ptr<Entity> enemyChasingShip(Game* g, sf::Vector2f pos);
-	static std::shared_ptr<Entity> explosion(Game* g, sf::Vector2f pos);
-	static std::shared_ptr<Entity> militaryBase(Game* g, sf::Vector2i pos);
-	static std::shared_ptr<Entity> generationBase(Game* g, sf::Vector2i pos, GameResource res);
-	static std::shared_ptr<Entity> ferryShip(Game * g, sf::Vector2f pos, std::weak_ptr<Entity> from, std::weak_ptr<Entity> to);
-	static std::shared_ptr<Entity> city(Game* g, sf::Vector2i pos);
-	static std::shared_ptr<Entity> pirateBase(Game* g, sf::Vector2i pos);
-	static std::shared_ptr<Entity> getEntityFromSaveData(Game* g, std::map<std::string, std::string> data);
-	static std::shared_ptr<Entity> conversionBase(Game* g, sf::Vector2i pos, GameResource res);
-	static std::shared_ptr<Entity> resourceSource(Game* g, sf::Vector2i pos, GameResource res);
+	static entity_ptr playerShip(Game* g, sf::Vector2f position);
+	static entity_ptr cannonBall(Game* g, std::weak_ptr<Entity> spawner, sf::Vector2f pos, float rot);
+	static entity_ptr enemyChasingShip(Game* g, sf::Vector2f pos);
+	static entity_ptr explosion(Game* g, sf::Vector2f pos);
+	static entity_ptr militaryBase(Game* g, sf::Vector2i pos);
+	static entity_ptr generationBase(Game* g, sf::Vector2i pos, GameResource res);
+	static entity_ptr ferryShip(Game * g, sf::Vector2f pos, std::weak_ptr<Entity> from, std::weak_ptr<Entity> to);
+	static entity_ptr city(Game* g, sf::Vector2i pos);
+	static entity_ptr pirateBase(Game* g, sf::Vector2i pos);
+	static entity_ptr getEntityFromSaveData(Game* g, std::map<std::string, std::string> data);
+	static entity_ptr conversionBase(Game* g, sf::Vector2i pos, GameResource res);
+	static entity_ptr resourceSource(Game* g, sf::Vector2i pos, GameResource res);
 	// Get the Box2d BodyDef and fixtures needed for specific entities
 	static b2Body* getShipBody(Game* g, sf::Vector2f pos, float rot);
 	static b2Body* getCannonballBody(Game* g, sf::Vector2f pos, float rot);
