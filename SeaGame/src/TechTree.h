@@ -34,15 +34,17 @@ enum Technology {
 struct TechTreeNode {
 	Technology parent;
 	std::string name;
+	std::string description;
 	// The amount of money needed to discover this resource
 	unsigned int cost;
 	bool isResearched;
 	TechTreeNode() {}
-	TechTreeNode(const char* name, Technology parent, unsigned int cost) {
+	TechTreeNode(const char* name, Technology parent, unsigned int cost, std::string description) {
 		this->name = name;
 		this->parent = parent;
 		this->cost = cost;
 		this->isResearched = false;
+		this->description = description;
 	}
 };
 class TechTree {

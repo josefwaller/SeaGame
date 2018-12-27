@@ -227,6 +227,27 @@ void GameHud::resetResearchButtons() {
 				g->getHud()->resetResearchButtons();
 				return true;
 			}, this->game, it.first);
+			// Make the tool tip have information about the technology
+			tgui::TextBox::Ptr toolTip = tgui::TextBox::create();
+			toolTip->setPosition({ 10, 10 });
+			toolTip->setText(it.second.name + "\n");
+			toolTip->addText("-------------\n\n");
+			toolTip->addText(it.second.description + "\n\n");
+			toolTip->addText("Allows researching:\n");
+			toolTip->addText("-------------");
+			// Get all the technologies that this technology unlocks
+			std::vector<std::string> allowsResearching;
+			for (auto sIt = TechTree::nodes.begin(); sIt != TechTree::nodes.end(); sIt++) {
+				if (sIt->second.parent == it.first) {
+					allowsResearching.push_back(sIt->second.name);
+				}
+			}
+			// Add them to toolTip
+			for (auto s : allowsResearching) {
+				toolTip->addText("\n" + s);
+			}
+			// Set tool tip
+			btn->setToolTip(toolTip);
 			// Add the button to the group
 			this->researchGroup->add(btn);
 			y += btn->getFullSize().y;

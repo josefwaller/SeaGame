@@ -9,46 +9,57 @@
 std::map<Technology, TechTreeNode> TechTree::nodes = {
 	{
 		Technology::Ferries,
-		TechTreeNode("Ferries", Technology::Nothing, TIER_1_COST)
+		TechTreeNode("Ferries", Technology::Nothing, TIER_1_COST,
+		"Build ferries to bring resources between two bases")
 	},
 	{
 		Technology::MultipleStops,
-		TechTreeNode("Multiple Stops for Ferries", Technology::Ferries, TIER_2_COST)
+		TechTreeNode("Multiple Stops for Ferries", Technology::Ferries, TIER_2_COST,
+		"Allow ferries to stop at more than two bases per route")
 	},
 	{
 		Technology::FasterFerries,
-		TechTreeNode("Fast Ferries", Technology::MultipleStops, TIER_3_COST)
+		TechTreeNode("Fast Ferries", Technology::MultipleStops, TIER_3_COST,
+		"Increases the speed of ferries")
 	},
 	{
 		Technology::Mines,
-		TechTreeNode("Mines", Technology::Nothing, TIER_1_COST)
+		TechTreeNode("Mines", Technology::Nothing, TIER_1_COST,
+		"Build stone mines to gather stone automatically")
 	},
 	{
 		Technology::IronMining,
-		TechTreeNode("Iron Mines", Technology::Mines, TIER_2_COST)
+		TechTreeNode("Iron Mines", Technology::Mines, TIER_2_COST,
+		"Build iron mines to gather iron automatically")
 	},
 	{
 		Technology::CopperMining,
-		TechTreeNode("Copper Mines", Technology::Mines, TIER_2_COST)
+		TechTreeNode("Copper Mines", Technology::Mines, TIER_2_COST,
+		"Build copper mines to gather copper automatically")
 	},
 	{
 		Technology::GoldMining,
-		TechTreeNode("Gold Mining", Technology::IronMining, TIER_2_COST)
+		TechTreeNode("Gold Mining", Technology::IronMining, TIER_2_COST,
+		"Build gold mines to gather gold automatically")
 	},
 	{
 		Technology::Counterfeiting,
-		TechTreeNode("Counterfeiting", Technology::GoldMining, TIER_3_COST)
+		TechTreeNode("Counterfeiting", Technology::GoldMining, TIER_3_COST,
+		"Build bases that turn gold bars into money at a high exchange rate")
 	},
 	{
 		Technology::Forestries,
-		TechTreeNode("Forestries", Technology::Nothing, TIER_1_COST)
+		TechTreeNode("Forestries", Technology::Nothing, TIER_1_COST,
+		"Build bases that automatically gather wood from trees")
 	},
 	{
 		Technology::Woodcutting,
-		TechTreeNode("Woodcutting", Technology::Forestries, TIER_2_COST)
+		TechTreeNode("Woodcutting", Technology::Forestries, TIER_2_COST,
+		"Build bases that turn wood into planks")
 	},
 	{
 		Technology::Farming,
-		TechTreeNode("Farming", Technology::Forestries, TIER_2_COST)
+		TechTreeNode("Farming", Technology::Forestries, TIER_2_COST,
+		"Build farms, which don't require any resource to be build and generates wheat")
 	}
 };
