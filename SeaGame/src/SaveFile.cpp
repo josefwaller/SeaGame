@@ -37,7 +37,6 @@ SaveFile::SaveFile(Game* g) {
 SaveFile::SaveFile(std::string fileName) {
 	rapidxml::file<> f(fileName.c_str());
 	this->data = std::string(f.data());
-	auto x = 0;
 }
 void SaveFile::save(std::string fileName) {
 	std::ofstream f;
@@ -72,20 +71,16 @@ std::unique_ptr<Game> SaveFile::load(App* a) {
 	std::weak_ptr<Entity> player;
 	// Create the entities from the data
 	for (auto it : entityDatas) {
-		entities.push_back(EntityPrefabs::getEntityFromSaveData(g, it));
+		// Create entity
+		std::shared_ptr<Entity> e = EntityPrefabs::getEntityFromSaveData(g, it);
+		// Override id
+		e->id = std::stoi(it["id"]);
+		// Add to list
+		entities.push_back(e);
 		// Set to player if it is
 		if (entities.back()->components.controller != nullptr && std::dynamic_pointer_cast<PlayerShipController>(entities.back()->components.controller)) {
 			player = entities.back();
 			player.lock()->components.inventory->addItems(GameResource::Gold, 300);
-		}
-	}
-	// Set into-component relationships, since now all the components have been created
-	for (size_t i = 0; i < entityDatas.size(); i++) {
-		for (ComponentType c : ComponentList::allTypes) {
-			std::shared_ptr<Component> comp = entities[i]->components.get(c);
-			if (comp) {
-				comp->fromSaveData(entityDatas[i]);
-			}
 		}
 	}
 	// Add values to game
@@ -95,6 +90,17 @@ std::unique_ptr<Game> SaveFile::load(App* a) {
 		player,
 		TechTree()
 	);
+	// Now that all values have been added to the game, can set component data from save data
+	for (size_t i = 0; i < entityDatas.size(); i++) {
+		std::shared_ptr<Entity> e = g->getEntityById(std::stoi(entityDatas[i]["id"])).lock();
+		for (ComponentType c : ComponentList::allTypes) {
+			std::shared_ptr<Component> comp = e->components.get(c);
+			if (comp) {
+				comp->fromSaveData(entityDatas[i]);
+			}
+		}
+	}
+
 	// Return the game
 	return std::move(game);
 }

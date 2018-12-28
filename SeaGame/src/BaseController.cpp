@@ -3,6 +3,9 @@
 
 void BaseController::setParent(std::weak_ptr<Entity> parent) {
 	Component::setParent(parent);
+}
+
+sf::Vector2f BaseController::getDockCoords() {
 	// Set the dock coords
 	sf::Vector2f pos = this->getParent().lock()->components.transform->getPosition();
 	std::queue<sf::Vector2i> coords;
@@ -40,8 +43,6 @@ void BaseController::setParent(std::weak_ptr<Entity> parent) {
 			visited.push_back(c);
 		}
 	}
-}
 
-sf::Vector2f BaseController::getDockCoords() {
 	return this->dockCoords;
 }
