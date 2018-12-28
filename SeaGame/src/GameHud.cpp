@@ -86,6 +86,7 @@ bool GameHud::ensureValid(std::shared_ptr<Entity> e) {
 		if (auto cont = std::dynamic_pointer_cast<MiningBaseController>(e->components.controller)) {
 			// Get the resource
 			GameResource neededRes = cont->getResource();
+			std::weak_ptr<Entity> resSource;
 			if (generationBaseNeedsSource(neededRes)) {
 				bool hasResource = false;
 				// Check the resource is present
@@ -97,6 +98,7 @@ bool GameHud::ensureValid(std::shared_ptr<Entity> e) {
 							if (otherPos.x - pos.x < 3 && otherPos.x - pos.x >= 0) {
 								if (otherPos.y - pos.y < 3 && otherPos.y - pos.y >= 0) {
 									hasResource = true;
+									resSource = other;
 									break;
 								}
 							}
@@ -106,6 +108,8 @@ bool GameHud::ensureValid(std::shared_ptr<Entity> e) {
 				if (!hasResource) {
 					return false;
 				}
+				// Remove the source
+				this->game->removeEntity(resSource);
 			}
 		}
 		return true;
