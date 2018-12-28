@@ -10,6 +10,8 @@ void GuiComponent::setParent(std::weak_ptr<Entity> parent) {
 	this->entityTabs = tgui::Tabs::create();
 	this->entityTabs->connect("TabSelected", &GuiComponent::changePanel, this);
 	this->entityWindow->add(this->entityTabs);
+	this->update();
+	this->entityTabs->select(0);
 }
 void GuiComponent::update() {
 	this->entityWindow->removeAllWidgets();
