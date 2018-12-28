@@ -1,4 +1,5 @@
 #include "App.h"
+#include "SaveFile.h"
 
 App::App() :
 	menu(this),
@@ -37,8 +38,7 @@ void App::gameLoop() {
 }
 void App::loadGame(std::string fileName) {
 	this->menu.hide();
-	this->game = std::unique_ptr<Game>(new Game(this));
-	this->game->loadFromFile(fileName);
+	this->game = SaveFile(fileName).load(this);
 	this->state = AppState::InGame;
 }
 void App::newGame() {

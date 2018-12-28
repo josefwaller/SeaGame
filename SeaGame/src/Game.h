@@ -21,7 +21,16 @@ public:
 	Game();
 	~Game();
 	Game(App* app);
+	void loadFromData(
+		GameMap gm,
+		std::vector<std::shared_ptr<Entity>> entities,
+		std::weak_ptr<Entity> player,
+		TechTree techTree
+	);
+	// Generate a new map, resources, etc
 	void generateNew();
+	// Set the gamemap to the one given, should only be called by save file
+	void setGameMap(GameMap gm);
 	void loadFromFile(std::string fileName);
 	void update(double delta);
 	void render();

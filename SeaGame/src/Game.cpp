@@ -12,6 +12,7 @@
 #include <rapidxml\rapidxml_print.hpp>
 #include <rapidxml\rapidxml_utils.hpp>
 #include "App.h"
+#include "SaveFile.h"
 
 const float Game::BOX2D_TO_WORLD = 100.0f;
 const float Game::WORLD_TO_BOX2D = 1 / Game::BOX2D_TO_WORLD;
@@ -23,14 +24,30 @@ Game::Game(App* app): app(app)
 {
 	// Create world and make gravity 0, since it is top down
 	this->world = std::shared_ptr<b2World>(new b2World({ 0.0f, 0.0f }));
+	// Create a listener for the world
 	this->listener = SimpleCollisionListener();
 	this->world->SetContactListener(&this->listener);
+	// Create gui container
 	this->guiContainer = tgui::Group::create();
+	// Add text displaying the FPS in the corner
 	this->fpsText = tgui::TextBox::create();
 	this->fpsText->setPosition({ this->app->getWindow()->getSize().x - 200.0f, 0.0f });
 	this->guiContainer->add(this->fpsText);
 	this->app->getGui()->add(this->guiContainer);
+	// Create game hud
 	this->gHud = GameHud(this);
+}
+// Set a bunch of data fields when loading the game
+void Game::loadFromData(
+	GameMap gm,
+	std::vector<std::shared_ptr<Entity>> entities,
+	std::weak_ptr<Entity> player,
+	TechTree tree) {
+	// Set the data fields
+	this->gMap = gm;
+	this->entities = entities;
+	this->player = player;
+	this->techTree = tree;
 }
 void Game::generateNew() {
 	// Generate new map
@@ -51,39 +68,9 @@ void Game::generateNew() {
 	}
 }
 void Game::loadFromFile(std::string fileName) {
-	// Create GameMap
-	rapidxml::file<> file(fileName.c_str());
-	rapidxml::xml_document<> doc;
-	doc.parse<0>(file.data());
-	this->gMap = GameMap(this, &doc);
-	this->entities = {};
-	// TBA: load money
-	this->money = 200;
-	std::vector<std::map<std::string, std::string>> entityDatas;
-	auto eN = doc.first_node("EntityList");
-	for (auto n = eN->first_node("Entity"); n != nullptr; n = n->next_sibling()) {
-		std::map<std::string, std::string> data;
-		for (auto a = n->first_attribute(); a != nullptr; a = a->next_attribute()) {
-			data.insert({ a->name(), a->value() });
-		}
-		entityDatas.push_back(data);
-	}
-	for (auto it : entityDatas) {
-		this->entities.push_back(EntityPrefabs::getEntityFromSaveData(this, it));
-		if (this->entities.back()->components.controller != nullptr && std::dynamic_pointer_cast<PlayerShipController>(this->entities.back()->components.controller)) {
-			this->player = this->entities.back();
-			this->player.lock()->components.inventory->addItems(GameResource::Gold, 300);
-		}
-	}
-	for (size_t i = 0; i < entityDatas.size(); i++) {
-		for (ComponentType c : ComponentList::allTypes) {
-			std::shared_ptr<Component> comp = this->entities[i]->components.get(c);
-			if (comp) {
-				comp->fromSaveData(entityDatas[i]);
-			}
-		}
-	}
-
+}
+void Game::setGameMap(GameMap gm) {
+	this->gMap = gm;
 }
 
 void Game::update(double delta)
@@ -149,28 +136,8 @@ void Game::render()
 	r.reset();
 }
 void Game::save() {
-	rapidxml::xml_document<> saveData;
-	this->gMap.addSaveData(&saveData);
-	auto n = saveData.allocate_node(rapidxml::node_element, "EntityList");
-	for (auto e : this->entities) {
-		auto data = e->getSaveData();
-		auto eN = saveData.allocate_node(rapidxml::node_element, "Entity");
-		for (auto it : data) {
-			char* a = saveData.allocate_string(it.first.c_str());
-			char* b = saveData.allocate_string(it.second.c_str());
-			eN->append_attribute(
-				saveData.allocate_attribute(
-					a, b
-				)
-			);
-		}
-		n->append_node(eN);
-	}
-	saveData.append_node(n);
-	std::ofstream f;
-	f.open("test.xml");
-	f << saveData;
-	f.close();
+	SaveFile sf(this);
+	sf.save("test.xml");
 }
 void Game::handleEvent(sf::Event e) {
 	switch (e.type) {
