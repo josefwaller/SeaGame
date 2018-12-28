@@ -61,8 +61,9 @@ void GameHud::update() {
 }
 void GameHud::render(RenderManager& rm) {
 	if (this->currentClickState == ClickState::Building && this->toBuild) {
-		// Move to mouse coords
-		this->toBuild->components.transform->setPosition(sf::Vector2f(this->game->getMouseCoords()));
+		// Move to mouse coords, rounded to 64px
+		sf::Vector2i pos = sf::Vector2i(this->game->getMouseCoords() / 64.0f) * 64;
+		this->toBuild->components.transform->setPosition(sf::Vector2f(pos));
 		// Reset the texture
 		this->toBuild->components.renderer->reset();
 		// Render
