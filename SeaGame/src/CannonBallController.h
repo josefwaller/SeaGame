@@ -12,6 +12,7 @@ public:
 	CannonballController(float angle);
 	virtual void update(float delta) override;
 	virtual void onCollision(std::weak_ptr<Entity> spawner) override;
+	virtual void setParent(std::weak_ptr<Entity> parent) override;
 private:
 	float angle;
 	// Original position of the cannonball

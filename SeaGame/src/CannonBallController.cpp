@@ -8,6 +8,9 @@ CannonballController::CannonballController(float angle)
 	: ControllerComponent()
 {
 	this->angle = angle;
+}
+void CannonballController::setParent(std::weak_ptr<Entity> parent) {
+	Component::setParent(parent);
 	this->startPos = this->getParent().lock()->components.transform->getPosition();
 	// Move the cannonball
 	auto physics = this->getParent().lock()->components.physics;
