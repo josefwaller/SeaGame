@@ -36,3 +36,8 @@ std::map<std::string, std::string> TransformComponent::getSaveData() {
 		{"r", std::to_string(this->getRotation())}
 	};
 }
+
+void TransformComponent::fromSaveData(std::map<std::string, std::string> data) {
+	this->setPosition({ std::stof(data["x"]), std::stof(data["y"]) });
+	this->setRotation(std::stof(data["r"]));
+}

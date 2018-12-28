@@ -13,6 +13,7 @@ public:
 	virtual float getRotation() = 0;
 	virtual void setRotation(float newRot) = 0;
 	virtual std::map<std::string, std::string> getSaveData() override;
+	virtual void fromSaveData(std::map<std::string, std::string> data) override;
 
 	// Get difference in position and angle between two transforms
 	std::pair<sf::Vector2f, float> getDifference(std::weak_ptr<TransformComponent> other);

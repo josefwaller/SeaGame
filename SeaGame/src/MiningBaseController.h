@@ -11,6 +11,8 @@ public:
 	virtual void update(float deltaTime) override;
 	// Get the resource this base generates
 	GameResource getResource();
+	virtual std::map<std::string, std::string> getSaveData() override;
+	virtual void fromSaveData(std::map<std::string, std::string> data) override;
 private:
 	static const float GENERATION_DELAY;
 	GameResource res;

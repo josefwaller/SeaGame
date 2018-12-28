@@ -319,8 +319,8 @@ entity_ptr EntityPrefabs::resourceSource(Game* g, sf::Vector2i pos, GameResource
 }
 entity_ptr EntityPrefabs::getEntityFromSaveData(Game* g, std::map<std::string, std::string> data) {
 	EntityType type = (EntityType)std::stoi(data["type"]);
-	float x = (float)std::stoi(data["x"]);
-	float y = (float)std::stoi(data["y"]);
+	float x = 0.0f;
+	float y = 0.0f;
 	switch (type){
 	// Types of bases
 	case EntityType::MiningBase:
@@ -342,9 +342,9 @@ entity_ptr EntityPrefabs::getEntityFromSaveData(Game* g, std::map<std::string, s
 		// Source/destination is set in Component::fromSvaeData after all entities are loaded
 		return EntityPrefabs::ferryShip(g, { x, y }, std::weak_ptr<Entity>(), std::weak_ptr<Entity>());
 	case EntityType::ConversionBase:
-		return EntityPrefabs::conversionBase(g, { (int)x, (int)y }, (GameResource)(std::stoi(data["product"])));
+		return EntityPrefabs::conversionBase(g, { (int)x, (int)y }, GameResource::Stone);
 	case EntityType::ResourceDeposit:
-		return EntityPrefabs::resourceSource(g, { (int)x, (int)y }, (GameResource)(std::stoi(data["res"])));
+		return EntityPrefabs::resourceSource(g, { (int)x, (int)y }, GameResource::Stone);
 	}
 	auto breakpoint = 0;
 	return nullptr;

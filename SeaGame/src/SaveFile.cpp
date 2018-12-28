@@ -26,6 +26,21 @@ SaveFile::SaveFile(Game* g) {
 				)
 			);
 		}
+		// Iterate over a pointer of each component this->entity has
+		for (ComponentType t : ComponentList::allTypes) {
+			if (auto c = e->components.get(t)) {
+				int i = (int)t;
+				auto cNode = doc.allocate_node(rapidxml::node_element, "Component");
+				auto m = c->getSaveData();
+				m.insert({ "type", std::to_string(i) });
+				for (auto it = m.begin(); it != m.end(); it++) {
+					char* a = doc.allocate_string(it->first.c_str());
+					char* b = doc.allocate_string(it->second.c_str());
+					cNode->append_attribute(doc.allocate_attribute(a, b));
+				}
+				eN->append_node(cNode);
+			}
+		}
 		n->append_node(eN);
 	}
 	doc.append_node(n);
@@ -57,13 +72,25 @@ std::unique_ptr<Game> SaveFile::load(App* a) {
 	GameMap gMap(g, &doc);
 	// Load all the entities' data
 	std::vector<std::map<std::string, std::string>> entityDatas;
+	std::vector<std::vector<std::map<std::string, std::string>>> componentDatas;
 	auto eN = doc.first_node("EntityList");
 	for (auto n = eN->first_node("Entity"); n != nullptr; n = n->next_sibling()) {
+		// Load the attributes from the node
 		std::map<std::string, std::string> data;
 		for (auto a = n->first_attribute(); a != nullptr; a = a->next_attribute()) {
 			data.insert({ a->name(), a->value() });
 		}
 		entityDatas.push_back(data);
+		// Load the attributes from the children nodes (the components)
+		std::vector<std::map<std::string, std::string>> cData;
+		for (auto cNode = n->first_node("Component"); cNode != nullptr; cNode = cNode->next_sibling()) {
+			std::map<std::string, std::string> cd;
+			for (auto cAttr = cNode->first_attribute(); cAttr != nullptr; cAttr = cAttr->next_attribute()) {
+				cd.insert({ cAttr->name(), cAttr->value() });
+			}
+			cData.push_back(cd);
+		}
+		componentDatas.push_back(cData);
 	}
 	// Vector of entities
 	std::vector<std::shared_ptr<Entity>> entities;
@@ -93,12 +120,25 @@ std::unique_ptr<Game> SaveFile::load(App* a) {
 	// Now that all values have been added to the game, can set component data from save data
 	for (size_t i = 0; i < entityDatas.size(); i++) {
 		std::shared_ptr<Entity> e = g->getEntityById(std::stoi(entityDatas[i]["id"])).lock();
+		std::vector<std::map<std::string, std::string>> cDatas = componentDatas[i];
 		for (ComponentType c : ComponentList::allTypes) {
+			std::map<std::string, std::string> data;
+			for (auto cd : cDatas) {
+				if (std::stoi(cd["type"]) == (int)(c)) {
+					data = cd;
+					break;
+				}
+			}
 			std::shared_ptr<Component> comp = e->components.get(c);
 			if (comp) {
-				comp->fromSaveData(entityDatas[i]);
+				comp->fromSaveData(data);
 			}
 		}
+	}
+	// After that, reset all the renderers because they entities might have changed unexpectedly
+	// Ex: Bases might move, but bases should never move in an actual game
+	for (auto it = entities.begin(); it != entities.end(); it++) {
+		(*it)->components.renderer->reset();
 	}
 
 	// Return the game
