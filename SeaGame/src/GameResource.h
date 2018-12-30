@@ -4,35 +4,27 @@
 #include <vector>
 #include <SFML/Graphics.hpp>
 
-enum GameResource
-{
-	Stone,
-	Wood,
-	Gold,
-	Plank,
-	Iron,
-	Copper,
-	StoneBrick,
-	StoneStatue,
-	Wheat,
-	Flour,
+// Automatically create an enum and a vector of the enum
+#define GAME_RESOURCES \
+	Stone, \
+	Wood, \
+	Gold, \
+	Plank, \
+	Iron, \
+	Copper, \
+	StoneBrick, \
+	StoneStatue, \
+	Wheat, \
+	Flour, \
 	Bread
-};
+
+typedef enum { GAME_RESOURCES } GameResource;
 
 const std::vector<GameResource> ALL_RESOURCES = {
-	GameResource::Stone,
-	GameResource::Wood,
-	GameResource::Gold,
-	GameResource::Plank,
-	GameResource::Iron,
-	GameResource::Copper,
-	GameResource::StoneBrick,
-	GameResource::StoneStatue,
-	GameResource::Wheat,
-	GameResource::Flour,
-	GameResource::Bread
+	GAME_RESOURCES
 };
 
+#undef GAME_RESOURCES
 // How much the player gets for selling these resources
 const std::map<GameResource, unsigned int> RESOURCE_VALUES = {
 	{GameResource::Stone, 10},
