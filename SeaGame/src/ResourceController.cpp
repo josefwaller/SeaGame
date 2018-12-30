@@ -21,13 +21,13 @@ void ResourceController::update(float delta) {
 
 }
 
-std::map<std::string, std::string> ResourceController::getSaveData() {
-	return {
+SaveData ResourceController::getSaveData() {
+	return SaveData("Component", {
 		{ "res", std::to_string((int)this->res) },
 		{ "count", std::to_string(this->count) }
-	};
+	});
 }
-void ResourceController::fromSaveData(std::map<std::string, std::string> data) {
-	this->res = (GameResource)std::stoi(data["res"]);
-	this->count = std::stoi(data["count"]);
+void ResourceController::fromSaveData(SaveData data) {
+	this->res = (GameResource)std::stoi(data.getValue("res"));
+	this->count = std::stoi(data.getValue("count"));
 }

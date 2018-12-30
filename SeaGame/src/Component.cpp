@@ -11,11 +11,10 @@ std::weak_ptr<Entity> Component::getParent()
 void Component::setParent(std::weak_ptr<Entity> parent) {
 	this->parent = parent;
 }
-std::map<std::string, std::string> Component::getSaveData() {
-	return {};
+SaveData Component::getSaveData() {
+	return SaveData("Component");
 }
-
-void Component::fromSaveData(std::map<std::string, std::string> data) {
+void Component::fromSaveData(SaveData data) {
 }
 
 void Component::updateGui(tgui::Tabs::Ptr tabs, std::map<std::string, tgui::Panel::Ptr>* panels) {}

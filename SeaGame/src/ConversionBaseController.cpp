@@ -45,16 +45,16 @@ void ConversionBaseController::update(float delta) {
 	}
 }
 
-std::map<std::string, std::string> ConversionBaseController::getSaveData() {
-	return {
+SaveData ConversionBaseController::getSaveData() {
+	return SaveData("Component", {
 		{ "product", std::to_string((unsigned int)this->product) },
 		{ "sinceLastConversion", std::to_string(this->sinceLastConversion) },
-	};
+	});
 }
 
-void ConversionBaseController::fromSaveData(std::map<std::string, std::string> data) {
-	this->product = (GameResource)std::stoi(data["product"]);
-	this->sinceLastConversion = std::stof(data["sinceLastConversion"]);
+void ConversionBaseController::fromSaveData(SaveData data) {
+	this->product = (GameResource)std::stoi(data.getValue("product"));
+	this->sinceLastConversion = std::stof(data.getValue("sinceLastConversion"));
 }
 
 GameResource ConversionBaseController::getProduct() {

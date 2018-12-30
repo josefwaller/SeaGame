@@ -170,28 +170,56 @@ void FerryShipController::updateGui(tgui::Tabs::Ptr tabs, std::map<std::string, 
 
 }
 
-std::map<std::string, std::string> FerryShipController::getSaveData() {
-	std::map<std::string, std::string> toReturn;
-	std::string stopCount = std::to_string(this->stops.size());
-	toReturn["stopCount"] = stopCount;
+SaveData FerryShipController::getSaveData() {
+	SaveData toReturn("Component");
+	toReturn.addValue("stopCount", std::to_string(this->stops.size()));
+	toReturn.addValue("currentIndex", std::to_string(this->currentStopIndex));
 	for (auto it = this->stops.begin(); it != this->stops.end(); it++) {
-		toReturn["stop_" + std::to_string(std::distance(this->stops.begin(), it))] = std::to_string(it->target.lock()->id);
+		// Create a SaveData for this stop
+		SaveData sd("FerryStop");
+		sd.addValue("index", std::to_string(std::distance(this->stops.begin(), it)));
+		sd.addValue("target" , std::to_string(it->target.lock()->id));
+		for (auto pickUp : it->toPickUp) {
+			if (pickUp.second) {
+				SaveData pickUpData("PickUp");
+				pickUpData.addValue("resource", std::to_string(pickUp.first));
+				sd.addData(pickUpData);
+			}
+		}
+		for (auto dropOff : it->toDropOff) {
+			if (dropOff.second) {
+				SaveData dropOffData("DropOff");
+				dropOffData.addValue("resource", std::to_string(dropOff.first));
+				sd.addData(dropOffData);
+			}
+		}
+		toReturn.addData(sd);
 	}
-	toReturn["currentIndex"] = std::to_string(this->currentStopIndex);
 	return toReturn;
 }
 
-void FerryShipController::fromSaveData(std::map<std::string, std::string> data) {
-	size_t count = std::stoi(data["stopCount"]);
-	for (size_t i = 0; i < count; i++) {
-		unsigned int id = std::stoi(data["stop_" + std::to_string(i)]);
-		this->stops.push_back({
-			this->getParent().lock()->game->getEntityById(id),
-			{},
-			{}
-		});
+void FerryShipController::fromSaveData(SaveData data) {
+	size_t count = std::stoi(data.getValue("stopCount"));
+	this->stops.resize(count);
+	for (SaveData stopData : data.getDatas()) {
+		size_t index = std::stoi(stopData.getValue("index"));
+		std::map<GameResource, bool> toPickUp;
+		std::map<GameResource, bool> toDropOff;
+		for (SaveData invData : stopData.getDatas()) {
+			if (invData.getName() == "PickUp") {
+				toPickUp[(GameResource)std::stoi(invData.getValue("resource"))] = true;
+			}
+			else if (invData.getName() == "DropOff") {
+				toDropOff[(GameResource)std::stoi(invData.getValue("resource"))] = true;
+			}
+		}
+		this->stops[index] = {
+			this->getParent().lock()->game->getEntityById(std::stoi(stopData.getValue("target"))),
+			toPickUp,
+			toDropOff
+		};
 	}
-	this->currentStopIndex = std::stoi(data["currentIndex"]);
+	this->currentStopIndex = std::stoi(data.getValue("currentIndex"));
 	if (this->stops.size() > 0) {
 		this->destination = this->stops[this->currentStopIndex].target;
 		// Have to set target, so that it will create points for the ship to go to

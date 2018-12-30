@@ -56,7 +56,7 @@ struct Entity
 	// The specific type of entity
 	EntityType type;
 	ComponentList components;
-	std::map<std::string, std::string> getSaveData();
+	SaveData getSaveData();
 	// Get a string representation of the entity to be used in UI
 	std::string getStringRep();
 };

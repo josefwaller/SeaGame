@@ -12,8 +12,8 @@ public:
 	void removeItems(GameResource res, unsigned int amount);
 	// Retrieve a copy of the inventory's data
 	std::map<GameResource, unsigned int> getInventory();
-	std::map<std::string, std::string> getSaveData() override;
-	void fromSaveData(std::map<std::string, std::string> data) override;
+	SaveData getSaveData() override;
+	void fromSaveData(SaveData data) override;
 	void updateGui(tgui::Tabs::Ptr tabs, std::map<std::string, tgui::Panel::Ptr>* panels) override;
 private:
 	// Inventory data

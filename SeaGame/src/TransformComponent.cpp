@@ -29,15 +29,15 @@ std::pair<sf::Vector2f, float> TransformComponent::getDifference(sf::Vector2f ot
 	return { diff, angle };
 
 }
-std::map<std::string, std::string> TransformComponent::getSaveData() {
-	return {
+SaveData TransformComponent::getSaveData() {
+	return SaveData("Component", {
 		{"x", std::to_string(this->getPosition().x)},
 		{"y", std::to_string(this->getPosition().y)},
 		{"r", std::to_string(this->getRotation())}
-	};
+	});
 }
 
-void TransformComponent::fromSaveData(std::map<std::string, std::string> data) {
-	this->setPosition({ std::stof(data["x"]), std::stof(data["y"]) });
-	this->setRotation(std::stof(data["r"]));
+void TransformComponent::fromSaveData(SaveData data) {
+	this->setPosition({ std::stof(data.getValue("x")), std::stof(data.getValue("y")) });
+	this->setRotation(std::stof(data.getValue("r")));
 }

@@ -317,8 +317,8 @@ entity_ptr EntityPrefabs::resourceSource(Game* g, sf::Vector2i pos, GameResource
 		)
 	));
 }
-entity_ptr EntityPrefabs::getEntityFromSaveData(Game* g, std::map<std::string, std::string> data) {
-	EntityType type = (EntityType)std::stoi(data["type"]);
+entity_ptr EntityPrefabs::getEntityFromSaveData(Game* g, SaveData data) {
+	EntityType type = (EntityType)std::stoi(data.getValue("type"));
 	float x = 0.0f;
 	float y = 0.0f;
 	switch (type){

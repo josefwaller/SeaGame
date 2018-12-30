@@ -15,33 +15,7 @@ SaveFile::SaveFile(Game* g) {
 	// Add entity save data
 	auto n = doc.allocate_node(rapidxml::node_element, "EntityList");
 	for (auto e : g->getEntities()) {
-		auto data = e->getSaveData();
-		auto eN = doc.allocate_node(rapidxml::node_element, "Entity");
-		for (auto it : data) {
-			char* a = doc.allocate_string(it.first.c_str());
-			char* b = doc.allocate_string(it.second.c_str());
-			eN->append_attribute(
-				doc.allocate_attribute(
-					a, b
-				)
-			);
-		}
-		// Iterate over a pointer of each component this->entity has
-		for (ComponentType t : ComponentList::allTypes) {
-			if (auto c = e->components.get(t)) {
-				int i = (int)t;
-				auto cNode = doc.allocate_node(rapidxml::node_element, "Component");
-				auto m = c->getSaveData();
-				m.insert({ "type", std::to_string(i) });
-				for (auto it = m.begin(); it != m.end(); it++) {
-					char* a = doc.allocate_string(it->first.c_str());
-					char* b = doc.allocate_string(it->second.c_str());
-					cNode->append_attribute(doc.allocate_attribute(a, b));
-				}
-				eN->append_node(cNode);
-			}
-		}
-		n->append_node(eN);
+		this->addData(e->getSaveData(), n, &doc);
 	}
 	doc.append_node(n);
 	// Save doc data
@@ -60,6 +34,38 @@ void SaveFile::save(std::string fileName) {
 	f.close();
 
 }
+void SaveFile::addData(SaveData sd, rapidxml::xml_node<>* parent, rapidxml::xml_document<>* doc) {
+	// First, create a node for the data
+	const char* name = doc->allocate_string(sd.getName().c_str());
+	auto node = doc->allocate_node(rapidxml::node_element, name);
+	parent->append_node(node);
+	// Add all the string values
+	for (auto v : sd.getValues()) {
+		char* a = doc->allocate_string(v.first.c_str());
+		char* b = doc->allocate_string(v.second.c_str());
+		auto attr = doc->allocate_attribute(a, b);
+		node->append_attribute(attr);
+	}
+	// Add the children
+	for (auto it : sd.getDatas()) {
+		this->addData(it, node, doc);
+	}
+}
+SaveData SaveFile::getData(rapidxml::xml_node<>* node) {
+	// Create save data
+	SaveData sd(node->name());
+	// Add attributes
+	for (auto attr = node->first_attribute(); attr != nullptr; attr = attr->next_attribute()) {
+		if (attr->name() != "name") {
+			sd.addValue(attr->name(), attr->value());
+		}
+	}
+	// Add nested nodes
+	for (auto child = node->first_node(); child != nullptr; child = child->next_sibling()) {
+		sd.addData(this->getData(child));
+	}
+	return sd;
+}
 std::unique_ptr<Game> SaveFile::load(App* a) {
 	// Create the game
 	std::unique_ptr<Game> game(new Game(a));
@@ -71,26 +77,10 @@ std::unique_ptr<Game> SaveFile::load(App* a) {
 	// Create GameMap
 	GameMap gMap(g, &doc);
 	// Load all the entities' data
-	std::vector<std::map<std::string, std::string>> entityDatas;
-	std::vector<std::vector<std::map<std::string, std::string>>> componentDatas;
+	std::vector<SaveData> entityDatas;
 	auto eN = doc.first_node("EntityList");
 	for (auto n = eN->first_node("Entity"); n != nullptr; n = n->next_sibling()) {
-		// Load the attributes from the node
-		std::map<std::string, std::string> data;
-		for (auto a = n->first_attribute(); a != nullptr; a = a->next_attribute()) {
-			data.insert({ a->name(), a->value() });
-		}
-		entityDatas.push_back(data);
-		// Load the attributes from the children nodes (the components)
-		std::vector<std::map<std::string, std::string>> cData;
-		for (auto cNode = n->first_node("Component"); cNode != nullptr; cNode = cNode->next_sibling()) {
-			std::map<std::string, std::string> cd;
-			for (auto cAttr = cNode->first_attribute(); cAttr != nullptr; cAttr = cAttr->next_attribute()) {
-				cd.insert({ cAttr->name(), cAttr->value() });
-			}
-			cData.push_back(cd);
-		}
-		componentDatas.push_back(cData);
+		entityDatas.push_back(this->getData(n));
 	}
 	// Vector of entities
 	std::vector<std::shared_ptr<Entity>> entities;
@@ -101,7 +91,7 @@ std::unique_ptr<Game> SaveFile::load(App* a) {
 		// Create entity
 		std::shared_ptr<Entity> e = EntityPrefabs::getEntityFromSaveData(g, it);
 		// Override id
-		e->id = std::stoi(it["id"]);
+		e->id = std::stoi(it.getValue("id"));
 		// Add to list
 		entities.push_back(e);
 		// Set to player if it is
@@ -119,12 +109,12 @@ std::unique_ptr<Game> SaveFile::load(App* a) {
 	);
 	// Now that all values have been added to the game, can set component data from save data
 	for (size_t i = 0; i < entityDatas.size(); i++) {
-		std::shared_ptr<Entity> e = g->getEntityById(std::stoi(entityDatas[i]["id"])).lock();
-		std::vector<std::map<std::string, std::string>> cDatas = componentDatas[i];
+		std::shared_ptr<Entity> e = g->getEntityById(std::stoi(entityDatas[i].getValue("id"))).lock();
+		std::vector<SaveData> cDatas = entityDatas[i].getDatas();
 		for (ComponentType c : ComponentList::allTypes) {
-			std::map<std::string, std::string> data;
+			SaveData data("Component");
 			for (auto cd : cDatas) {
-				if (std::stoi(cd["type"]) == (int)(c)) {
+				if (std::stoi(cd.getValue("type")) == (int)(c)) {
 					data = cd;
 					break;
 				}

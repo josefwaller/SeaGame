@@ -165,6 +165,7 @@
     <ClCompile Include="src\ResourceController.cpp" />
     <ClCompile Include="src\ResourceManager.cpp" />
     <ClCompile Include="src\ResourceRenderer.cpp" />
+    <ClCompile Include="src\SaveData.cpp" />
     <ClCompile Include="src\SaveFile.cpp" />
     <ClCompile Include="src\ShipController.cpp" />
     <ClCompile Include="src\ShipRenderer.cpp" />
@@ -223,6 +224,7 @@
     <ClInclude Include="src\ResourceController.h" />
     <ClInclude Include="src\ResourceManager.h" />
     <ClInclude Include="src\ResourceRenderer.h" />
+    <ClInclude Include="src\SaveData.h" />
     <ClInclude Include="src\SaveFile.h" />
     <ClInclude Include="src\ShipController.h" />
     <ClInclude Include="src\ShipRenderer.h" />

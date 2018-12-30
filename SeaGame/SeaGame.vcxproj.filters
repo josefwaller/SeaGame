@@ -170,6 +170,9 @@
     <Filter Include="Files\Utils\SaveFile">
       <UniqueIdentifier>{60753542-5e99-444a-9ca7-8503b03fcb66}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Files\Utils\SaveData">
+      <UniqueIdentifier>{540a612c-a8ee-4d17-a096-48e5f5933ad8}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\CannonBallController.cpp">
@@ -330,6 +333,9 @@
     </ClCompile>
     <ClCompile Include="src\SaveFile.cpp">
       <Filter>Files\Utils\SaveFile</Filter>
+    </ClCompile>
+    <ClCompile Include="src\SaveData.cpp">
+      <Filter>Files\Utils\SaveData</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -497,6 +503,9 @@
     </ClInclude>
     <ClInclude Include="src\SaveFile.h">
       <Filter>Files\Utils\SaveFile</Filter>
+    </ClInclude>
+    <ClInclude Include="src\SaveData.h">
+      <Filter>Files\Utils\SaveData</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

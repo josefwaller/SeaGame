@@ -18,24 +18,22 @@ std::map<GameResource, unsigned int> InventoryComponent::getInventory() {
 	return this->inventory;
 }
 
-std::map<std::string, std::string> InventoryComponent::getSaveData() {
-	std::map<std::string, std::string> data;
+SaveData InventoryComponent::getSaveData() {
+	SaveData data("Component");
 	for (auto it = this->inventory.begin(); it != this->inventory.end(); ++it) {
-		data.insert({ "inv-" + std::to_string(it->first), std::to_string(it->second) });
+		SaveData invData("Inventory");
+		invData.addValue("resource", std::to_string(it->first));
+		invData.addValue("count", std::to_string(it->second));
+		data.addData(invData);
 	}
 	return data;
 }
 
-void InventoryComponent::fromSaveData(std::map<std::string, std::string> data) {
-	for (auto it = data.begin(); it != data.end(); ++it) {
-		// Check the string begins with inv-
-		if (it->first.find("inv-") == 0) {
-			// Get resource type and number of resource
-			int resNum = std::stoi(it->first.substr(4, it->first.size()));
-			int resCount = std::stoi(it->second);
-			// Add it
-			this->addItems((GameResource)resNum, resCount);
-		}
+void InventoryComponent::fromSaveData(SaveData data) {
+	for (SaveData sd : data.getDatas()) {
+		GameResource res = (GameResource)std::stoi(sd.getValue("resource"));
+		unsigned int count = (unsigned int)std::stoi(sd.getValue("count"));
+		this->addItems(res, count);
 	}
 }
 
@@ -62,5 +60,4 @@ void InventoryComponent::updateGui(tgui::Tabs::Ptr tabs, std::map<std::string, t
 		panels->at("Inventory")->add(btn);
 		y += btn->getFullSize().y;
 	}
-	auto x = 0;
 }

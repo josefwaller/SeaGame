@@ -13,8 +13,8 @@ public:
 	// empty, maybe will be filled or the class will be moved to somewhere else
 	virtual void update(float delta) override;
 	// Get the resource to save
-	virtual std::map<std::string, std::string> getSaveData() override;
-	virtual void fromSaveData(std::map<std::string, std::string> data) override;
+	virtual SaveData getSaveData() override;
+	virtual void fromSaveData(SaveData data) override;
 private:
 	GameResource res;
 	unsigned int count;

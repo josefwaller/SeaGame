@@ -1,9 +1,12 @@
 #pragma once
 #include <string>
 #include <memory>
+#include <rapidxml\rapidxml_utils.hpp>
+#include "SaveData.h"
 
 class App;
 class Game;
+
 
 class SaveFile {
 public:
@@ -18,4 +21,8 @@ public:
 private:
 	// Underlying data structure
 	std::string data;
+	// Add the data in a SaveData to the rapidxml node given
+	void addData(SaveData sd, rapidxml::xml_node<>* parent, rapidxml::xml_document<>* doc);
+	// Load the data from xml to a SaveData
+	SaveData getData(rapidxml::xml_node<>* node);
 };

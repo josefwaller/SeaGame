@@ -14,11 +14,11 @@ void MiningBaseController::update(float delta) {
 GameResource MiningBaseController::getResource() {
 	return this->res;
 }
-std::map<std::string, std::string> MiningBaseController::getSaveData() {
-	return {
+SaveData MiningBaseController::getSaveData() {
+	return SaveData("Component", {
 		{"product", std::to_string(this->res)}
-	};
+	});
 }
-void MiningBaseController::fromSaveData(std::map<std::string, std::string> data) {
-	this->res = (GameResource)(std::stoi(data["product"]));
+void MiningBaseController::fromSaveData(SaveData data) {
+	this->res = (GameResource)(std::stoi(data.getValue("product")));
 }

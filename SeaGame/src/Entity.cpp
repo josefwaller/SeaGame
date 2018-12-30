@@ -6,12 +6,22 @@
 unsigned int Entity::trueEntityCount = 0;
 
 unsigned long Entity::currentId = 0;
-std::map<std::string, std::string> Entity::getSaveData() {
-	return {
+SaveData Entity::getSaveData() {
+	// Initialize save data
+	SaveData sd("Entity", {
 		{"type", std::to_string((int)this->type)},
 		{"tag", std::to_string((int)this->tag)},
 		{"id", std::to_string(this->id)}
-	};
+	});
+	// Get data for all components
+	for (ComponentType t : ComponentList::allTypes) {
+		if (this->components.get(t)) {
+			SaveData cData = this->components.get(t)->getSaveData();
+			cData.addValue("type", std::to_string(t));
+			sd.addData(cData);
+		}
+	}
+	return sd;
 }
 std::string Entity::getStringRep() {
 	std::shared_ptr<ConversionBaseController> cont;
