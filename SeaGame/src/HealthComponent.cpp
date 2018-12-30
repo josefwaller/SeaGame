@@ -29,3 +29,11 @@ void HealthComponent::updateGui(tgui::Tabs::Ptr tabs, std::map<std::string, tgui
 	tabs->add("Health", false);
 	panels->insert({ "Health", tgui::Panel::create() });
 }
+SaveData HealthComponent::getSaveData() {
+	return SaveData("Component", {
+		{ "health", std::to_string(this->health) }
+	});
+}
+void HealthComponent::fromSaveData(SaveData data) {
+	this->health = std::stoi(data.getValue("health"));
+}
