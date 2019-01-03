@@ -3,8 +3,8 @@
 #include "InventoryComponent.h"
 
 void FerryShipController::update(float delta) {
-	// Move towards destination if it exists
-	if (this->destination.lock()) {
+	// Move towards destination if it exists and there is a path to it
+	if (this->destination.lock() && !this->points.empty()) {
 		this->move(delta);
 	}
 	else if (this->stops.size() > 0) {
