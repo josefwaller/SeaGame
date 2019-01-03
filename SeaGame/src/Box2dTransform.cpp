@@ -10,6 +10,18 @@ Box2dTransform::Box2dTransform(b2Body* body)
 	this->body = body;
 
 }
+Box2dTransform::~Box2dTransform()
+{
+	// Destory the body
+	this->world.lock()->DestroyBody(this->body);
+}
+void Box2dTransform::setParent(std::weak_ptr<Entity> parent) {
+	Component::setParent(parent);
+	// Store world
+	this->world = this->getParent().lock()->game->getWorld();
+}
+
+
 
 sf::Vector2f Box2dTransform::getPosition()
 {

@@ -7,7 +7,6 @@
 class PhysicsComponent : public Component
 {
 public:
-	~PhysicsComponent();
 	virtual void setParent(std::weak_ptr<Entity> parent) override;
 	// Set acceleration
 	void setAcceleration(sf::Vector2f a);

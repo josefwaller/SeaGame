@@ -12,12 +12,6 @@ void PhysicsComponent::setParent(std::weak_ptr<Entity> parent) {
 	this->body->SetUserData(this);
 	this->world = this->getParent().lock()->game->getWorld();
 }
-PhysicsComponent::~PhysicsComponent()
-{
-	// Destory the body
-	this->world.lock()->DestroyBody(this->body);
-}
-
 void PhysicsComponent::setAcceleration(sf::Vector2f a)
 {
 	this->body->ApplyForceToCenter({ a.x * this->body->GetMass(), a.y * this->body->GetMass() }, true);

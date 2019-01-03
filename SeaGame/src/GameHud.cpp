@@ -284,6 +284,7 @@ void GameHud::chooseEntityToBuild(CraftingRecipes::CraftRecipe cr) {
 	std::shared_ptr<Entity> e = cr.createMethod(this->game, { 0.0f, 0.0f });
 	// Overwrite all their components except for renderer
 	// Set all to nullptr except transform, which is set to simple transform
+	auto x = e->components.transform.use_count();
 	std::shared_ptr<RenderComponent> r = e->components.renderer;
 	e->components = ComponentList(
 		new BasicTransform({ 0.0f, 0.0f }, 0.0f),

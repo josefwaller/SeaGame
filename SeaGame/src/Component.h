@@ -11,6 +11,7 @@ class Component
 {
 public:
 	Component();
+	virtual ~Component();
 	// Set the parent
 	// May be overridden by a component to allow set up after all other components are initialized
 	virtual void setParent(std::weak_ptr<Entity> parent);
