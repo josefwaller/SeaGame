@@ -8,10 +8,8 @@ void ConversionBaseController::setParent(std::weak_ptr<Entity> parent) {
 	BaseController::setParent(parent);
 #ifdef _DEBUG
 	if (this->getParent().lock()->components.inventory == nullptr) {
-		auto x = 0;
 	}
 	if (ConversionRecipes::recipes.find(this->product) == ConversionRecipes::recipes.end()) {
-		auto x = 0;
 	}
 #endif
 }

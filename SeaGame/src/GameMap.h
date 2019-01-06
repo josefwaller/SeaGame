@@ -3,6 +3,7 @@
 #include <SFML/Graphics.hpp>
 #include <Box2D/Box2D.h>
 #include "RenderManager.h"
+#include "SaveData.h"
 // Forward declaration of game
 class Game;
 
@@ -19,11 +20,12 @@ public:
 	// Generate a new map
 	GameMap(Game* g);
 	// Get map data from a document
-	GameMap(Game* g, rapidxml::xml_document<>* data);
+	GameMap(Game* g, SaveData data);
 	GameMap();
 	void render(RenderManager& r);
 	TileType getTileAt(size_t x, size_t y);
 	sf::Vector2<size_t> getMapSize();
+	SaveData getSaveData();
 	void addSaveData(rapidxml::xml_document<>* doc);
 private:
 	// Game the map is in

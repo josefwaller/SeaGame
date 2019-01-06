@@ -59,27 +59,49 @@ noiseGrid[x].push_back(noise.octaveNoise0_1(x / fx, y / fy, 16));
 			if (noiseGrid[x][y] > 0.5) {
 				// Add a land tile
 				this->addLandTile(x, y);
+				// Temporarily, have a 5% chance to add a resource to it
+				// Eventually will make actually spawn randomly
+				if (rand() % 100 < 5) {
+					GameResource res;
+					switch (rand() % 5) {
+					case 0:
+						res = GameResource::Wood;
+						break;
+					case 1:
+						res = GameResource::Stone;
+						break;
+					case 2:
+						res = GameResource::Copper;
+						break;
+					case 3:
+						res = GameResource::Iron;
+						break;
+					case 4:
+						res = GameResource::Gold;
+						break;
+					}
+					this->game->addEntity(
+						EntityPrefabs::resourceSource(this->game, sf::Vector2i((int)x * 64, (int)y * 64), res)
+					);
+				}
+
 			}
 		}
 	}
 	resetTexture();
 }
-GameMap::GameMap(Game* g, rapidxml::xml_document<>* doc): game(g) {
-
-	auto gMapNode = doc->first_node("GameMap");
-	size_t w = std::stoi(gMapNode->first_attribute("width")->value());
-	size_t h = std::stoi(gMapNode->first_attribute("height")->value());
+GameMap::GameMap(Game* g, SaveData data): game(g) {
+	int w = std::stoi(data.getValue("width"));
+	int h = std::stoi(data.getValue("height"));
 	this->tiles.resize(w);
-	// Fill tiles with sea
-	for (auto it = this->tiles.begin(); it != this->tiles.end(); ++it) {
-		it->resize(h, TileType::Sea);
+	for (auto it = this->tiles.begin(); it != this->tiles.end(); it++) {
+		it->resize(h);
 	}
-	for (auto n = gMapNode->first_node(); n != nullptr; n = n->next_sibling()) {
-		size_t x = (size_t)std::stoi(n->first_attribute("x")->value());
-		size_t y = (size_t)std::stoi(n->first_attribute("y")->value());
-		std::string valStr = std::string(n->first_attribute("type")->value());
-		TileType val = valStr == std::string("Land") ? TileType::Land : TileType::Sea;
-		if (val == TileType::Land) {
+	for (SaveData tile : data.getDatas()) {
+		int x = std::stoi(tile.getValue("x"));
+		int y = std::stoi(tile.getValue("y"));
+		TileType t = (TileType)(std::stoi(tile.getValue("type")));
+		if (t == TileType::Land) {
 			this->addLandTile(x, y);
 		}
 	}
@@ -99,29 +121,6 @@ void GameMap::addLandTile(size_t x, size_t y) {
 	b2Body* body = this->game->getWorld().lock()->CreateBody(&bodyDef);
 	body->CreateFixture(&fix);
 	this->bodies.push_back(body);
-	// Temporarily, have a 5% chance to add a resource to it
-	// Eventually will make actually spawn randomly
-	if (rand() % 100 < 5) {
-		GameResource res;
-		switch (rand() % 5) {
-		case 0:
-			res = GameResource::Wood;
-			break;
-		case 1:
-			res = GameResource::Stone;
-			break;
-		case 2:
-			res = GameResource::Copper;
-			break;
-		case 3:
-			res = GameResource::Iron;
-			break;
-		case 4:
-			res = GameResource::Gold;
-			break;
-		}
-		this->game->addEntity(EntityPrefabs::resourceSource(this->game, sf::Vector2i((int)x * 64, (int)y * 64), res));
-	}
 }
 void GameMap::resetTexture() {
 	sf::RenderTexture rt;
@@ -168,6 +167,21 @@ void GameMap::render(RenderManager& r)
 		}
 	}
 
+}
+SaveData GameMap::getSaveData() {
+	SaveData s("GameMap");
+	s.addValue("width", std::to_string(this->getMapSize().x));
+	s.addValue("height", std::to_string(this->getMapSize().y));
+	for (size_t x = 0; x < this->tiles.size(); x++) {
+		for (size_t y = 0; y < this->tiles[x].size(); y++) {
+			SaveData t("GameMapTile");
+			t.addValue("x", std::to_string(x));
+			t.addValue("y", std::to_string(y));
+			t.addValue("type", std::to_string(this->tiles[x][y]));
+			s.addData(t);
+		}
+	}
+	return s;
 }
 void GameMap::addSaveData(rapidxml::xml_document<>* doc) {
 	rapidxml::xml_node<>* n = doc->allocate_node(rapidxml::node_element, "GameMap");

@@ -10,14 +10,16 @@
 
 SaveFile::SaveFile(Game* g) {
 	rapidxml::xml_document<> doc;
+	auto node = doc.allocate_node(rapidxml::node_element, "Game");
+	doc.append_node(node);
 	// Get the GameMap's save data
-	g->getGameMap()->addSaveData(&doc);
+	this->addData(g->getGameMap()->getSaveData(), node, &doc);
 	// Add entity save data
 	auto n = doc.allocate_node(rapidxml::node_element, "EntityList");
+	node->append_node(n);
 	for (auto e : g->getEntities()) {
 		this->addData(e->getSaveData(), n, &doc);
 	}
-	doc.append_node(n);
 	// Save doc data
 	std::ostringstream os;
 	os << doc;
@@ -74,11 +76,13 @@ std::unique_ptr<Game> SaveFile::load(App* a) {
 	// Parse data
 	rapidxml::xml_document<> doc;
 	doc.parse<0>((char*)this->data.c_str());
+	auto gameNode = doc.first_node("Game");
 	// Create GameMap
-	GameMap gMap(g, &doc);
+	SaveData gm = this->getData(gameNode->first_node("GameMap"));
+	GameMap gMap(g, gm);
 	// Load all the entities' data
 	std::vector<SaveData> entityDatas;
-	auto eN = doc.first_node("EntityList");
+	auto eN = gameNode->first_node("EntityList");
 	for (auto n = eN->first_node("Entity"); n != nullptr; n = n->next_sibling()) {
 		entityDatas.push_back(this->getData(n));
 	}

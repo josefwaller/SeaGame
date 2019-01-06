@@ -7,6 +7,9 @@ public:
 	virtual void setParent(std::weak_ptr<Entity> parent) override;
 	virtual void render(RenderManager& rm) override;
 	virtual void reset() override;
+	virtual SaveData getSaveData() override;
+	virtual void fromSaveData(SaveData sd) override;
 private:
 	sf::Sprite resSprite;
+	GameResource res;
 };
