@@ -87,8 +87,8 @@
       <AdditionalIncludeDirectories>C:\Users\josef\Documents\Github\SeaGame\PerlinNoise;C:\Users\josef\Documents\Github\SeaGame\TGUI-0.8-dev\include;..\packages\rapidxml.1.13\build\native\include;..\SFML-2.4.2\include;C:\Users\josef\Documents\Github\SeaGame\</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
-      <AdditionalDependencies>Box2D.lib;sfml-graphics-d.lib;sfml-system-d.lib;sfml-main-d.lib;sfml-window-d.lib;tgui-d.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <AdditionalLibraryDirectories>C:\Users\josef\Documents\Github\SeaGame\TGUI-0.8-dev\lib;..\SFML-2.4.2\lib;C:\Users\josef\Documents\Github\SeaGame\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>Box2D_d.lib;sfml-graphics-d.lib;sfml-system-d.lib;sfml-main-d.lib;sfml-window-d.lib;tgui-d.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>C:\Users\josef\Documents\Github\SeaGame\TGUI-0.8\lib;..\SFML-2.4.2\lib;C:\Users\josef\Documents\Github\SeaGame\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -111,13 +111,13 @@
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
-      <AdditionalIncludeDirectories>C:\Users\josef\Documents\Github\SeaGame\TGUI-0.8\include;..\packages\rapidxml.1.13\build\native\include;..\SFML-2.4.2\include;C:\Users\josef\Documents\Github\SeaGame\</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\Users\josef\Documents\Github\SeaGame\PerlinNoise;C:\Users\josef\Documents\Github\SeaGame\TGUI-0.8-dev\include;..\packages\rapidxml.1.13\build\native\include;..\SFML-2.4.2\include;C:\Users\josef\Documents\Github\SeaGame\</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
-      <AdditionalLibraryDirectories>C:\Users\josef\Documents\Github\SeaGame\TGUI-0.8\lib;..\SFML-2.4.2\lib;C:\Users\josef\Documents\Github\SeaGame\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>sfml-window.lib;sfml-graphics.lib;sfml-system.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>C:\Users\josef\Documents\Github\SeaGame\TGUI-0.8-dev\lib;..\SFML-2.4.2\lib;C:\Users\josef\Documents\Github\SeaGame\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>Box2D.lib;sfml-window.lib;sfml-graphics.lib;sfml-system.lib;tgui.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
