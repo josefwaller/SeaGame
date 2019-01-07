@@ -6,6 +6,7 @@ App::App() :
 	window(sf::VideoMode(1920, 1080), "SeaGame"),
 	gui(this->window) {
 
+	tgui::setGlobalTextSize(20);
 	this->state = AppState::InMenu;
 	this->menu.show();
 }
