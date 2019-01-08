@@ -2,15 +2,6 @@
 #include "EntityPrefabs.h"
 
 std::vector<CraftingRecipes::CraftRecipe> CraftingRecipes::recipes = {
-	// TODO: Remove this and make cities generated automatically on the map
-	{
-		{},
-		Technology::Nothing,
-		"City",
-		[&](Game* g, sf::Vector2f pos) {
-			return EntityPrefabs::city(g, (sf::Vector2i)(pos / 64.0f) * 64);
-		}
-	},
 	{
 		{
 			{ GameResource::Wood, 5 }

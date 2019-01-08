@@ -55,13 +55,14 @@ noiseGrid[x].push_back(noise.octaveNoise0_1(x / fx, y / fy, 16));
 	// Add land tiles
 	for (auto x = 0; x < WIDTH; x++) {
 		for (auto y = 0; y < HEIGHT; y++) {
-			// Add test island in the middle
+			// Add land
 			if (noiseGrid[x][y] > 0.5) {
 				// Add a land tile
 				this->addLandTile(x, y);
 				// Temporarily, have a 5% chance to add a resource to it
 				// Eventually will make actually spawn randomly
-				if (rand() % 100 < 5) {
+				int r = rand() % 100;
+				if (r < 6) {
 					GameResource res;
 					switch (rand() % 5) {
 					case 0:
@@ -84,8 +85,18 @@ noiseGrid[x].push_back(noise.octaveNoise0_1(x / fx, y / fy, 16));
 						EntityPrefabs::resourceSource(this->game, sf::Vector2i((int)x * 64, (int)y * 64), res)
 					);
 				}
-
 			}
+		}
+	}
+	// Add cities
+	const size_t CITIES_VERT = 2;
+	const size_t CITIES_HORZ = 2;
+	const size_t w = this->tiles.size() / CITIES_HORZ;
+	const size_t h = this->tiles[0].size() / CITIES_VERT;
+	for (size_t x = 0; x < CITIES_HORZ; x++) {
+		for (size_t y = 0; y < CITIES_VERT; y++) {
+			// Currently don't do anything if building the city fails
+			addCity(x * w, y * h, (x + 1) * w, (y + 1) * h);
 		}
 	}
 	resetTexture();
@@ -121,6 +132,27 @@ void GameMap::addLandTile(size_t x, size_t y) {
 	b2Body* body = this->game->getWorld().lock()->CreateBody(&bodyDef);
 	body->CreateFixture(&fix);
 	this->bodies.push_back(body);
+}
+bool GameMap::addCity(size_t startX, size_t startY, size_t endX, size_t endY) {
+	for (size_t x = startX; x < endX - 3; x++) {
+		for (size_t y = startY; y < endY - 3; y++) {
+			// Check if a city can be built here
+			bool canBuildCity = true;
+			for (size_t xOff = 0; xOff < 3; xOff++) {
+				for (size_t yOff = 0; yOff < 3; yOff++) {
+					if (this->tiles[x + xOff][y + yOff] != TileType::Land) {
+						canBuildCity = false;
+						break;
+					}
+				}
+			}
+			if (canBuildCity) {
+				this->game->addEntity(EntityPrefabs::city(this->game, sf::Vector2i(x, y) * 64));
+				return true;
+			}
+		}
+	}
+	return false;
 }
 void GameMap::resetTexture() {
 	sf::RenderTexture rt;

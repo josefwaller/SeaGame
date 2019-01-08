@@ -41,6 +41,10 @@ private:
 	// Add a land tile at the position and create a box2d collider for it
 	void addLandTile(size_t x, size_t y);
 	void resetTexture();
+	// Add a city somewhere in the bounds given
+	// Return whether a city was successfully built
+	// Assume there are not buildings so do not check for collisions
+	bool addCity(size_t startX, size_t startY, size_t endX, size_t endY);
 };
 
 #include "Game.h"
