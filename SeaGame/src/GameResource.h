@@ -30,7 +30,7 @@ const std::vector<GameResource> ALL_RESOURCES = {
 };
 
 #undef etype
-#define etype(X) { GameResource::X, "X"},
+#define etype(X) { GameResource::X, #X},
 
 const std::map<GameResource, std::string> RESOURCE_STRINGS = {
 	GAME_RESOURCES
