@@ -16,7 +16,9 @@
 	etype(StoneStatue) \
 	etype(Wheat) \
 	etype(Flour) \
-	etype(Bread)
+	etype(Bread) \
+	etype(Fruit) \
+	etype(Beer)
 
 #define etype(x) x,
 

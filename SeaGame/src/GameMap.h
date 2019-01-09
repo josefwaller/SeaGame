@@ -4,6 +4,7 @@
 #include <Box2D/Box2D.h>
 #include "RenderManager.h"
 #include "SaveData.h"
+#include <unordered_set>
 // Forward declaration of game
 class Game;
 
@@ -44,7 +45,7 @@ private:
 	// Add a city somewhere in the bounds given
 	// Return whether a city was successfully built
 	// Assume there are not buildings so do not check for collisions
-	bool addCity(size_t startX, size_t startY, size_t endX, size_t endY);
+	bool addCity(size_t startX, size_t startY, size_t endX, size_t endY, std::vector<sf::Vector2i> resourcePos);
 };
 
 #include "Game.h"

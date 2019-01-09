@@ -71,5 +71,15 @@ std::map<Technology, TechTreeNode> TechTree::nodes = {
 		Technology::Baking,
 		TechTreeNode("Baking", Technology::Mills, TIER_4_COST,
 		"Build bases that bake wheat into bread that can be sold at a high price")
+	},
+	{
+		Technology::Orchards,
+		TechTreeNode("Fruit Cultivation", Technology::Farming, TIER_3_COST,
+		"Build orchards that grow fruit to be sold or brewed into beer")
+	},
+	{
+		Technology::Breweries,
+		TechTreeNode("Breweries", Technology::Orchards, TIER_4_COST,
+		"Brew fruits into beer, which sells for a high price")
 	}
 };

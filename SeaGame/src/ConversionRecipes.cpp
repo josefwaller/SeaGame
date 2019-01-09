@@ -35,5 +35,11 @@ const std::map<GameResource, ConversionRecipes::Recipe> ConversionRecipes::recip
 		5.0f,
 		"Bake flour into bread"
 		}
+	},
+	{GameResource::Beer, {
+		{ { GameResource::Fruit, 20}},
+		20.0f,
+		"Brew Wheat into Beer"
+		}
 	}
 };

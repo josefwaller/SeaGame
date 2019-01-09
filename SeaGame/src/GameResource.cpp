@@ -32,13 +32,19 @@ sf::Sprite getResourceSprite(GameResource res, bool center) {
 		spriteName = "medievalEnvironment_17.png";
 		break;
 	case GameResource::Wheat:
-		spriteName = "medievalEnvironment_20.png";
+		spriteName = "medievalTile_56.png";
 		break;
 	case GameResource::Flour:
 		spriteName = "medievalStructure_21.png";
 		break;
 	case GameResource::Bread:
 		spriteName = "medievalStructure_03.png";
+		break;
+	case GameResource::Fruit:
+		spriteName = "medievalEnvironment_19.png";
+		break;
+	case GameResource::Beer:
+		spriteName = "medievalStructure_06.png";
 		break;
 	}
 	return ResourceManager::get()->getSprite("medievalRTS_spritesheet@2", spriteName, center);

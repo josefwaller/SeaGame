@@ -53,6 +53,8 @@ noiseGrid[x].push_back(noise.octaveNoise0_1(x / fx, y / fy, 16));
 		it->resize(HEIGHT, TileType::Sea);
 	}
 	// Add land tiles
+	// Build a map of where the resource deposits are to ensure cities aren't built on top of them
+	std::vector<sf::Vector2i> resourcePositions;
 	for (auto x = 0; x < WIDTH; x++) {
 		for (auto y = 0; y < HEIGHT; y++) {
 			// Add land
@@ -84,6 +86,7 @@ noiseGrid[x].push_back(noise.octaveNoise0_1(x / fx, y / fy, 16));
 					this->game->addEntity(
 						EntityPrefabs::resourceSource(this->game, sf::Vector2i((int)x * 64, (int)y * 64), res)
 					);
+					resourcePositions.push_back(sf::Vector2i(x, y));
 				}
 			}
 		}
@@ -96,7 +99,7 @@ noiseGrid[x].push_back(noise.octaveNoise0_1(x / fx, y / fy, 16));
 	for (size_t x = 0; x < CITIES_HORZ; x++) {
 		for (size_t y = 0; y < CITIES_VERT; y++) {
 			// Currently don't do anything if building the city fails
-			addCity(x * w, y * h, (x + 1) * w, (y + 1) * h);
+			addCity(x * w, y * h, (x + 1) * w, (y + 1) * h, resourcePositions);
 		}
 	}
 	resetTexture();
@@ -133,14 +136,16 @@ void GameMap::addLandTile(size_t x, size_t y) {
 	body->CreateFixture(&fix);
 	this->bodies.push_back(body);
 }
-bool GameMap::addCity(size_t startX, size_t startY, size_t endX, size_t endY) {
+bool GameMap::addCity(size_t startX, size_t startY, size_t endX, size_t endY,
+	std::vector<sf::Vector2i> resPos) {
 	for (size_t x = startX; x < endX - 3; x++) {
 		for (size_t y = startY; y < endY - 3; y++) {
 			// Check if a city can be built here
 			bool canBuildCity = true;
 			for (size_t xOff = 0; xOff < 3; xOff++) {
 				for (size_t yOff = 0; yOff < 3; yOff++) {
-					if (this->tiles[x + xOff][y + yOff] != TileType::Land) {
+					if (this->tiles[x + xOff][y + yOff] != TileType::Land
+						|| std::find(resPos.begin(), resPos.end(), sf::Vector2i(x + xOff, y + yOff)) != resPos.end()) {
 						canBuildCity = false;
 						break;
 					}
