@@ -1,5 +1,6 @@
 #include "Entity.h"
 #include "Game.h"
+#include "MiningBaseController.h"
 #include "ConversionBaseController.h"
 #include <algorithm>
 
@@ -25,24 +26,35 @@ SaveData Entity::getSaveData() {
 }
 std::string Entity::getStringRep() {
 	std::shared_ptr<ConversionBaseController> cont;
+	std::shared_ptr<MiningBaseController> mCont;
 	switch (this->type) {
 	case EntityType::Player: return "Player";
 	case EntityType::Cannonball: return "Cannon Ball";
 	case EntityType::PirateShip: return "Pirate Ship";
 	case EntityType::MilitaryBase: return "Defense Base";
-	case EntityType::MiningBase: return "Quary";
 	case EntityType::ForestryBase: return "Forestry";
 	case EntityType::Ferry: return "Ferry";
 	case EntityType::City: return "City";
 	case EntityType::PirateBase: return "Pirate Outpost";
+	case EntityType::MiningBase:
+		mCont = std::dynamic_pointer_cast<MiningBaseController>(this->components.controller);
+		switch (mCont->getResource()) {
+		case GameResource::Stone: return "Quary";
+		case GameResource::Wood: return "Forestry";
+		case GameResource::Wheat: return "Farm";
+		case GameResource::Fruit: return "Orchard";
+		default: return "Missing string for generation base";
+		}
+		break;
 	case EntityType::ConversionBase:
 		cont = std::dynamic_pointer_cast<ConversionBaseController>(this->components.controller);
 		switch (cont->getProduct()) {
 		case GameResource::Plank: return "Wood Cutters";
 		case GameResource::StoneBrick: return "Stone Cutters";
 		case GameResource::StoneStatue: return "Statue Makers";
-		default: return "";
+		case GameResource::Beer: return "Brewery";
+		default: return "Missing string for conversion base";
 		}
-	default: return "";
+	default: return "Missing string for entity";
 	}
 }

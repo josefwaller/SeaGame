@@ -6,7 +6,6 @@
 void GuiComponent::setParent(std::weak_ptr<Entity> parent) {
 	Component::setParent(parent);
 	this->entityWindow = tgui::ChildWindow::create();
-	this->entityWindow->setTitle(this->getParent().lock()->getStringRep());
 	this->entityTabs = tgui::Tabs::create();
 	this->entityTabs->connect("TabSelected", &GuiComponent::changePanel, this);
 	this->entityWindow->add(this->entityTabs);
@@ -14,6 +13,7 @@ void GuiComponent::setParent(std::weak_ptr<Entity> parent) {
 	this->entityTabs->select(0);
 }
 void GuiComponent::update() {
+	this->entityWindow->setTitle(this->getParent().lock()->getStringRep());
 	this->entityWindow->removeAllWidgets();
 	this->entityWindow->add(this->entityTabs);
 	this->entityTabs->removeAll();
