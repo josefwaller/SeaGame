@@ -42,17 +42,16 @@ const std::map<GameResource, std::string> RESOURCE_STRINGS = {
 
 std::string getResourceString(GameResource res);
 #undef etype
-#undef GAME_RESOURCE
 
 // How much the player gets for selling these resources
+// Currently set as the length, TBA, change that
+#define etype(x) { GameResource::x, (unsigned int)std::string(#x).length() },
 const std::map<GameResource, unsigned int> RESOURCE_VALUES = {
-	{GameResource::Stone, 10},
-	{GameResource::Wood, 10},
-	{GameResource::Gold, 100},
-	{GameResource::Plank, 35},
-	{GameResource::StoneBrick, 30},
-	{GameResource::StoneStatue, 200}
+	GAME_RESOURCES
 };
+
+#undef etype
+#undef GAME_RESOURCES
 
 sf::Sprite getResourceSprite(GameResource res, bool center = true);
 // Get whether the base generating the given resource needs a resource source
