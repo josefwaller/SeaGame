@@ -118,20 +118,19 @@ bool GameHud::ensureValid(std::shared_ptr<Entity> e) {
 	return true;
 }
 void GameHud::transferItems(std::weak_ptr<Entity> e, GameResource res, unsigned int amount) {
-	this->selectCallback = std::bind([&](std::weak_ptr<Entity> to, std::weak_ptr<Entity> from) {
-		// TODO, make sure entities are close to each other
+	this->selectCallback = std::bind([&](
+		std::weak_ptr<Entity> to,
+		std::weak_ptr<Entity> from,
+		GameResource res,
+		unsigned int amount) {
+		// Ensure both entities still exist
 		if (to.lock() && from.lock()) {
-			std::map<GameResource, unsigned int> resources = from.lock()->components.inventory->getInventory();
-			// Remove resources from entity one
-			for (auto it : resources) {
-				from.lock()->components.inventory->removeItems(it.first, it.second);
-			}
-			// Add resources to entity two
-			for (auto it : resources) {
-				to.lock()->components.inventory->addItems(it.first, it.second);
-			}
+			// Remove resources
+			from.lock()->components.inventory->removeItems(res, amount);
+			// Add resources
+			to.lock()->components.inventory->addItems(res, amount);
 		}
-	}, std::placeholders::_1, e);
+	}, std::placeholders::_1, e, res, amount);
 	this->currentClickState = ClickState::Selecting;
 }
 void GameHud::onClick(sf::Vector2f pos) {
