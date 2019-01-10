@@ -22,7 +22,7 @@ SaveFile::SaveFile(Game* g) {
 	}
 	// Add tech tree save data
 	SaveData techData("TechTree");
-	for (auto n : TechTree::nodes) {
+	for (auto n : g->getTechTree()->nodes) {
 		techData.addData(SaveData("TechTreeNode", {
 			{ "tech", std::to_string(n.first) },
 			{ "isResearched", std::to_string(n.second.isResearched) }
@@ -114,18 +114,19 @@ std::unique_ptr<Game> SaveFile::load(App* a) {
 		}
 	}
 	// Get the tech tree
+	TechTree tree;
 	SaveData techTreeData = this->getData(gameNode->first_node("TechTree"));
 	for (SaveData n : techTreeData.getDatas()) {
 		Technology tech = (Technology)(std::stoi(n.getValue("tech")));
 		bool isResearched = (bool)(std::stoi(n.getValue("isResearched")));
-		TechTree::nodes[tech].isResearched = isResearched;
+		tree.nodes[tech].isResearched = isResearched;
 	}
 	// Add values to game
 	g->loadFromData(
 		gMap,
 		entities,
 		player,
-		TechTree()
+		tree
 	);
 	// Now that all values have been added to the game, can set component data from save data
 	for (size_t i = 0; i < entityDatas.size(); i++) {

@@ -49,7 +49,7 @@ struct TechTreeNode {
 		this->description = description;
 	}
 };
-class TechTree {
-public:
-	static std::map<Technology, TechTreeNode> nodes;
+struct TechTree {
+	TechTree();
+	std::map<Technology, TechTreeNode> nodes;
 };

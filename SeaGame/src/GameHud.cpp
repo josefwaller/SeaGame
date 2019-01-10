@@ -203,9 +203,9 @@ void GameHud::resetResearchButtons() {
 	// Used to prevent the buttons from overlapping
 	float y = this->researchButton->getFullSize().y;
 	// Add a button for each technology that is unresearched and is able to be researched
-	for (auto it : TechTree::nodes) {
+	for (auto it : this->game->getTechTree()->nodes) {
 		if (it.second.parent == Technology::Nothing
-			|| TechTree::nodes[it.second.parent].isResearched) {
+			|| this->game->getTechTree()->nodes[it.second.parent].isResearched) {
 			// Create a button for it
 			auto btn = tgui::Button::create();
 			if (it.second.isResearched) {
@@ -215,7 +215,7 @@ void GameHud::resetResearchButtons() {
 			btn->setPosition({ 500.0f, y });
 			btn->connect("clicked", [=](Game* g, Technology tech) {
 				// Check the player has the correct resources for the technology
-				TechTreeNode* node = &TechTree::nodes.find(tech)->second;
+				TechTreeNode* node = &this->game->getTechTree()->nodes.find(tech)->second;
 				std::shared_ptr<Entity> player = g->getPlayer();
 				std::map<GameResource, unsigned int> playerInventory = player->components.inventory->getInventory();
 				// Check the player has enough money
@@ -241,7 +241,7 @@ void GameHud::resetResearchButtons() {
 			toolTip->addText("-------------");
 			// Get all the technologies that this technology unlocks
 			std::vector<std::string> allowsResearching;
-			for (auto sIt = TechTree::nodes.begin(); sIt != TechTree::nodes.end(); sIt++) {
+			for (auto sIt = this->game->getTechTree()->nodes.begin(); sIt != this->game->getTechTree()->nodes.end(); sIt++) {
 				if (sIt->second.parent == it.first) {
 					allowsResearching.push_back(sIt->second.name);
 				}
@@ -265,7 +265,7 @@ void GameHud::resetBuildButtons() {
 	// Vector of buttons of stuff to build
 	for (auto cr : CraftingRecipes::recipes) {
 		// Make sure the user can build this thing
-		if (cr.requiredTech == Technology::Nothing || TechTree::nodes[cr.requiredTech].isResearched) {
+		if (cr.requiredTech == Technology::Nothing || this->game->getTechTree()->nodes[cr.requiredTech].isResearched) {
 			// Add the actual button
 			tgui::Button::Ptr btn = tgui::Button::create();
 			btn->setText(cr.displayText);
