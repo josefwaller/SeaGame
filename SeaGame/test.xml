@@ -710,7 +710,10 @@
 			<Component r="0.000000" type="0" x="0.000000" y="128.000000"/>
 			<Component type="1"/>
 			<Component type="3"/>
-			<Component type="5"/>
+			<Component type="5">
+				<Inventory count="0" resource="2"/>
+				<Inventory count="0" resource="11"/>
+			</Component>
 			<Component type="6"/>
 			<Component type="7"/>
 		</Entity>
@@ -746,8 +749,8 @@
 			<Component health="100" type="4"/>
 			<Component type="5">
 				<Inventory count="0" resource="1"/>
-				<Inventory count="300" resource="2"/>
-				<Inventory count="6" resource="11"/>
+				<Inventory count="0" resource="2"/>
+				<Inventory count="0" resource="11"/>
 			</Component>
 			<Component type="6"/>
 			<Component type="7"/>
@@ -758,7 +761,7 @@
 			<Component product="11" type="3"/>
 			<Component health="100" type="4"/>
 			<Component type="5">
-				<Inventory count="2" resource="11"/>
+				<Inventory count="0" resource="11"/>
 			</Component>
 			<Component type="6"/>
 			<Component type="7"/>
@@ -766,19 +769,20 @@
 		<Entity id="29" tag="1" type="10">
 			<Component r="0.000000" type="0" x="1279.999878" y="448.000000"/>
 			<Component res="12" type="1"/>
-			<Component product="12" sinceLastConversion="13.204337" type="3"/>
+			<Component product="12" sinceLastConversion="19.543421" type="3"/>
 			<Component health="100" type="4"/>
 			<Component type="5">
-				<Inventory count="43" resource="11"/>
+				<Inventory count="32" resource="11"/>
+				<Inventory count="1" resource="12"/>
 			</Component>
 			<Component type="6"/>
 			<Component type="7"/>
 		</Entity>
 		<Entity id="31" tag="0" type="7">
-			<Component r="2.418264" type="0" x="1176.760254" y="460.796112"/>
+			<Component r="-0.979609" type="0" x="763.284485" y="549.769470"/>
 			<Component type="1"/>
 			<Component type="2"/>
-			<Component currentIndex="0" stopCount="2" type="3">
+			<Component currentIndex="1" stopCount="2" type="3">
 				<FerryStop index="0" target="26">
 					<PickUp resource="11"/>
 				</FerryStop>
@@ -788,11 +792,28 @@
 			</Component>
 			<Component health="100" type="4"/>
 			<Component type="5">
-				<Inventory count="0" resource="11"/>
+				<Inventory count="4" resource="11"/>
 			</Component>
 			<Component type="6"/>
 			<Component type="7"/>
 		</Entity>
 	</EntityList>
+	<TechTree>
+		<TechTreeNode isResearched="0" tech="1"/>
+		<TechTreeNode isResearched="0" tech="2"/>
+		<TechTreeNode isResearched="0" tech="3"/>
+		<TechTreeNode isResearched="1" tech="4"/>
+		<TechTreeNode isResearched="0" tech="5"/>
+		<TechTreeNode isResearched="0" tech="6"/>
+		<TechTreeNode isResearched="0" tech="7"/>
+		<TechTreeNode isResearched="0" tech="8"/>
+		<TechTreeNode isResearched="1" tech="11"/>
+		<TechTreeNode isResearched="0" tech="12"/>
+		<TechTreeNode isResearched="1" tech="15"/>
+		<TechTreeNode isResearched="0" tech="16"/>
+		<TechTreeNode isResearched="0" tech="17"/>
+		<TechTreeNode isResearched="0" tech="18"/>
+		<TechTreeNode isResearched="0" tech="19"/>
+	</TechTree>
 </Game>
 

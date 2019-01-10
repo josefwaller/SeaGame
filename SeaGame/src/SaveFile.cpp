@@ -20,6 +20,15 @@ SaveFile::SaveFile(Game* g) {
 	for (auto e : g->getEntities()) {
 		this->addData(e->getSaveData(), n, &doc);
 	}
+	// Add tech tree save data
+	SaveData techData("TechTree");
+	for (auto n : TechTree::nodes) {
+		techData.addData(SaveData("TechTreeNode", {
+			{ "tech", std::to_string(n.first) },
+			{ "isResearched", std::to_string(n.second.isResearched) }
+		}));
+	}
+	this->addData(techData, node, &doc);
 	// Save doc data
 	std::ostringstream os;
 	os << doc;
@@ -103,6 +112,13 @@ std::unique_ptr<Game> SaveFile::load(App* a) {
 			player = entities.back();
 			player.lock()->components.inventory->addItems(GameResource::Gold, 300);
 		}
+	}
+	// Get the tech tree
+	SaveData techTreeData = this->getData(gameNode->first_node("TechTree"));
+	for (SaveData n : techTreeData.getDatas()) {
+		Technology tech = (Technology)(std::stoi(n.getValue("tech")));
+		bool isResearched = (bool)(std::stoi(n.getValue("isResearched")));
+		TechTree::nodes[tech].isResearched = isResearched;
 	}
 	// Add values to game
 	g->loadFromData(
