@@ -1,4 +1,4 @@
-<Game money="15500">
+<Game money="15000">
 	<GameMap height="17" width="32">
 		<GameMapTile type="1" x="0" y="0"/>
 		<GameMapTile type="1" x="0" y="1"/>
@@ -581,7 +581,7 @@
 		<Entity id="4" tag="3" type="11">
 			<Component r="0.000000" type="0" x="256.000000" y="768.000000"/>
 			<Component type="1"/>
-			<Component count="200" res="1" type="3"/>
+			<Component count="195" res="1" type="3"/>
 			<Component type="5"/>
 			<Component type="6"/>
 			<Component type="7"/>
@@ -613,7 +613,7 @@
 		<Entity id="8" tag="3" type="11">
 			<Component r="0.000000" type="0" x="960.000000" y="832.000000"/>
 			<Component type="1"/>
-			<Component count="200" res="1" type="3"/>
+			<Component count="195" res="1" type="3"/>
 			<Component type="5"/>
 			<Component type="6"/>
 			<Component type="7"/>
@@ -707,13 +707,14 @@
 			<Component type="7"/>
 		</Entity>
 		<Entity id="20" tag="0" type="0">
-			<Component r="0.218818" type="0" x="-1.926182" y="213.596802"/>
+			<Component r="1.268560" type="0" x="161.708969" y="270.706299"/>
 			<Component type="1"/>
 			<Component type="2"/>
 			<Component type="3"/>
 			<Component health="100" type="4"/>
 			<Component type="5">
-				<Inventory count="300" resource="2"/>
+				<Inventory count="0" resource="1"/>
+				<Inventory count="600" resource="2"/>
 			</Component>
 			<Component type="6"/>
 			<Component type="7"/>
@@ -745,9 +746,39 @@
 			<Component type="6"/>
 			<Component type="7"/>
 		</Entity>
+		<Entity id="26" tag="0" type="7">
+			<Component r="-2.855157" type="0" x="1082.532593" y="314.235352"/>
+			<Component type="1"/>
+			<Component type="2"/>
+			<Component currentIndex="1" stopCount="4" type="3">
+				<FerryStop index="0" target="18"/>
+				<FerryStop index="1" target="25"/>
+				<FerryStop index="2" target="24"/>
+				<FerryStop index="3" target="22"/>
+			</Component>
+			<Component health="100" type="4"/>
+			<Component type="5"/>
+			<Component type="6"/>
+			<Component type="7"/>
+		</Entity>
+		<Entity id="29" tag="0" type="7">
+			<Component r="-0.916831" type="0" x="643.439087" y="857.280457"/>
+			<Component type="1"/>
+			<Component type="2"/>
+			<Component currentIndex="0" stopCount="4" type="3">
+				<FerryStop index="0" target="18"/>
+				<FerryStop index="1" target="24"/>
+				<FerryStop index="2" target="25"/>
+				<FerryStop index="3" target="22"/>
+			</Component>
+			<Component health="100" type="4"/>
+			<Component type="5"/>
+			<Component type="6"/>
+			<Component type="7"/>
+		</Entity>
 	</EntityList>
 	<TechTree>
-		<TechTreeNode isResearched="0" tech="1"/>
+		<TechTreeNode isResearched="1" tech="1"/>
 		<TechTreeNode isResearched="0" tech="2"/>
 		<TechTreeNode isResearched="0" tech="3"/>
 		<TechTreeNode isResearched="1" tech="4"/>

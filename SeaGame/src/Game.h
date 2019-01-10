@@ -35,11 +35,6 @@ public:
 	void loadFromFile(std::string fileName);
 	void update(double delta);
 	void render();
-
-	// Count the number of actual entities in the game
-	// Incremented by entity contructor, decremented by entity deconstructor
-	// static unsigned int trueEntityCount;
-
 	// Add an entity to the game
 	void addEntity(std::shared_ptr<Entity> newEnt);
 	// Remove an entity from the game
@@ -87,6 +82,8 @@ private:
 	std::vector<std::shared_ptr<Entity>> entities;
 	// Entities to be removed after this frame
 	std::vector<std::weak_ptr<Entity>> toRemove;
+	// Theme for GUI
+	tgui::Theme theme;
 	// The build button
 	tgui::Button::Ptr buildBtn;
 	// FPS text

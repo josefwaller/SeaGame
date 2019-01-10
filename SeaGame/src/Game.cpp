@@ -24,6 +24,8 @@ Game::Game(App* app): app(app)
 {
 	// Create world and make gravity 0, since it is top down
 	this->world = std::shared_ptr<b2World>(new b2World({ 0.0f, 0.0f }));
+	this->theme = tgui::Theme("../TGUI-0.8/themes/Black.txt");
+	tgui::Theme::setDefault(&this->theme);
 	// Create a listener for the world
 	this->listener = SimpleCollisionListener();
 	this->world->SetContactListener(&this->listener);
