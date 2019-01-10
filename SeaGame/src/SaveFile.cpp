@@ -12,6 +12,9 @@ SaveFile::SaveFile(Game* g) {
 	rapidxml::xml_document<> doc;
 	auto node = doc.allocate_node(rapidxml::node_element, "Game");
 	doc.append_node(node);
+	auto a = doc.allocate_string("money");
+	auto b = doc.allocate_string(std::to_string(g->getMoney()).c_str());
+	node->append_attribute(doc.allocate_attribute(a, b));
 	// Get the GameMap's save data
 	this->addData(g->getGameMap()->getSaveData(), node, &doc);
 	// Add entity save data
@@ -86,6 +89,8 @@ std::unique_ptr<Game> SaveFile::load(App* a) {
 	rapidxml::xml_document<> doc;
 	doc.parse<0>((char*)this->data.c_str());
 	auto gameNode = doc.first_node("Game");
+	// Get the money
+	unsigned int money = (unsigned int)std::stoi(gameNode->first_attribute("money")->value());
 	// Create GameMap
 	SaveData gm = this->getData(gameNode->first_node("GameMap"));
 	GameMap gMap(g, gm);
@@ -126,7 +131,8 @@ std::unique_ptr<Game> SaveFile::load(App* a) {
 		gMap,
 		entities,
 		player,
-		tree
+		tree,
+		money
 	);
 	// Now that all values have been added to the game, can set component data from save data
 	for (size_t i = 0; i < entityDatas.size(); i++) {

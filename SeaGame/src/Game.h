@@ -25,7 +25,8 @@ public:
 		GameMap gm,
 		std::vector<std::shared_ptr<Entity>> entities,
 		std::weak_ptr<Entity> player,
-		TechTree techTree
+		TechTree techTree,
+		unsigned int money
 	);
 	// Generate a new map, resources, etc
 	void generateNew();

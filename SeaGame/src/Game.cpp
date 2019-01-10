@@ -42,12 +42,14 @@ void Game::loadFromData(
 	GameMap gm,
 	std::vector<std::shared_ptr<Entity>> entities,
 	std::weak_ptr<Entity> player,
-	TechTree tree) {
+	TechTree tree,
+	unsigned int money) {
 	// Set the data fields
 	this->gMap = gm;
 	this->entities = entities;
 	this->player = player;
 	this->techTree = tree;
+	this->money = money;
 }
 void Game::generateNew() {
 	// Generate new map
