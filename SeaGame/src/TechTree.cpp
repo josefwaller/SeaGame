@@ -83,6 +83,16 @@ TechTree::TechTree() {
 			Technology::Breweries,
 			TechTreeNode("Breweries", Technology::Orchards, TIER_4_COST,
 			"Brew fruits into beer, which sells for a high price")
+		},
+		{
+			Technology::Smelting,
+			TechTreeNode("Smelting", Technology::IronMining, TIER_2_COST,
+			"Smelt Iron into steel")
+		},
+		{
+			Technology::Forgery,
+			TechTreeNode("Forging", Technology::Smelting, TIER_3_COST,
+			"Build forges to turn Steel into weapons")
 		}
 	};
 }

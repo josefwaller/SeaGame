@@ -18,7 +18,9 @@
 	etype(Flour) \
 	etype(Bread) \
 	etype(Fruit) \
-	etype(Beer)
+	etype(Beer) \
+	etype(Steel) \
+	etype(Weapons)
 
 #define etype(x) x,
 

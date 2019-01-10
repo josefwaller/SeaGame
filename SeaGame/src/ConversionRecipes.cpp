@@ -41,5 +41,17 @@ const std::map<GameResource, ConversionRecipes::Recipe> ConversionRecipes::recip
 		20.0f,
 		"Brew Wheat into Beer"
 		}
+	},
+	{ GameResource::Steel, {
+		{ {GameResource::Iron, 2} },
+		5.0f,
+		"Smelt Iron into Steel"
+		}
+	},
+	{ GameResource::Weapons, {
+		{ {GameResource::Steel, 1 } },
+		5.0f,
+		"Forge Steel into weapons"
+		}
 	}
 };

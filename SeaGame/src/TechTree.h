@@ -17,7 +17,7 @@ enum Technology {
 	GoldMining,
 	Counterfeiting,
 	Smelting,
-	Metallurgy,
+	Forgery,
 	Forestries,
 	Woodcutting,
 	ShipBuilding,
