@@ -26,6 +26,7 @@ Game::Game(App* app): app(app)
 	this->world = std::shared_ptr<b2World>(new b2World({ 0.0f, 0.0f }));
 	this->theme = tgui::Theme("../TGUI-0.8/themes/Black.txt");
 	tgui::Theme::setDefault(&this->theme);
+	this->view = app->getWindow()->getDefaultView();
 	// Create a listener for the world
 	this->listener = SimpleCollisionListener();
 	this->world->SetContactListener(&this->listener);
@@ -136,6 +137,9 @@ void Game::render()
 			e->components.renderer->renderCollider(r);
 		}
 	}
+	// Set view
+	this->view.setCenter(this->player.lock()->components.transform->getPosition());
+	this->app->getWindow()->setView(this->view);
 	r.render(this->app->getWindow());
 	r.reset();
 }

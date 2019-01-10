@@ -84,6 +84,8 @@ private:
 	std::vector<std::weak_ptr<Entity>> toRemove;
 	// Theme for GUI
 	tgui::Theme theme;
+	// View for rendering game
+	sf::View view;
 	// The build button
 	tgui::Button::Ptr buildBtn;
 	// FPS text

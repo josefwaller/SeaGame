@@ -10,8 +10,8 @@
 GameMap::GameMap() {}
 GameMap::GameMap(Game* g): game(g)
 {
-	const unsigned int WIDTH = 32;
-	const unsigned int HEIGHT = 17;
+	const unsigned int WIDTH = 100;
+	const unsigned int HEIGHT = 100;
 	// The width of the water border around the edges
 	const unsigned int BORDER_WIDTH = 3;
 	const float frequency = 25.0f;
