@@ -99,12 +99,15 @@ std::unique_ptr<Game> SaveFile::load(App* a) {
 	std::vector<std::shared_ptr<Entity>> entities;
 	// The player, which is also in entieies
 	std::weak_ptr<Entity> player;
+	// Get the highest id to set as Entity::currentId, to avoid id conflicts
+	unsigned long maxId = 0;
 	// Create the entities from the data
 	for (auto it : entityDatas) {
 		// Create entity
 		std::shared_ptr<Entity> e = EntityPrefabs::getEntityFromSaveData(g, it);
 		// Override id
 		e->id = std::stoi(it.getValue("id"));
+		maxId = std::max(maxId, e->id);
 		// Add to list
 		entities.push_back(e);
 		// Set to player if it is
@@ -113,6 +116,8 @@ std::unique_ptr<Game> SaveFile::load(App* a) {
 			player.lock()->components.inventory->addItems(GameResource::Gold, 300);
 		}
 	}
+	// Set Entity::currentId
+	Entity::currentId = maxId;
 	// Get the tech tree
 	TechTree tree;
 	SaveData techTreeData = this->getData(gameNode->first_node("TechTree"));
