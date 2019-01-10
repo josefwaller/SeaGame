@@ -12,9 +12,7 @@ SaveFile::SaveFile(Game* g) {
 	rapidxml::xml_document<> doc;
 	auto node = doc.allocate_node(rapidxml::node_element, "Game");
 	doc.append_node(node);
-	auto a = doc.allocate_string("money");
-	auto b = doc.allocate_string(std::to_string(g->getMoney()).c_str());
-	node->append_attribute(doc.allocate_attribute(a, b));
+	addAttribute(&doc, node, "money", std::to_string(g->getMoney()));
 	// Get the GameMap's save data
 	this->addData(g->getGameMap()->getSaveData(), node, &doc);
 	// Add entity save data
@@ -55,10 +53,7 @@ void SaveFile::addData(SaveData sd, rapidxml::xml_node<>* parent, rapidxml::xml_
 	parent->append_node(node);
 	// Add all the string values
 	for (auto v : sd.getValues()) {
-		char* a = doc->allocate_string(v.first.c_str());
-		char* b = doc->allocate_string(v.second.c_str());
-		auto attr = doc->allocate_attribute(a, b);
-		node->append_attribute(attr);
+		addAttribute(doc, node, v.first, v.second);
 	}
 	// Add the children
 	for (auto it : sd.getDatas()) {
@@ -160,4 +155,14 @@ std::unique_ptr<Game> SaveFile::load(App* a) {
 
 	// Return the game
 	return std::move(game);
+}
+void SaveFile::addAttribute(
+	rapidxml::xml_document<>* doc,
+	rapidxml::xml_node<>* node,
+	std::string attr,
+	std::string value
+) {
+	auto a = doc->allocate_string(attr.c_str());
+	auto b = doc->allocate_string(value.c_str());
+	node->append_attribute(doc->allocate_attribute(a, b));
 }

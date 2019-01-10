@@ -700,6 +700,7 @@
 			<Component health="100" type="4"/>
 			<Component type="5">
 				<Inventory count="0" resource="1"/>
+				<Inventory count="600" resource="2"/>
 			</Component>
 			<Component type="6"/>
 			<Component type="7"/>
@@ -710,7 +711,7 @@
 			<Component product="8" type="3"/>
 			<Component health="100" type="4"/>
 			<Component type="5">
-				<Inventory count="11" resource="8"/>
+				<Inventory count="3" resource="8"/>
 			</Component>
 			<Component type="6"/>
 			<Component type="7"/>
@@ -718,11 +719,11 @@
 		<Entity id="25" tag="1" type="10">
 			<Component r="0.000000" type="0" x="1536.000000" y="896.000000"/>
 			<Component res="9" type="1"/>
-			<Component product="9" sinceLastConversion="0.000000" type="3"/>
+			<Component product="9" sinceLastConversion="0.307285" type="3"/>
 			<Component health="100" type="4"/>
 			<Component type="5">
-				<Inventory count="1" resource="8"/>
-				<Inventory count="6" resource="9"/>
+				<Inventory count="12" resource="8"/>
+				<Inventory count="0" resource="9"/>
 			</Component>
 			<Component type="6"/>
 			<Component type="7"/>
@@ -740,10 +741,10 @@
 			<Component type="7"/>
 		</Entity>
 		<Entity id="29" tag="0" type="7">
-			<Component r="1.946528" type="0" x="775.795593" y="503.778595"/>
+			<Component r="-2.681087" type="0" x="1478.567383" y="913.945007"/>
 			<Component type="1"/>
 			<Component type="2"/>
-			<Component currentIndex="0" stopCount="4" type="3">
+			<Component currentIndex="2" stopCount="4" type="3">
 				<FerryStop index="0" target="20">
 					<PickUp resource="8"/>
 				</FerryStop>
@@ -762,7 +763,7 @@
 			<Component health="100" type="4"/>
 			<Component type="5">
 				<Inventory count="0" resource="8"/>
-				<Inventory count="0" resource="9"/>
+				<Inventory count="6" resource="9"/>
 				<Inventory count="0" resource="10"/>
 			</Component>
 			<Component type="6"/>

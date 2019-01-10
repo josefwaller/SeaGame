@@ -25,4 +25,10 @@ private:
 	void addData(SaveData sd, rapidxml::xml_node<>* parent, rapidxml::xml_document<>* doc);
 	// Load the data from xml to a SaveData
 	SaveData getData(rapidxml::xml_node<>* node);
+	// Add an attribute to a node
+	void addAttribute(
+		rapidxml::xml_document<>* doc,
+		rapidxml::xml_node<>* node,
+		std::string attr,
+		std::string val);
 };
