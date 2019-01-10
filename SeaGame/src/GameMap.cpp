@@ -12,13 +12,15 @@ GameMap::GameMap(Game* g): game(g)
 {
 	const unsigned int WIDTH = 32;
 	const unsigned int HEIGHT = 17;
+	// The width of the water border around the edges
+	const unsigned int BORDER_WIDTH = 3;
 	const float frequency = 25.0f;
 	siv::PerlinNoise noise((uint32_t)time(0));
 	std::vector<std::vector<double>> noiseGrid;
 	// Generate noise grid
-	for (size_t x = 0; x < WIDTH; x++) {
+	for (size_t x = 0; x < WIDTH - 2 * BORDER_WIDTH; x++) {
 		noiseGrid.push_back({});
-		for (size_t y = 0; y < HEIGHT; y++) {
+		for (size_t y = 0; y < HEIGHT - 2 * BORDER_WIDTH; y++) {
 			const float fx = WIDTH / frequency;
 			const float fy = HEIGHT / frequency;
 noiseGrid[x].push_back(noise.octaveNoise0_1(x / fx, y / fy, 16));
@@ -27,15 +29,15 @@ noiseGrid[x].push_back(noise.octaveNoise0_1(x / fx, y / fy, 16));
 	// Smooth noise grid
 	for (size_t _ = 0; _ < 3; _++) {
 		std::vector<std::vector<double>> newNoiseGrid;
-		for (size_t x = 0; x < WIDTH; x++) {
+		for (size_t x = 0; x < WIDTH - 2 * BORDER_WIDTH; x++) {
 			newNoiseGrid.push_back({});
-			for (size_t y = 0; y < HEIGHT; y++) {
+			for (size_t y = 0; y < HEIGHT - 2 * BORDER_WIDTH; y++) {
 				double total = 0;
 				unsigned int count = 0;
 				for (int xOff = -1; xOff <= 1; xOff++) {
-					if (x + xOff < WIDTH && x + xOff >= 0) {
+					if (x + xOff < WIDTH - 2 * BORDER_WIDTH && x + xOff >= 0) {
 						for (int yOff = -1; yOff <= 1; yOff++) {
-							if (y + yOff < HEIGHT && y + yOff >= 0) {
+							if (y + yOff < HEIGHT - 2 * BORDER_WIDTH && y + yOff >= 0) {
 								total += noiseGrid[x + xOff][y + yOff];
 								count++;
 							}
@@ -55,10 +57,10 @@ noiseGrid[x].push_back(noise.octaveNoise0_1(x / fx, y / fy, 16));
 	// Add land tiles
 	// Build a map of where the resource deposits are to ensure cities aren't built on top of them
 	std::vector<sf::Vector2i> resourcePositions;
-	for (auto x = 0; x < WIDTH; x++) {
-		for (auto y = 0; y < HEIGHT; y++) {
+	for (auto x = BORDER_WIDTH; x < WIDTH - BORDER_WIDTH; x++) {
+		for (auto y = BORDER_WIDTH; y < HEIGHT - BORDER_WIDTH; y++) {
 			// Add land
-			if (noiseGrid[x][y] > 0.5) {
+			if (noiseGrid[x - BORDER_WIDTH][y - BORDER_WIDTH] > 0.5) {
 				// Add a land tile
 				this->addLandTile(x, y);
 				// Temporarily, have a 5% chance to add a resource to it
