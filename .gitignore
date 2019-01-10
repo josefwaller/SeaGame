@@ -322,7 +322,7 @@ ASALocalRun/
 *.binlog
 
 # Do not include SFML or Box2D in the repo
-SFML-2.4.2
+SFML-2.5.1
 Box2D
 lib
-TGUI-0.8-dev
+TGUI-0.8
