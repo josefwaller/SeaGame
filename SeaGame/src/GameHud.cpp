@@ -269,6 +269,18 @@ void GameHud::resetBuildButtons() {
 			// Add the actual button
 			tgui::Button::Ptr btn = tgui::Button::create();
 			btn->setText(cr.displayText);
+			tgui::TextBox::Ptr tt = tgui::TextBox::create();
+			btn->setToolTip(tt);
+			std::string resourceText;
+			for (auto it = cr.requiredResources.begin(); it != cr.requiredResources.end(); it++) {
+				resourceText += getResourceString(it->first) + ": " + std::to_string(it->second) + "\n";
+			}
+			tt->setText(cr.displayText + "\n"
+				+ "-------------------\n\n"
+				+ "Required Resources:\n"
+				+ "-------------------\n"
+				+ resourceText
+			);
 			btn->connect("clicked", [&](Game* g, CraftingRecipes::CraftRecipe cr) {
 				g->getHud()->chooseEntityToBuild(cr);
 			}, this->game, cr);
