@@ -6,8 +6,11 @@
 #include "SaveData.h"
 #include <unordered_set>
 #include <unordered_map>
+#include "EntityType.h"
+
 // Forward declaration of game
 class Game;
+struct Entity;
 
 class GameMap
 {
@@ -55,10 +58,17 @@ private:
 	std::string GameMap::getTileString(TileType t);
 	// Add a land tile at the position and create a box2d collider for it
 	void addLandTile(size_t x, size_t y);
-	// Add a city somewhere in the bounds given
-	// Return whether a city was successfully built
+	// Add a given type of building somewhere in the bounds given
+	// Return whether the building was successfully built
 	// Assume there are not buildings so do not check for collisions
-	bool addCity(size_t startX, size_t startY, size_t endX, size_t endY, std::vector<sf::Vector2i> resourcePos);
+	bool addBuilding(
+		EntityType type,
+		size_t startX,
+		size_t startY,
+		size_t endX,
+		size_t endY,
+		std::vector<sf::Vector2i> resourcePos);
 };
 
 #include "Game.h"
+#include "Entity.h"

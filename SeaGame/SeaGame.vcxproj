@@ -196,6 +196,7 @@
     <ClInclude Include="src\ConversionRecipes.h" />
     <ClInclude Include="src\CraftRecipes.h" />
     <ClInclude Include="src\EntityPrefabs.h" />
+    <ClInclude Include="src\EntityType.h" />
     <ClInclude Include="src\FerryShipController.h" />
     <ClInclude Include="src\GameHud.h" />
     <ClInclude Include="src\GameResource.h" />

@@ -30,6 +30,8 @@ public:
 	static b2Body* getBaseBody(Game* g, sf::Vector2f pos, float rot);
 	// Get an entity from its save data
 	static entity_ptr getEntityFromSaveData(Game* g, SaveData data);
+	// Get an entity from it's EntityType
+	static entity_ptr getEntityFromType(Game* g, sf::Vector2f pos, EntityType t);
 private:
 	// Map of EntityTypes -> Unique string representation of the type
 	std::map<EntityType, std::string> typeStrings;

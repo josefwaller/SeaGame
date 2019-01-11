@@ -100,8 +100,14 @@ noiseGrid[x].push_back(noise.octaveNoise0_1(x / fx, y / fy, 16));
 	const size_t h = this->tiles[0].size() / CITIES_VERT;
 	for (size_t x = 0; x < CITIES_HORZ; x++) {
 		for (size_t y = 0; y < CITIES_VERT; y++) {
-			// Currently don't do anything if building the city fails
-			addCity(x * w, y * h, (x + 1) * w, (y + 1) * h, resourcePositions);
+			// Every 5th citie should instead be a pirate base
+			if (rand() % 5 == 0) {
+				addBuilding(EntityType::PirateBase, x * w, y * h, (x + 1) * 2, (y + 1) * h, resourcePositions);
+			}
+			else {
+				// Currently don't do anything if building the city fails
+				addBuilding(EntityType::City, x * w, y * h, (x + 1) * w, (y + 1) * h, resourcePositions);
+			}
 		}
 	}
 	this->initTileRenderData();
@@ -138,8 +144,14 @@ void GameMap::addLandTile(size_t x, size_t y) {
 	body->CreateFixture(&fix);
 	this->bodies.push_back(body);
 }
-bool GameMap::addCity(size_t startX, size_t startY, size_t endX, size_t endY,
+bool GameMap::addBuilding(
+	EntityType type,
+	size_t startX,
+	size_t startY,
+	size_t endX,
+	size_t endY,
 	std::vector<sf::Vector2i> resPos) {
+
 	for (size_t x = startX; x < endX - 3; x++) {
 		for (size_t y = startY; y < endY - 3; y++) {
 			// Check if a city can be built here
@@ -154,7 +166,7 @@ bool GameMap::addCity(size_t startX, size_t startY, size_t endX, size_t endY,
 				}
 			}
 			if (canBuildCity) {
-				this->game->addEntity(EntityPrefabs::city(this->game, sf::Vector2i(x, y) * 64));
+				this->game->addEntity(EntityPrefabs::getEntityFromType(this->game, { x * 64.0f, y * 64.0f }, type));
 				return true;
 			}
 		}

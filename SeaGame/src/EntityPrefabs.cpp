@@ -321,6 +321,12 @@ entity_ptr EntityPrefabs::getEntityFromSaveData(Game* g, SaveData data) {
 	EntityType type = (EntityType)std::stoi(data.getValue("type"));
 	float x = 0.0f;
 	float y = 0.0f;
+	return getEntityFromType(g, { x, y }, type);
+	return nullptr;
+}
+entity_ptr EntityPrefabs::getEntityFromType(Game* g, sf::Vector2f pos, EntityType type) {
+	float x = pos.x;
+	float y = pos.y;
 	switch (type){
 	// Types of bases
 	case EntityType::MiningBase:
@@ -347,5 +353,4 @@ entity_ptr EntityPrefabs::getEntityFromSaveData(Game* g, SaveData data) {
 		return EntityPrefabs::resourceSource(g, { (int)x, (int)y }, GameResource::Stone);
 	}
 	auto breakpoint = 0;
-	return nullptr;
 }
