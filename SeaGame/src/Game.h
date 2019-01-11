@@ -64,6 +64,11 @@ public:
 	void removeMoney(unsigned int amount);
 	// Get window reference
 	sf::RenderWindow* getWindow();
+	// Get view reference
+	sf::View* getView();
+	// Get the rectangle fo the game the view shows
+	// Used to only render things on screen
+	sf::FloatRect getViewRect();
 private:
 	// App of the game, get window and gui through this pointer
 	App* app;

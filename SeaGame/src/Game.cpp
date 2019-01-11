@@ -89,8 +89,9 @@ void Game::update(double delta)
 		if (e->game != this)
 			auto x = 0;
 #endif
-		if (e->components.controller != nullptr)
+		if (e->components.controller != nullptr) {
 			e->components.controller->update((float)delta);
+		}
 	}
 	// Update world and resolve collisions
 	this->world->Step((float)delta, 8, 3);
@@ -101,28 +102,14 @@ void Game::update(double delta)
 			this->entities.end());
 	}
 	this->toRemove = {};
-#ifdef _DEBUG
-	if (this->entities.size() != Entity::trueEntityCount) {
-		// :(
-		auto a = this->entities.size();
-		auto b = Entity::trueEntityCount;
-		auto c = 0;
-	}
-	for (auto it = this->entities.begin(); it != this->entities.end(); it++) {
-		for (auto x = it + 1; x != this->entities.end(); x++) {
-			if ((*it)->id == (*x)->id) {
-				auto y = 0;
-			}
-		}
-	}
-#endif
 }
 
 void Game::render()
 {
+	// Render Map (give direct access to window for speed reasons)
+	this->gMap.render(this->getWindow());
 	// Render Entities
 	RenderManager r;
-	this->gMap.render(r);
 	for (size_t i = 0; i < this->entities.size(); i++) {
 		auto e = this->entities[i];
 		if (e->components.renderer != nullptr) {
@@ -134,6 +121,14 @@ void Game::render()
 	// Render debug info, i.e. hitboxes
 	for (auto e : this->entities) {
 		if (e->components.renderer != nullptr) {
+			// Make sure the entity is in the window before rendering
+			if (e->components.transform) {
+				sf::FloatRect rect = this->getViewRect();
+				sf::Vector2f pos = e->components.transform->getPosition();
+				if (!rect.contains(pos)) {
+					continue;
+				}
+			}
 			e->components.renderer->renderCollider(r);
 		}
 	}
@@ -215,4 +210,10 @@ void Game::removeMoney(unsigned int amount) {
 
 sf::RenderWindow* Game::getWindow() {
 	return this->app->getWindow();
+}
+sf::View* Game::getView() {
+	return &this->view;
+}
+sf::FloatRect Game::getViewRect() {
+	return sf::FloatRect(this->view.getCenter() - this->view.getSize() / 2.0f, this->view.getSize());
 }

@@ -52,7 +52,7 @@ noiseGrid[x].push_back(noise.octaveNoise0_1(x / fx, y / fy, 16));
 	// Fill grid with sea
 	this->tiles.resize(WIDTH);
 	for (auto it = this->tiles.begin(); it != this->tiles.end(); it++) {
-		it->resize(HEIGHT, TileType::Sea);
+		it->resize(HEIGHT, Tile(TileType::Sea));
 	}
 	// Add land tiles
 	// Build a map of where the resource deposits are to ensure cities aren't built on top of them
@@ -104,7 +104,7 @@ noiseGrid[x].push_back(noise.octaveNoise0_1(x / fx, y / fy, 16));
 			addCity(x * w, y * h, (x + 1) * w, (y + 1) * h, resourcePositions);
 		}
 	}
-	resetTexture();
+	this->initTileRenderData();
 }
 GameMap::GameMap(Game* g, SaveData data): game(g) {
 	int w = std::stoi(data.getValue("width"));
@@ -121,7 +121,7 @@ GameMap::GameMap(Game* g, SaveData data): game(g) {
 			this->addLandTile(x, y);
 		}
 	}
-	resetTexture();
+	this->initTileRenderData();
 }
 void GameMap::addLandTile(size_t x, size_t y) {
 	// Set the tile to land
@@ -146,7 +146,7 @@ bool GameMap::addCity(size_t startX, size_t startY, size_t endX, size_t endY,
 			bool canBuildCity = true;
 			for (size_t xOff = 0; xOff < 3; xOff++) {
 				for (size_t yOff = 0; yOff < 3; yOff++) {
-					if (this->tiles[x + xOff][y + yOff] != TileType::Land
+					if (this->tiles[x + xOff][y + yOff].type != TileType::Land
 						|| std::find(resPos.begin(), resPos.end(), sf::Vector2i(x + xOff, y + yOff)) != resPos.end()) {
 						canBuildCity = false;
 						break;
@@ -161,31 +161,40 @@ bool GameMap::addCity(size_t startX, size_t startY, size_t endX, size_t endY,
 	}
 	return false;
 }
-void GameMap::resetTexture() {
-	sf::RenderTexture rt;
-	sf::Vector2<size_t> size = this->getMapSize();
-	rt.create(64 * (unsigned int)size.x, 64 * (unsigned int)size.y);
-	// Render a 10x10 grid of sea tiles
+// Set the tile render data for each tile
+void GameMap::initTileRenderData() {
 	for (size_t x = 0; x < this->tiles.size(); x++) {
 		for (size_t y = 0; y < this->tiles[x].size(); y++) {
-			// Draw water behind
-			sf::Sprite s = ResourceManager::get()->getSprite("tiles", "sea-sea-sea-sea", false);
-			s.setPosition(64.0f * x, 64.0f * y);
-			rt.draw(s);
-			this->drawTile(&rt, x, y);
+			this->setTileRenderData(x, y);
 		}
 	}
-	rt.display();
-	this->texture = rt.getTexture();
-
 }
-void GameMap::render(RenderManager& r)
+void GameMap::render(sf::RenderWindow* window)
 {
-	sf::Sprite s;
-	s.setTexture(this->texture);
-	r.add(s, RenderManager::INDEX_LAND_TILES);
+	auto c = this->game->getView()->getCenter();
+	auto s = this->game->getView()->getSize();
+	// Render the tiles
+	int minX = floor((c.x - s.x / 2) / 64.0f);
+	int minY = floor((c.y - s.y / 2) / 64.0f);
+	int maxX = ceil((c.x + s.x / 2) / 64.0f);
+	int maxY = ceil((c.y + s.y / 2) / 64.0f);
+	sf::Sprite spr = ResourceManager::get()->getSprite("tiles", "sea-sea-sea-sea", false);
+	for (int x = minX; x < maxX; x++) {
+		for (int y = minY; y < maxY; y++) {
+			spr.setPosition(x * 64.0f, y * 64.0f);
+			window->draw(spr);
+			if (x >= 0 && y >= 0) {
+				this->drawTile(window, x, y);
+			}
+		}
+	}
 	// Draw collision bodies
+	sf::FloatRect rect = this->game->getViewRect();
 	for (auto b_it : this->bodies) {
+		if (!rect.contains(
+			sf::Vector2f(b_it->GetPosition().x, b_it->GetPosition().y) * Game::BOX2D_TO_WORLD)) {
+			continue;
+		}
 		for (b2Fixture* fix = b_it->GetFixtureList(); fix; fix = fix->GetNext()) {
 			// Get shape
 			b2PolygonShape* shape = dynamic_cast<b2PolygonShape*>(fix->GetShape());
@@ -202,10 +211,41 @@ void GameMap::render(RenderManager& r)
 			// Make the debug render a closed loop
 			drawable[shape->m_count] = drawable[0];
 			// Render
-			r.add(drawable, RenderManager::INDEX_DEBUG);
+			window->draw(drawable);
 		}
 	}
 
+}
+void GameMap::drawTile(sf::RenderWindow* window, size_t x, size_t y) {
+	// Make sure the tile is on the map
+	if (x < 0 || x >= this->tiles.size() || y < 0 || y >= this->tiles[0].size()) {
+		return;
+	}
+	// Get tile and make sure it's land
+	Tile tile = this->tiles[x][y];
+	if (tile.type == TileType::Sea) {
+		return;
+	}
+	TileRenderData data = this->tiles[x][y].data;
+	const std::vector<sf::Sprite*> sprs = {
+		&data.topLeft,
+		&data.topRight,
+		&data.botLeft,
+		&data.botRight
+	};
+	sf::Vector2f pos = sf::Vector2f(x, y) * 64.0f;
+	const std::vector<sf::Vector2f> poses = {
+		pos,
+		pos + sf::Vector2f(32.0f, 0),
+		pos + sf::Vector2f(0, 32.0f),
+		pos + sf::Vector2f(32.0f, 32.0f)
+	};
+	for (size_t i = 0; i < 4; i++) {
+		sf::Sprite* s = sprs[i];
+		s->setScale(0.5, 0.5);
+		s->setPosition(poses[i]);
+		window->draw(*s);
+	}
 }
 SaveData GameMap::getSaveData() {
 	SaveData s("GameMap");
@@ -216,38 +256,16 @@ SaveData GameMap::getSaveData() {
 			SaveData t("GameMapTile");
 			t.addValue("x", std::to_string(x));
 			t.addValue("y", std::to_string(y));
-			t.addValue("type", std::to_string(this->tiles[x][y]));
+			t.addValue("type", std::to_string(this->tiles[x][y].type));
 			s.addData(t);
 		}
 	}
 	return s;
 }
-void GameMap::addSaveData(rapidxml::xml_document<>* doc) {
-	rapidxml::xml_node<>* n = doc->allocate_node(rapidxml::node_element, "GameMap");
-	char* w = doc->allocate_string(std::to_string(this->getMapSize().x).c_str());
-	char* h = doc->allocate_string(std::to_string(this->getMapSize().y).c_str());
-	n->append_attribute(doc->allocate_attribute("width", w));
-	n->append_attribute(doc->allocate_attribute("height", h));
-	for (size_t x = 0; x < this->getMapSize().x; x++) {
-		for (size_t y = 0; y < this->getMapSize().y; y++) {
-			auto tileNode = doc->allocate_node(rapidxml::node_element, "Tile");
-			char* xStr = doc->allocate_string(std::to_string(x).c_str());
-			char* yStr = doc->allocate_string(std::to_string(y).c_str());
-			char* type = doc->allocate_string(
-				this->tiles[x][y] == TileType::Sea ? "Sea" : "Land"
-			);
-			tileNode->append_attribute(doc->allocate_attribute("x", xStr));
-			tileNode->append_attribute(doc->allocate_attribute("y", yStr));
-			tileNode->append_attribute(doc->allocate_attribute("type", type));
-			n->append_node(tileNode);
-		}
-	}
-	doc->append_node(n);
-}
 GameMap::TileType GameMap::getTileAt(size_t x, size_t y) {
 	if (x >= 0 && x < this->tiles.size()) {
 		if (y >= 0 && y < this->tiles[0].size()) {
-			return this->tiles[x][y];
+			return this->tiles[x][y].type;
 		}
 	}
 	return TileType::Sea;
@@ -255,52 +273,54 @@ GameMap::TileType GameMap::getTileAt(size_t x, size_t y) {
 sf::Vector2<size_t> GameMap::getMapSize() {
 	return { this->tiles.size(), this->tiles[0].size() };
 }
-void GameMap::drawTile(sf::RenderTexture* rt, size_t x, size_t y) {
-	if (this->tiles[x][y] == TileType::Sea) {
-		return;
+void GameMap::setTileRenderData(size_t x, size_t y) {
+	if (this->tiles[x][y].type == TileType::Sea) {
+		sf::Sprite seaSprite = getSprite(
+			TileType::Sea,
+			TileType::Sea,
+			TileType::Sea,
+			TileType::Sea
+		);
+		this->tiles[x][y].data = {
+			seaSprite,
+			seaSprite,
+			seaSprite,
+			seaSprite
+		};
 	}
 	TileType top, bottom, left, right, center;
 	if (x == 0) {
 		left = TileType::Sea;
 	}
 	else {
-		left = this->tiles[x - 1][y];
+		left = this->tiles[x - 1][y].type;
 	}
 	if (x == this->tiles.size() - 1) {
 		right = TileType::Sea;
 	}
 	else {
-		right = this->tiles[x + 1][y];
+		right = this->tiles[x + 1][y].type;
 	}
 	if (y == 0) {
 		top = TileType::Sea;
 	}
 	else {
-		top = this->tiles[x][y - 1];
+		top = this->tiles[x][y - 1].type;
 	}
 	if (y == this->tiles[x].size() - 1) {
 		bottom = TileType::Sea;
 	}
 	else {
-		bottom = this->tiles[x][y + 1];
+		bottom = this->tiles[x][y + 1].type;
 	}
-	center = this->tiles[x][y];
+	center = this->tiles[x][y].type;
 	// Get the sprites
 	sf::Sprite topLeftSprite, bottomLeftSprite, topRightSprite, bottomRightSprite;
-	topLeftSprite = getSprite(top, center, center, left);
-	topRightSprite = getSprite(top, right, center, center);
-	bottomRightSprite = getSprite(center, right, bottom, center);
-	bottomLeftSprite = getSprite(center, center, bottom, left);
-	std::vector<sf::Sprite> sprites = { topLeftSprite, topRightSprite, bottomLeftSprite, bottomRightSprite };
-	for (size_t i = 0; i < sprites.size(); i++) {
-		sprites[i].setScale(0.5f, 0.5f);
-		float pY = 64.0f * y;
-		if (i >= 2) {
-			pY += 32.0f;
-		}
-		sprites[i].setPosition(64.0f * x + (i % 2) * 32.0f, pY);
-		rt->draw(sprites[i]);
-	}
+	Tile* t = &this->tiles[x][y];
+	t->data.topLeft = getSprite(top, center, center, left);
+	t->data.topRight = getSprite(top, right, center, center);
+	t->data.botRight = getSprite(center, right, bottom, center);
+	t->data.botLeft = getSprite(center, center, bottom, left);
 }
 sf::Sprite GameMap::getSprite(TileType top, TileType right, TileType bottom, TileType left) {
 	return ResourceManager::get()->getSprite("tiles",

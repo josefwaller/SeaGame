@@ -707,14 +707,14 @@
 			<Component type="7"/>
 		</Entity>
 		<Entity id="20" tag="0" type="0">
-			<Component r="1.268560" type="0" x="161.708969" y="270.706299"/>
+			<Component r="7.527628" type="0" x="912.757996" y="248.874619"/>
 			<Component type="1"/>
 			<Component type="2"/>
 			<Component type="3"/>
 			<Component health="100" type="4"/>
 			<Component type="5">
 				<Inventory count="0" resource="1"/>
-				<Inventory count="600" resource="2"/>
+				<Inventory count="900" resource="2"/>
 			</Component>
 			<Component type="6"/>
 			<Component type="7"/>
@@ -747,10 +747,10 @@
 			<Component type="7"/>
 		</Entity>
 		<Entity id="26" tag="0" type="7">
-			<Component r="-2.855157" type="0" x="1082.532593" y="314.235352"/>
+			<Component r="-1.642830" type="0" x="744.710938" y="813.751343"/>
 			<Component type="1"/>
 			<Component type="2"/>
-			<Component currentIndex="1" stopCount="4" type="3">
+			<Component currentIndex="0" stopCount="4" type="3">
 				<FerryStop index="0" target="18"/>
 				<FerryStop index="1" target="25"/>
 				<FerryStop index="2" target="24"/>
@@ -762,7 +762,7 @@
 			<Component type="7"/>
 		</Entity>
 		<Entity id="29" tag="0" type="7">
-			<Component r="-0.916831" type="0" x="643.439087" y="857.280457"/>
+			<Component r="-1.299941" type="0" x="1103.341064" y="361.733063"/>
 			<Component type="1"/>
 			<Component type="2"/>
 			<Component currentIndex="0" stopCount="4" type="3">
