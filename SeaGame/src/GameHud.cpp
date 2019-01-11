@@ -234,7 +234,7 @@ void GameHud::resetResearchButtons() {
 			// Make the tool tip have information about the technology
 			tgui::TextBox::Ptr toolTip = tgui::TextBox::create();
 			toolTip->setPosition({ 10, 10 });
-			toolTip->setText(it.second.name + "\n");
+			toolTip->setText(it.second.name + ": $" + std::to_string(it.second.cost) + "\n");
 			toolTip->addText("-------------\n\n");
 			toolTip->addText(it.second.description + "\n\n");
 			toolTip->addText("Allows researching:\n");
