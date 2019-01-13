@@ -174,7 +174,9 @@ void Game::removeEntity(std::weak_ptr<Entity> e)
 }
 sf::Vector2f Game::getMouseCoords()
 {
-	return (sf::Vector2f)sf::Mouse::getPosition(*this->app->getWindow());
+	return this->getWindow()->mapPixelToCoords(
+		sf::Mouse::getPosition(*this->app->getWindow())
+	);
 }
 
 std::shared_ptr<Entity> Game::getPlayer()

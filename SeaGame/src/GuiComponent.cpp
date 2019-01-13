@@ -62,7 +62,11 @@ void GuiComponent::onClick() {
 }
 void GuiComponent::show() {
 	this->getParent().lock()->game->getGui()->add(this->entityWindow);
-	this->entityWindow->setPosition(this->getParent().lock()->components.transform->getPosition());
+	this->entityWindow->setPosition(
+		sf::Vector2f(this->getParent().lock()->game->getWindow()->mapCoordsToPixel(
+			this->getParent().lock()->components.transform->getPosition()
+		))
+	);
 }
 void GuiComponent::hide() {
 	this->getParent().lock()->game->getGui()->remove(this->entityWindow);
