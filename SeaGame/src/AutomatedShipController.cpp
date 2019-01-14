@@ -7,7 +7,7 @@ void AutomatedShipController::move(float delta) {
 	sf::Vector2f difference = points[pointsIndex]  + sf::Vector2f(32.0f, 32.0f) - trans->getPosition();
 	float angle = atan2(difference.y, difference.x);
 	trans->setRotation(angle);
-	if (sqrt(difference.x * difference.x + difference.y * difference.y) > 64) {
+	if (sqrt(difference.x * difference.x + difference.y * difference.y) > 124) {
 		this->accelerate();
 	}
 	else {
@@ -20,21 +20,21 @@ void AutomatedShipController::move(float delta) {
 }
 void AutomatedShipController::setTarget(sf::Vector2f target) {
 	// Ensure the target is on water
-	sf::Vector2<size_t> targetCoord = sf::Vector2<size_t>(target / 64.0f);
+	sf::Vector2i targetCoord = sf::Vector2i(target / 64.0f);
 	// Get the target the ship is on
-	sf::Vector2<size_t> startCoord = sf::Vector2<size_t>(this->getParent().lock()->components.transform->getPosition() / 64.0f);
+	sf::Vector2i startCoord = sf::Vector2i(this->getParent().lock()->components.transform->getPosition() / 64.0f);
 	// Build a list of tiles to go through
-	std::vector<sf::Vector2<size_t>> coords;
+	std::vector<sf::Vector2i> coords;
 	// The tiles that have been visited and/or are in the queue
 	// i.e. don't add these tiles
-	std::vector<sf::Vector2<size_t>> visited;
+	std::vector<sf::Vector2i> visited;
 	// Add the  starting coord to the coords
 	coords.push_back(startCoord);
 	visited.push_back(startCoord);
 	// The "steps" each tile has
 	// Basically the number of tiles away from the source, and the previous tile
 	// to go to directly before this one
-	std::map<size_t, std::map<size_t, std::pair<sf::Vector2<size_t>, unsigned int>>> steps;
+	std::map<size_t, std::map<size_t, std::pair<sf::Vector2i, unsigned int>>> steps;
 	steps[startCoord.x][startCoord.y] = { {0, 0}, 0 };
 	// Get game map for easy reference
 	GameMap* gMap = this->getParent().lock()->game->getGameMap();
@@ -42,7 +42,7 @@ void AutomatedShipController::setTarget(sf::Vector2f target) {
 		if (coords.size() == 0)
 			break;
 		// Get the coord with the minimum score
-		sf::Vector2<size_t> c = *(coords.begin());
+		sf::Vector2i c = *(coords.begin());
 		auto cIt = coords.begin();
 		for (auto it = coords.begin(); it != coords.end(); it++) {
 			// Check if it has the minimum distance to the target
@@ -58,7 +58,7 @@ void AutomatedShipController::setTarget(sf::Vector2f target) {
 			std::vector<sf::Vector2f> trail;
 			trail.push_back(sf::Vector2f(c) * 64.0f);
 			while (true) {
-				sf::Vector2<size_t> next = steps[c.x][c.y].first;
+				sf::Vector2i next = steps[c.x][c.y].first;
 				if (next.x == 0 && next.y == 0) {
 					break;
 				}
@@ -71,7 +71,7 @@ void AutomatedShipController::setTarget(sf::Vector2f target) {
 		}
 		else {
 			// Add the coords around it
-			std::vector<sf::Vector2<size_t>> toAdd;
+			std::vector<sf::Vector2i> toAdd;
 			for (auto xOff : { -1, 0, 1 }) {
 				for (auto yOff : { -1, 0, 1 }) {
 					// Don't add the coord it's on
@@ -81,7 +81,7 @@ void AutomatedShipController::setTarget(sf::Vector2f target) {
 						if ((int)c.y + yOff >= 0 && (int)c.y + yOff < gMap->getMapSize().y) {
 							if (gMap->getTileAt(c.x + xOff, c.y + yOff) == GameMap::TileType::Sea) {
 								// Add the tile
-								toAdd.push_back(sf::Vector2<size_t>(c.x + xOff, c.y + yOff));
+								toAdd.push_back(sf::Vector2i(c.x + xOff, c.y + yOff));
 							}
 						}
 					}
@@ -94,6 +94,11 @@ void AutomatedShipController::setTarget(sf::Vector2f target) {
 					steps[it.x][it.y] = { c, steps[c.x][c.y].second + 1 };
 				}
 			}
+			// Sort the coords by distance to target
+			std::sort(coords.begin(), coords.end(), [&](sf::Vector2i a, sf::Vector2i b) {
+				return pow(a.x - targetCoord.x, 2) + pow(a.y - targetCoord.y, 2)
+					< pow(b.x - targetCoord.x, 2) + pow(b.y - targetCoord.y, 2);
+			});
 		}
 	}
 }

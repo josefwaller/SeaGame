@@ -71,7 +71,7 @@ void ShipRenderer::render(RenderManager& r)
 	if (auto c = std::dynamic_pointer_cast<AutomatedShipController>(this->getParent().lock()->components.controller)) {
 		sf::Sprite s = ResourceManager::get()->getSprite("ships", "crew (1).png", true);
 		for (auto it : c->points) {
-			s.setPosition(it);
+			s.setPosition(it + sf::Vector2f(32.0f, 32.0f));
 			r.add(s, RenderManager::INDEX_SAILS);
 		}
 	}
