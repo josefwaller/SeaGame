@@ -25,6 +25,7 @@
 #include "ResourceController.h"
 #include "ResourceRenderer.h"
 #include "RectangleClick.h"
+#include "DefensePirateShipController.h"
 
 // Wrap entity in shared pointer and set parent/component relationship
 entity_ptr EntityPrefabs::buildEntity(Entity* entity) {
@@ -48,7 +49,7 @@ entity_ptr EntityPrefabs::playerShip(Game* g, sf::Vector2f position)
 			new PlayerShipController(),
 			new ShipRenderer(ShipRenderer::SailColor::Blue),
 			new PhysicsComponent(),
-			new HealthComponent(100),
+			new HealthComponent(10000),
 			new InventoryComponent(),
 			new GuiComponent(),
 			new Box2dClick()
@@ -217,6 +218,24 @@ entity_ptr EntityPrefabs::pirateBase(Game* g, sf::Vector2i pos) {
 		)
 	));
 }
+entity_ptr EntityPrefabs::defensePirateShip(Game* g, sf::Vector2f pos, std::weak_ptr<Entity> base) {
+	return EntityPrefabs::buildEntity(new Entity(
+		g,
+		1,
+		EntityType::DefensePirateShip,
+		EntityTag::Ship,
+		ComponentList(
+			new Box2dTransform(getShipBody(g, pos, 0.0f)),
+			new DefensePirateShipController(base),
+			new ShipRenderer(ShipRenderer::SailColor::Black),
+			new PhysicsComponent(),
+			new HealthComponent(100),
+			new InventoryComponent(),
+			new GuiComponent(),
+			new Box2dClick()
+		)
+	));
+}
 entity_ptr EntityPrefabs::conversionBase(Game* g, sf::Vector2i pos, GameResource res) {
 	return EntityPrefabs::buildEntity(new Entity(
 		g,
@@ -351,6 +370,10 @@ entity_ptr EntityPrefabs::getEntityFromType(Game* g, sf::Vector2f pos, EntityTyp
 		return EntityPrefabs::conversionBase(g, { (int)x, (int)y }, GameResource::Stone);
 	case EntityType::ResourceDeposit:
 		return EntityPrefabs::resourceSource(g, { (int)x, (int)y }, GameResource::Stone);
+	case EntityType::DefensePirateShip:
+		return EntityPrefabs::defensePirateShip(g, { x, y }, {});
+	case EntityType::Cannonball:
+		return EntityPrefabs::cannonBall(g, {}, { x, y }, 0.0f);
 	}
 	auto breakpoint = 0;
 }

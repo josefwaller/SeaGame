@@ -15,6 +15,8 @@ public:
 	void accelerate();
 	// Aim the swivel in a certain direction
 	void aimSwivel(float angle);
+	// Aim the swivel at a point
+	void aimSwivelAtPoint(sf::Vector2f p);
 	// Get the angle the swivel is pointing at
 	float getSwivelAngle();
 	// Shoot the main swivel cannon in the direction specified

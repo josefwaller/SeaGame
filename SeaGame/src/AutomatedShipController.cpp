@@ -19,6 +19,8 @@ void AutomatedShipController::move(float delta) {
 	}
 }
 void AutomatedShipController::setTarget(sf::Vector2f target) {
+	// Reset index
+	this->pointsIndex = 0;
 	// Ensure the target is on water
 	sf::Vector2i targetCoord = sf::Vector2i(target / 64.0f);
 	// Get the target the ship is on

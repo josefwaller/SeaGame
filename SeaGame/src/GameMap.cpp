@@ -101,7 +101,7 @@ noiseGrid[x].push_back(noise.octaveNoise0_1(x / fx, y / fy, 16));
 	for (size_t x = 0; x < CITIES_HORZ; x++) {
 		for (size_t y = 0; y < CITIES_VERT; y++) {
 			// Every 5th citie should instead be a pirate base
-			if (rand() % 5 == 0) {
+			if (rand() % 5 == 0 || true) {
 				addBuilding(EntityType::PirateBase, x * w, y * h, (x + 1) * 2, (y + 1) * h, resourcePositions);
 			}
 			else {

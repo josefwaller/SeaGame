@@ -39,6 +39,13 @@ void ShipController::aimSwivel(float angle)
 	this->cannon.rotation = angle;
 	this->getParent().lock()->components.renderer->reset();
 }
+void ShipController::aimSwivelAtPoint(sf::Vector2f p) {
+	auto trans = this->getParent().lock()->components.transform;
+	this->aimSwivel(
+		trans->getDifference(p).second
+		+ trans->getRotation()
+	);
+}
 float ShipController::getSwivelAngle()
 {
 	return this->cannon.rotation;
