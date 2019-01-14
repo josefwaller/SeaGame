@@ -2,7 +2,7 @@
 #include "EntityPrefabs.h"
 #include "PhysicsComponent.h"
 
-const float CannonballController::SPEED = 50000.0f;
+const float CannonballController::SPEED = 500.0f;
 const float CannonballController::MAX_DISTANCE = 1500.0f;
 CannonballController::CannonballController(float angle)
 	: ControllerComponent()
@@ -14,7 +14,7 @@ void CannonballController::setParent(std::weak_ptr<Entity> parent) {
 	this->startPos = this->getParent().lock()->components.transform->getPosition();
 	// Move the cannonball
 	auto physics = this->getParent().lock()->components.physics;
-	physics->setAcceleration({
+	physics->setVelocity({
 		SPEED * cos(this->angle) * Game::WORLD_TO_BOX2D,
 		SPEED * sin(this->angle) * Game::WORLD_TO_BOX2D
 	});
