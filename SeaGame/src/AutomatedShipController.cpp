@@ -69,14 +69,10 @@ void AutomatedShipController::setTarget(sf::Vector2f target) {
 				for (auto yOff : { -1, 0, 1 }) {
 					// Don't add the coord it's on
 					if (xOff == 0 && yOff == 0) continue;
-					// Check the tile exists and is sea
-					if ((int)c.x + xOff >= 0 && (int)c.x + xOff < gMap->getMapSize().x) {
-						if ((int)c.y + yOff >= 0 && (int)c.y + yOff < gMap->getMapSize().y) {
-							if (gMap->getTileAt(c.x + xOff, c.y + yOff) == GameMap::TileType::Sea) {
-								// Add the tile
-								toAdd.push_back(sf::Vector2i(c.x + xOff, c.y + yOff));
-							}
-						}
+					// Check the tile d is sea
+					if (gMap->getTileAt(c.x + xOff, c.y + yOff) == GameMap::TileType::Sea) {
+						// Add the tile
+						toAdd.push_back(sf::Vector2i(c.x + xOff, c.y + yOff));
 					}
 				}
 			}
