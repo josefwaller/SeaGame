@@ -44,17 +44,8 @@ void AutomatedShipController::setTarget(sf::Vector2f target) {
 		if (coords.size() == 0)
 			break;
 		// Get the coord with the minimum score
-		sf::Vector2i c = *(coords.begin());
-		auto cIt = coords.begin();
-		for (auto it = coords.begin(); it != coords.end(); it++) {
-			// Check if it has the minimum distance to the target
-			// Checks the one with the minimum distance first
-			if (pow(it->x - targetCoord.x, 2) + pow(it->y - targetCoord.y, 2) < pow(c.x - targetCoord.x, 2) + pow(c.y - targetCoord.y, 2)) {
-				c = *it;
-				cIt = it;
-			}
-		}
-		coords.erase(cIt);
+		sf::Vector2i c = coords.front();
+		coords.erase(coords.begin());
 		// Check if the coord is the target
 		if (c == targetCoord) {
 			std::vector<sf::Vector2f> trail;
