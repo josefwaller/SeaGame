@@ -1,4 +1,6 @@
 #include "AttackPirateShipController.h"
+#include "BaseController.h"
+#include <memory>
 
 AttackPirateShipController::AttackPirateShipController(
 	std::weak_ptr<Entity> base,
@@ -10,7 +12,11 @@ void AttackPirateShipController::update(float delta) {
 	if (this->target.lock()) {
 		// Check if the target is too far away
 		if (!isWithinRange(this->target, MIN_CHASE_DISTANCE)) {
-			this->buildTrailToTarget(this->target.lock()->components.transform->getPosition());
+			sf::Vector2f targetPos = this->target.lock()->components.transform->getPosition();
+			if (auto c = std::dynamic_pointer_cast<BaseController>(target.lock()->components.controller)) {
+				targetPos = c->getDockCoords();
+			}
+			this->buildTrailToTarget(targetPos);
 			this->move(delta);
 		}
 		// Shoot if close enough

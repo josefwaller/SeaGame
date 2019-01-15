@@ -93,8 +93,8 @@ noiseGrid[x].push_back(noise.octaveNoise0_1(x / fx, y / fy, 16));
 		}
 	}
 	// Add cities
-	const size_t CITIES_VERT = 2;
-	const size_t CITIES_HORZ = 2;
+	const size_t CITIES_VERT = 1;
+	const size_t CITIES_HORZ = 1;
 	const size_t w = this->tiles.size() / CITIES_HORZ;
 	const size_t h = this->tiles[0].size() / CITIES_VERT;
 	for (size_t x = 0; x < CITIES_HORZ; x++) {
