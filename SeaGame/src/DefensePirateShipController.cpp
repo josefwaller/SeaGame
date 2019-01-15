@@ -6,8 +6,6 @@ const float DefensePirateShipController::MIN_CHASE_DISTANCE = 250.0f;
 
 DefensePirateShipController::DefensePirateShipController(std::weak_ptr<Entity> base) {
 	this->base = base;
-	// todo fix this
-	this->lastTargetCoords = { 500, 500 };
 }
 void DefensePirateShipController::update(float delta) {
 	/*
@@ -28,7 +26,7 @@ void DefensePirateShipController::update(float delta) {
 	if (this->target.lock()) {
 		if (!this->base.lock()) {
 			// If it doesn't have a base, just chase the target
-			this->setTarget(this->target.lock()->components.transform->getPosition());
+			this->buildTrailToTarget(this->target.lock()->components.transform->getPosition());
 			this->move(delta);
 		}
 		else {
@@ -42,7 +40,7 @@ void DefensePirateShipController::update(float delta) {
 					// Check if it's close enough to the base
 					if (isWithinRange(this->base, MAX_DISTANCE_TO_BASE)) {
 						// Move towards them
-						this->setTarget(this->target.lock()->components.transform->getPosition());
+						this->buildTrailToTarget(this->target.lock()->components.transform->getPosition());
 						this->move(delta);
 					}
 				}
@@ -60,25 +58,13 @@ void DefensePirateShipController::update(float delta) {
 		else {
 			if (this->base.lock()) {
 				if (!isWithinRange(this->base, MAX_DISTANCE_TO_BASE)) {
-					this->setTarget(this->base.lock()->components.transform->getPosition()
+					this->buildTrailToTarget(this->base.lock()->components.transform->getPosition()
 						- sf::Vector2f(64.0f, 64.0f));
 					this->move(delta);
 				}
 			}
 		}
 	}
-}
-void DefensePirateShipController::setTarget(sf::Vector2f pos) {
-	if (sf::Vector2i(pos / 64.0f) != sf::Vector2i(this->lastTargetCoords / 64.0f)) {
-		this->lastTargetCoords = pos;
-		AutomatedShipController::setTarget(pos);
-	}
-}
-bool DefensePirateShipController::isWithinRange(std::weak_ptr<Entity> e, float d) {
-	auto diff = this->getParent().lock()->components.transform->getDifference(
-		e.lock()->components.transform
-	);
-	return pow(diff.first.x, 2) + pow(diff.first.y, 2) <= pow(d, 2);
 }
 SaveData DefensePirateShipController::getSaveData() {
 	if (this->base.lock()) {

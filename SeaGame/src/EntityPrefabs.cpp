@@ -27,6 +27,7 @@
 #include "RectangleClick.h"
 #include "DefensePirateShipController.h"
 #include "PirateFortressController.h"
+#include "AttackPirateShipController.h"
 
 // Wrap entity in shared pointer and set parent/component relationship
 entity_ptr EntityPrefabs::buildEntity(Entity* entity) {
@@ -237,6 +238,24 @@ entity_ptr EntityPrefabs::defensePirateShip(Game* g, sf::Vector2f pos, std::weak
 		)
 	));
 }
+entity_ptr EntityPrefabs::attackPirateShip(Game* g, sf::Vector2f pos, std::weak_ptr<Entity> base) {
+	return buildEntity(new Entity(
+		g,
+		1,
+		EntityType::AttackPirateShip,
+		EntityTag::Ship,
+		ComponentList(
+			new Box2dTransform(getShipBody(g, pos, 0.0f)),
+			new AttackPirateShipController(base, {}),
+			new ShipRenderer(ShipRenderer::SailColor::Black),
+			new PhysicsComponent,
+			new HealthComponent(100),
+			new InventoryComponent(),
+			new GuiComponent(),
+			new Box2dClick()
+		)
+	));
+}
 entity_ptr EntityPrefabs::pirateFortress(Game* g, sf::Vector2i pos) {
 	sf::Sprite spr = ResourceManager::get()->getSprite(
 		"medievalRTS_spritesheet@2",
@@ -345,7 +364,7 @@ entity_ptr EntityPrefabs::city(Game* g, sf::Vector2i pos) {
 entity_ptr EntityPrefabs::resourceSource(Game* g, sf::Vector2i pos, GameResource res) {
 	return buildEntity(new Entity(
 		g,
-		0,
+		1,
 		EntityType::ResourceDeposit,
 		EntityTag::Resource,
 		ComponentList(

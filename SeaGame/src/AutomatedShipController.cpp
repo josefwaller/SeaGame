@@ -3,18 +3,22 @@
 #include <math.h>
 
 void AutomatedShipController::move(float delta) {
-	auto trans = this->getParent().lock()->components.transform;
-	sf::Vector2f difference = points[pointsIndex]  + sf::Vector2f(32.0f, 32.0f) - trans->getPosition();
-	float angle = atan2(difference.y, difference.x);
-	trans->setRotation(angle);
-	if (sqrt(difference.x * difference.x + difference.y * difference.y) > 124) {
-		this->accelerate();
+	// Check if the entity has already arrived
+	if (this->pointsIndex >= this->points.size()) {
+		this->onReachingTarget();
+		this->pointsIndex = 0;
 	}
 	else {
-		this->pointsIndex++;
-		if (this->pointsIndex >= this->points.size()) {
-			this->onReachingTarget();
-			this->pointsIndex = 0;
+		// Move
+		auto trans = this->getParent().lock()->components.transform;
+		sf::Vector2f difference = points[pointsIndex]  + sf::Vector2f(32.0f, 32.0f) - trans->getPosition();
+		float angle = atan2(difference.y, difference.x);
+		trans->setRotation(angle);
+		if (sqrt(difference.x * difference.x + difference.y * difference.y) > 124) {
+			this->accelerate();
+		}
+		else {
+			this->pointsIndex++;
 		}
 	}
 }

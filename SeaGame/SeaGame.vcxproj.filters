@@ -182,6 +182,12 @@
     <Filter Include="Files\Components\Controllers\BaseControllers\PirateFortressController">
       <UniqueIdentifier>{bbbd53bf-393f-48ef-91a4-238103f71164}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Files\Components\Controllers\ShipControllers\AttackPirateShipController">
+      <UniqueIdentifier>{0ad3c957-ccae-4676-aeca-d883c7190f03}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Files\Components\Controllers\ShipControllers\PirateShipController">
+      <UniqueIdentifier>{72245337-b871-4a32-8ddd-7c81845695d7}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\CannonBallController.cpp">
@@ -351,6 +357,12 @@
     </ClCompile>
     <ClCompile Include="src\PirateFortressController.cpp">
       <Filter>Files\Components\Controllers\BaseControllers\PirateFortressController</Filter>
+    </ClCompile>
+    <ClCompile Include="src\AttackPirateShipController.cpp">
+      <Filter>Files\Components\Controllers\ShipControllers\AttackPirateShipController</Filter>
+    </ClCompile>
+    <ClCompile Include="src\PirateShipController.cpp">
+      <Filter>Files\Components\Controllers\ShipControllers\PirateShipController</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -530,6 +542,12 @@
     </ClInclude>
     <ClInclude Include="src\PirateFortressController.h">
       <Filter>Files\Components\Controllers\BaseControllers\PirateFortressController</Filter>
+    </ClInclude>
+    <ClInclude Include="src\AttackPirateShipController.h">
+      <Filter>Files\Components\Controllers\ShipControllers\AttackPirateShipController</Filter>
+    </ClInclude>
+    <ClInclude Include="src\PirateShipController.h">
+      <Filter>Files\Components\Controllers\ShipControllers\PirateShipController</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

@@ -123,6 +123,7 @@
   <ItemGroup>
     <ClCompile Include="src\AnimationRenderer.cpp" />
     <ClCompile Include="src\App.cpp" />
+    <ClCompile Include="src\AttackPirateShipController.cpp" />
     <ClCompile Include="src\AutomatedShipController.cpp" />
     <ClCompile Include="src\BaseController.cpp" />
     <ClCompile Include="src\BaseRenderer.cpp" />
@@ -160,6 +161,7 @@
     <ClCompile Include="src\PirateBaseController.cpp" />
     <ClCompile Include="src\PirateBaseRenderer.cpp" />
     <ClCompile Include="src\PirateFortressController.cpp" />
+    <ClCompile Include="src\PirateShipController.cpp" />
     <ClCompile Include="src\PlayerShipController.cpp" />
     <ClCompile Include="src\RectangleClick.cpp" />
     <ClCompile Include="src\RenderComponent.cpp" />
@@ -181,6 +183,7 @@
   <ItemGroup>
     <ClInclude Include="src\AnimationRenderer.h" />
     <ClInclude Include="src\App.h" />
+    <ClInclude Include="src\AttackPirateShipController.h" />
     <ClInclude Include="src\AutomatedShipController.h" />
     <ClInclude Include="src\BaseController.h" />
     <ClInclude Include="src\BaseRenderer.h" />
@@ -222,6 +225,7 @@
     <ClInclude Include="src\PirateBaseController.h" />
     <ClInclude Include="src\PirateBaseRenderer.h" />
     <ClInclude Include="src\PirateFortressController.h" />
+    <ClInclude Include="src\PirateShipController.h" />
     <ClInclude Include="src\PlayerShipController.h" />
     <ClInclude Include="src\RectangleClick.h" />
     <ClInclude Include="src\RenderComponent.h" />
