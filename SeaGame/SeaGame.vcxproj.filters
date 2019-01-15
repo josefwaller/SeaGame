@@ -179,6 +179,9 @@
     <Filter Include="Files\Components\Controllers\ShipControllers\DefensePirateShipController">
       <UniqueIdentifier>{c7adf25f-ba48-4ec3-90ea-0cd42df455ab}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Files\Components\Controllers\BaseControllers\PirateFortressController">
+      <UniqueIdentifier>{bbbd53bf-393f-48ef-91a4-238103f71164}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\CannonBallController.cpp">
@@ -345,6 +348,9 @@
     </ClCompile>
     <ClCompile Include="src\DefensePirateShipController.cpp">
       <Filter>Files\Components\Controllers\ShipControllers\DefensePirateShipController</Filter>
+    </ClCompile>
+    <ClCompile Include="src\PirateFortressController.cpp">
+      <Filter>Files\Components\Controllers\BaseControllers\PirateFortressController</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -521,6 +527,9 @@
     </ClInclude>
     <ClInclude Include="src\DefensePirateShipController.h">
       <Filter>Files\Components\Controllers\ShipControllers\DefensePirateShipController</Filter>
+    </ClInclude>
+    <ClInclude Include="src\PirateFortressController.h">
+      <Filter>Files\Components\Controllers\BaseControllers\PirateFortressController</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

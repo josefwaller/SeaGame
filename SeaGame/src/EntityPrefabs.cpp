@@ -26,6 +26,7 @@
 #include "ResourceRenderer.h"
 #include "RectangleClick.h"
 #include "DefensePirateShipController.h"
+#include "PirateFortressController.h"
 
 // Wrap entity in shared pointer and set parent/component relationship
 entity_ptr EntityPrefabs::buildEntity(Entity* entity) {
@@ -236,6 +237,29 @@ entity_ptr EntityPrefabs::defensePirateShip(Game* g, sf::Vector2f pos, std::weak
 		)
 	));
 }
+entity_ptr EntityPrefabs::pirateFortress(Game* g, sf::Vector2i pos) {
+	sf::Sprite spr = ResourceManager::get()->getSprite(
+		"medievalRTS_spritesheet@2",
+		"medievalStructure_05.png",
+		false);
+	spr.setScale(sf::Vector2f(1, 1) / spr.getLocalBounds().width * 64.0f * 3.0f);
+	return buildEntity(new Entity(
+		g,
+		2,
+		EntityType::PirateFortress,
+		EntityTag::Base,
+		ComponentList(
+			new Box2dTransform(getBaseBody(g, sf::Vector2f(pos), 0.0f)),
+			new PirateFortressController(),
+			new SpriteRenderer(spr, RenderManager::INDEX_BASE_TILES),
+			nullptr,
+			new HealthComponent(200),
+			new InventoryComponent(),
+			new GuiComponent(),
+			new Box2dClick()
+		)
+	));
+}
 entity_ptr EntityPrefabs::conversionBase(Game* g, sf::Vector2i pos, GameResource res) {
 	return EntityPrefabs::buildEntity(new Entity(
 		g,
@@ -374,6 +398,8 @@ entity_ptr EntityPrefabs::getEntityFromType(Game* g, sf::Vector2f pos, EntityTyp
 		return EntityPrefabs::defensePirateShip(g, { x, y }, {});
 	case EntityType::Cannonball:
 		return EntityPrefabs::cannonBall(g, {}, { x, y }, 0.0f);
+	case EntityType::PirateFortress:
+		return EntityPrefabs::pirateFortress(g, { (int)x, (int)y });
 	}
 	auto breakpoint = 0;
 }

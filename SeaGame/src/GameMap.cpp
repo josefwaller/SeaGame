@@ -56,7 +56,6 @@ noiseGrid[x].push_back(noise.octaveNoise0_1(x / fx, y / fy, 16));
 	}
 	// Add land tiles
 	// Build a map of where the resource deposits are to ensure cities aren't built on top of them
-	std::vector<sf::Vector2i> resourcePositions;
 	for (auto x = BORDER_WIDTH; x < WIDTH - BORDER_WIDTH; x++) {
 		for (auto y = BORDER_WIDTH; y < HEIGHT - BORDER_WIDTH; y++) {
 			// Add land
@@ -88,7 +87,7 @@ noiseGrid[x].push_back(noise.octaveNoise0_1(x / fx, y / fy, 16));
 					this->game->addEntity(
 						EntityPrefabs::resourceSource(this->game, sf::Vector2i((int)x * 64, (int)y * 64), res)
 					);
-					resourcePositions.push_back(sf::Vector2i(x, y));
+					this->tiles[x][y].isFull = true;
 				}
 			}
 		}
@@ -100,13 +99,20 @@ noiseGrid[x].push_back(noise.octaveNoise0_1(x / fx, y / fy, 16));
 	const size_t h = this->tiles[0].size() / CITIES_VERT;
 	for (size_t x = 0; x < CITIES_HORZ; x++) {
 		for (size_t y = 0; y < CITIES_VERT; y++) {
+			size_t minX = x * w;
+			size_t minY = y * h;
+			size_t maxX = (x + 1) * w;
+			size_t maxY = (y + 1) * h;
 			// Every 5th citie should instead be a pirate base
 			if (rand() % 5 == 0 || true) {
-				addBuilding(EntityType::PirateBase, x * w, y * h, (x + 1) * 2, (y + 1) * h, resourcePositions);
+				addBuilding(EntityType::PirateFortress, minX, minY, maxX, maxY);
+				addBuilding(EntityType::PirateBase, minX, minY, maxX, maxY);
+				addBuilding(EntityType::PirateBase, minX, minY, maxX, maxY);
+				addBuilding(EntityType::PirateBase, minX, minY, maxX, maxY);
 			}
 			else {
 				// Currently don't do anything if building the city fails
-				addBuilding(EntityType::City, x * w, y * h, (x + 1) * w, (y + 1) * h, resourcePositions);
+				addBuilding(EntityType::City, minX, minY, maxX, maxY);
 			}
 		}
 	}
@@ -149,8 +155,7 @@ bool GameMap::addBuilding(
 	size_t startX,
 	size_t startY,
 	size_t endX,
-	size_t endY,
-	std::vector<sf::Vector2i> resPos) {
+	size_t endY) {
 
 	for (size_t x = startX; x < endX - 3; x++) {
 		for (size_t y = startY; y < endY - 3; y++) {
@@ -158,8 +163,8 @@ bool GameMap::addBuilding(
 			bool canBuildCity = true;
 			for (size_t xOff = 0; xOff < 3; xOff++) {
 				for (size_t yOff = 0; yOff < 3; yOff++) {
-					if (this->tiles[x + xOff][y + yOff].type != TileType::Land
-						|| std::find(resPos.begin(), resPos.end(), sf::Vector2i(x + xOff, y + yOff)) != resPos.end()) {
+					Tile t = this->tiles[x + xOff][y + yOff];
+					if (t.type != TileType::Land || t.isFull) {
 						canBuildCity = false;
 						break;
 					}
@@ -167,6 +172,11 @@ bool GameMap::addBuilding(
 			}
 			if (canBuildCity) {
 				this->game->addEntity(EntityPrefabs::getEntityFromType(this->game, { x * 64.0f, y * 64.0f }, type));
+				for (size_t xOff = 0; xOff < 3; xOff++) {
+					for (size_t yOff = 0; yOff < 3; yOff++) {
+						this->tiles[x + xOff][y + yOff].isFull = true;
+					}
+				}
 				return true;
 			}
 		}

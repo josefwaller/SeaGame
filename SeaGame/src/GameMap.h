@@ -38,10 +38,14 @@ public:
 		sf::Sprite botRight;
 	};
 	struct Tile {
+		// The type (Land or sea) of this tile
 		TileType type;
+		// The data used to render it quickly
 		TileRenderData data;
-		Tile() : type(TileType::Sea), data() {}
-		Tile(TileType t) : type(t) {}
+		// Whether or not the tile has something (i.e. a base or something) on it
+		bool isFull;
+		Tile() : type(TileType::Sea), data(), isFull(false) {}
+		Tile(TileType t) : type(t), isFull(false) {}
 	};
 private:
 	// Game the map is in
@@ -60,14 +64,12 @@ private:
 	void addLandTile(size_t x, size_t y);
 	// Add a given type of building somewhere in the bounds given
 	// Return whether the building was successfully built
-	// Assume there are not buildings so do not check for collisions
 	bool addBuilding(
 		EntityType type,
 		size_t startX,
 		size_t startY,
 		size_t endX,
-		size_t endY,
-		std::vector<sf::Vector2i> resourcePos);
+		size_t endY);
 };
 
 #include "Game.h"

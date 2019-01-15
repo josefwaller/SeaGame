@@ -23,6 +23,7 @@ public:
 	static entity_ptr city(Game* g, sf::Vector2i pos);
 	static entity_ptr pirateBase(Game* g, sf::Vector2i pos);
 	static entity_ptr defensePirateShip(Game* g, sf::Vector2f pos, std::weak_ptr<Entity> base);
+	static entity_ptr pirateFortress(Game* g, sf::Vector2i pos);
 	static entity_ptr conversionBase(Game* g, sf::Vector2i pos, GameResource res);
 	static entity_ptr resourceSource(Game* g, sf::Vector2i pos, GameResource res);
 	// Get the Box2d BodyDef and fixtures needed for specific entities

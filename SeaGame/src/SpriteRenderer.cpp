@@ -9,7 +9,7 @@ SpriteRenderer::SpriteRenderer(
 	this->spr = ResourceManager::get()->getSprite(sheetName, spriteName, true);
 	this->zIndex = zIndex;
 }
-SpriteRenderer::SpriteRenderer( sf::Sprite spr, size_t zIndex) : RenderComponent() {
+SpriteRenderer::SpriteRenderer(sf::Sprite spr, size_t zIndex) : RenderComponent() {
 	this->spr = spr;
 	this->zIndex = zIndex;
 }
