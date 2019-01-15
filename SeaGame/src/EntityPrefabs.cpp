@@ -238,7 +238,7 @@ entity_ptr EntityPrefabs::defensePirateShip(Game* g, sf::Vector2f pos, std::weak
 		)
 	));
 }
-entity_ptr EntityPrefabs::attackPirateShip(Game* g, sf::Vector2f pos, std::weak_ptr<Entity> base) {
+entity_ptr EntityPrefabs::attackPirateShip(Game* g, sf::Vector2f pos, std::weak_ptr<Entity> base, std::weak_ptr<Entity> target) {
 	return buildEntity(new Entity(
 		g,
 		1,
@@ -246,7 +246,7 @@ entity_ptr EntityPrefabs::attackPirateShip(Game* g, sf::Vector2f pos, std::weak_
 		EntityTag::Ship,
 		ComponentList(
 			new Box2dTransform(getShipBody(g, pos, 0.0f)),
-			new AttackPirateShipController(base, {}),
+			new AttackPirateShipController(base, target),
 			new ShipRenderer(ShipRenderer::SailColor::Black),
 			new PhysicsComponent,
 			new HealthComponent(100),

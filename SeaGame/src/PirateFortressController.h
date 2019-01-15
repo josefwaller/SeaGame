@@ -8,4 +8,5 @@ public:
 	virtual void update(float delta) override;
 private:
 	sf::Clock spawnTimer;
+	std::weak_ptr<Entity> ship;
 };
