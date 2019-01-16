@@ -16,7 +16,7 @@ void AutomatedShipController::move(float delta) {
 		sf::Vector2f difference = points[pointsIndex]  + sf::Vector2f(32.0f, 32.0f) - trans->getPosition();
 		float angle = atan2(difference.y, difference.x);
 		trans->setRotation(angle);
-		if (sqrt(difference.x * difference.x + difference.y * difference.y) > 124) {
+		if (sqrt(difference.x * difference.x + difference.y * difference.y) > 64) {
 			this->accelerate();
 		}
 		else {
@@ -75,6 +75,7 @@ void AutomatedShipController::setTarget(sf::Vector2f target) {
 				for (auto yOff : { -1, 0, 1 }) {
 					// Don't add the coord it's on
 					if (xOff == 0 && yOff == 0) continue;
+					if (xOff != 0 && yOff != 0) continue;
 					// Check the tile d is sea
 					if (gMap->getTileAt(c.x + xOff, c.y + yOff) == GameMap::TileType::Sea) {
 						// Add the tile
