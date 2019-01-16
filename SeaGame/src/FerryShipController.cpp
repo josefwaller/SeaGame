@@ -25,6 +25,10 @@ void FerryShipController::addStop(std::weak_ptr<Entity> stop) {
 		{}
 	});
 }
+void FerryShipController::removeStop(size_t i) {
+	this->stops.erase(this->stops.begin() + i);
+	this->currentStopIndex--;
+}
 // Move the stop at currentOrder to newOrder and shift the other stops down by one
 void FerryShipController::setStopOrder(size_t currentOrder, size_t newOrder) {
 	// Copy
@@ -145,6 +149,11 @@ void FerryShipController::updateGui(tgui::Tabs::Ptr tabs, std::map<std::string, 
 		// Add remove button
 		tgui::Button::Ptr removeButton = tgui::Button::create();
 		removeButton->setText("Remove Stop");
+		removeButton->connect("clicked", [&](std::weak_ptr<FerryShipController> c, size_t i) {
+			if (c.lock()) {
+				c.lock()->removeStop(i);
+			}
+		}, controller, index);
 		lay->add(removeButton);
 		// Add to larger layout
 		layout->add(lay);

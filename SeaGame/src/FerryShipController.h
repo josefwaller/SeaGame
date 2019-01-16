@@ -12,6 +12,7 @@ public:
 	std::vector<FerryStop> getStops();
 	// Add a stop
 	void addStop(std::weak_ptr<Entity> stop);
+	void removeStop(size_t stopIndex);
 	// Set the position of one stop, and shift all the stops after down by 1
 	void setStopOrder(size_t currentOrder, size_t newOrder);
 	// Set what to pick up/drop off at the stop
