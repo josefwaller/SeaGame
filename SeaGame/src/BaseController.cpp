@@ -4,7 +4,9 @@
 void BaseController::setParent(std::weak_ptr<Entity> parent) {
 	Component::setParent(parent);
 }
-
+void BaseController::onDeath() {
+	this->getParent().lock()->game->removeEntity(this->getParent());
+}
 sf::Vector2f BaseController::getDockCoords() {
 	// Set the dock coords
 	sf::Vector2f pos = this->getParent().lock()->components.transform->getPosition();
