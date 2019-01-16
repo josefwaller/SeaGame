@@ -11,6 +11,9 @@ protected:
 	void move(float delta);
 	void setTarget(sf::Vector2f target);
 	virtual void onReachingTarget();
+	// Get the coordinates for reaching an entity
+	// Basically if the entity is on land, return its dock coordinates
+	sf::Vector2f getCoordsForEntity(std::weak_ptr<Entity> e);
 private:
 	size_t pointsIndex;
 };

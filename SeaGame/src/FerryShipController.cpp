@@ -68,14 +68,7 @@ void FerryShipController::setStopDropOff(size_t stopIndex, GameResource res, boo
 	this->stops[stopIndex].toDropOff[res] = val;
 	this->getParent().lock()->components.gui->update();
 }
-sf::Vector2f FerryShipController::getCoordsForEntity(std::weak_ptr<Entity> e) {
-	if (auto b = std::dynamic_pointer_cast<BaseController>(e.lock()->components.controller)) {
-		return b->getDockCoords();
-	}
-	else {
-		return e.lock()->components.transform->getPosition();
-	}
-}
+
 void FerryShipController::updateGui(tgui::Tabs::Ptr tabs, std::map<std::string, tgui::Panel::Ptr>* panels) {
 	tabs->add("Ferry", false);
 	panels->insert({ "Ferry", tgui::Panel::create() });

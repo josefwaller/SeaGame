@@ -1,6 +1,8 @@
 #include "AutomatedShipController.h"
 #include <map>
 #include <math.h>
+#include <memory>
+#include "BaseController.h"
 
 void AutomatedShipController::move(float delta) {
 	// Check if the entity has already arrived
@@ -98,4 +100,12 @@ void AutomatedShipController::setTarget(sf::Vector2f target) {
 // Empty, may be filled in by subclass
 void AutomatedShipController::onReachingTarget() {
 
+}
+sf::Vector2f AutomatedShipController::getCoordsForEntity(std::weak_ptr<Entity> e) {
+	if (auto b = std::dynamic_pointer_cast<BaseController>(e.lock()->components.controller)) {
+		return b->getDockCoords();
+	}
+	else {
+		return e.lock()->components.transform->getPosition();
+	}
 }

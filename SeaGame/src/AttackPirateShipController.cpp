@@ -12,11 +12,7 @@ void AttackPirateShipController::update(float delta) {
 	if (this->target.lock()) {
 		// Check if the target is too far away
 		if (!isWithinRange(this->target, MIN_CHASE_DISTANCE)) {
-			sf::Vector2f targetPos = this->target.lock()->components.transform->getPosition();
-			if (auto c = std::dynamic_pointer_cast<BaseController>(target.lock()->components.controller)) {
-				targetPos = c->getDockCoords();
-			}
-			this->buildTrailToTarget(targetPos);
+			this->buildTrailToTarget(this->getCoordsForEntity(this->target));
 			this->move(delta);
 		}
 		// Shoot if close enough

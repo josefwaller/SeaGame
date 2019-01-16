@@ -26,7 +26,7 @@ void DefensePirateShipController::update(float delta) {
 	if (this->target.lock()) {
 		if (!this->base.lock()) {
 			// If it doesn't have a base, just chase the target
-			this->buildTrailToTarget(this->target.lock()->components.transform->getPosition());
+			this->buildTrailToTarget(this->getCoordsForEntity(this->target));
 			this->move(delta);
 		}
 		else {
@@ -58,8 +58,7 @@ void DefensePirateShipController::update(float delta) {
 		else {
 			if (this->base.lock()) {
 				if (!isWithinRange(this->base, MAX_DISTANCE_TO_BASE)) {
-					this->buildTrailToTarget(this->base.lock()->components.transform->getPosition()
-						- sf::Vector2f(64.0f, 64.0f));
+					this->buildTrailToTarget(this->getCoordsForEntity(this->base));
 					this->move(delta);
 				}
 			}
