@@ -8,6 +8,7 @@ Box2dTransform::Box2dTransform(b2Body* body)
 {
 	// Create the body
 	this->body = body;
+	this->body->SetUserData(this);
 
 }
 Box2dTransform::~Box2dTransform()

@@ -1,6 +1,6 @@
 #include "SimpleCollisionListener.h"
 #include "Entity.h"
-#include "PhysicsComponent.h"
+#include "Box2dTransform.h"
 
 void SimpleCollisionListener::BeginContact(b2Contact* contact)
 {
@@ -13,14 +13,14 @@ void SimpleCollisionListener::BeginContact(b2Contact* contact)
 		// entity was destroyed without properly destroying its box 2d collision body
 		// and then the body hit something and called the collision method on an entity which did not
 		// exist anymore
-		one = (static_cast<PhysicsComponent*>(oneVoid))->getParent();
+		one = (static_cast<Box2dTransform*>(oneVoid))->getParent();
 	}
 	else {
 	}
 	void* twoVoid = contact->GetFixtureB()->GetBody()->GetUserData();
 	if (twoVoid) {
 		// see above comment
-		two = static_cast<PhysicsComponent*>(twoVoid)->getParent();
+		two = static_cast<Box2dTransform*>(twoVoid)->getParent();
 	}
 	else {
 	}
