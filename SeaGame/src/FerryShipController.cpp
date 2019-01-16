@@ -140,7 +140,7 @@ void FerryShipController::updateGui(tgui::Tabs::Ptr tabs, std::map<std::string, 
 			}
 			// Add window
 			g->getGui()->add(window);
-		}, this->getParent().lock()->game, index, controller, *it);
+		}, this->getGame(), index, controller, *it);
 		lay->add(exchangeButton);
 		// Add remove button
 		tgui::Button::Ptr removeButton = tgui::Button::create();
@@ -158,7 +158,7 @@ void FerryShipController::updateGui(tgui::Tabs::Ptr tabs, std::map<std::string, 
 			c.lock()->addStop(e);
 			c.lock()->getParent().lock()->components.gui->update();
 		}, std::placeholders::_1, cont));
-	}, this->getParent().lock()->game, controller);
+	}, this->getGame(), controller);
 	layout->add(addStopButton);
 
 }
@@ -207,7 +207,7 @@ void FerryShipController::fromSaveData(SaveData data) {
 			}
 		}
 		this->stops[index] = {
-			this->getParent().lock()->game->getEntityById(std::stoi(stopData.getValue("target"))),
+			this->getGame()->getEntityById(std::stoi(stopData.getValue("target"))),
 			toPickUp,
 			toDropOff
 		};

@@ -6,7 +6,7 @@ ResourceController::ResourceController(GameResource res, unsigned int count)
 	this->count = count;
 }
 void ResourceController::onClick() {
-	this->getParent().lock()->game->getPlayer()->components.inventory->addItems(this->res, 1);
+	this->getGame()->getPlayer()->components.inventory->addItems(this->res, 1);
 	this->count--;
 }
 

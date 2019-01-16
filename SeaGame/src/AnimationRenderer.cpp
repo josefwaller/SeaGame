@@ -26,7 +26,7 @@ void AnimationRenderer::render(RenderManager& r)
 			}
 			else {
 				// Remove parent
-				this->getParent().lock()->game->removeEntity(this->getParent());
+				this->getGame()->removeEntity(this->getParent());
 				return;
 			}
 		}

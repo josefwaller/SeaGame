@@ -8,7 +8,7 @@ void PhysicsComponent::setParent(std::weak_ptr<Entity> parent) {
 		throw std::runtime_error("An entity has a physics component without a box2d transform, ya dummy");
 	}
 	this->body = std::dynamic_pointer_cast<Box2dTransform>(this->getParent().lock()->components.transform)->getBody();
-	this->world = this->getParent().lock()->game->getWorld();
+	this->world = this->getGame()->getWorld();
 }
 void PhysicsComponent::setAcceleration(sf::Vector2f a)
 {

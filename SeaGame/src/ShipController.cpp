@@ -62,9 +62,9 @@ void ShipController::onHit(HealthType t, int damageAmount)
 	}
 }
 void ShipController::onDeath() {
-	this->getParent().lock()->game->removeEntity(this->getParent().lock());
-	this->getParent().lock()->game->addEntity(EntityPrefabs::explosion(
-		this->getParent().lock()->game,
+	this->getGame()->removeEntity(this->getParent().lock());
+	this->getGame()->addEntity(EntityPrefabs::explosion(
+		this->getGame(),
 		this->getParent().lock()->components.transform->getPosition()
 	));
 }

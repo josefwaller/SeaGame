@@ -6,6 +6,7 @@
 
 // Forward declaration of Entity
 struct Entity;
+class Game;
 
 class Component
 {
@@ -22,8 +23,12 @@ public:
 	virtual void fromSaveData(SaveData data);
 	// Add a panel to the entitie's GUI
 	virtual void updateGui(tgui::Tabs::Ptr tabs, std::map<std::string, tgui::Panel::Ptr>* panels);
+protected:
+	// Get game the entity exists in
+	Game* getGame();
 private:
 	std::weak_ptr<Entity> parent;
 };
 
 #include "Entity.h"
+#include "Game.h"

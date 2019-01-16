@@ -52,8 +52,8 @@ void DefensePirateShipController::update(float delta) {
 	}
 	else {
 		// Look for target
-		if (isWithinRange(this->getParent().lock()->game->getPlayer(), MAX_CHASE_DISTANCE)) {
-			this->target = this->getParent().lock()->game->getPlayer();
+		if (isWithinRange(this->getGame()->getPlayer(), MAX_CHASE_DISTANCE)) {
+			this->target = this->getGame()->getPlayer();
 		}
 		else {
 			if (this->base.lock()) {
@@ -80,7 +80,7 @@ SaveData DefensePirateShipController::getSaveData() {
 }
 void DefensePirateShipController::fromSaveData(SaveData data) {
 	if ((bool)std::stoi(data.getValue("hasBase"))) {
-		this->base = this->getParent().lock()->game->getEntityById(
+		this->base = this->getGame()->getEntityById(
 			std::stoi(data.getValue("baseId"))
 		);
 	}

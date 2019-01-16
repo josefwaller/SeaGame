@@ -9,7 +9,7 @@ void CityController::update(float delta) {
 		// Check the city has at least one of this resource
 		if (it.second > 0) {
 			// Sell each one for $10 currently
-			this->getParent().lock()->game->addMoney(RESOURCE_VALUES.find(it.first)->second * it.second);
+			this->getGame()->addMoney(RESOURCE_VALUES.find(it.first)->second * it.second);
 			this->getParent().lock()->components.inventory->removeItems(it.first, it.second);
 		}
 	}

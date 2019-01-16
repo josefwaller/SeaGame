@@ -53,7 +53,7 @@ void InventoryComponent::updateGui(tgui::Tabs::Ptr tabs, std::map<std::string, t
 			[&](Game* g, std::weak_ptr<Entity> e, GameResource res, unsigned int amount) {
 				e.lock()->game->getHud()->transferItems(e, res, amount);
 			},
-			this->getParent().lock()->game,
+			this->getGame(),
 			this->getParent(),
 			it.first,
 			it.second);

@@ -32,7 +32,7 @@ void ChasingShipController::update(float delta)
 	}
 	else {
 		// No target, look for one
-		for (auto it : this->getParent().lock()->game->getEntities()) {
+		for (auto it : this->getGame()->getEntities()) {
 			// Skip potential targets on its team
 			if (it->team == this->getParent().lock()->team)
 				continue;

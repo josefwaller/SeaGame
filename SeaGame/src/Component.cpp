@@ -17,5 +17,8 @@ SaveData Component::getSaveData() {
 }
 void Component::fromSaveData(SaveData data) {
 }
+Game* Component::getGame() {
+	return this->parent.lock()->game;
+}
 
 void Component::updateGui(tgui::Tabs::Ptr tabs, std::map<std::string, tgui::Panel::Ptr>* panels) {}

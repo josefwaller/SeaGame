@@ -12,7 +12,7 @@ void PirateFortressController::update(float delta) {
 			// Look for target
 			float minDis = 0.0f;
 			std::weak_ptr<Entity> newTarget;
-			std::vector<std::shared_ptr<Entity>> entities = this->getParent().lock()->game->getEntities();
+			std::vector<std::shared_ptr<Entity>> entities = this->getGame()->getEntities();
 			for (auto it = entities.begin(); it != entities.end(); it++) {
 				// Ensure they are on the player's team
 				if ((*it)->team == 0) {
@@ -36,11 +36,11 @@ void PirateFortressController::update(float delta) {
 				}
 			}
 			std::shared_ptr<Entity> ship = EntityPrefabs::attackPirateShip(
-				this->getParent().lock()->game,
+				this->getGame(),
 				this->getDockCoords(),
 				this->getParent(),
 				newTarget);
-			this->getParent().lock()->game->addEntity(ship);
+			this->getGame()->addEntity(ship);
 			this->ship = ship;
 		}
 	}

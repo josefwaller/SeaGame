@@ -5,7 +5,7 @@ void BaseController::setParent(std::weak_ptr<Entity> parent) {
 	Component::setParent(parent);
 }
 void BaseController::onDeath() {
-	this->getParent().lock()->game->removeEntity(this->getParent());
+	this->getGame()->removeEntity(this->getParent());
 }
 sf::Vector2f BaseController::getDockCoords() {
 	// Set the dock coords
@@ -13,7 +13,7 @@ sf::Vector2f BaseController::getDockCoords() {
 	std::queue<sf::Vector2i> coords;
 	std::vector<sf::Vector2i> visited;
 	coords.push((sf::Vector2i)(pos / 64.0f));
-	GameMap* gMap = this->getParent().lock()->game->getGameMap();
+	GameMap* gMap = this->getGame()->getGameMap();
 	while (true) {
 		// Get the coords
 		sf::Vector2i c = coords.front();

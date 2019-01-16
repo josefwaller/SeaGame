@@ -19,7 +19,7 @@ Box2dTransform::~Box2dTransform()
 void Box2dTransform::setParent(std::weak_ptr<Entity> parent) {
 	Component::setParent(parent);
 	// Store world
-	this->world = this->getParent().lock()->game->getWorld();
+	this->world = this->getGame()->getWorld();
 }
 
 

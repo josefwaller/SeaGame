@@ -45,7 +45,7 @@ void AutomatedShipController::setTarget(sf::Vector2f target) {
 	std::map<size_t, std::map<size_t, std::pair<sf::Vector2i, unsigned int>>> steps;
 	steps[startCoord.x][startCoord.y] = { {0, 0}, 0 };
 	// Get game map for easy reference
-	GameMap* gMap = this->getParent().lock()->game->getGameMap();
+	GameMap* gMap = this->getGame()->getGameMap();
 	while (true) {
 		if (coords.size() == 0)
 			break;
