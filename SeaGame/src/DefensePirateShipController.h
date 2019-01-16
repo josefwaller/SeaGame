@@ -18,4 +18,6 @@ public:
 private:
 	// The target the ship is currently shooting at
 	std::weak_ptr<Entity> target;
+	// Find a target
+	std::weak_ptr<Entity> findTarget();
 };

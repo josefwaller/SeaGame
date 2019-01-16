@@ -40,7 +40,7 @@ void DefensePirateShipController::update(float delta) {
 					// Check if it's close enough to the base
 					if (isWithinRange(this->base, MAX_DISTANCE_TO_BASE)) {
 						// Move towards them
-						this->buildTrailToTarget(this->target.lock()->components.transform->getPosition());
+						this->buildTrailToTarget(this->getCoordsForEntity(this->target));
 						this->move(delta);
 					}
 				}
@@ -51,19 +51,32 @@ void DefensePirateShipController::update(float delta) {
 		}
 	}
 	else {
-		// Look for target
-		if (isWithinRange(this->getGame()->getPlayer(), MAX_CHASE_DISTANCE)) {
-			this->target = this->getGame()->getPlayer();
+		// Ensure the base is within range
+		if (this->base.lock()) {
+			if (!isWithinRange(this->base, MAX_DISTANCE_TO_BASE)) {
+				this->buildTrailToTarget(this->getCoordsForEntity(this->base));
+				this->move(delta);
+			}
+			else {
+				// Look for target
+				this->target = this->findTarget();
+			}
 		}
 		else {
-			if (this->base.lock()) {
-				if (!isWithinRange(this->base, MAX_DISTANCE_TO_BASE)) {
-					this->buildTrailToTarget(this->getCoordsForEntity(this->base));
-					this->move(delta);
-				}
+			// If there is no base, just find a target without worrying about going too far from the base
+			this->target = this->findTarget();
+		}
+	}
+}
+std::weak_ptr<Entity> DefensePirateShipController::findTarget() {
+	for (auto e : this->getGame()->getEntities()) {
+		if (e->team == 0) {
+			if (isWithinRange(e, MAX_CHASE_DISTANCE)) {
+				return e;
 			}
 		}
 	}
+	return std::weak_ptr<Entity>();
 }
 SaveData DefensePirateShipController::getSaveData() {
 	if (this->base.lock()) {

@@ -12,7 +12,7 @@ void PirateShipController::buildTrailToTarget(sf::Vector2f pos) {
 }
 bool PirateShipController::isWithinRange(std::weak_ptr<Entity> e, float d) {
 	auto diff = this->getParent().lock()->components.transform->getDifference(
-		e.lock()->components.transform
+		this->getCoordsForEntity(e)
 	);
 	return pow(diff.first.x, 2) + pow(diff.first.y, 2) <= pow(d, 2);
 }
