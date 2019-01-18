@@ -143,8 +143,9 @@ std::unique_ptr<Game> SaveFile::load(App* a) {
 		std::vector<SaveData> cDatas = entityDatas[i].getDatas();
 		for (ComponentType c : ComponentList::allTypes) {
 			SaveData data("Component");
+			std::string compStr = ComponentList::ComponentStrings[c];
 			for (auto cd : cDatas) {
-				if (std::stoi(cd.getValue("type")) == (int)(c)) {
+				if (cd.getValue("type") == compStr) {
 					data = cd;
 					break;
 				}

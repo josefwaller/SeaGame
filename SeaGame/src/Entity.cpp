@@ -3,6 +3,7 @@
 #include "MiningBaseController.h"
 #include "ConversionBaseController.h"
 #include <algorithm>
+#include "ComponentList.h"
 
 unsigned int Entity::trueEntityCount = 0;
 
@@ -18,7 +19,7 @@ SaveData Entity::getSaveData() {
 	for (ComponentType t : ComponentList::allTypes) {
 		if (this->components.get(t)) {
 			SaveData cData = this->components.get(t)->getSaveData();
-			cData.addValue("type", std::to_string(t));
+			cData.addValue("type", ComponentList::ComponentStrings[t]);
 			sd.addData(cData);
 		}
 	}

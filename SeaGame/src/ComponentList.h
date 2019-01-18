@@ -1,6 +1,18 @@
 #pragma once
 #include <memory>
 #include <vector>
+#include <map>
+#include <string>
+
+#define ALL_COMPONENT_TYPES \
+	etype(Transform) \
+	etype(Render) \
+	etype(Physics) \
+	etype(Controller) \
+	etype(Health) \
+	etype(Inventory) \
+	etype(Gui) \
+	etype(Click)
 
 // Forward declaration of components
 class Component;
@@ -16,18 +28,14 @@ class ClickComponent;
 struct Entity;
 
 // Hold the components for an entity. Is iterable and accessable
+#define etype(x) x,
 enum ComponentType {
-	Transform,
-	Renderer,
-	Physics,
-	Controller,
-	Health,
-	Inventory,
-	Gui,
-	Click
+	ALL_COMPONENT_TYPES
 };
-
+#undef etype
 struct ComponentList {
+	static std::map<ComponentType, std::string> ComponentStrings;
+
 	ComponentList() {}
 	ComponentList(
 		TransformComponent* t,
@@ -64,7 +72,7 @@ struct ComponentList {
 	std::shared_ptr<Component> get(ComponentType t) {
 		switch (t) {
 		case ComponentType::Controller: return std::dynamic_pointer_cast<Component>(controller);
-		case ComponentType::Renderer: return std::dynamic_pointer_cast<Component>(renderer);
+		case ComponentType::Render: return std::dynamic_pointer_cast<Component>(renderer);
 		case ComponentType::Transform: return std::dynamic_pointer_cast<Component>(transform);
 		case ComponentType::Physics: return std::dynamic_pointer_cast<Component>(physics);
 		case ComponentType::Health: return std::dynamic_pointer_cast<Component>(health);

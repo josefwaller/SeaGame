@@ -8,6 +8,14 @@
 #include "GuiComponent.h"
 #include "ClickComponent.h"
 
+// String representations of the different types of components for saving
+#define etype(x) { ComponentType::x, #x },
+std::map<ComponentType, std::string> ComponentList::ComponentStrings = {
+	ALL_COMPONENT_TYPES
+};
+#undef etype
+
+
 void ComponentList::set(std::weak_ptr<Entity> parent) {
 	for (ComponentType t : allTypes) {
 		if (this->get(t)) {
@@ -16,13 +24,9 @@ void ComponentList::set(std::weak_ptr<Entity> parent) {
 	}
 }
 
+#define etype(x) ComponentType::x,
 std::vector<ComponentType> ComponentList::allTypes = {
-	ComponentType::Transform,
-	ComponentType::Renderer,
-	ComponentType::Physics,
-	ComponentType::Controller,
-	ComponentType::Health,
-	ComponentType::Inventory,
-	ComponentType::Gui,
-	ComponentType::Click
+	ALL_COMPONENT_TYPES
 };
+#undef etype
+#undef ALL_COMPONENT_TYPES
