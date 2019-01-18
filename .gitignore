@@ -327,4 +327,4 @@ Box2D
 lib
 TGUI-0.8
 # Don't include save file
-SeaGame/*.xml
+SeaGame/SaveFiles/*.xml

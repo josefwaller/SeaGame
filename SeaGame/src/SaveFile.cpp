@@ -7,7 +7,9 @@
 #include "PlayerShipController.h"
 #include <rapidxml\rapidxml_print.hpp>
 #include <rapidxml\rapidxml_utils.hpp>
+#include <Windows.h>
 
+const std::string SaveFile::SAVE_FILE_DIR = "SaveFiles/";
 SaveFile::SaveFile(Game* g) {
 	rapidxml::xml_document<> doc;
 	auto node = doc.allocate_node(rapidxml::node_element, "Game");
@@ -41,7 +43,8 @@ SaveFile::SaveFile(std::string fileName) {
 }
 void SaveFile::save(std::string fileName) {
 	std::ofstream f;
-	f.open("test.xml");
+	CreateDirectory(SAVE_FILE_DIR.c_str(), NULL);
+	f.open((SAVE_FILE_DIR + fileName + ".xml").c_str());
 	f << this->data;
 	f.close();
 

@@ -85,6 +85,7 @@
       <AdditionalUsingDirectories>%(AdditionalUsingDirectories)</AdditionalUsingDirectories>
       <PreprocessorDefinitions>_MBCS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <AdditionalIncludeDirectories>C:\Users\josef\Documents\Github\SeaGame\PerlinNoise;C:\Users\josef\Documents\Github\SeaGame\TGUI-0.8\include;..\packages\rapidxml.1.13\build\native\include;C:\Users\josef\Documents\Github\SeaGame\SFML-2.5.1\include;C:\Users\josef\Documents\Github\SeaGame\</AdditionalIncludeDirectories>
+      <LanguageStandard>stdcpp17</LanguageStandard>
     </ClCompile>
     <Link>
       <AdditionalDependencies>Box2D_d.lib;sfml-graphics-d.lib;sfml-system-d.lib;sfml-main-d.lib;sfml-window-d.lib;tgui-d.lib;%(AdditionalDependencies)</AdditionalDependencies>
@@ -112,6 +113,7 @@
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
       <AdditionalIncludeDirectories>C:\Users\josef\Documents\Github\SeaGame\PerlinNoise;C:\Users\josef\Documents\Github\SeaGame\TGUI-0.8\include;..\packages\rapidxml.1.13\build\native\include;C:\Users\josef\Documents\Github\SeaGame\SFML-2.5.1\include;C:\Users\josef\Documents\Github\SeaGame\</AdditionalIncludeDirectories>
+      <LanguageStandard>stdcpp17</LanguageStandard>
     </ClCompile>
     <Link>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>

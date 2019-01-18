@@ -54,3 +54,6 @@ sf::RenderWindow* App::getWindow() {
 tgui::Gui* App::getGui() {
 	return &this->gui;
 }
+const MainMenu* App::getMainMenu() {
+	return (const MainMenu*)&(this->menu);
+}

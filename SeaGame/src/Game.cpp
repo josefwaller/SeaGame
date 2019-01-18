@@ -7,12 +7,11 @@
 #include "SimpleCollisionListener.h"
 #include "PlayerShipController.h"
 #include <memory>
-#include <fstream>
-#include <iostream>
-#include <rapidxml\rapidxml_print.hpp>
-#include <rapidxml\rapidxml_utils.hpp>
 #include "App.h"
 #include "SaveFile.h"
+#include <chrono>
+#include <ctime>
+#include <iomanip>
 
 const float Game::BOX2D_TO_WORLD = 100.0f;
 const float Game::WORLD_TO_BOX2D = 1 / Game::BOX2D_TO_WORLD;
@@ -139,8 +138,18 @@ void Game::render()
 	r.reset();
 }
 void Game::save() {
+	// Get date for file name
+	auto time = std::chrono::system_clock::now();
+	auto t = std::chrono::system_clock::to_time_t(time);
+	// Get formatted date as string
+	std::tm buf;
+	localtime_s(&buf, &t);
+	std::stringstream ss;
+	ss << std::put_time(&buf, "%Y-%m-%d");
+	std::string date = ss.str();
+	// Save file
 	SaveFile sf(this);
-	sf.save("test.xml");
+	sf.save(date);
 }
 void Game::handleEvent(sf::Event e) {
 	switch (e.type) {

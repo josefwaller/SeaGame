@@ -14,6 +14,8 @@ private:
 	App* app;
 	// All the stuff on the main menu
 	tgui::VerticalLayout::Ptr container;
+	// Show the savefiles available in the save window
+	void showSaveFiles();
 };
 
 #include "App.h"

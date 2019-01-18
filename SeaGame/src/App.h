@@ -20,6 +20,8 @@ public:
 	void loadGame(std::string fileName);
 	sf::RenderWindow* getWindow();
 	tgui::Gui* getGui();
+	// Get the main menu
+	const MainMenu* getMainMenu();
 private:
 	sf::RenderWindow window;
 	tgui::Gui gui;

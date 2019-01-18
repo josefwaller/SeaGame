@@ -10,6 +10,8 @@ class Game;
 
 class SaveFile {
 public:
+	// The directory that contains the save files
+	static const std::string SAVE_FILE_DIR;
 	// Get save data from an existing game
 	SaveFile(Game* g);
 	// Get the save data from a file
