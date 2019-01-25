@@ -37,6 +37,8 @@ void ConversionBaseController::update(float delta) {
 			}
 			// Add a new product
 			this->getParent().lock()->components.inventory->addItems(this->product, 1);
+			// Alert player
+			this->getGame()->getHud()->addAnnouncement("Added a " + getResourceString(this->product));
 			// Restart clock
 			this->sinceLastConversion = 0.0f;
 		}

@@ -9,6 +9,10 @@ struct Entity;
 // Manage the HUD interface, as well as selecting entities, etc
 class GameHud {
 public:
+	// The width of the announcement widget
+	static const float ANNOUNCEMENT_WIDTH;
+	// The height of each announcement
+	static const float ANNOUNCEMENT_ITEM_HEIGHT;
 	GameHud();
 	GameHud(Game* game);
 	// The clicking states, help determine what to do when clicking
@@ -40,6 +44,8 @@ public:
 	void resetResearchButtons();
 	// Transfer items between entities by clicking between them
 	void transferItems(std::weak_ptr<Entity> e, GameResource res, unsigned int amount);
+	// Add an announcement
+	void addAnnouncement(std::string text);
 private:
 	// The game the HUD belongs to
 	Game* game;
@@ -66,6 +72,7 @@ private:
 	std::shared_ptr<Entity> toBuild;
 	// The crafting recipe of the entity currently being build
 	CraftingRecipes::CraftRecipe buildRecipe;
+	tgui::VerticalLayout::Ptr announcementContainer;
 	/*
 	 * There are two ways to select something via clicking on it
 	 * Selecting a point, or selecting an entity
@@ -74,6 +81,9 @@ private:
 	std::function<void(Game* g, sf::Vector2f pos)> clickCallback;
 	// The callback for selecting an entity (by clicking on it)
 	std::function<void(std::weak_ptr<Entity> entity)> selectCallback;
+	// The announcements being shown
+	// Hold the GUI component and the clock in order to check when to destory it
+	std::queue<std::pair<tgui::TextBox::Ptr, sf::Clock>> announcements;
 };
 #include "Game.h"
 #include "Entity.h"

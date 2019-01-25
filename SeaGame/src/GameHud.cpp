@@ -8,6 +8,9 @@
 #include "GameResource.h"
 #include "BasicTransform.h"
 
+const float GameHud::ANNOUNCEMENT_WIDTH = 400.0f;
+const float GameHud::ANNOUNCEMENT_ITEM_HEIGHT = 60.0f;
+
 GameHud::GameHud() {
 }
 GameHud::GameHud(Game* g) {
@@ -52,12 +55,25 @@ GameHud::GameHud(Game* g) {
 	this->playerHealth->setMaximum(100);
 	this->playerHealth->setPosition({ 0, this->game->getWindow()->getSize().y - this->playerHealth->getFullSize().y });
 	this->game->getGui()->add(this->playerHealth);
+	this->announcementContainer = tgui::VerticalLayout::create();
+	this->announcementContainer->setPosition({ this->game->getGui()->getSize().x - 400, 500 });
+	this->game->getGui()->add(this->announcementContainer);
 }
 void GameHud::update() {
 	// Update money display
 	this->moneyDisplay->setText("$" + std::to_string(this->game->getMoney()));
 	// Update player health
 	this->playerHealth->setValue(this->game->getPlayer()->components.health->getHealth());
+	// Update announcements
+	if (!this->announcements.empty()) {
+		while (this->announcements.front().second.getElapsedTime().asMilliseconds() >= 3000.0) {
+			this->announcementContainer->remove(this->announcements.front().first);
+			this->announcements.pop();
+			this->announcementContainer->setSize(
+				this->announcementContainer->getSize().x,
+				this->announcements.size() * ANNOUNCEMENT_ITEM_HEIGHT);
+		}
+	}
 }
 void GameHud::render(RenderManager& rm) {
 	if (this->currentClickState == ClickState::Building && this->toBuild) {
@@ -325,4 +341,14 @@ void GameHud::toggleResearchButtons() {
 		this->researchGroup->setVisible(true);
 		this->resetResearchButtons();
 	}
+}
+void GameHud::addAnnouncement(std::string announcement) {
+	tgui::TextBox::Ptr p = tgui::TextBox::create();
+	p->setText(announcement);
+	p->getRenderer()->setTextColor(tgui::Color(rand() % 255, rand() % 255, rand() % 255, 255));
+	this->announcementContainer->add(p);
+	this->announcements.push({ p, sf::Clock() });
+	this->announcementContainer->setSize(
+		ANNOUNCEMENT_WIDTH,
+		this->announcements.size() * ANNOUNCEMENT_ITEM_HEIGHT);
 }
