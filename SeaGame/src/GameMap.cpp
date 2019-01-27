@@ -104,7 +104,7 @@ noiseGrid[x].push_back(noise.octaveNoise0_1(x / fx, y / fy, 16));
 			size_t maxX = (x + 1) * w;
 			size_t maxY = (y + 1) * h;
 			// Every 5th citie should instead be a pirate base
-			if (rand() % 5 == 0 || true) {
+			if (rand() % 5 == 0) {
 				addBuilding(EntityType::PirateFortress, minX, minY, maxX, maxY);
 				addBuilding(EntityType::PirateBase, minX, minY, maxX, maxY);
 				addBuilding(EntityType::PirateBase, minX, minY, maxX, maxY);
