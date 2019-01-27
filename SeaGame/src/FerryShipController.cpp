@@ -1,6 +1,7 @@
 #include "FerryShipController.h"
 #include "BaseController.h"
 #include "InventoryComponent.h"
+#include "GuiComponent.h"
 
 void FerryShipController::update(float delta) {
 	// Move towards destination if it exists and there is a path to it
@@ -75,14 +76,18 @@ void FerryShipController::setStopDropOff(size_t stopIndex, GameResource res, boo
 
 void FerryShipController::updateGui(tgui::Tabs::Ptr tabs, std::map<std::string, tgui::Panel::Ptr>* panels) {
 	tabs->add("Ferry", false);
-	panels->insert({ "Ferry", tgui::Panel::create() });
+	tgui::ScrollablePanel::Ptr layout = tgui::ScrollablePanel::create();
+	panels->insert({ "Ferry", layout });
 	// Make sure to pass weak_ptr as parameter otherwise controller will not just have one owner
 	std::weak_ptr<FerryShipController> controller = std::dynamic_pointer_cast<FerryShipController>(
 		this->getParent().lock()->components.controller
 	);
 	// Add the layout
-	tgui::VerticalLayout::Ptr layout = tgui::VerticalLayout::create();
-	panels->at("Ferry")->add(layout);
+	layout->setSize(
+		GuiComponent::WINDOW_WIDTH,
+		GuiComponent::WINDOW_HEIGHT
+	);
+	layout->setHorizontalScrollbarPolicy(tgui::ScrollablePanel::ScrollbarPolicy::Never);
 	// Add box of each stop
 	std::vector<FerryShipController::FerryStop> stops = controller.lock()->getStops();
 	for (auto it = stops.begin(); it != stops.end(); it++) {
@@ -90,10 +95,21 @@ void FerryShipController::updateGui(tgui::Tabs::Ptr tabs, std::map<std::string, 
 		size_t index = std::distance(stops.begin(), it);
 		// Add label
 		tgui::HorizontalLayout::Ptr lay = tgui::HorizontalLayout::create();
+		lay->setSize(
+			layout->getSize().x,
+			100
+		);
+		lay->setPosition(
+			0,
+			100 * index
+		);
 		// Add stop name
 		tgui::Label::Ptr label = tgui::Label::create();
 		label->setText(it->target.lock()->getStringRep() + " (team " + std::to_string(it->target.lock()->team) + ")");
 		lay->add(label);
+		// Add vertical layout for pick up/drop off and remove stop buttons
+		tgui::VerticalLayout::Ptr btnLay = tgui::VerticalLayout::create();
+		lay->add(btnLay);
 		// Add menu for what to pick up/drop off
 		tgui::Button::Ptr exchangeButton = tgui::Button::create();
 		exchangeButton->setText("Pick up/drop off");
@@ -145,7 +161,7 @@ void FerryShipController::updateGui(tgui::Tabs::Ptr tabs, std::map<std::string, 
 			// Add window
 			g->getGui()->add(window);
 		}, this->getGame(), index, controller, *it);
-		lay->add(exchangeButton);
+		btnLay->add(exchangeButton);
 		// Add remove button
 		tgui::Button::Ptr removeButton = tgui::Button::create();
 		removeButton->setText("Remove Stop");
@@ -154,7 +170,7 @@ void FerryShipController::updateGui(tgui::Tabs::Ptr tabs, std::map<std::string, 
 				c.lock()->removeStop(i);
 			}
 		}, controller, index);
-		lay->add(removeButton);
+		btnLay->add(removeButton);
 		// Add to larger layout
 		layout->add(lay);
 	}
@@ -168,8 +184,9 @@ void FerryShipController::updateGui(tgui::Tabs::Ptr tabs, std::map<std::string, 
 			c.lock()->getParent().lock()->components.gui->update();
 		}, std::placeholders::_1, cont));
 	}, this->getGame(), controller);
+	addStopButton->setPosition(0, this->stops.size() * 100);
+	addStopButton->setSize(GuiComponent::WINDOW_WIDTH, 50);
 	layout->add(addStopButton);
-
 }
 
 SaveData FerryShipController::getSaveData() {
