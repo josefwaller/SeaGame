@@ -85,7 +85,7 @@ noiseGrid[x].push_back(noise.octaveNoise0_1(x / fx, y / fy, 16));
 						break;
 					}
 					this->game->addEntity(
-						EntityPrefabs::resourceSource(this->game, sf::Vector2f(x, y), res)
+						EntityPrefabs::resourceSource(this->game, sf::Vector2f((float)x, (float)y), res)
 					);
 					this->tiles[x][y].isFull = true;
 				}
@@ -196,10 +196,10 @@ void GameMap::render(sf::RenderWindow* window)
 	auto c = this->game->getView()->getCenter();
 	auto s = this->game->getView()->getSize();
 	// Render the tiles
-	int minX = floor((c.x - s.x / 2) / 64.0f);
-	int minY = floor((c.y - s.y / 2) / 64.0f);
-	int maxX = ceil((c.x + s.x / 2) / 64.0f);
-	int maxY = ceil((c.y + s.y / 2) / 64.0f);
+	int minX = (int)floor((c.x - s.x / 2) / 64.0f);
+	int minY = (int)floor((c.y - s.y / 2) / 64.0f);
+	int maxX = (int)ceil((c.x + s.x / 2) / 64.0f);
+	int maxY = (int)ceil((c.y + s.y / 2) / 64.0f);
 	sf::Sprite spr = ResourceManager::get()->getSprite("tiles", "sea-sea-sea-sea", false);
 	for (int x = minX; x < maxX; x++) {
 		for (int y = minY; y < maxY; y++) {
@@ -255,7 +255,7 @@ void GameMap::drawTile(sf::RenderWindow* window, size_t x, size_t y) {
 		&data.botLeft,
 		&data.botRight
 	};
-	sf::Vector2f pos = sf::Vector2f(x, y) * 64.0f;
+	sf::Vector2f pos = sf::Vector2f((float)x, (float)y) * 64.0f;
 	const std::vector<sf::Vector2f> poses = {
 		pos,
 		pos + sf::Vector2f(32.0f, 0),
