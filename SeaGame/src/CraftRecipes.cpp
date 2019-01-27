@@ -1,8 +1,8 @@
 #include "CraftRecipes.h"
 #include "EntityPrefabs.h"
 
-sf::Vector2i getBaseCoords(sf::Vector2f c) {
-	return sf::Vector2i(c / 64.0f) * 64;
+sf::Vector2f getBaseCoords(sf::Vector2f c) {
+	return sf::Vector2f(sf::Vector2i(c / 64.0f) * 64);
 }
 
 std::vector<CraftingRecipes::CraftRecipe> CraftingRecipes::recipes = {

@@ -114,7 +114,7 @@ entity_ptr EntityPrefabs::ferryShip(Game* g, sf::Vector2f pos, std::weak_ptr<Ent
 		)
 	));
 }
-entity_ptr EntityPrefabs::militaryBase(Game* g, sf::Vector2i pos)
+entity_ptr EntityPrefabs::militaryBase(Game* g, sf::Vector2f pos)
 {
 	return buildEntity(new Entity(
 		g,
@@ -122,7 +122,7 @@ entity_ptr EntityPrefabs::militaryBase(Game* g, sf::Vector2i pos)
 		EntityType::MilitaryBase,
 		EntityTag::Base,
 		ComponentList(
-			new Box2dTransform(EntityPrefabs::getBaseBody(g, sf::Vector2f(pos), 0.0f)),
+			new Box2dTransform(EntityPrefabs::getBaseBody(g, pos, 0.0f)),
 			new MilitaryBaseController(),
 			new MilitaryBaseRenderer(),
 			nullptr,
@@ -133,7 +133,7 @@ entity_ptr EntityPrefabs::militaryBase(Game* g, sf::Vector2i pos)
 		)
 	));
 }
-entity_ptr EntityPrefabs::generationBase(Game* g, sf::Vector2i pos, GameResource res) {
+entity_ptr EntityPrefabs::generationBase(Game* g, sf::Vector2f pos, GameResource res) {
 	return EntityPrefabs::buildEntity(new Entity(
 		g,
 		0,
@@ -141,7 +141,7 @@ entity_ptr EntityPrefabs::generationBase(Game* g, sf::Vector2i pos, GameResource
 		EntityType::MiningBase,
 		EntityTag::Base,
 		ComponentList(
-			new Box2dTransform(EntityPrefabs::getBaseBody(g, sf::Vector2f(pos), 0.0f)),
+			new Box2dTransform(EntityPrefabs::getBaseBody(g, pos, 0.0f)),
 			new MiningBaseController(res),
 			new MiningBaseRenderer(res),
 			nullptr,
@@ -152,14 +152,14 @@ entity_ptr EntityPrefabs::generationBase(Game* g, sf::Vector2i pos, GameResource
 		)
 	));
 }
-entity_ptr EntityPrefabs::pirateBase(Game* g, sf::Vector2i pos) {
+entity_ptr EntityPrefabs::pirateBase(Game* g, sf::Vector2f pos) {
 	return EntityPrefabs::buildEntity(new Entity(
 		g,
 		1,
 		EntityType::PirateBase,
 		EntityTag::Base,
 		ComponentList(
-			new Box2dTransform(EntityPrefabs::getBaseBody(g, sf::Vector2f(pos), 0.0f)),
+			new Box2dTransform(EntityPrefabs::getBaseBody(g, pos, 0.0f)),
 			new PirateBaseController(),
 			new PirateBaseRenderer(),
 			nullptr,
@@ -206,7 +206,7 @@ entity_ptr EntityPrefabs::attackPirateShip(Game* g, sf::Vector2f pos, std::weak_
 		)
 	));
 }
-entity_ptr EntityPrefabs::pirateFortress(Game* g, sf::Vector2i pos) {
+entity_ptr EntityPrefabs::pirateFortress(Game* g, sf::Vector2f pos) {
 	sf::Sprite spr = ResourceManager::get()->getSprite(
 		"medievalRTS_spritesheet@2",
 		"medievalStructure_05.png",
@@ -218,7 +218,7 @@ entity_ptr EntityPrefabs::pirateFortress(Game* g, sf::Vector2i pos) {
 		EntityType::PirateFortress,
 		EntityTag::Base,
 		ComponentList(
-			new Box2dTransform(getBaseBody(g, sf::Vector2f(pos), 0.0f)),
+			new Box2dTransform(getBaseBody(g, pos, 0.0f)),
 			new PirateFortressController(),
 			new SpriteRenderer(spr, RenderManager::INDEX_BASE_TILES),
 			nullptr,
@@ -229,14 +229,14 @@ entity_ptr EntityPrefabs::pirateFortress(Game* g, sf::Vector2i pos) {
 		)
 	));
 }
-entity_ptr EntityPrefabs::conversionBase(Game* g, sf::Vector2i pos, GameResource res) {
+entity_ptr EntityPrefabs::conversionBase(Game* g, sf::Vector2f pos, GameResource res) {
 	return EntityPrefabs::buildEntity(new Entity(
 		g,
 		0,
 		EntityType::ConversionBase,
 		EntityTag::Base,
 		ComponentList(
-			new Box2dTransform(EntityPrefabs::getBaseBody(g, sf::Vector2f(pos), 0.0f)),
+			new Box2dTransform(EntityPrefabs::getBaseBody(g, pos, 0.0f)),
 			new ConversionBaseController(res),
 			new MiningBaseRenderer(res),
 			nullptr,
@@ -275,14 +275,14 @@ entity_ptr EntityPrefabs::explosion(Game* g, sf::Vector2f pos)
 		)
 	));
 }
-entity_ptr EntityPrefabs::city(Game* g, sf::Vector2i pos) {
+entity_ptr EntityPrefabs::city(Game* g, sf::Vector2f pos) {
 	return buildEntity(new Entity(
 		g,
 		0,
 		EntityType::City,
 		EntityTag::Base,
 		ComponentList(
-			new Box2dTransform(getBaseBody(g, sf::Vector2f(pos), 0.0f)),
+			new Box2dTransform(getBaseBody(g, pos, 0.0f)),
 			new CityController(),
 			new CityRenderer(),
 			nullptr,
@@ -293,14 +293,14 @@ entity_ptr EntityPrefabs::city(Game* g, sf::Vector2i pos) {
 		)
 	));
 }
-entity_ptr EntityPrefabs::resourceSource(Game* g, sf::Vector2i pos, GameResource res) {
+entity_ptr EntityPrefabs::resourceSource(Game* g, sf::Vector2f pos, GameResource res) {
 	return buildEntity(new Entity(
 		g,
 		1,
 		EntityType::ResourceDeposit,
 		EntityTag::Resource,
 		ComponentList(
-			new BasicTransform(sf::Vector2f(pos), 0.0f),
+			new BasicTransform(pos, 0.0f),
 			new ResourceController(res, 200),
 			new ResourceRenderer(res),
 			nullptr,
@@ -394,15 +394,15 @@ entity_ptr EntityPrefabs::getEntityFromType(Game* g, sf::Vector2f pos, EntityTyp
 	switch (type){
 	// Types of bases
 	case EntityType::MiningBase:
-		return EntityPrefabs::generationBase(g, { (int)x, (int)y }, GameResource::Stone);
+		return EntityPrefabs::generationBase(g, { x, y }, GameResource::Stone);
 	case EntityType::ForestryBase:
-		return EntityPrefabs::generationBase(g, { (int)x, (int)y }, GameResource::Wood);
+		return EntityPrefabs::generationBase(g, { x, y }, GameResource::Wood);
 	case EntityType::City:
-		return EntityPrefabs::city(g, { (int)x, (int)y });
+		return EntityPrefabs::city(g, { x, y });
 	case EntityType::MilitaryBase:
-		return EntityPrefabs::militaryBase(g, { (int)x, (int)y });
+		return EntityPrefabs::militaryBase(g, { x, y });
 	case EntityType::PirateBase:
-		return EntityPrefabs::pirateBase(g, { (int)x, (int)y });
+		return EntityPrefabs::pirateBase(g, { x, y });
 	// Types of ships
 	case EntityType::Player:
 		return EntityPrefabs::playerShip(g, { x, y });
@@ -412,15 +412,15 @@ entity_ptr EntityPrefabs::getEntityFromType(Game* g, sf::Vector2f pos, EntityTyp
 		// Source/destination is set in Component::fromSvaeData after all entities are loaded
 		return EntityPrefabs::ferryShip(g, { x, y }, std::weak_ptr<Entity>(), std::weak_ptr<Entity>());
 	case EntityType::ConversionBase:
-		return EntityPrefabs::conversionBase(g, { (int)x, (int)y }, GameResource::Stone);
+		return EntityPrefabs::conversionBase(g, { x, y }, GameResource::Stone);
 	case EntityType::ResourceDeposit:
-		return EntityPrefabs::resourceSource(g, { (int)x, (int)y }, GameResource::Stone);
+		return EntityPrefabs::resourceSource(g, { x, y }, GameResource::Stone);
 	case EntityType::DefensePirateShip:
 		return EntityPrefabs::defensePirateShip(g, { x, y }, {});
 	case EntityType::Cannonball:
 		return EntityPrefabs::cannonBall(g, {}, { x, y }, 0.0f);
 	case EntityType::PirateFortress:
-		return EntityPrefabs::pirateFortress(g, { (int)x, (int)y });
+		return EntityPrefabs::pirateFortress(g, { x, y });
 	}
 	auto breakpoint = 0;
 }

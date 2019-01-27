@@ -85,7 +85,7 @@ noiseGrid[x].push_back(noise.octaveNoise0_1(x / fx, y / fy, 16));
 						break;
 					}
 					this->game->addEntity(
-						EntityPrefabs::resourceSource(this->game, sf::Vector2i((int)x * 64, (int)y * 64), res)
+						EntityPrefabs::resourceSource(this->game, sf::Vector2f(x, y), res)
 					);
 					this->tiles[x][y].isFull = true;
 				}
