@@ -25,10 +25,6 @@ void HealthComponent::heal(int healAmount) {
 bool HealthComponent::isDead() {
 	return this->health == 0;
 }
-void HealthComponent::updateGui(tgui::Tabs::Ptr tabs, std::map<std::string, tgui::Panel::Ptr>* panels) {
-	tabs->add("Health", false);
-	panels->insert({ "Health", tgui::Panel::create() });
-}
 SaveData HealthComponent::getSaveData() {
 	return SaveData("Component", {
 		{ "health", std::to_string(this->health) }

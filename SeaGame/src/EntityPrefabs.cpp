@@ -306,7 +306,7 @@ entity_ptr EntityPrefabs::resourceSource(Game* g, sf::Vector2f pos, GameResource
 			nullptr,
 			nullptr,
 			new InventoryComponent(),
-			new GuiComponent(),
+			nullptr,
 			new RectangleClick(sf::Vector2i(0, 0), sf::Vector2i(64, 64))
 		)
 	));

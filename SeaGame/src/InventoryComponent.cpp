@@ -2,17 +2,16 @@
 #include "RenderComponent.h"
 #include "Box2dTransform.h"
 
+InventoryComponent::InventoryComponent() {
+	this->panel = tgui::ScrollablePanel::create();
+}
 void InventoryComponent::addItems(GameResource res, unsigned int amount) {
 	this->inventory[res] += amount;
-	if (this->getParent().lock()->components.gui != nullptr) {
-		this->getParent().lock()->components.gui->update();
-	}
+	this->updatePanel();
 }
 void InventoryComponent::removeItems(GameResource res, unsigned int amount) {
 	this->inventory[res] -= amount;
-	if (this->getParent().lock()->components.gui != nullptr) {
-		this->getParent().lock()->components.gui->update();
-	}
+	this->updatePanel();
 }
 std::map<GameResource, unsigned int> InventoryComponent::getInventory() {
 	return this->inventory;
@@ -36,12 +35,11 @@ void InventoryComponent::fromSaveData(SaveData data) {
 		this->addItems(res, count);
 	}
 }
-
-
-void InventoryComponent::updateGui(tgui::Tabs::Ptr tabs, std::map<std::string, tgui::Panel::Ptr>* panels) {
-	tabs->add("Inventory", false);
-	panels->insert({ "Inventory", tgui::Panel::create() });
-	panels->at("Inventory")->setPosition({ 0, tabs->getFullSize().y });
+tgui::Widget::Ptr InventoryComponent::getGui() {
+	return this->panel;
+}
+void InventoryComponent::updatePanel() {
+	this->panel->removeAllWidgets();
 	float y = 0.0f;
 	// Add a button for each of the resources
 	for (auto it : this->getInventory()) {
@@ -57,7 +55,7 @@ void InventoryComponent::updateGui(tgui::Tabs::Ptr tabs, std::map<std::string, t
 			this->getParent(),
 			it.first,
 			it.second);
-		panels->at("Inventory")->add(btn);
+		this->panel->add(btn);
 		y += btn->getFullSize().y;
 	}
 }

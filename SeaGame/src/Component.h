@@ -22,7 +22,7 @@ public:
 	// Runs after all entities have been added, thus can reference entities by id
 	virtual void fromSaveData(SaveData data);
 	// Add a panel to the entitie's GUI
-	virtual void updateGui(tgui::Tabs::Ptr tabs, std::map<std::string, tgui::Panel::Ptr>* panels);
+	virtual tgui::Widget::Ptr getGui();
 protected:
 	// Get game the entity exists in
 	Game* getGame();
