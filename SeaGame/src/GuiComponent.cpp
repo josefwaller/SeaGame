@@ -33,13 +33,20 @@ void GuiComponent::setParent(std::weak_ptr<Entity> parent) {
 	}
 }
 void GuiComponent::show() {
-	// Set position to the entity's position
-	this->getGame()->getGui()->add(this->entityWindow);
-	this->entityWindow->setPosition(
-		sf::Vector2f(this->getGame()->getWindow()->mapCoordsToPixel(
-			this->getParent().lock()->components.transform->getPosition()
-		))
-	);
+	// Add all of the panels to the game hud's entityPanel
+	auto container = tgui::HorizontalLayout::create();
+	this->getGame()->getHud()->getEntityPanel()->add(container);
+	for (ComponentType c : ComponentList::allTypes) {
+		// If the entity has this component
+		std::shared_ptr<Component> comp = this->getParent().lock()->components.get(c);
+		if (c) {
+			// If the component has a GUI
+			tgui::Widget::Ptr w = comp->getGui();
+			if (w) {
+				container->add(w);
+			}
+		}
+	}
 }
 void GuiComponent::hide() {
 	this->getGame()->getGui()->remove(this->entityWindow);

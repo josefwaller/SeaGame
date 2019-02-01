@@ -58,6 +58,14 @@ GameHud::GameHud(Game* g) {
 	this->announcementContainer = tgui::VerticalLayout::create();
 	this->announcementContainer->setPosition({ this->game->getGui()->getSize().x - 400, 500 });
 	this->game->getGui()->add(this->announcementContainer);
+	// Create entity panel
+	this->entityPanel = tgui::Panel::create();
+	this->entityPanel->setSize(tgui::bindWidth(this->game->getGui()), 250);
+	this->entityPanel->setPosition(
+		0,
+		tgui::bindHeight(this->game->getGui()) - tgui::bindHeight(this->entityPanel)
+	);
+	this->game->getGui()->add(this->entityPanel);
 }
 void GameHud::update() {
 	// Update money display
@@ -351,4 +359,7 @@ void GameHud::addAnnouncement(std::string announcement) {
 	this->announcementContainer->setSize(
 		ANNOUNCEMENT_WIDTH,
 		this->announcements.size() * ANNOUNCEMENT_ITEM_HEIGHT);
+}
+tgui::Panel::Ptr GameHud::getEntityPanel() {
+	return this->entityPanel;
 }
