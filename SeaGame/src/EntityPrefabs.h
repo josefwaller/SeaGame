@@ -1,8 +1,11 @@
 #pragma once
 #include <memory>
-#include "Game.h"
-#include "Entity.h"
-#include "ShipRenderer.h"
+#include "GameResource.h"
+#include "EntityType.h"
+class Game;
+class b2Body;
+class SaveData;
+struct Entity;
 
 using entity_ptr = std::shared_ptr<Entity>;
 // Contain methods to easily create different types of entities

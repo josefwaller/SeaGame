@@ -2,8 +2,6 @@
 #include <string>
 #include <map>
 #include <vector>
-#include <rapidxml\rapidxml_utils.hpp>
-#include "SaveData.h"
 
 class SaveData {
 public:

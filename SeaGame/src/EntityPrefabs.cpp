@@ -1,3 +1,6 @@
+#include <SFML/Graphics.hpp>
+#include <Box2D/Box2D.h>
+
 #include "EntityPrefabs.h"
 #include "ShipRenderer.h"
 #include "SpriteRenderer.h"
@@ -29,6 +32,9 @@
 #include "PirateFortressController.h"
 #include "AttackPirateShipController.h"
 #include "InventoryComponent.h"
+#include "ShipRenderer.h"
+#include "Entity.h"
+#include "SaveData.h"
 
 // Wrap entity in shared pointer and set parent/component relationship
 entity_ptr EntityPrefabs::buildEntity(Entity* entity) {

@@ -1,7 +1,9 @@
 #include "FerryShipController.h"
+#include <TGUI/Gui.hpp>
 #include "BaseController.h"
 #include "InventoryComponent.h"
 #include "GuiComponent.h"
+#include "SaveData.h"
 
 FerryShipController::FerryShipController() {
 	this->panel = tgui::ScrollablePanel::create();

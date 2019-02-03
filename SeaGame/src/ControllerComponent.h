@@ -3,6 +3,9 @@
 // Needed for implementations of onHit
 #include "HealthType.h"
 #include "HealthComponent.h"
+// Usually used
+#include "TransformComponent.h"
+#include "RenderComponent.h"
 
 class ControllerComponent : public Component
 {

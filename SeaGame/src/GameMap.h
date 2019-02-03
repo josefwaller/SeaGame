@@ -2,14 +2,11 @@
 #include <rapidxml\rapidxml.hpp>
 #include <SFML/Graphics.hpp>
 #include <Box2D/Box2D.h>
-#include "RenderManager.h"
-#include "SaveData.h"
-#include <unordered_set>
-#include <unordered_map>
 #include "EntityType.h"
 
 // Forward declaration of game
 class Game;
+class SaveData;
 struct Entity;
 
 class GameMap
@@ -71,6 +68,3 @@ private:
 		size_t endX,
 		size_t endY);
 };
-
-#include "Game.h"
-#include "Entity.h"

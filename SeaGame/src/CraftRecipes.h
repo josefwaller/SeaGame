@@ -4,11 +4,11 @@
 #include <vector>
 #include <functional>
 #include <memory>
+#include "GameResource.h"
+#include "TechTree.h"
+
 class Game;
 struct Entity;
-#include "GameResource.h"
-#include "SFML/Graphics.hpp"
-#include "TechTree.h"
 
 // Recipes for the player building an entity in the world
 // NOT for building resources from other resources, those

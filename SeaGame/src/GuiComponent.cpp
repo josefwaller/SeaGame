@@ -1,6 +1,7 @@
 #include "GuiComponent.h"
 #include "Box2dTransform.h"
 #include "FerryShipController.h"
+#include <TGUI/Gui.hpp>
 #include "MiningBaseController.h"
 
 const float GuiComponent::WINDOW_HEIGHT = 500.0f;

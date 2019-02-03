@@ -1,5 +1,6 @@
 #include "TransformComponent.h"
 #include "MilitaryBaseController.h"
+#include "SaveData.h"
 
 TransformComponent::TransformComponent(): Component()
 {

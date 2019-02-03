@@ -1,6 +1,7 @@
 #include "ConversionBaseController.h"
 #include "InventoryComponent.h"
 #include "ConversionRecipes.h"
+#include "SaveData.h"
 
 ConversionBaseController::ConversionBaseController(GameResource res) {
 	this->product = res;

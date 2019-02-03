@@ -1,5 +1,6 @@
 #include "ResourceController.h"
 #include "InventoryComponent.h"
+#include "SaveData.h"
 
 ResourceController::ResourceController(GameResource res, unsigned int count)
 	: ControllerComponent() {

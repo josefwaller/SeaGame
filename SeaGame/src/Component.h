@@ -1,12 +1,12 @@
 #pragma once
 #include <memory>
 #include <map>
-#include <TGUI/TGUI.hpp>
-#include "SaveData.h"
+#include <TGUI/Widgets/Panel.hpp>
 
 // Forward declaration of Entity
 struct Entity;
 class Game;
+class SaveData;
 
 class Component
 {

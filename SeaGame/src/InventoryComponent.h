@@ -1,7 +1,7 @@
 #pragma once
-#include "TGUI/TGUI.hpp"
 #include "Component.h"
 #include "GameResource.h"
+#include <TGUI/Widget.hpp>
 /*
  * Hold the inventory of an entity
  */

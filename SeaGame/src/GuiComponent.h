@@ -1,6 +1,7 @@
 #pragma once
 #include "Component.h"
 #include "GameResource.h"
+#include <TGUI/Gui.hpp>
 
 class GuiComponent : public Component {
 public:

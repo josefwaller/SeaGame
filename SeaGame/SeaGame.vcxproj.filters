@@ -364,6 +364,9 @@
     <ClCompile Include="src\PirateShipController.cpp">
       <Filter>Files\Components\Controllers\ShipControllers\PirateShipController</Filter>
     </ClCompile>
+    <ClCompile Include="src\Canon.cpp">
+      <Filter>Files\Utils\Cannon</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Component.h">

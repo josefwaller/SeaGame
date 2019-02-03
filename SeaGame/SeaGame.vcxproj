@@ -88,6 +88,7 @@
       <LanguageStandard>stdcpp17</LanguageStandard>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
       <AdditionalOptions>/Bt+ %(AdditionalOptions)</AdditionalOptions>
+      <ShowIncludes>false</ShowIncludes>
     </ClCompile>
     <Link>
       <AdditionalDependencies>Box2D_d.lib;sfml-graphics-d.lib;sfml-system-d.lib;sfml-main-d.lib;sfml-window-d.lib;tgui-d.lib;%(AdditionalDependencies)</AdditionalDependencies>
@@ -118,6 +119,7 @@
       <LanguageStandard>stdcpp17</LanguageStandard>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
       <AdditionalOptions>/Bt+ %(AdditionalOptions)</AdditionalOptions>
+      <ShowIncludes>false</ShowIncludes>
     </ClCompile>
     <Link>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
@@ -136,6 +138,7 @@
     <ClCompile Include="src\Box2dClick.cpp" />
     <ClCompile Include="src\Box2dTransform.cpp" />
     <ClCompile Include="src\CannonBallController.cpp" />
+    <ClCompile Include="src\Canon.cpp" />
     <ClCompile Include="src\ChasingShipController.cpp" />
     <ClCompile Include="src\CityController.cpp" />
     <ClCompile Include="src\CityRenderer.cpp" />

@@ -39,5 +39,3 @@ struct Entity
 	// Get a string representation of the entity to be used in UI
 	std::string getStringRep();
 };
-
-#include "Game.h"

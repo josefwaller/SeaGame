@@ -1,5 +1,6 @@
 #pragma once
 #include "BaseController.h"
+#include "GameResource.h"
 
 /*
  * Base which generates a resource over time

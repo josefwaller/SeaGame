@@ -1,4 +1,5 @@
 #include "DefensePirateShipController.h"
+#include "SaveData.h"
 
 const float DefensePirateShipController::MAX_DISTANCE_TO_BASE = 500.0f;
 const float DefensePirateShipController::MAX_CHASE_DISTANCE = 500.0f;

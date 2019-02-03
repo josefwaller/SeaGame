@@ -1,7 +1,7 @@
 #pragma once
 #include <map>
 #include "GameResource.h"
-#include "SaveData.h"
+class SaveData;
 
 // The different tachnologies in the game
 enum Technology {

@@ -1,4 +1,6 @@
 #include "Box2dTransform.h"
+#include "Box2D/Box2D.h"
+#include "Game.h"
 
 const float Box2dTransform::LINEAR_DAMPING = 1.0f;
 const float Box2dTransform::ANGULAR_DAMPING = 2.0f;

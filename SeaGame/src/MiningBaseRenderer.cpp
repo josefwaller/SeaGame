@@ -1,5 +1,6 @@
 #include "MiningBaseRenderer.h"
 #include "ResourceManager.h"
+#include "SaveData.h"
 
 MiningBaseRenderer::MiningBaseRenderer(GameResource res) {
 	this->resSprite = getResourceSprite(res);

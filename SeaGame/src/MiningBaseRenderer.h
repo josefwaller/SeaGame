@@ -1,5 +1,6 @@
 #pragma once
 #include "BaseRenderer.h"
+#include "GameResource.h"
 
 class MiningBaseRenderer : public BaseRenderer {
 public:

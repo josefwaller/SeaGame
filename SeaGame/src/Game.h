@@ -1,15 +1,15 @@
 #pragma once
-#include "Box2D/Box2D.h"
-#include <SFML\Graphics.hpp>
+#include <SFML/Graphics.hpp>
 #include "GameMap.h"
 #include "GameHud.h"
-#include "Entity.h"
 #include "SimpleCollisionListener.h"
 #include "GameResource.h"
-#include <TGUI/TGUI.hpp>
 #include "TechTree.h"
 //For dec of app
 class App;
+class b2World;
+class tgui::Gui;
+struct Entity;
 
 class Game
 {

@@ -1,6 +1,8 @@
 #include "InventoryComponent.h"
 #include "RenderComponent.h"
 #include "Box2dTransform.h"
+#include "SaveData.h"
+#include <TGUI/Gui.hpp>
 
 InventoryComponent::InventoryComponent() {
 	this->panel = tgui::ScrollablePanel::create();
