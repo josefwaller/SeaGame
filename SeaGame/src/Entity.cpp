@@ -8,7 +8,19 @@
 
 unsigned int Entity::trueEntityCount = 0;
 unsigned long Entity::currentId = 0;
-
+// Empty constuctor
+Entity::Entity() : game(nullptr) {}
+// Construct with game, team, type, tag and components
+Entity::Entity(Game* g, int team, EntityType type, EntityTag tag, ComponentList c)
+	: game(g), team(team), type(type), tag(tag), components(c) {
+	// Set id
+	Entity::trueEntityCount++;
+	this->id = Entity::currentId;
+	Entity::currentId++;
+}
+Entity::~Entity() {
+	Entity::trueEntityCount--;
+}
 SaveData Entity::getSaveData() {
 	// Initialize save data
 	SaveData sd("Entity", {
