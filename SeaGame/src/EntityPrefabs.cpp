@@ -28,6 +28,7 @@
 #include "DefensePirateShipController.h"
 #include "PirateFortressController.h"
 #include "AttackPirateShipController.h"
+#include "InventoryComponent.h"
 
 // Wrap entity in shared pointer and set parent/component relationship
 entity_ptr EntityPrefabs::buildEntity(Entity* entity) {

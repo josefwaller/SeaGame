@@ -7,6 +7,7 @@
 #include "ResourceController.h"
 #include "GameResource.h"
 #include "BasicTransform.h"
+#include "ClickComponent.h"
 
 const float GameHud::ANNOUNCEMENT_WIDTH = 400.0f;
 const float GameHud::ANNOUNCEMENT_ITEM_HEIGHT = 60.0f;

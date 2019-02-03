@@ -1,6 +1,8 @@
 #pragma once
 #include "Component.h"
+// Needed for implementations of onHit
 #include "HealthType.h"
+#include "HealthComponent.h"
 
 class ControllerComponent : public Component
 {

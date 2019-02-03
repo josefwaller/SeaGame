@@ -1,4 +1,5 @@
 #include "ResourceController.h"
+#include "InventoryComponent.h"
 
 ResourceController::ResourceController(GameResource res, unsigned int count)
 	: ControllerComponent() {

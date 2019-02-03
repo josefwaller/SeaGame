@@ -1,6 +1,8 @@
 #pragma once
 #include <SFML\Graphics.hpp>
 #include "Component.h"
+// Included because a lot of renderers get position to render
+#include "TransformComponent.h"
 #include "RenderManager.h"
 // Included here bc they are used in a lot of rendering components
 // to convert between degrees and radians

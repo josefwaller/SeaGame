@@ -1,4 +1,5 @@
 #include "ConversionBaseController.h"
+#include "InventoryComponent.h"
 #include "ConversionRecipes.h"
 
 ConversionBaseController::ConversionBaseController(GameResource res) {

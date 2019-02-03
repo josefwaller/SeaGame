@@ -1,6 +1,8 @@
 #include "SimpleCollisionListener.h"
 #include "Entity.h"
 #include "Box2dTransform.h"
+#include "ControllerComponent.h"
+#include "ComponentList.h"
 
 void SimpleCollisionListener::BeginContact(b2Contact* contact)
 {

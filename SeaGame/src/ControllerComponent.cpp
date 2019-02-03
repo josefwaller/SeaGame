@@ -1,4 +1,5 @@
 #include "ControllerComponent.h"
+#include "GuiComponent.h"
 
 ControllerComponent::ControllerComponent() : Component()
 {

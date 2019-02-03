@@ -1,4 +1,5 @@
 #include "RectangleClick.h"
+#include "TransformComponent.h"
 
 RectangleClick::RectangleClick(sf::Vector2i offset, sf::Vector2i size)
 	: rect(sf::Vector2f(offset), sf::Vector2f(size)) {

@@ -5,8 +5,9 @@
 #include "ComponentList.h"
 #include "EntityType.h"
 
-// Forward declaration of Game
+// Forward declarations
 class Game;
+class SaveData;
 
 enum class EntityTag {
 	Ship,

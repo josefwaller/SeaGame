@@ -8,6 +8,7 @@
 #include <rapidxml\rapidxml_print.hpp>
 #include <rapidxml\rapidxml_utils.hpp>
 #include <Windows.h>
+#include "InventoryComponent.h"
 
 const std::string SaveFile::SAVE_FILE_DIR = "SaveFiles/";
 SaveFile::SaveFile(Game* g) {

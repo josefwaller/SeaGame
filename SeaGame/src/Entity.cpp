@@ -4,10 +4,11 @@
 #include "ConversionBaseController.h"
 #include <algorithm>
 #include "ComponentList.h"
+#include "SaveData.h"
 
 unsigned int Entity::trueEntityCount = 0;
-
 unsigned long Entity::currentId = 0;
+
 SaveData Entity::getSaveData() {
 	// Initialize save data
 	SaveData sd("Entity", {

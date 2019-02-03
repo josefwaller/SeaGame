@@ -1,5 +1,8 @@
 #pragma once
 #include "Component.h"
+// Used for getting cos/sin/etc
+#define _USE_MATH_DEFINES
+#include <math.h>
 
 // Component which holds position and rotation
 class TransformComponent : public Component

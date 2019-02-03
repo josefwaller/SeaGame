@@ -1,4 +1,5 @@
 #include "MiningBaseController.h"
+#include "InventoryComponent.h"
 #include "GameResource.h"
 
 const float MiningBaseController::GENERATION_DELAY = 2000.0f;

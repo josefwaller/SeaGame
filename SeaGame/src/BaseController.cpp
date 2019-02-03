@@ -1,5 +1,6 @@
 #include "BaseController.h"
 #include "GameMap.h"
+#include "TransformComponent.h"
 
 void BaseController::setParent(std::weak_ptr<Entity> parent) {
 	Component::setParent(parent);

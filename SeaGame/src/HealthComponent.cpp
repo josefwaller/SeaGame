@@ -1,4 +1,5 @@
 #include "HealthComponent.h"
+#include "ControllerComponent.h"
 
 HealthComponent::HealthComponent(unsigned int maxHealth) : Component()
 {
