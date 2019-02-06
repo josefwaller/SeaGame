@@ -40,7 +40,7 @@ void GuiComponent::show() {
 	for (ComponentType c : ComponentList::allTypes) {
 		// If the entity has this component
 		std::shared_ptr<Component> comp = this->getParent().lock()->components.get(c);
-		if (c) {
+		if (comp) {
 			// If the component has a GUI
 			tgui::Widget::Ptr w = comp->getGui();
 			if (w) {

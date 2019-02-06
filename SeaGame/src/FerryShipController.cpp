@@ -7,6 +7,11 @@
 
 FerryShipController::FerryShipController() {
 	this->panel = tgui::ScrollablePanel::create();
+	auto cb = tgui::ComboBox::create();
+	this->panel->add(cb, "StopComboBox");
+	auto transferGroup = tgui::HorizontalLayout::create();
+	transferGroup->setPosition(0, tgui::bindHeight(cb));
+	this->panel->add(transferGroup, "StopTransferGroup");
 }
 void FerryShipController::update(float delta) {
 	// Move towards destination if it exists and there is a path to it
@@ -87,7 +92,6 @@ tgui::Widget::Ptr FerryShipController::getGui() {
 	return this->panel;
 }
 void FerryShipController::updatePanel() {
-	this->panel->removeAllWidgets();
 	// Make sure to pass weak_ptr as parameter otherwise controller will not just have one owner
 	std::weak_ptr<FerryShipController> controller = std::dynamic_pointer_cast<FerryShipController>(
 		this->getParent().lock()->components.controller
@@ -100,89 +104,24 @@ void FerryShipController::updatePanel() {
 	this->panel->setHorizontalScrollbarPolicy(tgui::ScrollablePanel::ScrollbarPolicy::Never);
 	// Add box of each stop
 	std::vector<FerryShipController::FerryStop> stops = controller.lock()->getStops();
+	auto comboBox = std::dynamic_pointer_cast<tgui::ComboBox>(this->panel->get("StopComboBox"));
+	this->panel->add(comboBox);
+	std::string selectedItem = comboBox->getSelectedItemId();
+	comboBox->removeAllItems();
 	for (auto it = stops.begin(); it != stops.end(); it++) {
 		// Get index of this stop
 		size_t index = std::distance(stops.begin(), it);
-		// Add label
-		tgui::HorizontalLayout::Ptr lay = tgui::HorizontalLayout::create();
-		lay->setSize(
-			this->panel->getSize().x,
-			100
-		);
-		lay->setPosition(
-			0,
-			100 * index
-		);
-		// Add stop name
-		tgui::Label::Ptr label = tgui::Label::create();
-		label->setText(it->target.lock()->getStringRep() + " (team " + std::to_string(it->target.lock()->team) + ")");
-		lay->add(label);
-		// Add vertical this->panel for pick up/drop off and remove stop buttons
-		tgui::VerticalLayout::Ptr btnLay = tgui::VerticalLayout::create();
-		lay->add(btnLay);
-		// Add menu for what to pick up/drop off
-		tgui::Button::Ptr exchangeButton = tgui::Button::create();
-		exchangeButton->setText("Pick up/drop off");
-		exchangeButton->connect("clicked", [&](Game* g, size_t index, std::weak_ptr<FerryShipController> cont, FerryShipController::FerryStop stop) {
-			// Create a new child window
-			tgui::ChildWindow::Ptr window = tgui::ChildWindow::create();
-			// Set title of window
-			window->setTitle("PickUp/DropOff for " + stop.target.lock()->getStringRep());
-			// for each resource, add a this->panel that looks like this
-			// | Resource Name | PickingUp? | DroppingOff? |
-			tgui::VerticalLayout::Ptr vLayout = tgui::VerticalLayout::create();
-			window->add(vLayout);
-			// Add a row for each element
-			for (GameResource res: ALL_RESOURCES) {
-				// Add horizontal this->panel
-				tgui::HorizontalLayout::Ptr hLayout = tgui::HorizontalLayout::create();
-				vLayout->add(hLayout);
-				// Add text
-				tgui::Label::Ptr t = tgui::Label::create();
-				t->setText(getResourceString(res));
-				hLayout->add(t);
-				// Add picking up button
-				tgui::Button::Ptr pickupBtn = tgui::Button::create();
-				std::string pickupText = stop.toPickUp[res] ? "Picking Up" : "Not Picking Up";
-				pickupBtn->setText(pickupText);
-				// When button is clicked, toggle picking up this resource
-				pickupBtn->connect("clicked", [&](
-					std::weak_ptr<FerryShipController> c,
-					size_t i,
-					GameResource r,
-					bool value) {
-					c.lock()->setStopPickUp(i, r, value);
-				}, cont, index, res, !stop.toPickUp[res]);
-				hLayout->add(pickupBtn);
-				// Add dropoff button
-				tgui::Button::Ptr dropoffBtn = tgui::Button::create();
-				std::string dropoffText = stop.toDropOff[res] ? "Dropping off" : "Not Dropping Off";
-				dropoffBtn->setText(dropoffText);
-				// When button is clicked, toggle dropping off this resource
-				dropoffBtn->connect("clicked", [&](
-					std::weak_ptr<FerryShipController> c,
-					size_t i,
-					GameResource r,
-					bool value) {
-					c.lock()->setStopDropOff(i, r, value);
-				}, cont, index, res, !stop.toDropOff[res]);
-				hLayout->add(dropoffBtn);
-			}
-			// Add window
-			g->getGui()->add(window);
-		}, this->getGame(), index, controller, *it);
-		btnLay->add(exchangeButton);
-		// Add remove button
-		tgui::Button::Ptr removeButton = tgui::Button::create();
-		removeButton->setText("Remove Stop");
-		removeButton->connect("clicked", [&](std::weak_ptr<FerryShipController> c, size_t i) {
-			if (c.lock()) {
-				c.lock()->removeStop(i);
-			}
-		}, controller, index);
-		btnLay->add(removeButton);
-		// Add to larger this->panel
-		this->panel->add(lay);
+		comboBox->addItem(it->target.lock()->getStringRep(), std::to_string(index));
+	}
+	comboBox->setSelectedItemById(selectedItem);
+	// Connect combobox to method to show stop
+	comboBox->connect("ItemSelected", [&](std::weak_ptr<FerryShipController> c, sf::String name, sf::String item) {
+		if (c.lock() && item != "") {
+			c.lock()->updateTransferPanel(std::stoi(std::string(item)));
+		}
+	}, controller);
+	if (selectedItem != "") {
+		this->updateTransferPanel(std::stoi(selectedItem));
 	}
 	// Add new stop button
 	tgui::Button::Ptr addStopButton = tgui::Button::create();
@@ -196,6 +135,24 @@ void FerryShipController::updatePanel() {
 	addStopButton->setPosition(0, this->stops.size() * 100);
 	addStopButton->setSize(GuiComponent::WINDOW_WIDTH, 50);
 	this->panel->add(addStopButton);
+}
+void FerryShipController::updateTransferPanel(size_t index) {
+// Clear out the stop container
+	auto g = std::dynamic_pointer_cast<tgui::HorizontalLayout>(this->panel->get("StopTransferGroup"));
+	g->removeAllWidgets();
+	// Get the selected stop
+	FerryStop stop = this->stops[index];
+	auto pickupPanel = tgui::Panel::create();
+	g->add(pickupPanel);
+	float h = 0.0;
+	for (auto pair : stop.toPickUp) {
+		auto l = tgui::Label::create();
+		std::string s = getResourceString(pair.first);
+		l->setText(s);
+		l->setPosition(0, h);
+		h += l->getSize().y;
+		pickupPanel->add(l);
+	}
 }
 
 SaveData FerryShipController::getSaveData() {

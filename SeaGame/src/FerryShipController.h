@@ -19,6 +19,8 @@ public:
 	// Set what to pick up/drop off at the stop
 	void setStopPickUp(size_t stopIndex, GameResource res, bool shouldPickUp);
 	void setStopDropOff(size_t stopIndex, GameResource res, bool shouldDropOff);
+	// Update the part of the panel that shows the stop pick up/drop off
+	void updateTransferPanel(size_t stopIndex);
 	virtual SaveData getSaveData() override;
 	virtual tgui::Widget::Ptr getGui() override;
 	virtual void fromSaveData(SaveData data) override;
@@ -30,6 +32,7 @@ private:
 	// The index of the current stop
 	size_t currentStopIndex;
 	tgui::ScrollablePanel::Ptr panel;
+	// Update the GUI panel
 	void updatePanel();
 	// Method on reaching target, see AutomatedShipController::onReachingTarget
 	virtual void onReachingTarget() override;
