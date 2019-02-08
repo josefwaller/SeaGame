@@ -34,6 +34,11 @@ private:
 	tgui::ScrollablePanel::Ptr panel;
 	// Update the GUI panel
 	void updatePanel();
+	// Update the combo box
+	// Warning: This will close it if the player is currently selecting a stop
+	void updateComboBox();
+	// Get a weak pointer to itself for use in the GUI
+	std::weak_ptr<FerryShipController> getWeakPtr();
 	// Method on reaching target, see AutomatedShipController::onReachingTarget
 	virtual void onReachingTarget() override;
 };

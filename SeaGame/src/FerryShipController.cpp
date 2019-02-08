@@ -35,12 +35,12 @@ void FerryShipController::addStop(std::weak_ptr<Entity> stop) {
 		{},
 		{}
 	});
-	this->updatePanel();
+	this->updateComboBox();
 }
 void FerryShipController::removeStop(size_t i) {
 	this->stops.erase(this->stops.begin() + i);
 	this->currentStopIndex--;
-	this->updatePanel();
+	this->updateComboBox();
 }
 // Move the stop at currentOrder to newOrder and shift the other stops down by one
 void FerryShipController::setStopOrder(size_t currentOrder, size_t newOrder) {
@@ -50,7 +50,7 @@ void FerryShipController::setStopOrder(size_t currentOrder, size_t newOrder) {
 	this->stops.erase(this->stops.begin() + currentOrder);
 	// Reinsert
 	this->stops.insert(this->stops.begin() + newOrder, stop);
-	this->updatePanel();
+	this->updateComboBox();
 }
 void FerryShipController::onReachingTarget() {
 	auto destInv = this->destination.lock()->components.inventory;
@@ -91,19 +91,32 @@ void FerryShipController::setStopDropOff(size_t stopIndex, GameResource res, boo
 tgui::Widget::Ptr FerryShipController::getGui() {
 	return this->panel;
 }
+std::weak_ptr<FerryShipController> FerryShipController::getWeakPtr() {
+	return std::dynamic_pointer_cast<FerryShipController>(this->getParent().lock()->components.controller);
+}
 void FerryShipController::updatePanel() {
-	// Make sure to pass weak_ptr as parameter otherwise controller will not just have one owner
-	std::weak_ptr<FerryShipController> controller = std::dynamic_pointer_cast<FerryShipController>(
-		this->getParent().lock()->components.controller
-	);
 	// Add the this->panel
 	this->panel->setSize(
 		GuiComponent::WINDOW_WIDTH,
 		250
 	);
 	this->panel->setHorizontalScrollbarPolicy(tgui::ScrollablePanel::ScrollbarPolicy::Never);
+	// Add new stop button
+	tgui::Button::Ptr addStopButton = tgui::Button::create();
+	addStopButton->setText("Add new stop");
+	addStopButton->connect("clicked", [&](Game* g, std::weak_ptr<FerryShipController> cont) {
+		// Select the entity to add a stop to
+		g->getHud()->selectEntity(std::bind([&](std::weak_ptr<Entity> e, std::weak_ptr<FerryShipController> c) {
+			c.lock()->addStop(e);
+		}, std::placeholders::_1, cont));
+	}, this->getGame(), getWeakPtr());
+	addStopButton->setPosition(0, this->stops.size() * 100);
+	addStopButton->setSize(GuiComponent::WINDOW_WIDTH, 50);
+	this->panel->add(addStopButton);
+}
+void FerryShipController::updateComboBox() {
 	// Add box of each stop
-	std::vector<FerryShipController::FerryStop> stops = controller.lock()->getStops();
+	std::vector<FerryStop> stops = this->getStops();
 	auto comboBox = std::dynamic_pointer_cast<tgui::ComboBox>(this->panel->get("StopComboBox"));
 	this->panel->add(comboBox);
 	std::string selectedItem = comboBox->getSelectedItemId();
@@ -119,22 +132,10 @@ void FerryShipController::updatePanel() {
 		if (c.lock() && item != "") {
 			c.lock()->updateTransferPanel(std::stoi(std::string(item)));
 		}
-	}, controller);
+	}, getWeakPtr());
 	if (selectedItem != "") {
 		this->updateTransferPanel(std::stoi(selectedItem));
 	}
-	// Add new stop button
-	tgui::Button::Ptr addStopButton = tgui::Button::create();
-	addStopButton->setText("Add new stop");
-	addStopButton->connect("clicked", [&](Game* g, std::weak_ptr<FerryShipController> cont) {
-		// Select the entity to add a stop to
-		g->getHud()->selectEntity(std::bind([&](std::weak_ptr<Entity> e, std::weak_ptr<FerryShipController> c) {
-			c.lock()->addStop(e);
-		}, std::placeholders::_1, cont));
-	}, this->getGame(), controller);
-	addStopButton->setPosition(0, this->stops.size() * 100);
-	addStopButton->setSize(GuiComponent::WINDOW_WIDTH, 50);
-	this->panel->add(addStopButton);
 }
 void FerryShipController::updateTransferPanel(size_t index) {
 // Clear out the stop container
@@ -210,4 +211,6 @@ void FerryShipController::fromSaveData(SaveData data) {
 		// Have to set target, so that it will create points for the ship to go to
 		this->setTarget(this->getCoordsForEntity(this->destination));
 	}
+	this->updatePanel();
+	this->updateComboBox();
 }
