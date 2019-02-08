@@ -31,7 +31,10 @@ private:
 	std::vector<FerryStop> stops;
 	// The index of the current stop
 	size_t currentStopIndex;
+	// Gui elements
 	tgui::ScrollablePanel::Ptr panel;
+	tgui::ComboBox::Ptr stopCombo;
+	tgui::HorizontalLayout::Ptr transferGroup;
 	// Update the GUI panel
 	void updatePanel();
 	// Update the combo box

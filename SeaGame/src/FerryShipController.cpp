@@ -7,11 +7,11 @@
 
 FerryShipController::FerryShipController() {
 	this->panel = tgui::ScrollablePanel::create();
-	auto cb = tgui::ComboBox::create();
-	this->panel->add(cb, "StopComboBox");
-	auto transferGroup = tgui::HorizontalLayout::create();
-	transferGroup->setPosition(0, tgui::bindHeight(cb));
-	this->panel->add(transferGroup, "StopTransferGroup");
+	this->stopCombo = tgui::ComboBox::create();
+	this->panel->add(this->stopCombo);
+	this->transferGroup = tgui::HorizontalLayout::create();
+	transferGroup->setPosition(0, tgui::bindHeight(this->stopCombo));
+	this->panel->add(transferGroup);
 }
 void FerryShipController::update(float delta) {
 	// Move towards destination if it exists and there is a path to it
@@ -100,9 +100,8 @@ void FerryShipController::updatePanel() {
 		250
 	);
 	this->panel->setHorizontalScrollbarPolicy(tgui::ScrollablePanel::ScrollbarPolicy::Never);
-	auto cb = std::dynamic_pointer_cast<tgui::ComboBox>(this->panel->get("StopComboBox"));
-	if (cb->getSelectedItem() != "") {
-		this->updateTransferPanel(std::stoi(std::string(cb->getSelectedItemId())));
+	if (this->stopCombo->getSelectedItem() != "") {
+		this->updateTransferPanel(std::stoi(std::string(this->stopCombo->getSelectedItemId())));
 	}
 	// Add new stop button
 	tgui::Button::Ptr addStopButton = tgui::Button::create();
@@ -120,18 +119,16 @@ void FerryShipController::updatePanel() {
 void FerryShipController::updateComboBox() {
 	// Add box of each stop
 	std::vector<FerryStop> stops = this->getStops();
-	auto comboBox = std::dynamic_pointer_cast<tgui::ComboBox>(this->panel->get("StopComboBox"));
-	this->panel->add(comboBox);
-	std::string selectedItem = comboBox->getSelectedItemId();
-	comboBox->removeAllItems();
+	std::string selectedItem = this->stopCombo->getSelectedItemId();
+	this->stopCombo->removeAllItems();
 	for (auto it = stops.begin(); it != stops.end(); it++) {
 		// Get index of this stop
 		size_t index = std::distance(stops.begin(), it);
-		comboBox->addItem(it->target.lock()->getStringRep(), std::to_string(index));
+		this->stopCombo->addItem(it->target.lock()->getStringRep(), std::to_string(index));
 	}
-	comboBox->setSelectedItemById(selectedItem);
+	this->stopCombo->setSelectedItemById(selectedItem);
 	// Connect combobox to method to show stop
-	comboBox->connect("ItemSelected", [&](std::weak_ptr<FerryShipController> c, sf::String name, sf::String item) {
+	this->stopCombo->connect("ItemSelected", [&](std::weak_ptr<FerryShipController> c, sf::String name, sf::String item) {
 		if (c.lock() && item != "") {
 			c.lock()->updateTransferPanel(std::stoi(std::string(item)));
 		}
@@ -142,14 +139,13 @@ void FerryShipController::updateComboBox() {
 }
 void FerryShipController::updateTransferPanel(size_t index) {
 	// Clear out the stop container
-	auto g = std::dynamic_pointer_cast<tgui::HorizontalLayout>(this->panel->get("StopTransferGroup"));
-	g->removeAllWidgets();
+	this->transferGroup->removeAllWidgets();
 	// Get the selected stop
 	FerryStop stop = this->stops[index];
 	// Add the pickup panel, with the method to add the resource to the stop's pick up
-	g->add(getTransferGui("Pick Up", stop.toPickUp, index, &FerryShipController::setStopPickUp));
+	this->transferGroup->add(getTransferGui("Pick Up", stop.toPickUp, index, &FerryShipController::setStopPickUp));
 	// Add the drop off panel too
-	g->add(getTransferGui("Drop Off", stop.toDropOff, index, &FerryShipController::setStopDropOff));
+	this->transferGroup->add(getTransferGui("Drop Off", stop.toDropOff, index, &FerryShipController::setStopDropOff));
 }
 
 tgui::Group::Ptr FerryShipController::getTransferGui(
