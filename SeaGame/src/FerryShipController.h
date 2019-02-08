@@ -37,6 +37,12 @@ private:
 	// Update the combo box
 	// Warning: This will close it if the player is currently selecting a stop
 	void updateComboBox();
+	// Return a panel full of the things a stop is picking up/dropping off
+	tgui::Group::Ptr getTransferGui(
+		std::string titleStr,
+		std::map<GameResource, bool> resources,
+		size_t stopIndex,
+		std::function<void(FerryShipController* c, size_t stopIndex, GameResource res, bool value)> callback);;
 	// Get a weak pointer to itself for use in the GUI
 	std::weak_ptr<FerryShipController> getWeakPtr();
 	// Method on reaching target, see AutomatedShipController::onReachingTarget

@@ -77,7 +77,6 @@ void FerryShipController::onReachingTarget() {
 	this->currentStopIndex = (this->currentStopIndex + 1) % this->stops.size();
 	this->destination = this->stops[this->currentStopIndex].target;
 	this->setTarget(this->getCoordsForEntity(this->destination));
-	this->updatePanel();
 }
 void FerryShipController::setStopPickUp(size_t stopIndex, GameResource res, bool val) {
 	this->stops[stopIndex].toPickUp[res] = val;
@@ -101,6 +100,10 @@ void FerryShipController::updatePanel() {
 		250
 	);
 	this->panel->setHorizontalScrollbarPolicy(tgui::ScrollablePanel::ScrollbarPolicy::Never);
+	auto cb = std::dynamic_pointer_cast<tgui::ComboBox>(this->panel->get("StopComboBox"));
+	if (cb->getSelectedItem() != "") {
+		this->updateTransferPanel(std::stoi(std::string(cb->getSelectedItemId())));
+	}
 	// Add new stop button
 	tgui::Button::Ptr addStopButton = tgui::Button::create();
 	addStopButton->setText("Add new stop");
@@ -138,22 +141,59 @@ void FerryShipController::updateComboBox() {
 	}
 }
 void FerryShipController::updateTransferPanel(size_t index) {
-// Clear out the stop container
+	// Clear out the stop container
 	auto g = std::dynamic_pointer_cast<tgui::HorizontalLayout>(this->panel->get("StopTransferGroup"));
 	g->removeAllWidgets();
 	// Get the selected stop
 	FerryStop stop = this->stops[index];
-	auto pickupPanel = tgui::Panel::create();
-	g->add(pickupPanel);
-	float h = 0.0;
-	for (auto pair : stop.toPickUp) {
-		auto l = tgui::Label::create();
-		std::string s = getResourceString(pair.first);
-		l->setText(s);
-		l->setPosition(0, h);
-		h += l->getSize().y;
-		pickupPanel->add(l);
+	// Add the pickup panel, with the method to add the resource to the stop's pick up
+	g->add(getTransferGui("Pick Up", stop.toPickUp, index, &FerryShipController::setStopPickUp));
+	// Add the drop off panel too
+	g->add(getTransferGui("Drop Off", stop.toDropOff, index, &FerryShipController::setStopDropOff));
+}
+
+tgui::Group::Ptr FerryShipController::getTransferGui(
+	std::string titleStr,
+	std::map<GameResource, bool> resources,
+	size_t stopIndex,
+	std::function<void(FerryShipController*, size_t, GameResource, bool)> callback) {
+	auto toReturn = tgui::Group::create();
+	auto title = tgui::Label::create();
+	title->setText(titleStr);
+	toReturn->add(title);
+	// Add labels for each thing to pick up
+	float h = title->getSize().y;
+	for (auto pair : resources) {
+		if (pair.second) {
+			auto l = tgui::Label::create();
+			std::string s = getResourceString(pair.first);
+			l->setText(s);
+			l->setPosition(0, h);
+			h += l->getSize().y;
+			toReturn->add(l);
+		}
 	}
+	// Add a combo box to choose what to pick up/drop off
+	auto cb = tgui::ComboBox::create();
+	cb->setPosition(0, h);
+	toReturn->add(cb);
+	for (GameResource res : ALL_RESOURCES) {
+		if (!resources[res])
+			cb->addItem(getResourceString(res), std::to_string(res));
+	}
+	// Add a resource when selected
+	auto c = getWeakPtr();
+	cb->connect("ItemSelected", [stopIndex, callback, c](
+		sf::String name,
+		sf::String id
+		) {
+		if (c.lock()) {
+			GameResource res = (GameResource)(std::stoi(std::string(id)));
+			callback(c.lock().get(), stopIndex, res, true);
+		}
+	});
+	cb->setItemsToDisplay(3);
+	return toReturn;
 }
 
 SaveData FerryShipController::getSaveData() {
