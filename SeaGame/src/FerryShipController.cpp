@@ -80,11 +80,11 @@ void FerryShipController::onReachingTarget() {
 }
 void FerryShipController::setStopPickUp(size_t stopIndex, GameResource res, bool val) {
 	this->stops[stopIndex].toPickUp[res] = val;
-	this->updatePanel();
+	this->updateTransferPanel(stopIndex);
 }
 void FerryShipController::setStopDropOff(size_t stopIndex, GameResource res, bool val) {
 	this->stops[stopIndex].toDropOff[res] = val;
-	this->updatePanel();
+	this->updateTransferPanel(stopIndex);
 }
 
 tgui::Widget::Ptr FerryShipController::getGui() {
