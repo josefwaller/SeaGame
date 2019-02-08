@@ -66,7 +66,17 @@ GameHud::GameHud(Game* g) {
 		0,
 		tgui::bindHeight(this->game->getGui()) - tgui::bindHeight(this->entityPanel)
 	);
-	this->game->getGui()->add(this->entityPanel);
+	auto closeBtn = tgui::Button::create();
+	closeBtn->setText("X");
+	closeBtn->setSize(20, 20);
+	closeBtn->setPosition(
+		tgui::bindWidth(this->entityPanel) - tgui::bindWidth(closeBtn),
+		0
+	);
+	closeBtn->connect("clicked", [&](tgui::Panel::Ptr p, tgui::Group::Ptr g) {
+		g->remove(p);
+	}, this->entityPanel, this->game->getGui());
+	this->entityPanel->add(closeBtn);
 }
 void GameHud::update() {
 	// Update money display

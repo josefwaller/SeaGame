@@ -36,7 +36,11 @@ void GuiComponent::setParent(std::weak_ptr<Entity> parent) {
 void GuiComponent::show() {
 	// Add all of the panels to the game hud's entityPanel
 	auto container = tgui::HorizontalLayout::create();
-	this->getGame()->getHud()->getEntityPanel()->add(container);
+	auto eP = this->getGame()->getHud()->getEntityPanel();
+	container->setSize(tgui::bindWidth(eP), tgui::bindHeight(eP) - 20);
+	container->setPosition(0, 20);
+	eP->add(container);
+	this->getGame()->getGui()->add(eP);
 	for (ComponentType c : ComponentList::allTypes) {
 		// If the entity has this component
 		std::shared_ptr<Component> comp = this->getParent().lock()->components.get(c);
@@ -50,5 +54,5 @@ void GuiComponent::show() {
 	}
 }
 void GuiComponent::hide() {
-	this->getGame()->getGui()->remove(this->entityWindow);
+	this->getGame()->getGui()->remove(this->getGame()->getHud()->getEntityPanel());
 }
