@@ -159,30 +159,42 @@ tgui::Group::Ptr FerryShipController::getTransferGui(
 	std::function<void(FerryShipController*, size_t, GameResource, bool)> callback) {
 	auto toReturn = tgui::Group::create();
 	auto title = tgui::Label::create();
+	auto c = getWeakPtr();
 	title->setText(titleStr);
 	toReturn->add(title);
 	// Add labels for each thing to pick up
 	float h = title->getSize().y;
 	for (auto pair : resources) {
 		if (pair.second) {
+			// Create a label for the resource
 			auto l = tgui::Label::create();
 			std::string s = getResourceString(pair.first);
 			l->setText(s);
 			l->setPosition(0, h);
-			h += l->getSize().y;
 			toReturn->add(l);
+			// Create a button to remove the resource
+			auto removeBtn = tgui::Button::create();
+			removeBtn->setText("X");
+			removeBtn->setSize(tgui::bindHeight(l), tgui::bindHeight(l));
+			removeBtn->setPosition(l->getSize().x, h);
+			removeBtn->connect("clicked", [callback, c, stopIndex, pair]() {
+				if (c.lock())
+					callback(c.lock().get(), stopIndex, pair.first, false);
+			});
+			toReturn->add(removeBtn);
+
+			h += l->getSize().y;
 		}
 	}
 	// Add a combo box to choose what to pick up/drop off
 	auto cb = tgui::ComboBox::create();
-	cb->setPosition(0, h);
+	cb->setPosition(tgui::bindWidth(title), 0);
 	toReturn->add(cb);
 	for (GameResource res : ALL_RESOURCES) {
 		if (!resources[res])
 			cb->addItem(getResourceString(res), std::to_string(res));
 	}
 	// Add a resource when selected
-	auto c = getWeakPtr();
 	cb->connect("ItemSelected", [stopIndex, callback, c](
 		sf::String name,
 		sf::String id
