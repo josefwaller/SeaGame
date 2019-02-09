@@ -14,6 +14,7 @@ protected:
 	// Get the coordinates for reaching an entity
 	// Basically if the entity is on land, return its dock coordinates
 	sf::Vector2f getCoordsForEntity(std::weak_ptr<Entity> e);
+	// The speed at which to move
 private:
 	size_t pointsIndex;
 };

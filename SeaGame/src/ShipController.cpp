@@ -2,7 +2,7 @@
 #include "EntityPrefabs.h"
 #include <iostream>
 
-const float ShipController::ACCELERATION = 300.0f;
+const float ShipController::DEFAULT_ACCELERATION = 300.0f;
 const float ShipController::ANGULAR_ACCELERATION = 2.0f;
 
 const float ShipController::CANNON_INTERVAL = 0.5f;
@@ -27,11 +27,11 @@ void ShipController::turnRight()
 {
 	this->physicsComp.lock()->setAngularAcceleration(ShipController::ANGULAR_ACCELERATION);
 }
-void ShipController::accelerate()
+void ShipController::accelerate(float a)
 {
 	this->physicsComp.lock()->setAcceleration({
-		ShipController::ACCELERATION * cos(this->getParent().lock()->components.transform->getRotation()) * Game::WORLD_TO_BOX2D,
-		ShipController::ACCELERATION * sin(this->getParent().lock()->components.transform->getRotation()) * Game::WORLD_TO_BOX2D
+		a * cos(this->getParent().lock()->components.transform->getRotation()) * Game::WORLD_TO_BOX2D,
+		a * sin(this->getParent().lock()->components.transform->getRotation()) * Game::WORLD_TO_BOX2D
 	});
 }
 void ShipController::aimSwivel(float angle)
