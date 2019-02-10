@@ -5,6 +5,7 @@
 #include "GuiComponent.h"
 #include "SaveData.h"
 
+float FerryShipController::speed = 10 * ShipController::DEFAULT_ACCELERATION;
 FerryShipController::FerryShipController() {
 	this->panel = tgui::ScrollablePanel::create();
 	this->stopCombo = tgui::ComboBox::create();
@@ -16,7 +17,7 @@ FerryShipController::FerryShipController() {
 void FerryShipController::update(float delta) {
 	// Move towards destination if it exists and there is a path to it
 	if (this->destination.lock() && !this->points.empty()) {
-		this->move(delta);
+		this->move(delta, FerryShipController::speed);
 	}
 	else if (this->stops.size() > 0) {
 		// Skip this stop

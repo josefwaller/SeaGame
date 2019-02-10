@@ -8,6 +8,7 @@ public:
 		std::map<GameResource, bool> toPickUp;
 		std::map<GameResource, bool> toDropOff;
 	};
+	static float speed;
 	FerryShipController();
 	virtual void update(float delta) override;
 	std::vector<FerryStop> getStops();

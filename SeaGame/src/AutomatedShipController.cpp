@@ -4,7 +4,7 @@
 #include <memory>
 #include "BaseController.h"
 
-void AutomatedShipController::move(float delta) {
+void AutomatedShipController::move(float delta, float speed) {
 	// Check if the entity has already arrived
 	if (this->pointsIndex >= this->points.size()) {
 		this->onReachingTarget();
@@ -17,7 +17,7 @@ void AutomatedShipController::move(float delta) {
 		float angle = atan2(difference.y, difference.x);
 		trans->setRotation(angle);
 		if (sqrt(difference.x * difference.x + difference.y * difference.y) > 64) {
-			this->accelerate();
+			this->accelerate(speed);
 		}
 		else {
 			this->pointsIndex++;
