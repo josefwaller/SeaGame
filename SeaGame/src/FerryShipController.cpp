@@ -5,7 +5,8 @@
 #include "GuiComponent.h"
 #include "SaveData.h"
 
-float FerryShipController::speed = 10 * ShipController::DEFAULT_ACCELERATION;
+// By default, the ferries run at normal speed
+float FerryShipController::speed = ShipController::DEFAULT_ACCELERATION;
 FerryShipController::FerryShipController() {
 	this->panel = tgui::ScrollablePanel::create();
 	this->stopCombo = tgui::ComboBox::create();
@@ -95,26 +96,22 @@ std::weak_ptr<FerryShipController> FerryShipController::getWeakPtr() {
 	return std::dynamic_pointer_cast<FerryShipController>(this->getParent().lock()->components.controller);
 }
 void FerryShipController::updatePanel() {
-	// Add the this->panel
-	this->panel->setSize(
-		GuiComponent::WINDOW_WIDTH,
-		250
-	);
+	// Remove the horizontal scrollbar
 	this->panel->setHorizontalScrollbarPolicy(tgui::ScrollablePanel::ScrollbarPolicy::Never);
+	// Update the lower panel if the combo has a selected item
 	if (this->stopCombo->getSelectedItem() != "") {
 		this->updateTransferPanel(std::stoi(std::string(this->stopCombo->getSelectedItemId())));
 	}
 	// Add new stop button
 	tgui::Button::Ptr addStopButton = tgui::Button::create();
-	addStopButton->setText("Add new stop");
+	addStopButton->setText("Add stop");
 	addStopButton->connect("clicked", [&](Game* g, std::weak_ptr<FerryShipController> cont) {
 		// Select the entity to add a stop to
 		g->getHud()->selectEntity(std::bind([&](std::weak_ptr<Entity> e, std::weak_ptr<FerryShipController> c) {
 			c.lock()->addStop(e);
 		}, std::placeholders::_1, cont));
 	}, this->getGame(), getWeakPtr());
-	addStopButton->setPosition(0, this->stops.size() * 100);
-	addStopButton->setSize(GuiComponent::WINDOW_WIDTH, 50);
+	addStopButton->setPosition(tgui::bindWidth(this->stopCombo), 0);
 	this->panel->add(addStopButton);
 }
 void FerryShipController::updateComboBox() {
