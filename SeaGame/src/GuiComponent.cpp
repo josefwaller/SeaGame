@@ -33,11 +33,20 @@ void GuiComponent::setParent(std::weak_ptr<Entity> parent) {
 	}
 }
 void GuiComponent::show() {
+	auto eP = this->getGame()->getHud()->getEntityPanel();
+	// Create a group for the general entity info panel
+	auto info = tgui::Group::create();
+	info->setPosition(0, 20);
+	info->setSize(tgui::bindWidth(eP) / 5, tgui::bindHeight(eP));
+	eP->add(info);
+	// Add entity name
+	auto name = tgui::Label::create();
+	info->add(name);
+	name->setText(this->getParent().lock()->getStringRep());
 	// Create a container for the controller/inventory components
 	auto container = tgui::HorizontalLayout::create();
-	auto eP = this->getGame()->getHud()->getEntityPanel();
-	container->setSize(tgui::bindWidth(eP), tgui::bindHeight(eP) - 20);
-	container->setPosition(0, 20);
+	container->setSize(tgui::bindWidth(eP) - tgui::bindWidth(info), tgui::bindHeight(eP) - 20);
+	container->setPosition(tgui::bindWidth(info), 20);
 	// Add the controller's gui
 	if (auto c = this->getParent().lock()->components.controller) {
 		if (auto w = c->getGui()) {
