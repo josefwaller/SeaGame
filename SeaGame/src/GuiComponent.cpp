@@ -34,6 +34,7 @@ void GuiComponent::setParent(std::weak_ptr<Entity> parent) {
 }
 void GuiComponent::show() {
 	auto eP = this->getGame()->getHud()->getEntityPanel();
+	eP->removeAllWidgets();
 	// Create a group for the general entity info panel
 	auto info = tgui::Group::create();
 	info->setPosition(0, 20);
