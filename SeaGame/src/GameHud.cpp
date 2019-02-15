@@ -61,23 +61,14 @@ GameHud::GameHud(Game* g) {
 	this->announcementContainer->setPosition({ this->game->getGui()->getSize().x - 400, 500 });
 	this->game->getGui()->add(this->announcementContainer);
 	// Create entity panel
-	this->entityPanel = tgui::Panel::create();
+	this->entityPanel = tgui::ChildWindow::create();
 	this->entityPanel->setSize(tgui::bindWidth(this->game->getGui()), 250);
 	this->entityPanel->setPosition(
 		0,
 		tgui::bindHeight(this->game->getGui()) - tgui::bindHeight(this->entityPanel)
 	);
-	auto closeBtn = tgui::Button::create();
-	closeBtn->setText("X");
-	closeBtn->setSize(20, 20);
-	closeBtn->setPosition(
-		tgui::bindWidth(this->entityPanel) - tgui::bindWidth(closeBtn),
-		0
-	);
-	closeBtn->connect("clicked", [&](tgui::Panel::Ptr p, tgui::Group::Ptr g) {
-		g->remove(p);
-	}, this->entityPanel, this->game->getGui());
-	this->entityPanel->add(closeBtn);
+	this->entityPanel->setResizable(false);
+	this->entityPanel->setPositionLocked(true);
 }
 void GameHud::update() {
 	// Update money display
@@ -382,6 +373,6 @@ void GameHud::addAnnouncement(std::string announcement) {
 		ANNOUNCEMENT_WIDTH,
 		this->announcements.size() * ANNOUNCEMENT_ITEM_HEIGHT);
 }
-tgui::Panel::Ptr GameHud::getEntityPanel() {
+tgui::ChildWindow::Ptr GameHud::getEntityPanel() {
 	return this->entityPanel;
 }

@@ -47,7 +47,7 @@ public:
 	// Add an announcement
 	void addAnnouncement(std::string text);
 	// Get the entity GUI panel
-	tgui::Panel::Ptr getEntityPanel();
+	tgui::ChildWindow::Ptr getEntityPanel();
 private:
 	// The game the HUD belongs to
 	Game* game;
@@ -76,7 +76,7 @@ private:
 	CraftingRecipes::CraftRecipe buildRecipe;
 	tgui::VerticalLayout::Ptr announcementContainer;
 	// The entity gui panel
-	tgui::Panel::Ptr entityPanel;
+	tgui::ChildWindow::Ptr entityPanel;
 	/*
 	 * There are two ways to select something via clicking on it
 	 * Selecting a point, or selecting an entity
