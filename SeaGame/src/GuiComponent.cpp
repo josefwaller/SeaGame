@@ -1,8 +1,7 @@
 #include "GuiComponent.h"
-#include "Box2dTransform.h"
-#include "FerryShipController.h"
+#include "InventoryComponent.h"
+#include "ControllerComponent.h"
 #include <TGUI/Gui.hpp>
-#include "MiningBaseController.h"
 
 const float GuiComponent::WINDOW_HEIGHT = 500.0f;
 const float GuiComponent::WINDOW_WIDTH = 600.0f;
@@ -34,24 +33,25 @@ void GuiComponent::setParent(std::weak_ptr<Entity> parent) {
 	}
 }
 void GuiComponent::show() {
-	// Add all of the panels to the game hud's entityPanel
+	// Create a container for the controller/inventory components
 	auto container = tgui::HorizontalLayout::create();
 	auto eP = this->getGame()->getHud()->getEntityPanel();
 	container->setSize(tgui::bindWidth(eP), tgui::bindHeight(eP) - 20);
 	container->setPosition(0, 20);
-	eP->add(container);
-	this->getGame()->getGui()->add(eP);
-	for (ComponentType c : ComponentList::allTypes) {
-		// If the entity has this component
-		std::shared_ptr<Component> comp = this->getParent().lock()->components.get(c);
-		if (comp) {
-			// If the component has a GUI
-			tgui::Widget::Ptr w = comp->getGui();
-			if (w) {
-				container->add(w);
-			}
+	// Add the controller's gui
+	if (auto c = this->getParent().lock()->components.controller) {
+		if (auto w = c->getGui()) {
+			container->add(w);
 		}
 	}
+	// Add the inventory's gui
+	if (auto i = this->getParent().lock()->components.inventory) {
+		if (auto w = i->getGui()) {
+			container->add(w);
+		}
+	}
+	eP->add(container);
+	this->getGame()->getGui()->add(eP);
 }
 void GuiComponent::hide() {
 	this->getGame()->getGui()->remove(this->getGame()->getHud()->getEntityPanel());
