@@ -5,6 +5,7 @@
 #include "TechTree.h"
 #include "InventoryComponent.h"
 #include "ResourceController.h"
+#include "ResourceManager.h"
 #include "GameResource.h"
 #include "BasicTransform.h"
 #include "ClickComponent.h"
@@ -103,6 +104,16 @@ void GameHud::render(RenderManager& rm) {
 		this->toBuild->components.renderer->reset();
 		// Render
 		this->toBuild->components.renderer->render(rm);
+		// Tell the player if the location is invalid
+		if (!ensureValid(this->toBuild)) {
+			sf::Sprite invalidSprite = ResourceManager::get()->getSprite(
+				"medievalRTS_spritesheet@2",
+				"medievalStructure_14.png",
+				true
+			);
+			invalidSprite.setPosition(toBuild->components.transform->getPosition());
+			rm.add(invalidSprite, RenderManager::INDEX_DEBUG);
+		}
 	}
 }
 bool GameHud::ensureValid(std::shared_ptr<Entity> e) {
