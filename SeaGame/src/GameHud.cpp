@@ -69,6 +69,14 @@ GameHud::GameHud(Game* g) {
 	);
 	this->entityPanel->setResizable(false);
 	this->entityPanel->setPositionLocked(true);
+	// Set up state text
+	this->stateText = tgui::Label::create();
+	this->stateText->setTextSize(30);
+	this->stateText->setText("Choose what to build");
+	this->stateText->setPosition((this->game->getGui()->getSize() - this->stateText->getSize()).x / 2, 200.0f);
+	this->stateText->getRenderer()->setBackgroundColor(tgui::Color::Black);
+	this->game->getGui()->add(this->stateText);
+	this->stateText->setVisible(false);
 }
 void GameHud::update() {
 	// Update money display
@@ -204,6 +212,7 @@ void GameHud::onClick(sf::Vector2f pos) {
 			// Add it to the game
 			this->game->addEntity(e);
 			this->currentClickState = ClickState::Nothing;
+			this->stateText->setVisible(false);
 		}
 	}
 	else if (this->currentClickState == ClickState::Selecting) {
@@ -212,6 +221,7 @@ void GameHud::onClick(sf::Vector2f pos) {
 				if (e->components.click->checkForClick(pos)) {
 					this->selectCallback(e);
 					this->currentClickState = ClickState::Nothing;
+					this->stateText->setVisible(false);
 				}
 			}
 		}
@@ -220,6 +230,8 @@ void GameHud::onClick(sf::Vector2f pos) {
 void GameHud::selectEntity(std::function<void(std::weak_ptr<Entity> entity)> callback) {
 	this->selectCallback = callback;
 	this->currentClickState = ClickState::Selecting;
+	this->stateText->setText("Select an entity");
+	this->stateText->setVisible(true);
 }
 void GameHud::toggleBuildButtons() {
 	// Hide the buttons if they are showing
@@ -351,6 +363,9 @@ void GameHud::chooseEntityToBuild(CraftingRecipes::CraftRecipe cr) {
 	this->buildRecipe = cr;
 	// Set click state
 	this->currentClickState = ClickState::Building;
+	// Prompt user
+	this->stateText->setText("Choose where to build the entity");
+	this->stateText->setVisible(true);
 }
 void GameHud::buildEntity() {
 }

@@ -63,6 +63,8 @@ private:
 	tgui::Button::Ptr saveBtn;
 	// Money display
 	tgui::Label::Ptr moneyDisplay;
+	// The state text ("Choose where to build the entity", etc)
+	tgui::Label::Ptr stateText;
 	// Player health display
 	tgui::ProgressBar::Ptr playerHealth;
 	// Check if an entity is valid and can be built
