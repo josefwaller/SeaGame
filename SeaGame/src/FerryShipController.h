@@ -10,6 +10,7 @@ public:
 	};
 	static float speed;
 	FerryShipController();
+	virtual void setParent(std::weak_ptr<Entity> parent) override;
 	virtual void update(float delta) override;
 	std::vector<FerryStop> getStops();
 	// Add a stop

@@ -25,6 +25,9 @@ void AutomatedShipController::move(float delta, float speed) {
 	}
 }
 void AutomatedShipController::setTarget(sf::Vector2f target) {
+	// If there wasn't a path a second ago
+	if (this->noPathClock.getElapsedTime().asMilliseconds() < 10000.0f)
+		return;
 	// Reset index
 	this->pointsIndex = 0;
 	// Ensure the target is on water
@@ -46,9 +49,15 @@ void AutomatedShipController::setTarget(sf::Vector2f target) {
 	steps[startCoord.x][startCoord.y] = { {0, 0}, 0 };
 	// Get game map for easy reference
 	GameMap* gMap = this->getGame()->getGameMap();
+	// Only check the 10 000 most likely tiles
+	unsigned int count = 0;
 	while (true) {
-		if (coords.size() == 0)
+		if (coords.size() == 0 || count >= 1000) {
+			this->noPathClock.restart();
+			this->onNoPath();
 			break;
+		}
+		count++;
 		// Get the coord with the minimum score
 		sf::Vector2i c = coords.front();
 		coords.erase(coords.begin());
@@ -102,6 +111,7 @@ void AutomatedShipController::setTarget(sf::Vector2f target) {
 void AutomatedShipController::onReachingTarget() {
 
 }
+void AutomatedShipController::onNoPath() {}
 sf::Vector2f AutomatedShipController::getCoordsForEntity(std::weak_ptr<Entity> e) {
 	if (auto b = std::dynamic_pointer_cast<BaseController>(e.lock()->components.controller)) {
 		return b->getDockCoords();

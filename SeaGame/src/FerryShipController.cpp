@@ -15,6 +15,10 @@ FerryShipController::FerryShipController() {
 	transferGroup->setPosition(0, tgui::bindHeight(this->stopCombo));
 	this->panel->add(transferGroup);
 }
+void FerryShipController::setParent(std::weak_ptr<Entity> parent) {
+	ShipController::setParent(parent);
+	this->updatePanel();
+}
 void FerryShipController::update(float delta) {
 	// Move towards destination if it exists and there is a path to it
 	if (this->destination.lock() && !this->points.empty()) {
