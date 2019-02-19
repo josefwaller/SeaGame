@@ -59,8 +59,6 @@ private:
 	tgui::Button::Ptr researchButton;
 	// The buttons to decide what to research
 	tgui::Group::Ptr researchGroup;
-	// Save Button
-	tgui::Button::Ptr saveBtn;
 	// Money display
 	tgui::Label::Ptr moneyDisplay;
 	// The state text ("Choose where to build the entity", etc)

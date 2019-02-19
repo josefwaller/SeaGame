@@ -18,6 +18,7 @@ public:
 	void gameLoop();
 	void newGame();
 	void loadGame(std::string fileName);
+	void quitGame();
 	sf::RenderWindow* getWindow();
 	tgui::Gui* getGui();
 	// Get the main menu

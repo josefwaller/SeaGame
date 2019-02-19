@@ -41,12 +41,6 @@ GameHud::GameHud(Game* g) {
 	this->researchGroup = tgui::Group::create();
 	this->researchGroup->setVisible(false);
 	this->game->getGui()->add(this->researchGroup);
-	// Add save button
-	this->saveBtn = tgui::Button::create();
-	this->saveBtn->setText("Save");
-	this->saveBtn->setPosition({ 250.0f, 0 });
-	this->saveBtn->connect("clicked", &Game::save, this->game);
-	this->game->getGui()->add(this->saveBtn);
 	// Add money display
 	this->moneyDisplay = tgui::Label::create();
 	this->moneyDisplay->setPosition({ this->game->getWindow()->getSize().x - 300, 0 });
@@ -77,6 +71,37 @@ GameHud::GameHud(Game* g) {
 	this->stateText->getRenderer()->setBackgroundColor(tgui::Color::Black);
 	this->game->getGui()->add(this->stateText);
 	this->stateText->setVisible(false);
+	// Add menu
+	auto gui = this->game->getGui();
+	auto menu = tgui::ChildWindow::create();
+	menu->setSize(400, 600);
+	menu->setResizable(false);
+	menu->setPositionLocked(true);
+	menu->setPosition(
+		(tgui::bindWidth(gui) - tgui::bindWidth(menu)) / 2,
+		(tgui::bindHeight(gui) - tgui::bindHeight(menu)) / 2
+	);
+	// Add horizontal layout inside
+	auto vL = tgui::VerticalLayout::create();
+	menu->add(vL);
+	// Add save button
+	auto saveBtn = tgui::Button::create();
+	saveBtn->setText("Save");
+	saveBtn->connect("clicked", &Game::save, this->game);
+	vL->add(saveBtn);
+	// Add quit button
+	auto quitBtn = tgui::Button::create();
+	quitBtn->setText("Quit");
+	quitBtn->connect("clicked", &Game::quitGame, this->game);
+	vL->add(quitBtn);
+	// Add menu button
+	auto menuButton = tgui::Button::create();
+	menuButton->setText("Menu");
+	menuButton->setPosition(400, 0);
+	menuButton->connect("clicked", [](tgui::ChildWindow::Ptr w, tgui::Container::Ptr gui) {
+		gui->add(w);
+	}, menu, gui);
+	gui->add(menuButton);
 }
 void GameHud::update() {
 	// Update money display

@@ -48,6 +48,12 @@ void App::newGame() {
 	this->game = std::unique_ptr<Game>(new Game(this));
 	this->game->generateNew();
 }
+void App::quitGame() {
+	this->game.reset();
+	this->state = AppState::InMenu;
+	this->menu = MainMenu(this);
+	this->menu.show();
+}
 sf::RenderWindow* App::getWindow() {
 	return &this->window;
 }

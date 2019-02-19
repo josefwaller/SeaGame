@@ -104,7 +104,9 @@ void Game::update(double delta)
 	}
 	this->toRemove = {};
 }
-
+void Game::quitGame() {
+	this->app->quitGame();
+}
 void Game::render()
 {
 	// Render Map (give direct access to window for speed reasons)

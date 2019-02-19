@@ -33,6 +33,8 @@ public:
 	// Set the gamemap to the one given, should only be called by save file
 	void setGameMap(GameMap gm);
 	void loadFromFile(std::string fileName);
+	// Quit the game
+	void quitGame();
 	void update(double delta);
 	void render();
 	// Add an entity to the game
