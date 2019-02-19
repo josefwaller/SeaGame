@@ -50,6 +50,7 @@ std::string Entity::getStringRep() {
 	case EntityType::Ferry: return "Ferry";
 	case EntityType::City: return "City";
 	case EntityType::PirateBase: return "Pirate Outpost";
+	case EntityType::ResourceDeposit: return "Resource Deposit";
 	case EntityType::MiningBase:
 		mCont = std::dynamic_pointer_cast<GenerationBaseController>(this->components.controller);
 		switch (mCont->getResource()) {
