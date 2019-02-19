@@ -19,10 +19,16 @@ void FerryShipController::setParent(std::weak_ptr<Entity> parent) {
 	ShipController::setParent(parent);
 	this->updatePanel();
 }
+void FerryShipController::onNoPath() {
+	this->stops[this->currentStopIndex].hasPath = false;
+	this->updateComboBox();
+}
 void FerryShipController::update(float delta) {
 	// Move towards destination if it exists and there is a path to it
 	if (this->destination.lock() && !this->points.empty()) {
-		this->move(delta, FerryShipController::speed);
+		if (this->stops[this->currentStopIndex].hasPath) {
+			this->move(delta, FerryShipController::speed);
+		}
 	}
 	else if (this->stops.size() > 0) {
 		// Skip this stop
@@ -39,7 +45,8 @@ void FerryShipController::addStop(std::weak_ptr<Entity> stop) {
 	this->stops.push_back({
 		stop,
 		{},
-		{}
+		{},
+		true
 	});
 	this->updateComboBox();
 }
@@ -126,7 +133,11 @@ void FerryShipController::updateComboBox() {
 	for (auto it = stops.begin(); it != stops.end(); it++) {
 		// Get index of this stop
 		size_t index = std::distance(stops.begin(), it);
-		this->stopCombo->addItem(it->target.lock()->getStringRep(), std::to_string(index));
+		std::string name = it->target.lock()->getStringRep();
+		if (!it->hasPath) {
+			name += " (No Path)";
+		}
+		this->stopCombo->addItem(name, std::to_string(index));
 	}
 	this->stopCombo->setSelectedItemById(selectedItem);
 	// Connect combobox to method to show stop
@@ -252,7 +263,8 @@ void FerryShipController::fromSaveData(SaveData data) {
 		this->stops[index] = {
 			this->getGame()->getEntityById(std::stoi(stopData.getValue("target"))),
 			toPickUp,
-			toDropOff
+			toDropOff,
+			true
 		};
 	}
 	this->currentStopIndex = std::stoi(data.getValue("currentIndex"));

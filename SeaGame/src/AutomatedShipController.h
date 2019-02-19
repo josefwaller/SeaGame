@@ -19,6 +19,4 @@ protected:
 	sf::Vector2f getCoordsForEntity(std::weak_ptr<Entity> e);
 private:
 	size_t pointsIndex;
-	// Used to check every second if there is a path available
-	sf::Clock noPathClock;
 };

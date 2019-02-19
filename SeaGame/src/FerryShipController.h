@@ -7,10 +7,12 @@ public:
 		std::weak_ptr<Entity> target;
 		std::map<GameResource, bool> toPickUp;
 		std::map<GameResource, bool> toDropOff;
+		bool hasPath;
 	};
 	static float speed;
 	FerryShipController();
 	virtual void setParent(std::weak_ptr<Entity> parent) override;
+	virtual void onNoPath();
 	virtual void update(float delta) override;
 	std::vector<FerryStop> getStops();
 	// Add a stop

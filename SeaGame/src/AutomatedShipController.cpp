@@ -25,9 +25,6 @@ void AutomatedShipController::move(float delta, float speed) {
 	}
 }
 void AutomatedShipController::setTarget(sf::Vector2f target) {
-	// If there wasn't a path a second ago
-	if (this->noPathClock.getElapsedTime().asMilliseconds() < 10000.0f)
-		return;
 	// Reset index
 	this->pointsIndex = 0;
 	// Ensure the target is on water
@@ -53,9 +50,8 @@ void AutomatedShipController::setTarget(sf::Vector2f target) {
 	unsigned int count = 0;
 	while (true) {
 		if (coords.size() == 0 || count >= 1000) {
-			this->noPathClock.restart();
 			this->onNoPath();
-			break;
+			return;
 		}
 		count++;
 		// Get the coord with the minimum score
