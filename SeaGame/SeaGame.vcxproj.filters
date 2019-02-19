@@ -53,9 +53,6 @@
     <Filter Include="Files\Components\Controllers\BaseControllers\MilitaryBaseController">
       <UniqueIdentifier>{a0306215-6cd7-4da8-a814-3b960e8a5a59}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Files\Components\Controllers\BaseControllers\MiningBaseController">
-      <UniqueIdentifier>{f4f7692b-c8d4-44f4-85db-efe6397d16fc}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Files\Components\Transforms">
       <UniqueIdentifier>{b8769202-5315-4052-8969-44cfc32351e8}</UniqueIdentifier>
     </Filter>
@@ -188,6 +185,9 @@
     <Filter Include="Files\Components\Controllers\ShipControllers\PirateShipController">
       <UniqueIdentifier>{72245337-b871-4a32-8ddd-7c81845695d7}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Files\Components\Controllers\BaseControllers\GenerationBaseController">
+      <UniqueIdentifier>{f4f7692b-c8d4-44f4-85db-efe6397d16fc}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\CannonBallController.cpp">
@@ -195,9 +195,6 @@
     </ClCompile>
     <ClCompile Include="src\MilitaryBaseController.cpp">
       <Filter>Files\Components\Controllers\BaseControllers\MilitaryBaseController</Filter>
-    </ClCompile>
-    <ClCompile Include="src\MiningBaseController.cpp">
-      <Filter>Files\Components\Controllers\BaseControllers\MiningBaseController</Filter>
     </ClCompile>
     <ClCompile Include="src\AutomatedShipController.cpp">
       <Filter>Files\Components\Controllers\ShipControllers\AutomatedShipController</Filter>
@@ -367,6 +364,9 @@
     <ClCompile Include="src\Canon.cpp">
       <Filter>Files\Utils\Cannon</Filter>
     </ClCompile>
+    <ClCompile Include="src\GenerationBaseController.cpp">
+      <Filter>Files\Components\Controllers\BaseControllers\GenerationBaseController</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Component.h">
@@ -410,9 +410,6 @@
     </ClInclude>
     <ClInclude Include="src\ShipController.h">
       <Filter>Files\Components\Controllers\ShipControllers</Filter>
-    </ClInclude>
-    <ClInclude Include="src\MiningBaseController.h">
-      <Filter>Files\Components\Controllers\BaseControllers\MiningBaseController</Filter>
     </ClInclude>
     <ClInclude Include="src\PlayerShipController.h">
       <Filter>Files\Components\Controllers\ShipControllers\PlayerShipController</Filter>
@@ -551,6 +548,9 @@
     </ClInclude>
     <ClInclude Include="src\PirateShipController.h">
       <Filter>Files\Components\Controllers\ShipControllers\PirateShipController</Filter>
+    </ClInclude>
+    <ClInclude Include="src\GenerationBaseController.h">
+      <Filter>Files\Components\Controllers\BaseControllers\GenerationBaseController</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

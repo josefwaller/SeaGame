@@ -1,6 +1,6 @@
 #include "Entity.h"
 #include "Game.h"
-#include "MiningBaseController.h"
+#include "GenerationBaseController.h"
 #include "ConversionBaseController.h"
 #include <algorithm>
 #include "ComponentList.h"
@@ -40,7 +40,7 @@ SaveData Entity::getSaveData() {
 }
 std::string Entity::getStringRep() {
 	std::shared_ptr<ConversionBaseController> cont;
-	std::shared_ptr<MiningBaseController> mCont;
+	std::shared_ptr<GenerationBaseController> mCont;
 	switch (this->type) {
 	case EntityType::Player: return "Player";
 	case EntityType::Cannonball: return "Cannon Ball";
@@ -51,7 +51,7 @@ std::string Entity::getStringRep() {
 	case EntityType::City: return "City";
 	case EntityType::PirateBase: return "Pirate Outpost";
 	case EntityType::MiningBase:
-		mCont = std::dynamic_pointer_cast<MiningBaseController>(this->components.controller);
+		mCont = std::dynamic_pointer_cast<GenerationBaseController>(this->components.controller);
 		switch (mCont->getResource()) {
 		case GameResource::Stone: return "Quary";
 		case GameResource::Wood: return "Forestry";

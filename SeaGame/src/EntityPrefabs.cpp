@@ -15,7 +15,7 @@
 #include "BaseRenderer.h"
 #include "MilitaryBaseRenderer.h"
 #include "MilitaryBaseController.h"
-#include "MiningBaseController.h"
+#include "GenerationBaseController.h"
 #include "FerryShipController.h"
 #include "GuiComponent.h"
 #include "Box2dClick.h"
@@ -149,7 +149,7 @@ entity_ptr EntityPrefabs::generationBase(Game* g, sf::Vector2f pos, GameResource
 		EntityTag::Base,
 		ComponentList(
 			new Box2dTransform(EntityPrefabs::getBaseBody(g, pos, 0.0f)),
-			new MiningBaseController(res),
+			new GenerationBaseController(res),
 			new MiningBaseRenderer(res),
 			nullptr,
 			new HealthComponent(100),

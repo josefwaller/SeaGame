@@ -1,5 +1,5 @@
 #include "GameHud.h"
-#include "MiningBaseController.h"
+#include "GenerationBaseController.h"
 #include "EntityPrefabs.h"
 #include "CraftRecipes.h"
 #include "TechTree.h"
@@ -128,7 +128,7 @@ bool GameHud::ensureValid(std::shared_ptr<Entity> e) {
 		}
 		// If the base is a mining/forestry/something base, make sure it's on the right resource
 		// Check it's a generation base
-		if (auto cont = std::dynamic_pointer_cast<MiningBaseController>(e->components.controller)) {
+		if (auto cont = std::dynamic_pointer_cast<GenerationBaseController>(e->components.controller)) {
 			// Get the resource
 			GameResource neededRes = cont->getResource();
 			std::weak_ptr<Entity> resSource;

@@ -164,7 +164,7 @@
     <ClCompile Include="src\MainMenu.cpp" />
     <ClCompile Include="src\MilitaryBaseController.cpp" />
     <ClCompile Include="src\MilitaryBaseRenderer.cpp" />
-    <ClCompile Include="src\MiningBaseController.cpp" />
+    <ClCompile Include="src\GenerationBaseController.cpp" />
     <ClCompile Include="src\MiningBaseRenderer.cpp" />
     <ClCompile Include="src\PhysicsComponent.cpp" />
     <ClCompile Include="src\PirateBaseController.cpp" />
@@ -228,7 +228,7 @@
     <ClInclude Include="src\MainMenu.h" />
     <ClInclude Include="src\MilitaryBaseController.h" />
     <ClInclude Include="src\MilitaryBaseRenderer.h" />
-    <ClInclude Include="src\MiningBaseController.h" />
+    <ClInclude Include="src\GenerationBaseController.h" />
     <ClInclude Include="src\MiningBaseRenderer.h" />
     <ClInclude Include="src\PhysicsComponent.h" />
     <ClInclude Include="src\PirateBaseController.h" />

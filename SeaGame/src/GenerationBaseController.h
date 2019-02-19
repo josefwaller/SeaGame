@@ -6,9 +6,9 @@
  * Base which generates a resource over time
  * Todo: rename
  */
-class MiningBaseController : public BaseController {
+class GenerationBaseController : public BaseController {
 public:
-	MiningBaseController(GameResource res);
+	GenerationBaseController(GameResource res);
 	virtual void update(float deltaTime) override;
 	// Get the resource this base generates
 	GameResource getResource();
