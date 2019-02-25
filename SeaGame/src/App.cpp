@@ -31,6 +31,9 @@ void App::gameLoop() {
 		if (this->state == AppState::InGame) {
 			this->game->render();
 		}
+		else {
+			this->menu.render(&this->window);
+		}
 		// Render GUI
 		this->gui.draw();
 		this->window.display();
