@@ -45,7 +45,7 @@ SaveFile::SaveFile(std::string fileName) {
 void SaveFile::save(std::string fileName) {
 	std::ofstream f;
 	CreateDirectory(SAVE_FILE_DIR.c_str(), NULL);
-	f.open((SAVE_FILE_DIR + fileName + ".xml").c_str());
+	f.open((SAVE_FILE_DIR + fileName + ".xml").c_str(), std::ofstream::out | std::ofstream::trunc);
 	f << this->data;
 	f.close();
 

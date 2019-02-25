@@ -71,6 +71,8 @@ public:
 	// Get the rectangle fo the game the view shows
 	// Used to only render things on screen
 	sf::FloatRect getViewRect();
+	// Set name of file to save to
+	void setSaveFile(std::string fileName);
 private:
 	// App of the game, get window and gui through this pointer
 	App* app;
@@ -100,6 +102,9 @@ private:
 	// The buttons specifying what to build
 	// Todo: think of a better name
 	std::vector<tgui::Button::Ptr> buildThingsBtns;
+	// Name of the file that the game is loaded from
+	// Is "" if the game is not loaded from a file
+	std::string saveFileName;
 	// The amount of money the player has
 	unsigned int money;
 };

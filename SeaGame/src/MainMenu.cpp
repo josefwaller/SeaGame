@@ -29,7 +29,7 @@ void MainMenu::showSaveFiles() {
 	tgui::VerticalLayout::Ptr layout = tgui::VerticalLayout::create();
 	for (const auto entry : std::filesystem::directory_iterator(SaveFile::SAVE_FILE_DIR)) {
 		tgui::Button::Ptr b = tgui::Button::create();
-		std::string fileName = entry.path().string();
+		std::string fileName = entry.path().filename().string();
 		b->setText(fileName);
 		b->connect("clicked", &App::loadGame, this->app, fileName);
 		layout->add(b);

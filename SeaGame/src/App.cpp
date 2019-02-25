@@ -39,7 +39,8 @@ void App::gameLoop() {
 }
 void App::loadGame(std::string fileName) {
 	this->menu.hide();
-	this->game = SaveFile(fileName).load(this);
+	this->game = SaveFile(SaveFile::SAVE_FILE_DIR + "/" + fileName).load(this);
+	this->game->setSaveFile(fileName);
 	this->state = AppState::InGame;
 }
 void App::newGame() {

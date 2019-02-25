@@ -40,6 +40,8 @@ Game::Game(App* app): app(app)
 	this->app->getGui()->add(this->guiContainer);
 	// Create game hud
 	this->gHud = GameHud(this);
+	// Set default file name
+	this->saveFileName = "";
 }
 // Set a bunch of data fields when loading the game
 void Game::loadFromData(
@@ -142,18 +144,20 @@ void Game::render()
 	r.reset();
 }
 void Game::save() {
-	// Get date for file name
-	auto time = std::chrono::system_clock::now();
-	auto t = std::chrono::system_clock::to_time_t(time);
-	// Get formatted date as string
-	std::tm buf;
-	localtime_s(&buf, &t);
-	std::stringstream ss;
-	ss << std::put_time(&buf, "%Y-%m-%d");
-	std::string date = ss.str();
+	if (this->saveFileName == "") {
+		// Get date for file name
+		auto time = std::chrono::system_clock::now();
+		auto t = std::chrono::system_clock::to_time_t(time);
+		// Get formatted date as string
+		std::tm buf;
+		localtime_s(&buf, &t);
+		std::stringstream ss;
+		ss << std::put_time(&buf, "%Y-%m-%d");
+		this->setSaveFile(ss.str());
+	}
 	// Save file
 	SaveFile sf(this);
-	sf.save(date);
+	sf.save(this->saveFileName);
 }
 void Game::handleEvent(sf::Event e) {
 	switch (e.type) {
@@ -215,6 +219,9 @@ TechTree* Game::getTechTree() {
 }
 unsigned int Game::getMoney() {
 	return this->money;
+}
+void Game::setSaveFile(std::string saveFile) {
+	this->saveFileName = saveFile;
 }
 void Game::addMoney(unsigned int amount) {
 	this->money += amount;
