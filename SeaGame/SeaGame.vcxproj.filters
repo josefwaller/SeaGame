@@ -188,6 +188,9 @@
     <Filter Include="Files\Components\Controllers\BaseControllers\GenerationBaseController">
       <UniqueIdentifier>{f4f7692b-c8d4-44f4-85db-efe6397d16fc}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Files\GameHud\Components">
+      <UniqueIdentifier>{5791c65a-3ea3-4691-a04a-e72c14804e81}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\CannonBallController.cpp">
@@ -366,6 +369,9 @@
     </ClCompile>
     <ClCompile Include="src\GenerationBaseController.cpp">
       <Filter>Files\Components\Controllers\BaseControllers\GenerationBaseController</Filter>
+    </ClCompile>
+    <ClCompile Include="src\ResearchScreen.cpp">
+      <Filter>Files\GameHud\Components</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -551,6 +557,9 @@
     </ClInclude>
     <ClInclude Include="src\GenerationBaseController.h">
       <Filter>Files\Components\Controllers\BaseControllers\GenerationBaseController</Filter>
+    </ClInclude>
+    <ClInclude Include="src\ResearchScreen.h">
+      <Filter>Files\GameHud\Components</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

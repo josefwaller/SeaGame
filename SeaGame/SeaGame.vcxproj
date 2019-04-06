@@ -175,6 +175,7 @@
     <ClCompile Include="src\RectangleClick.cpp" />
     <ClCompile Include="src\RenderComponent.cpp" />
     <ClCompile Include="src\RenderManager.cpp" />
+    <ClCompile Include="src\ResearchScreen.cpp" />
     <ClCompile Include="src\ResourceController.cpp" />
     <ClCompile Include="src\ResourceManager.cpp" />
     <ClCompile Include="src\ResourceRenderer.cpp" />
@@ -239,6 +240,7 @@
     <ClInclude Include="src\RectangleClick.h" />
     <ClInclude Include="src\RenderComponent.h" />
     <ClInclude Include="src\RenderManager.h" />
+    <ClInclude Include="src\ResearchScreen.h" />
     <ClInclude Include="src\ResourceController.h" />
     <ClInclude Include="src\ResourceManager.h" />
     <ClInclude Include="src\ResourceRenderer.h" />

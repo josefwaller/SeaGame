@@ -9,13 +9,14 @@
 #include "GameResource.h"
 #include "BasicTransform.h"
 #include "ClickComponent.h"
+#include "ResearchScreen.h"
 
 const float GameHud::ANNOUNCEMENT_WIDTH = 400.0f;
 const float GameHud::ANNOUNCEMENT_ITEM_HEIGHT = 60.0f;
 
 GameHud::GameHud() {
 }
-GameHud::GameHud(Game* g) {
+GameHud::GameHud(Game* g): researchScreen(g) {
 	this->game = g;
 	// Set click state to nothing initially
 	this->currentClickState = ClickState::Nothing;
@@ -269,69 +270,6 @@ void GameHud::toggleBuildButtons() {
 		this->resetBuildButtons();
 	}
 }
-// Reset the buttons inside researchGroup
-void GameHud::resetResearchButtons() {
-	// Remove all current buttons
-	this->researchGroup->removeAllWidgets();
-	// The y coordinate of the next button to be added
-	// Used to prevent the buttons from overlapping
-	float y = this->researchButton->getFullSize().y;
-	// Add a button for each technology that is unresearched and is able to be researched
-	for (auto it : this->game->getTechTree()->nodes) {
-		if (it.second.parent == Technology::Nothing
-			|| this->game->getTechTree()->nodes[it.second.parent].isResearched) {
-			// Create a button for it
-			auto btn = tgui::Button::create();
-			if (it.second.isResearched) {
-				btn->setEnabled(false);
-			}
-			btn->setText(it.second.name);
-			btn->setPosition({ 500.0f, y });
-			btn->connect("clicked", [=](Game* g, Technology tech) {
-				// Check the player has the correct resources for the technology
-				TechTreeNode* node = &this->game->getTechTree()->nodes.find(tech)->second;
-				std::shared_ptr<Entity> player = g->getPlayer();
-				std::map<GameResource, unsigned int> playerInventory = player->components.inventory->getInventory();
-				// Check the player has enough money
-				if (this->game->getMoney() < node->cost) {
-					return false;
-				}
-				// Remove the money
-				this->game->removeMoney(node->cost);
-				// Set the node to researched
-				node->isResearched = true;
-				// Reset the buttons
-				g->getHud()->resetBuildButtons();
-				g->getHud()->resetResearchButtons();
-				return true;
-			}, this->game, it.first);
-			// Make the tool tip have information about the technology
-			tgui::TextBox::Ptr toolTip = tgui::TextBox::create();
-			toolTip->setPosition({ 10, 10 });
-			toolTip->setText(it.second.name + ": $" + std::to_string(it.second.cost) + "\n");
-			toolTip->addText("-------------\n\n");
-			toolTip->addText(it.second.description + "\n\n");
-			toolTip->addText("Allows researching:\n");
-			toolTip->addText("-------------");
-			// Get all the technologies that this technology unlocks
-			std::vector<std::string> allowsResearching;
-			for (auto sIt = this->game->getTechTree()->nodes.begin(); sIt != this->game->getTechTree()->nodes.end(); sIt++) {
-				if (sIt->second.parent == it.first) {
-					allowsResearching.push_back(sIt->second.name);
-				}
-			}
-			// Add them to toolTip
-			for (auto s : allowsResearching) {
-				toolTip->addText("\n" + s);
-			}
-			// Set tool tip
-			btn->setToolTip(toolTip);
-			// Add the button to the group
-			this->researchGroup->add(btn);
-			y += btn->getFullSize().y;
-		}
-	}
-}
 void GameHud::resetBuildButtons() {
 	// Add the build buttons
 	float y = 0.0f;
@@ -400,7 +338,7 @@ void GameHud::toggleResearchButtons() {
 	}
 	else {
 		this->researchGroup->setVisible(true);
-		this->resetResearchButtons();
+		this->researchScreen.show(this->researchGroup);
 	}
 }
 void GameHud::addAnnouncement(std::string announcement) {

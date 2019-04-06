@@ -3,6 +3,7 @@
 // Forward dec of game + entity
 class Game;
 struct Entity;
+#include "ResearchScreen.h"
 #include "CraftRecipes.h"
 #include "RenderManager.h"
 
@@ -40,8 +41,6 @@ public:
 	void toggleResearchButtons();
 	// Reset the build buttons
 	void resetBuildButtons();
-	// Reset the research buttons
-	void resetResearchButtons();
 	// Transfer items between entities by clicking between them
 	void transferItems(std::weak_ptr<Entity> e, GameResource res, unsigned int amount);
 	// Add an announcement
@@ -67,6 +66,8 @@ private:
 	tgui::ProgressBar::Ptr playerHealth;
 	// Check if an entity is valid and can be built
 	bool ensureValid(std::shared_ptr<Entity> e);
+	// Get the position to render a technology button
+	sf::Vector2f getResearchPosition(Technology tech);
 	// Current Click state
 	ClickState currentClickState;
 	// A modified version of the entity with only a render and transform component,
@@ -77,6 +78,8 @@ private:
 	tgui::VerticalLayout::Ptr announcementContainer;
 	// The entity gui panel
 	tgui::ChildWindow::Ptr entityPanel;
+	// The research screen
+	ResearchScreen researchScreen;
 	/*
 	 * There are two ways to select something via clicking on it
 	 * Selecting a point, or selecting an entity
@@ -89,5 +92,3 @@ private:
 	// Hold the GUI component and the clock in order to check when to destory it
 	std::queue<std::pair<tgui::TextBox::Ptr, sf::Clock>> announcements;
 };
-#include "Game.h"
-#include "Entity.h"
