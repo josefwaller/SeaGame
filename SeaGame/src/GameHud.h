@@ -56,8 +56,6 @@ private:
 	tgui::Group::Ptr buildGroup;
 	// Button to show what to research
 	tgui::Button::Ptr researchButton;
-	// The buttons to decide what to research
-	tgui::Group::Ptr researchGroup;
 	// Money display
 	tgui::Label::Ptr moneyDisplay;
 	// The state text ("Choose where to build the entity", etc)
@@ -68,8 +66,6 @@ private:
 	bool isShowingResearch;
 	// Check if an entity is valid and can be built
 	bool ensureValid(std::shared_ptr<Entity> e);
-	// Get the position to render a technology button
-	sf::Vector2f getResearchPosition(Technology tech);
 	// Current Click state
 	ClickState currentClickState;
 	// A modified version of the entity with only a render and transform component,

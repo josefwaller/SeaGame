@@ -39,10 +39,6 @@ GameHud::GameHud(Game* g): researchScreen(g) {
 		g->getHud()->toggleResearchButtons();
 	}, this->game);
 	this->game->getGui()->add(this->researchButton);
-	// Add research group
-	this->researchGroup = tgui::Group::create();
-	this->researchGroup->setVisible(false);
-	this->game->getGui()->add(this->researchGroup);
 	// Add money display
 	this->moneyDisplay = tgui::Label::create();
 	this->moneyDisplay->setPosition({ this->game->getWindow()->getSize().x - 300, 0 });
