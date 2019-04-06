@@ -2,11 +2,14 @@
 #include <TGUI/TGUI.hpp>
 #include "TechTree.h"
 #include "Game.h"
+#include "RenderManager.h"
 
 ResearchScreen::ResearchScreen() {}
 ResearchScreen::ResearchScreen(Game* g) {
 	this->game = g;
 	this->researchBtns = tgui::Group::create();
+	// Store each button in a map to easily set parent/child relationship lines
+	std::map<Technology, tgui::Button::Ptr> buttons;
 	// How much to move overthe buttons in each "column" of technologies
 	// Basically, the distance between a node and its child
 	const float LAYER_WIDTH = 600.0f;
@@ -32,6 +35,7 @@ ResearchScreen::ResearchScreen(Game* g) {
 		// Add a button for each tech
 		for (auto it = currentTechs.begin(); it != currentTechs.end(); it++) {
 			auto btn = getButtonForTech(*it);
+			buttons[*it] = btn;
 			size_t offset = it - currentTechs.begin();
 			btn->setPosition(sf::Vector2f(
 				x,
@@ -49,6 +53,38 @@ ResearchScreen::ResearchScreen(Game* g) {
 		currentTechs = nextTechs;
 		x += LAYER_WIDTH;
 	}
+	// Create the lines between technologies
+	this->techLines = sf::VertexArray(sf::Lines, 2 * techTree->nodes.size());
+	size_t index = 0;
+	for (auto it = techTree->nodes.begin(); it != techTree->nodes.end(); it++) {
+		if (it->second.parent == Technology::Nothing) {
+			continue;
+		}
+		// Get the parent button
+		auto parentButton = buttons[it->second.parent];
+		// Get the child button
+		auto childButton = buttons[it->first];
+		// Get the coords to draw the line to
+		sf::Vector2f fromCoord(
+			parentButton->getAbsolutePosition().x + parentButton->getSize().x,
+			parentButton->getAbsolutePosition().y + parentButton->getSize().y / 2.0f
+		);
+		sf::Vector2f toCoord(
+			childButton->getAbsolutePosition().x,
+			childButton->getAbsolutePosition().y + childButton->getSize().y / 2.0f
+		);
+		// Create the line
+		sf::Color color = sf::Color::Red;
+		sf::Vertex fromVertex(fromCoord, color, sf::Vector2f());
+		sf::Vertex toVertex(toCoord, color, sf::Vector2f());
+		// Add to lines
+		this->techLines[2 * index] = fromVertex;
+		this->techLines[2 * index + 1] = toVertex;
+		index++;
+	}
+}
+void ResearchScreen::render(RenderManager& rm) {
+	rm.add(this->techLines, RenderManager::INDEX_EFFECT);
 }
 tgui::Button::Ptr ResearchScreen::getButtonForTech(Technology t) {
 	TechTreeNode node = this->game->getTechTree()->nodes[t];

@@ -18,6 +18,7 @@ GameHud::GameHud() {
 }
 GameHud::GameHud(Game* g): researchScreen(g) {
 	this->game = g;
+	this->isShowingResearch = false;
 	// Set click state to nothing initially
 	this->currentClickState = ClickState::Nothing;
 	// Add the build button
@@ -139,6 +140,10 @@ void GameHud::render(RenderManager& rm) {
 			invalidSprite.setPosition(toBuild->components.transform->getPosition());
 			rm.add(invalidSprite, RenderManager::INDEX_DEBUG);
 		}
+	}
+	// Draw the tech lines
+	if (this->isShowingResearch) {
+		this->researchScreen.render(rm);
 	}
 }
 bool GameHud::ensureValid(std::shared_ptr<Entity> e) {
@@ -333,12 +338,13 @@ void GameHud::chooseEntityToBuild(CraftingRecipes::CraftRecipe cr) {
 void GameHud::buildEntity() {
 }
 void GameHud::toggleResearchButtons() {
-	if (this->researchGroup->isVisible()) {
-		this->researchGroup->setVisible(false);
+	if (this->isShowingResearch) {
+		this->researchScreen.hide(this->game->getGui());
+		this->isShowingResearch = false;
 	}
 	else {
-		this->researchGroup->setVisible(true);
-		this->researchScreen.show(this->researchGroup);
+		this->researchScreen.show(this->game->getGui());
+		this->isShowingResearch = true;
 	}
 }
 void GameHud::addAnnouncement(std::string announcement) {

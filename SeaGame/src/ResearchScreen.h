@@ -2,7 +2,7 @@
 #include "TGUI/TGUI.hpp"
 #include "TechTree.h"
 class Game;
-class sf::RenderWindow;
+class RenderManager;
 /*
  * Shows and hides the research buttons
  */
@@ -15,12 +15,14 @@ public:
 	// Hide the research screen
 	void hide(tgui::Container::Ptr c);
 	// Render method, draws the lines between buttons
-	void render(sf::RenderWindow w);
+	void render(RenderManager& w);
 private:
 	// The research buttons
 	tgui::Group::Ptr researchBtns;
 	// The game
 	Game* game;
+	// The lines between technolgies showing parent/child relationships
+	sf::VertexArray techLines;
 	// Get the button for a certain tech
 	tgui::Button::Ptr getButtonForTech(Technology t);
 };

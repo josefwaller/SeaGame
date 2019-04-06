@@ -111,6 +111,9 @@ void Game::quitGame() {
 }
 void Game::render()
 {
+	// Set view
+	this->view.setCenter(this->player.lock()->components.transform->getPosition());
+	this->app->getWindow()->setView(this->view);
 	// Render Map (give direct access to window for speed reasons)
 	this->gMap.render(this->getWindow());
 	// Render Entities
@@ -121,8 +124,6 @@ void Game::render()
 			e->components.renderer->render(r);
 		}
 	}
-	// Render HUD that isn't part of tgui
-	this->gHud.render(r);
 	// Render debug info, i.e. hitboxes
 	for (auto e : this->entities) {
 		if (e->components.renderer != nullptr) {
@@ -137,10 +138,13 @@ void Game::render()
 			e->components.renderer->renderCollider(r);
 		}
 	}
-	// Set view
-	this->view.setCenter(this->player.lock()->components.transform->getPosition());
-	this->app->getWindow()->setView(this->view);
 	r.render(this->app->getWindow());
+	r.reset();
+	// Set view to default so that the coordinates are matched with the GUI
+	this->getWindow()->setView(this->getWindow()->getDefaultView());
+	// Render HUD that isn't part of tgui
+	this->gHud.render(r);
+	r.render(this->getWindow());
 	r.reset();
 }
 void Game::save() {

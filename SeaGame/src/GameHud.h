@@ -64,6 +64,8 @@ private:
 	tgui::Label::Ptr stateText;
 	// Player health display
 	tgui::ProgressBar::Ptr playerHealth;
+	// Whether or not the research screen is showing
+	bool isShowingResearch;
 	// Check if an entity is valid and can be built
 	bool ensureValid(std::shared_ptr<Entity> e);
 	// Get the position to render a technology button
