@@ -28,7 +28,7 @@ ResearchScreen::ResearchScreen(Game* g) {
 		// Easy reference to the center of the screen
 		const float CENTER_LINE = this->game->getWindow()->getSize().y / 2.0f;
 		// The highest y position a technology will be in this columnb
-		const float TOP_LIMIT = CENTER_LINE - RESEARCH_HEIGHT * (float)currentTechs.size() / 2.0f;
+		const float TOP_LIMIT = CENTER_LINE - RESEARCH_HEIGHT * (float)(currentTechs.size() - 1) / 2.0f;
 		// Add a button for each tech
 		for (auto it = currentTechs.begin(); it != currentTechs.end(); it++) {
 			auto btn = getButtonForTech(*it);
