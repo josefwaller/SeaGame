@@ -1,6 +1,8 @@
 #include "Component.h"
+#include "ComponentList.h"
 #include "SaveData.h"
 #include "Game.h"
+#include "Entity.h"
 
 Component::Component()
 {
@@ -17,6 +19,9 @@ SaveData Component::getSaveData() {
 	return SaveData("Component");
 }
 void Component::fromSaveData(SaveData data) {
+}
+ComponentList Component::getComponentList() {
+	return this->getParent().lock()->components;
 }
 Game* Component::getGame() {
 	return this->parent.lock()->game;

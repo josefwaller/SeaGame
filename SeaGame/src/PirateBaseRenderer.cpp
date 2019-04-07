@@ -8,7 +8,7 @@ void PirateBaseRenderer::setParent(std::weak_ptr<Entity> parent) {
 		ResourceManager::get()->getSprite("ships", "sailLargeBlack.png", true)
 	};
 	for (auto it = this->shipSprites.begin(); it != this->shipSprites.end(); it++) {
-		it->setPosition(this->getParent().lock()->components.transform->getPosition() + sf::Vector2f(64.0f * 1.5, 64.0f * 1.5));
+		it->setPosition(this->getComponentList().transform->getPosition() + sf::Vector2f(64.0f * 1.5, 64.0f * 1.5));
 	}
 }
 

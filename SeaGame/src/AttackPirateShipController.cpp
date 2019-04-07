@@ -1,5 +1,6 @@
 #include "AttackPirateShipController.h"
 #include "BaseController.h"
+#include "Entity.h"
 #include <memory>
 
 AttackPirateShipController::AttackPirateShipController(
@@ -30,7 +31,7 @@ void AttackPirateShipController::update(float delta) {
 			// Ensure they are on the player's team
 			if ((*it)->team == 0) {
 				// Get distance to potential target
-				sf::Vector2f diff = this->getParent().lock()->components.transform->getDifference(
+				sf::Vector2f diff = this->getComponentList().transform->getDifference(
 					(*it)->components.transform
 				).first;
 				float dis = pow(diff.x, 2) + pow(diff.y, 2);

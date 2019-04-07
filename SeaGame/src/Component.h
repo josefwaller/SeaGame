@@ -7,6 +7,7 @@
 struct Entity;
 class Game;
 class SaveData;
+struct ComponentList;
 
 class Component
 {
@@ -26,9 +27,14 @@ public:
 protected:
 	// Get game the entity exists in
 	Game* getGame();
+	// Get the component list of this entity
+	// Cuts down on the number of entities that need to include "Entity.h"
+	ComponentList getComponentList();
 private:
 	std::weak_ptr<Entity> parent;
 };
 
-#include "Entity.h"
+// Since nearly every entity uses getComponetList and getGame, we just include
+// game and component list here.
+#include "ComponentList.h"
 #include "Game.h"

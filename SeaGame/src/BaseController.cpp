@@ -10,7 +10,7 @@ void BaseController::onDeath() {
 }
 sf::Vector2f BaseController::getDockCoords() {
 	// Set the dock coords
-	sf::Vector2f pos = this->getParent().lock()->components.transform->getPosition();
+	sf::Vector2f pos = this->getComponentList().transform->getPosition();
 	std::queue<sf::Vector2i> coords;
 	std::vector<sf::Vector2i> visited;
 	coords.push((sf::Vector2i)(pos / 64.0f));

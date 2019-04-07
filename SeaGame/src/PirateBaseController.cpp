@@ -21,7 +21,7 @@ void PirateBaseController::update(float delta) {
 void PirateBaseController::spawnShip() {
 	this->getGame()->addEntity(EntityPrefabs::defensePirateShip(
 		this->getGame(),
-		this->getParent().lock()->components.transform->getPosition() + sf::Vector2f(-64.0f, -64.0f),
+		this->getComponentList().transform->getPosition() + sf::Vector2f(-64.0f, -64.0f),
 		this->getParent()
 	));
 }

@@ -10,7 +10,7 @@ const float ShipController::CANNON_INTERVAL = 0.5f;
 void ShipController::setParent(std::weak_ptr<Entity> parent)
 {
 	Component::setParent(parent);
-	this->physicsComp = this->getParent().lock()->components.physics;
+	this->physicsComp = this->getComponentList().physics;
 	this->cannon = Cannon(
 		this->getParent(),
 		sf::Vector2f(0.0f, 0.0f),
@@ -30,17 +30,17 @@ void ShipController::turnRight()
 void ShipController::accelerate(float a)
 {
 	this->physicsComp.lock()->setAcceleration({
-		a * cos(this->getParent().lock()->components.transform->getRotation()) * Game::WORLD_TO_BOX2D,
-		a * sin(this->getParent().lock()->components.transform->getRotation()) * Game::WORLD_TO_BOX2D
+		a * cos(this->getComponentList().transform->getRotation()) * Game::WORLD_TO_BOX2D,
+		a * sin(this->getComponentList().transform->getRotation()) * Game::WORLD_TO_BOX2D
 	});
 }
 void ShipController::aimSwivel(float angle)
 {
 	this->cannon.rotation = angle;
-	this->getParent().lock()->components.renderer->reset();
+	this->getComponentList().renderer->reset();
 }
 void ShipController::aimSwivelAtPoint(sf::Vector2f p) {
-	auto trans = this->getParent().lock()->components.transform;
+	auto trans = this->getComponentList().transform;
 	this->aimSwivel(
 		trans->getDifference(p).second
 		+ trans->getRotation()
@@ -56,15 +56,15 @@ void ShipController::shootSwivel()
 }
 void ShipController::onHit(HealthType t, int damageAmount)
 {
-	if (this->getParent().lock()->components.health != nullptr) {
-		this->getParent().lock()->components.health->takeDamage(damageAmount);
-		this->getParent().lock()->components.renderer->reset();
+	if (this->getComponentList().health != nullptr) {
+		this->getComponentList().health->takeDamage(damageAmount);
+		this->getComponentList().renderer->reset();
 	}
 }
 void ShipController::onDeath() {
 	this->getGame()->removeEntity(this->getParent().lock());
 	this->getGame()->addEntity(EntityPrefabs::explosion(
 		this->getGame(),
-		this->getParent().lock()->components.transform->getPosition()
+		this->getComponentList().transform->getPosition()
 	));
 }

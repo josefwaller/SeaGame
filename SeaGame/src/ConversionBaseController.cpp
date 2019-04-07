@@ -9,7 +9,7 @@ ConversionBaseController::ConversionBaseController(GameResource res) {
 void ConversionBaseController::setParent(std::weak_ptr<Entity> parent) {
 	BaseController::setParent(parent);
 #ifdef _DEBUG
-	if (this->getParent().lock()->components.inventory == nullptr) {
+	if (this->getComponentList().inventory == nullptr) {
 	}
 	if (ConversionRecipes::recipes.find(this->product) == ConversionRecipes::recipes.end()) {
 	}
@@ -21,7 +21,7 @@ void ConversionBaseController::update(float delta) {
 	ConversionRecipes::Recipe target = ConversionRecipes::recipes.find(this->product)->second;
 	// Check the base has the resources
 	bool hasResources = true;
-	auto inv = this->getParent().lock()->components.inventory->getInventory();
+	auto inv = this->getComponentList().inventory->getInventory();
 	for (auto it : target.cost) {
 		if (inv[it.first] < it.second) {
 			// Restart clock
@@ -35,10 +35,10 @@ void ConversionBaseController::update(float delta) {
 		if (this->sinceLastConversion >= target.duration) {
 			// Remove items from inventory
 			for (auto it : target.cost) {
-				this->getParent().lock()->components.inventory->removeItems(it.first, it.second);
+				this->getComponentList().inventory->removeItems(it.first, it.second);
 			}
 			// Add a new product
-			this->getParent().lock()->components.inventory->addItems(this->product, 1);
+			this->getComponentList().inventory->addItems(this->product, 1);
 			// Alert player
 			this->getGame()->getHud()->addAnnouncement("Added a " + getResourceString(this->product));
 			// Restart clock

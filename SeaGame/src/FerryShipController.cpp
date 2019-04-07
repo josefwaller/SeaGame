@@ -4,6 +4,7 @@
 #include "InventoryComponent.h"
 #include "GuiComponent.h"
 #include "SaveData.h"
+#include "Entity.h"
 
 // By default, the ferries run at normal speed
 float FerryShipController::speed = ShipController::DEFAULT_ACCELERATION;
@@ -67,7 +68,7 @@ void FerryShipController::setStopOrder(size_t currentOrder, size_t newOrder) {
 }
 void FerryShipController::onReachingTarget() {
 	auto destInv = this->destination.lock()->components.inventory;
-	auto thisInv = this->getParent().lock()->components.inventory;
+	auto thisInv = this->getComponentList().inventory;
 	// Get the destination's inventory
 	auto destInvData = destInv->getInventory();
 	// Get this ship's inventory
@@ -104,7 +105,7 @@ tgui::Widget::Ptr FerryShipController::getGui() {
 	return this->panel;
 }
 std::weak_ptr<FerryShipController> FerryShipController::getWeakPtr() {
-	return std::dynamic_pointer_cast<FerryShipController>(this->getParent().lock()->components.controller);
+	return std::dynamic_pointer_cast<FerryShipController>(this->getComponentList().controller);
 }
 void FerryShipController::updatePanel() {
 	// Remove the horizontal scrollbar

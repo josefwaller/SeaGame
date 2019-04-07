@@ -2,6 +2,7 @@
 #include "RenderComponent.h"
 #include "Box2dTransform.h"
 #include "SaveData.h"
+#include "Entity.h"
 #include <TGUI/Gui.hpp>
 
 InventoryComponent::InventoryComponent() {

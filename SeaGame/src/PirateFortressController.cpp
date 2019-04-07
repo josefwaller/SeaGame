@@ -1,5 +1,6 @@
 #include "PirateFortressController.h"
 #include "EntityPrefabs.h"
+#include "Entity.h"
 
 const float PirateFortressController::SPAWN_DELAY = 30.0f * 1000.0f;
 PirateFortressController::PirateFortressController() {}
@@ -17,7 +18,7 @@ void PirateFortressController::update(float delta) {
 				// Ensure they are on the player's team
 				if ((*it)->team == 0) {
 					// Get distance to potential target
-					sf::Vector2f diff = this->getParent().lock()->components.transform->getDifference(
+					sf::Vector2f diff = this->getComponentList().transform->getDifference(
 						(*it)->components.transform
 					).first;
 					float dis = pow(diff.x, 2) + pow(diff.y, 2);

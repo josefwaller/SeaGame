@@ -1,6 +1,8 @@
 #include "GuiComponent.h"
 #include "InventoryComponent.h"
 #include "ControllerComponent.h"
+#include "ComponentList.h"
+#include "Entity.h"
 #include <TGUI/Gui.hpp>
 
 const float GuiComponent::WINDOW_HEIGHT = 500.0f;
@@ -16,9 +18,9 @@ void GuiComponent::setParent(std::weak_ptr<Entity> parent) {
 	this->entityWindow->add(p);
 	tgui::Widget::Ptr last;
 	for (ComponentType c : ComponentList::allTypes) {
-		if (this->getParent().lock()->components.get(c)) {
+		if (this->getComponentList().get(c)) {
 			// Get the GUI (may be nullptr)
-			tgui::Widget::Ptr w = this->getParent().lock()->components.get(c)->getGui();
+			tgui::Widget::Ptr w = this->getComponentList().get(c)->getGui();
 			if (w) {
 				// Set position under last widget
 				if (last)
@@ -49,13 +51,13 @@ void GuiComponent::show() {
 	container->setSize(tgui::bindWidth(eP) - tgui::bindWidth(info), tgui::bindHeight(eP) - 20);
 	container->setPosition(tgui::bindWidth(info), 20);
 	// Add the controller's gui
-	if (auto c = this->getParent().lock()->components.controller) {
+	if (auto c = this->getComponentList().controller) {
 		if (auto w = c->getGui()) {
 			container->add(w);
 		}
 	}
 	// Add the inventory's gui
-	if (auto i = this->getParent().lock()->components.inventory) {
+	if (auto i = this->getComponentList().inventory) {
 		if (auto w = i->getGui()) {
 			container->add(w);
 		}

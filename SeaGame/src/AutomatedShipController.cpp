@@ -3,6 +3,7 @@
 #include <math.h>
 #include <memory>
 #include "BaseController.h"
+#include "Entity.h"
 
 void AutomatedShipController::move(float delta, float speed) {
 	// Check if the entity has already arrived
@@ -12,7 +13,7 @@ void AutomatedShipController::move(float delta, float speed) {
 	}
 	else {
 		// Move
-		auto trans = this->getParent().lock()->components.transform;
+		auto trans = this->getComponentList().transform;
 		sf::Vector2f difference = points[pointsIndex]  + sf::Vector2f(32.0f, 32.0f) - trans->getPosition();
 		float angle = atan2(difference.y, difference.x);
 		trans->setRotation(angle);
@@ -30,7 +31,7 @@ void AutomatedShipController::setTarget(sf::Vector2f target) {
 	// Ensure the target is on water
 	sf::Vector2i targetCoord = sf::Vector2i(target / 64.0f);
 	// Get the target the ship is on
-	sf::Vector2i startCoord = sf::Vector2i(this->getParent().lock()->components.transform->getPosition() / 64.0f);
+	sf::Vector2i startCoord = sf::Vector2i(this->getComponentList().transform->getPosition() / 64.0f);
 	// Build a list of tiles to go through
 	std::vector<sf::Vector2i> coords;
 	// The tiles that have been visited and/or are in the queue

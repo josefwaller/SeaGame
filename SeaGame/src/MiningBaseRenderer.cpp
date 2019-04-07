@@ -15,7 +15,7 @@ void MiningBaseRenderer::render(RenderManager& rm) {
 	rm.add(this->resSprite, RenderManager::INDEX_BASE_TILES);
 }
 void MiningBaseRenderer::reset() {
-	this->resSprite.setPosition(this->getParent().lock()->components.transform->getPosition() + sf::Vector2f(64.0f * 1.5, 64.0f * 1.5));
+	this->resSprite.setPosition(this->getComponentList().transform->getPosition() + sf::Vector2f(64.0f * 1.5, 64.0f * 1.5));
 }
 SaveData MiningBaseRenderer::getSaveData() {
 	return SaveData("Component", {

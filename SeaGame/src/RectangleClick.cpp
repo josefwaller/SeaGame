@@ -8,7 +8,7 @@ bool RectangleClick::checkForClick(sf::Vector2f pos) {
 	// Get copy of rect
 	sf::FloatRect r = this->rect;
 	// Transform rectangle to entity's position and rotation
-	if (auto trans = this->getParent().lock()->components.transform) {
+	if (auto trans = this->getComponentList().transform) {
 		sf::Transform t;
 		t.rotate(trans->getRotation());
 		t.translate(trans->getPosition());

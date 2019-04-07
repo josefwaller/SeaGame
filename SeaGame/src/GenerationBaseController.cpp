@@ -10,7 +10,7 @@ GenerationBaseController::GenerationBaseController(GameResource res) : BaseContr
 }
 void GenerationBaseController::update(float delta) {
 	if (this->resourceClock.getElapsedTime().asMilliseconds() > GenerationBaseController::GENERATION_DELAY) {
-		this->getParent().lock()->components.inventory->addItems(this->res, 1);
+		this->getComponentList().inventory->addItems(this->res, 1);
 		this->resourceClock.restart();
 	}
 	this->progressGui->setValue(100 * this->resourceClock.getElapsedTime().asMilliseconds() / GENERATION_DELAY);

@@ -7,8 +7,8 @@ PlayerShipController::PlayerShipController() : ShipController()
 
 void PlayerShipController::update(float delta)
 {
-	auto x = this->getParent().lock()->components.transform->getPosition();
-	sf::Vector2f diff = this->getGame()->getMouseCoords() - this->getParent().lock()->components.transform->getPosition();
+	auto x = this->getComponentList().transform->getPosition();
+	sf::Vector2f diff = this->getGame()->getMouseCoords() - this->getComponentList().transform->getPosition();
 	float angle = atan2(diff.y, diff.x);
 	this->aimSwivel(angle);
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up)) {

@@ -15,7 +15,7 @@ SpriteRenderer::SpriteRenderer(sf::Sprite spr, size_t zIndex) : RenderComponent(
 }
 void SpriteRenderer::render(RenderManager& r)
 {
-	if (auto transform = this->getParent().lock()->components.transform)
+	if (auto transform = this->getComponentList().transform)
 	{
 		this->spr.setPosition(transform->getPosition());
 		// Convert to degrees because dumbass SFML uses degrees
