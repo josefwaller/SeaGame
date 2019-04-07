@@ -1,5 +1,4 @@
 #pragma once
-#include <SFML/Graphics.hpp>
 #include "GameMap.h"
 #include "GameHud.h"
 #include "SimpleCollisionListener.h"
@@ -10,6 +9,9 @@ class App;
 class b2World;
 class tgui::Gui;
 struct Entity;
+namespace sf {
+	class RenderWindow;
+}
 
 class Game
 {

@@ -1,7 +1,8 @@
 #pragma once
 // Represent a cannon in the game. Has position and direction, and also can aim at points.
 // Also has a fire interval which tracks how long it must wait before firing again
-#include <SFML/Graphics.hpp>
+#include <SFML/System/Vector2.hpp>
+#include <SFML/System/Clock.hpp>
 #include <memory>
 struct Entity;
 struct Cannon

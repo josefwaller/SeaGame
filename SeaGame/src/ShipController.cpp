@@ -1,6 +1,6 @@
 #include "ShipController.h"
+#include "PhysicsComponent.h"
 #include "EntityPrefabs.h"
-#include <iostream>
 
 const float ShipController::DEFAULT_ACCELERATION = 300.0f;
 const float ShipController::ANGULAR_ACCELERATION = 2.0f;

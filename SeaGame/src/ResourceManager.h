@@ -1,6 +1,8 @@
 #pragma once
 #include <string>
-#include <SFML/Graphics.hpp>
+#include <SFML/Graphics/Texture.hpp>
+#include <SFML/Graphics/Sprite.hpp>
+#include <SFML/Graphics/Rect.hpp>
 #include "LayoutSprite.h"
 #include <rapidxml\rapidxml.hpp>
 

@@ -1,4 +1,4 @@
-#include <SFML/Graphics.hpp>
+#include <SFML/System/Vector2.hpp>
 #include <Box2D/Box2D.h>
 
 #include "EntityPrefabs.h"
@@ -13,6 +13,7 @@
 #include "BasicTransform.h"
 #include "Box2dTransform.h"
 #include "BaseRenderer.h"
+#include "PhysicsComponent.h"
 #include "MilitaryBaseRenderer.h"
 #include "MilitaryBaseController.h"
 #include "GenerationBaseController.h"

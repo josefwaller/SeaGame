@@ -1,7 +1,8 @@
 #pragma once
 #include "ControllerComponent.h"
-#include "PhysicsComponent.h"
 #include "Cannon.h"
+// Forward declarations
+class PhysicsController;
 
 // Control the player's ship using keyboard input
 class ShipController : public ControllerComponent

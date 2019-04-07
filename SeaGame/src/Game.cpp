@@ -3,6 +3,7 @@
 #include <ctime>
 #include <iomanip>
 #include <TGUI/Gui.hpp>
+#include <SFML/Graphics/RenderWindow.hpp>
 
 #include "Game.h"
 #include "Box2D/Box2D.h"
