@@ -37,7 +37,7 @@ GameHud::GameHud(Game* g): researchScreen(g) {
 	this->researchButton->setText("Research");
 	this->researchButton->setPosition({ 500.0f, 0 });
 	this->researchButton->connect("clicked", [&](Game* g) {
-		g->getHud()->toggleResearchButtons();
+		g->getHud()->showResearch();
 	}, this->game);
 	this->game->getGui()->add(this->researchButton);
 	// Add money display
@@ -144,6 +144,14 @@ void GameHud::render(RenderManager& rm) {
 	if (this->isShowingResearch) {
 		this->researchScreen.render(rm);
 	}
+}
+void GameHud::showResearch() {
+	this->isShowingResearch = true;
+	this->researchScreen.show(this->game->getGui());
+}
+void GameHud::hideResearch() {
+	this->isShowingResearch = false;
+	this->researchScreen.hide(this->game->getGui());
 }
 bool GameHud::ensureValid(std::shared_ptr<Entity> e) {
 	if (e->tag == EntityTag::Base) {
@@ -335,16 +343,6 @@ void GameHud::chooseEntityToBuild(CraftingRecipes::CraftRecipe cr) {
 	this->stateText->setVisible(true);
 }
 void GameHud::buildEntity() {
-}
-void GameHud::toggleResearchButtons() {
-	if (this->isShowingResearch) {
-		this->researchScreen.hide(this->game->getGui());
-		this->isShowingResearch = false;
-	}
-	else {
-		this->researchScreen.show(this->game->getGui());
-		this->isShowingResearch = true;
-	}
 }
 void GameHud::addAnnouncement(std::string announcement) {
 	tgui::TextBox::Ptr p = tgui::TextBox::create();

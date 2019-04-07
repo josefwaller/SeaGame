@@ -36,9 +36,11 @@ public:
 	void onClick(sf::Vector2f pos);
 	// Select an entity, then call the callback method with the entity
 	void selectEntity(std::function<void(std::weak_ptr<Entity>)> callback);
+	// Show/Hide the research screen
+	void showResearch();
+	void hideResearch();
 	// Show/hide the different buttons of things to build
 	void toggleBuildButtons();
-	void toggleResearchButtons();
 	// Reset the build buttons
 	void resetBuildButtons();
 	// Transfer items between entities by clicking between them

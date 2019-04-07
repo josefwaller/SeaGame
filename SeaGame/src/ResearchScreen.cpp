@@ -7,7 +7,9 @@
 ResearchScreen::ResearchScreen() {}
 ResearchScreen::ResearchScreen(Game* g) {
 	this->game = g;
-	this->researchBtns = tgui::Group::create();
+	this->researchBtns = tgui::ScrollablePanel::create();
+	// Make the panel have a transparent background
+	this->researchBtns->getRenderer()->setBackgroundColor(tgui::Color(0, 0, 0, 100));
 	// How much to move overthe buttons in each "column" of technologies
 	// Basically, the distance between a node and its child
 	const float LAYER_WIDTH = 600.0f;
@@ -80,6 +82,17 @@ ResearchScreen::ResearchScreen(Game* g) {
 		this->techLines[2 * index + 1] = toVertex;
 		index++;
 	}
+	// Add the close button
+	this->closeBtn = tgui::Button::create();
+	this->researchBtns->add(this->closeBtn);
+	this->closeBtn->connect("clicked", [&](GameHud* gH) {
+		gH->hideResearch();
+	}, this->game->getHud());
+	this->closeBtn->setText("Close Research Screen");
+	this->closeBtn->setPosition(
+		(this->game->getWindow()->getSize().x - this->closeBtn->getSize().x) / 2,
+		0.0f
+	);
 	this->update();
 }
 void ResearchScreen::update() {

@@ -20,7 +20,9 @@ public:
 	void render(RenderManager& w);
 private:
 	// The research buttons
-	tgui::Group::Ptr researchBtns;
+	tgui::ScrollablePanel::Ptr researchBtns;
+	// The button to close the screen
+	tgui::Button::Ptr closeBtn;
 	// Pointer to each button by technology
 	std::map<Technology, tgui::Button::Ptr> techButtons;
 	// The game
