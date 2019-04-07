@@ -117,6 +117,8 @@ void GameHud::update() {
 				this->announcements.size() * ANNOUNCEMENT_ITEM_HEIGHT);
 		}
 	}
+	// Update the research tech tree
+	this->researchScreen.update();
 }
 void GameHud::render(RenderManager& rm) {
 	if (this->currentClickState == ClickState::Building && this->toBuild) {

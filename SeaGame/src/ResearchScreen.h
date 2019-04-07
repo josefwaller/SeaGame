@@ -14,11 +14,15 @@ public:
 	void show(tgui::Container::Ptr c);
 	// Hide the research screen
 	void hide(tgui::Container::Ptr c);
+	// Update whether the buttons are enabled or disabled
+	void update();
 	// Render method, draws the lines between buttons
 	void render(RenderManager& w);
 private:
 	// The research buttons
 	tgui::Group::Ptr researchBtns;
+	// Pointer to each button by technology
+	std::map<Technology, tgui::Button::Ptr> techButtons;
 	// The game
 	Game* game;
 	// The lines between technolgies showing parent/child relationships

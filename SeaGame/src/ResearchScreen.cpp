@@ -8,8 +8,6 @@ ResearchScreen::ResearchScreen() {}
 ResearchScreen::ResearchScreen(Game* g) {
 	this->game = g;
 	this->researchBtns = tgui::Group::create();
-	// Store each button in a map to easily set parent/child relationship lines
-	std::map<Technology, tgui::Button::Ptr> buttons;
 	// How much to move overthe buttons in each "column" of technologies
 	// Basically, the distance between a node and its child
 	const float LAYER_WIDTH = 600.0f;
@@ -35,7 +33,7 @@ ResearchScreen::ResearchScreen(Game* g) {
 		// Add a button for each tech
 		for (auto it = currentTechs.begin(); it != currentTechs.end(); it++) {
 			auto btn = getButtonForTech(*it);
-			buttons[*it] = btn;
+			this->techButtons[*it] = btn;
 			size_t offset = it - currentTechs.begin();
 			btn->setPosition(sf::Vector2f(
 				x,
@@ -61,9 +59,9 @@ ResearchScreen::ResearchScreen(Game* g) {
 			continue;
 		}
 		// Get the parent button
-		auto parentButton = buttons[it->second.parent];
+		auto parentButton = this->techButtons[it->second.parent];
 		// Get the child button
-		auto childButton = buttons[it->first];
+		auto childButton = this->techButtons[it->first];
 		// Get the coords to draw the line to
 		sf::Vector2f fromCoord(
 			parentButton->getAbsolutePosition().x + parentButton->getSize().x,
@@ -81,6 +79,24 @@ ResearchScreen::ResearchScreen(Game* g) {
 		this->techLines[2 * index] = fromVertex;
 		this->techLines[2 * index + 1] = toVertex;
 		index++;
+	}
+	this->update();
+}
+void ResearchScreen::update() {
+	// Get the tree
+	TechTree* t = this->game->getTechTree();
+	// Set each button to enabled or disabled depending on whether the player can research it
+	for (auto it = t->nodes.begin(); it != t->nodes.end(); it++) {
+		// Get whether the technology is researched
+		bool isResearched = it->second.isResearched;
+		// Get whether the technology's parent is researched
+		bool parentResearched = it->second.parent == Technology::Nothing || t->nodes[it->second.parent].isResearched;
+		if (parentResearched && !isResearched) {
+			this->techButtons[it->first]->setEnabled(true);
+		}
+		else {
+			this->techButtons[it->first]->setEnabled(false);
+		}
 	}
 }
 void ResearchScreen::render(RenderManager& rm) {
@@ -110,7 +126,7 @@ tgui::Button::Ptr ResearchScreen::getButtonForTech(Technology t) {
 		// Set the node to researched
 		node->isResearched = true;
 		// Reset the buttons
-		g->getHud()->resetBuildButtons();
+		g->getHud()->update();
 		return true;
 	}, this->game, t);
 	// Make the tool tip have information about the technology
