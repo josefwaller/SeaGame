@@ -3,9 +3,9 @@
 // Forward dec of game + entity
 class Game;
 struct Entity;
+class RenderManager;
 #include "ResearchScreen.h"
 #include "CraftRecipes.h"
-#include "RenderManager.h"
 
 // Manage the HUD interface, as well as selecting entities, etc
 class GameHud {

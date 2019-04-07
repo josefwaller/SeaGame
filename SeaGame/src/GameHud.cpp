@@ -6,6 +6,7 @@
 #include "InventoryComponent.h"
 #include "ResourceController.h"
 #include "ResourceManager.h"
+#include "RenderManager.h"
 #include "GameResource.h"
 #include "BasicTransform.h"
 #include "ClickComponent.h"
