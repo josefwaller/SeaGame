@@ -99,17 +99,17 @@ tgui::Button::Ptr ResearchScreen::getButtonForTech(Technology t) {
 	// Set on click
 	btn->connect("clicked", [=](Game* g, Technology tech) {
 		// Check the player has the correct resources for the technology
-		TechTreeNode* node = &this->game->getTechTree()->nodes.find(tech)->second;
+		TechTreeNode* node = &g->getTechTree()->nodes.find(tech)->second;
 		std::shared_ptr<Entity> player = g->getPlayer();
 		// Check the player has enough money
-		if (this->game->getMoney() < node->cost) {
+		if (g->getMoney() < node->cost) {
 			return false;
 		}
 		// Remove the money
-		this->game->removeMoney(node->cost);
+		g->removeMoney(node->cost);
 		// Set the node to researched
 		node->isResearched = true;
-		// Reset the this->researchBtns
+		// Reset the buttons
 		g->getHud()->resetBuildButtons();
 		return true;
 	}, this->game, t);
