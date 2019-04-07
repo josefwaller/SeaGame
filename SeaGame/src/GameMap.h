@@ -1,13 +1,19 @@
 #pragma once
-#include <rapidxml\rapidxml.hpp>
-#include <SFML/Graphics.hpp>
-#include <Box2D/Box2D.h>
 #include "EntityType.h"
+#include <vector>
+#include <string>
+// Cannot forward declare Vector2 or Sprite, so just include it
+#include <SFML/System/Vector2.hpp>
+#include <SFML/Graphics/Sprite.hpp>
 
-// Forward declaration of game
+// Forward declarations
 class Game;
 class SaveData;
 struct Entity;
+class b2Body;
+namespace sf {
+	class RenderWindow;
+};
 
 class GameMap
 {

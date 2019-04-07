@@ -1,6 +1,10 @@
 #pragma once
-#include "TGUI\TGUI.hpp"
+#include <TGUI/Container.hpp>
+// Forward declaration
 class App;
+namespace sf {
+	class RenderWindow;
+}
 
 class MainMenu {
 public:

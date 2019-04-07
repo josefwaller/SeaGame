@@ -1,5 +1,6 @@
 #include "FerryShipController.h"
 #include <TGUI/Gui.hpp>
+#include <TGUI/SignalImpl.hpp>
 #include "BaseController.h"
 #include "InventoryComponent.h"
 #include "GuiComponent.h"

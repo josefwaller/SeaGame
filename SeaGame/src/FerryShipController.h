@@ -1,5 +1,7 @@
 #pragma once
 #include "AutomatedShipController.h"
+#include <TGUI/Widgets/ComboBox.hpp>
+#include <TGUI/Widgets/HorizontalLayout.hpp>
 
 class FerryShipController : public AutomatedShipController {
 public:

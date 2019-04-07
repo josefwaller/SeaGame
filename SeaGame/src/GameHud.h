@@ -1,11 +1,20 @@
 #pragma once
-#include "TGUI/TGUI.hpp"
-// Forward dec of game + entity
+#include "ResearchScreen.h"
+#include "CraftRecipes.h"
+#include <TGUI/Widgets/ChildWindow.hpp>
+#include <TGUI/Widgets/Label.hpp>
+#include <TGUI/Widgets/Button.hpp>
+#include <TGUI/Widgets/ProgressBar.hpp>
+#include <TGUI/Widgets/Group.hpp>
+#include <TGUI/Widgets/VerticalLayout.hpp>
+#include <TGUI/Widgets/TextBox.hpp>
+#include <queue>
+#include <functional>
+#include <utility>
+// Forward Declarations
 class Game;
 struct Entity;
 class RenderManager;
-#include "ResearchScreen.h"
-#include "CraftRecipes.h"
 
 // Manage the HUD interface, as well as selecting entities, etc
 class GameHud {

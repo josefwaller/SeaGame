@@ -1,8 +1,8 @@
 #include "ResearchScreen.h"
-#include <TGUI/TGUI.hpp>
 #include "TechTree.h"
 #include "Game.h"
 #include "RenderManager.h"
+#include <TGUI/SignalImpl.hpp>
 
 ResearchScreen::ResearchScreen() {}
 ResearchScreen::ResearchScreen(Game* g) {

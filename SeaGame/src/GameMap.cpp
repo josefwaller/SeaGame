@@ -6,6 +6,8 @@
 #include "EntityPrefabs.h"
 #include "SaveData.h"
 #include <PerlinNoise.hpp>
+#include <Box2D/Box2D.h>
+#include <SFML/Graphics.hpp>
 #include <ctime>
 #include <cstdio>
 

@@ -4,6 +4,7 @@
 #include "SaveData.h"
 #include "Entity.h"
 #include <TGUI/Gui.hpp>
+#include <TGUI/SignalImpl.hpp>
 
 InventoryComponent::InventoryComponent() {
 	this->panel = tgui::ScrollablePanel::create();

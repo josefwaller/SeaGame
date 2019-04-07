@@ -1,5 +1,8 @@
 #pragma once
-#include "TGUI/TGUI.hpp"
+#include <TGUI/Widgets/ScrollablePanel.hpp>
+#include <TGUI/Container.hpp>
+#include <TGUI/Widgets/Button.hpp>
+#include <SFML/Graphics/VertexArray.hpp>
 #include "TechTree.h"
 class Game;
 class RenderManager;

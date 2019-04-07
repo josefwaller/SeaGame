@@ -12,6 +12,7 @@
 #include "ClickComponent.h"
 #include "ResearchScreen.h"
 #include "Entity.h"
+#include <TGUI/SignalImpl.hpp>
 
 const float GameHud::ANNOUNCEMENT_WIDTH = 400.0f;
 const float GameHud::ANNOUNCEMENT_ITEM_HEIGHT = 60.0f;

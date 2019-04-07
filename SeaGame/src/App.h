@@ -1,7 +1,7 @@
 #pragma once
 #include <memory>
 #include "SFML\Graphics.hpp"
-#include "TGUI\TGUI.hpp"
+#include <TGUI/Gui.hpp>
 #include "Game.h"
 #include "MainMenu.h"
 

@@ -1,6 +1,11 @@
-#include "MainMenu.h"
 #include <iostream>
 #include <filesystem>
+#include <SFML/Graphics/RenderWindow.hpp>
+#include <TGUI/Widgets/Label.hpp>
+#include <TGUI/Widgets/VerticalLayout.hpp>
+#include <TGUI/Widgets/Button.hpp>
+#include <TGUI/SignalImpl.hpp>
+#include "MainMenu.h"
 #include "SaveFile.h"
 #include "ResourceManager.h"
 

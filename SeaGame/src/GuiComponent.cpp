@@ -4,6 +4,7 @@
 #include "ComponentList.h"
 #include "Entity.h"
 #include <TGUI/Gui.hpp>
+#include <TGUI/Widgets/HorizontalLayout.hpp>
 
 const float GuiComponent::WINDOW_HEIGHT = 500.0f;
 const float GuiComponent::WINDOW_WIDTH = 600.0f;
