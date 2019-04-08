@@ -30,7 +30,8 @@ enum Technology {
 	MilitaryBases,
 	UpgradedCannons,
 	MilitaryShips,
-	FollowingMilitryShips
+	Fleets,
+	EscapeShip
 };
 
 struct TechTreeNode {

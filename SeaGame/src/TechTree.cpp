@@ -4,7 +4,7 @@
 #define TIER_2_COST 1000
 #define TIER_3_COST 2000
 #define TIER_4_COST 2500
-#define TIER_5_COST 10000
+#define TIER_5_COST 1000000
 
 
 // Creating a new tech tree, set up all technologies to default
@@ -94,6 +94,26 @@ TechTree::TechTree() {
 			Technology::Forgery,
 			TechTreeNode("Forging", Technology::Smelting, TIER_3_COST,
 			"Build forges to turn Steel into weapons")
+		},
+		{
+			Technology::MilitaryBases,
+			TechTreeNode("Military Bases", Technology::Nothing, TIER_1_COST,
+			"Allows the creationg of military bases, which defend against pirates")
+		},
+		{
+			Technology::MilitaryShips,
+			TechTreeNode("Military Ships", Technology::MilitaryBases, TIER_2_COST,
+			"Creates Military Ships, which can be assigned to a Ferry or to the player")
+		},
+		{
+			Technology::Fleets,
+			TechTreeNode("Fleets", Technology::MilitaryShips, TIER_3_COST,
+			"Allows creating a leader ship with a target, which other military ships can be assigned to.")
+		},
+		{
+			Technology::EscapeShip,
+			TechTreeNode("Escape Ship", Technology::FasterFerries, TIER_5_COST,
+			"Allows creating a ship capable of leaving the islands. This is your final goal")
 		}
 	};
 }
