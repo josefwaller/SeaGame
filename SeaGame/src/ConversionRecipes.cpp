@@ -7,51 +7,59 @@ const std::map<GameResource, ConversionRecipes::Recipe> ConversionRecipes::recip
 		// How long it takes
 		5.0f,
 		// Text to display
-		"Cut Wood into Plank"
+		"Cut Wood into Plank",
+		"Woodcutter"
 		}
 	},
 	{ GameResource::StoneBrick, {
 		{ { GameResource::Stone, 3 }, },
 		10.0f,
-		"Cut Stone into Bricks"
+		"Cut Stone into Bricks",
+		"Stonecutter"
 		}
 	},
 	{ GameResource::StoneStatue, {
 		{ { GameResource::Stone, 5}, },
 		20.0f,
-		"MAke a sonte statue"
+		"Make a sonte statue",
+		"Statue Maker"
 		}
 	},
 	// Grind wheat into flour
 	{ GameResource::Flour, {
 		{ {GameResource::Wheat, 2} },
 		2.0f,
-		"Grind wheat into flour"
+		"Grind wheat into flour",
+		"Mill"
 		}
 	},
 	// Bake flour into bread
 	{ GameResource::Bread, {
 		{ {GameResource::Flour, 5}},
 		5.0f,
-		"Bake flour into bread"
+		"Bake flour into bread",
+		"Bakery"
 		}
 	},
 	{GameResource::Beer, {
 		{ { GameResource::Fruit, 20}},
 		20.0f,
-		"Brew Wheat into Beer"
+		"Brew Wheat into Beer",
+		"Brewery"
 		}
 	},
 	{ GameResource::Steel, {
 		{ {GameResource::Iron, 2} },
 		5.0f,
-		"Smelt Iron into Steel"
+		"Smelt Iron into Steel",
+		"Smith"
 		}
 	},
 	{ GameResource::Weapons, {
 		{ {GameResource::Steel, 1 } },
 		5.0f,
-		"Forge Steel into weapons"
+		"Forge Steel into weapons",
+		"Armory"
 		}
 	}
 };

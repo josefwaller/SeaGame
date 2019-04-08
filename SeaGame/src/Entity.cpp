@@ -63,13 +63,7 @@ std::string Entity::getStringRep() {
 		break;
 	case EntityType::ConversionBase:
 		cont = std::dynamic_pointer_cast<ConversionBaseController>(this->components.controller);
-		switch (cont->getProduct()) {
-		case GameResource::Plank: return "Wood Cutters";
-		case GameResource::StoneBrick: return "Stone Cutters";
-		case GameResource::StoneStatue: return "Statue Makers";
-		case GameResource::Beer: return "Brewery";
-		default: return "Missing string for conversion base";
-		}
+		return cont->getRecipe().baseName;
 	default: return "Missing string for entity";
 	}
 }

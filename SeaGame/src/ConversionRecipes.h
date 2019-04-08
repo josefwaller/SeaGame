@@ -11,6 +11,8 @@ public:
 		float duration;
 		// The text used for UI
 		std::string recipeText;
+		// The name of the base that uses this recipe
+		std::string baseName;
 	};
 	// The recipes, ordered by what they make
 	static const std::map<GameResource, Recipe> recipes;

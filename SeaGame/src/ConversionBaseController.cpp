@@ -62,3 +62,6 @@ void ConversionBaseController::fromSaveData(SaveData data) {
 GameResource ConversionBaseController::getProduct() {
 	return this->product;
 }
+ConversionRecipes::Recipe ConversionBaseController::getRecipe() {
+	return ConversionRecipes::recipes.find(this->product)->second;
+}
