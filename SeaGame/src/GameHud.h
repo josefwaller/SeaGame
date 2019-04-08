@@ -1,6 +1,6 @@
 #pragma once
 #include "ResearchScreen.h"
-#include "CraftRecipes.h"
+#include "BuildScreen.h"
 #include <TGUI/Widgets/ChildWindow.hpp>
 #include <TGUI/Widgets/Label.hpp>
 #include <TGUI/Widgets/Button.hpp>
@@ -25,33 +25,31 @@ public:
 	static const float ANNOUNCEMENT_ITEM_HEIGHT;
 	GameHud();
 	GameHud(Game* game);
-	// The clicking states, help determine what to do when clicking
-	enum ClickState {
-		// Nothing, i.e. clicking on stuff will show their gui
+	// The state of what is being shown on the UI
+	enum State {
+		// Default, shows nothing
 		Nothing,
-		// Choosing where to place a building
+		// The building screen
 		Building,
 		// Selecting a building as a source/destination
-		Selecting
+		Selecting,
+		// The research screen
+		Research,
 	};
 	// Update widgets that need updating
 	void update();
 	// Render things not in the GUI, i.e. the entity being built
 	void render(RenderManager& rm);
-	// Chose an entity to build on the next click
-	void chooseEntityToBuild(CraftingRecipes::CraftRecipe cr);
-	// Build an entity from a crafting recipe given
-	void buildEntity();
 	void onClick(sf::Vector2f pos);
 	// Select an entity, then call the callback method with the entity
 	void selectEntity(std::function<void(std::weak_ptr<Entity>)> callback);
 	// Show/Hide the research screen
 	void showResearch();
 	void hideResearch();
-	// Show/hide the different buttons of things to build
-	void toggleBuildButtons();
-	// Reset the build buttons
-	void resetBuildButtons();
+	// Show/Hide the build buttons
+	void showBuild();
+	void hideBuild();
+	void updateBuild();
 	// Transfer items between entities by clicking between them
 	void transferItems(std::weak_ptr<Entity> e, GameResource res, unsigned int amount);
 	// Add an announcement
@@ -63,9 +61,7 @@ private:
 	Game* game;
 	// Build button
 	tgui::Button::Ptr buildButton;
-	// The buttons to decide what to build
-	tgui::Group::Ptr buildGroup;
-	// Button to show what to research
+	// Button to toggle research screen
 	tgui::Button::Ptr researchButton;
 	// Money display
 	tgui::Label::Ptr moneyDisplay;
@@ -73,22 +69,15 @@ private:
 	tgui::Label::Ptr stateText;
 	// Player health display
 	tgui::ProgressBar::Ptr playerHealth;
-	// Whether or not the research screen is showing
-	bool isShowingResearch;
-	// Check if an entity is valid and can be built
-	bool ensureValid(std::shared_ptr<Entity> e);
 	// Current Click state
-	ClickState currentClickState;
-	// A modified version of the entity with only a render and transform component,
-	// used to show the entity hovering at the moues coords
-	std::shared_ptr<Entity> toBuild;
-	// The crafting recipe of the entity currently being build
-	CraftingRecipes::CraftRecipe buildRecipe;
+	State currentState;
 	tgui::VerticalLayout::Ptr announcementContainer;
 	// The entity gui panel
 	tgui::ChildWindow::Ptr entityPanel;
 	// The research screen
 	ResearchScreen researchScreen;
+	// The build screen
+	BuildScreen buildScreen;
 	/*
 	 * There are two ways to select something via clicking on it
 	 * Selecting a point, or selecting an entity

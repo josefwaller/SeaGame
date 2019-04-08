@@ -137,6 +137,7 @@
     <ClCompile Include="src\BaseRenderer.cpp" />
     <ClCompile Include="src\Box2dClick.cpp" />
     <ClCompile Include="src\Box2dTransform.cpp" />
+    <ClCompile Include="src\BuildScreen.cpp" />
     <ClCompile Include="src\CannonBallController.cpp" />
     <ClCompile Include="src\Canon.cpp" />
     <ClCompile Include="src\ChasingShipController.cpp" />
@@ -200,6 +201,7 @@
     <ClInclude Include="src\BasicTransform.h" />
     <ClInclude Include="src\Box2dClick.h" />
     <ClInclude Include="src\Box2dTransform.h" />
+    <ClInclude Include="src\BuildScreen.h" />
     <ClInclude Include="src\Cannon.h" />
     <ClInclude Include="src\CannonBallController.h" />
     <ClInclude Include="src\ChasingShipController.h" />

@@ -57,6 +57,7 @@ void Game::loadFromData(
 	this->player = player;
 	this->techTree = tree;
 	this->money = money;
+	this->gHud.updateBuild();
 }
 void Game::generateNew() {
 	// Generate new map
@@ -196,6 +197,8 @@ void Game::removeEntity(std::weak_ptr<Entity> e)
 }
 sf::Vector2f Game::getMouseCoords()
 {
+	// Set view to game view so that mapping is accurate
+	this->getWindow()->setView(this->view);
 	return this->getWindow()->mapPixelToCoords(
 		sf::Mouse::getPosition(*this->app->getWindow())
 	);

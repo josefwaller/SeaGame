@@ -191,6 +191,12 @@
     <Filter Include="Files\GameHud\Components">
       <UniqueIdentifier>{5791c65a-3ea3-4691-a04a-e72c14804e81}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Files\GameHud\Components\ResearchScreen">
+      <UniqueIdentifier>{0a1e9bd2-db98-4d37-8f1a-e3c311714197}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Files\GameHud\Components\BuildScreen">
+      <UniqueIdentifier>{26e97efb-ee1a-41ae-adc5-9acb669bba81}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\CannonBallController.cpp">
@@ -371,7 +377,10 @@
       <Filter>Files\Components\Controllers\BaseControllers\GenerationBaseController</Filter>
     </ClCompile>
     <ClCompile Include="src\ResearchScreen.cpp">
-      <Filter>Files\GameHud\Components</Filter>
+      <Filter>Files\GameHud\Components\ResearchScreen</Filter>
+    </ClCompile>
+    <ClCompile Include="src\BuildScreen.cpp">
+      <Filter>Files\GameHud\Components\BuildScreen</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -559,7 +568,10 @@
       <Filter>Files\Components\Controllers\BaseControllers\GenerationBaseController</Filter>
     </ClInclude>
     <ClInclude Include="src\ResearchScreen.h">
-      <Filter>Files\GameHud\Components</Filter>
+      <Filter>Files\GameHud\Components\ResearchScreen</Filter>
+    </ClInclude>
+    <ClInclude Include="src\BuildScreen.h">
+      <Filter>Files\GameHud\Components\BuildScreen</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

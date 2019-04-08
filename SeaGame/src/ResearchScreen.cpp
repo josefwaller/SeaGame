@@ -139,7 +139,7 @@ tgui::Button::Ptr ResearchScreen::getButtonForTech(Technology t) {
 		// Set the node to researched
 		node->isResearched = true;
 		// Reset the buttons
-		g->getHud()->update();
+		g->getHud()->updateBuild();
 		return true;
 	}, this->game, t);
 	// Make the tool tip have information about the technology

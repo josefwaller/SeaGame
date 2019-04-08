@@ -3,12 +3,11 @@
 #include "EntityPrefabs.h"
 #include "CraftRecipes.h"
 #include "TechTree.h"
-#include "InventoryComponent.h"
-#include "ResourceController.h"
 #include "ResourceManager.h"
 #include "RenderManager.h"
 #include "GameResource.h"
 #include "BasicTransform.h"
+#include "InventoryComponent.h"
 #include "ClickComponent.h"
 #include "ResearchScreen.h"
 #include "Entity.h"
@@ -19,21 +18,15 @@ const float GameHud::ANNOUNCEMENT_ITEM_HEIGHT = 60.0f;
 
 GameHud::GameHud() {
 }
-GameHud::GameHud(Game* g): researchScreen(g) {
+GameHud::GameHud(Game* g): researchScreen(g), buildScreen(g) {
 	this->game = g;
-	this->isShowingResearch = false;
 	// Set click state to nothing initially
-	this->currentClickState = ClickState::Nothing;
+	this->currentState = State::Nothing;
 	// Add the build button
 	this->buildButton = tgui::Button::create();
 	this->buildButton->setText("Build");
-	this->buildButton->connect("clicked", &GameHud::toggleBuildButtons, game->getHud());
+	this->buildButton->connect("clicked", &GameHud::showBuild, game->getHud());
 	this->game->getGui()->add(this->buildButton);
-	// Add the build container
-	this->buildGroup = tgui::Group::create();
-	this->buildGroup->setPosition({ 0, this->buildButton->getFullSize().y });
-	this->buildGroup->setVisible(false);
-	this->game->getGui()->add(this->buildGroup);
 	// Add research button
 	this->researchButton = tgui::Button::create();
 	this->researchButton->setText("Research");
@@ -121,86 +114,37 @@ void GameHud::update() {
 	}
 	// Update the research tech tree
 	this->researchScreen.update();
+	// Update the build screen
+	// this->buildScreen.update();
 }
 void GameHud::render(RenderManager& rm) {
-	if (this->currentClickState == ClickState::Building && this->toBuild) {
-		// Move to mouse coords, rounded to 64px
-		sf::Vector2i pos = sf::Vector2i(this->game->getMouseCoords() / 64.0f) * 64;
-		this->toBuild->components.transform->setPosition(sf::Vector2f(pos));
-		// Reset the texture
-		this->toBuild->components.renderer->reset();
-		// Render
-		this->toBuild->components.renderer->render(rm);
-		// Tell the player if the location is invalid
-		if (!ensureValid(this->toBuild)) {
-			sf::Sprite invalidSprite = ResourceManager::get()->getSprite(
-				"medievalRTS_spritesheet@2",
-				"medievalStructure_14.png",
-				true
-			);
-			invalidSprite.setPosition(toBuild->components.transform->getPosition());
-			rm.add(invalidSprite, RenderManager::INDEX_DEBUG);
-		}
-	}
-	// Draw the tech lines
-	if (this->isShowingResearch) {
+	switch (this->currentState) {
+	case State::Research:
 		this->researchScreen.render(rm);
+		break;
+	case State::Building:
+		this->buildScreen.render(rm);
+		break;
 	}
 }
 void GameHud::showResearch() {
-	this->isShowingResearch = true;
+	this->currentState = State::Research;
 	this->researchScreen.show(this->game->getGui());
 }
 void GameHud::hideResearch() {
-	this->isShowingResearch = false;
+	this->currentState = State::Nothing;
 	this->researchScreen.hide(this->game->getGui());
 }
-bool GameHud::ensureValid(std::shared_ptr<Entity> e) {
-	if (e->tag == EntityTag::Base) {
-		// Ensure the base is on the land
-		sf::Vector2i pos = (sf::Vector2i)(e->components.transform->getPosition() / 64.0f);
-		for (size_t x = 0; x < 3; x++) {
-			for (size_t y = 0; y < 3; y++) {
-				if (this->game->getGameMap()->getTileAt(pos.x + x, pos.y + y) == GameMap::TileType::Sea) {
-					return false;
-				}
-			}
-		}
-		// If the base is a mining/forestry/something base, make sure it's on the right resource
-		// Check it's a generation base
-		if (auto cont = std::dynamic_pointer_cast<GenerationBaseController>(e->components.controller)) {
-			// Get the resource
-			GameResource neededRes = cont->getResource();
-			std::weak_ptr<Entity> resSource;
-			if (generationBaseNeedsSource(neededRes)) {
-				bool hasResource = false;
-				// Check the resource is present
-				for (std::shared_ptr<Entity> other : this->game->getEntities()) {
-					// Check the entity is a resource and is the correct resource
-					if (auto otherCont = std::dynamic_pointer_cast<ResourceController>(other->components.controller)) {
-						if (otherCont->getResource() == neededRes) {
-							sf::Vector2i otherPos = sf::Vector2i(other->components.transform->getPosition()) / 64;
-							if (otherPos.x - pos.x < 3 && otherPos.x - pos.x >= 0) {
-								if (otherPos.y - pos.y < 3 && otherPos.y - pos.y >= 0) {
-									hasResource = true;
-									resSource = other;
-									break;
-								}
-							}
-						}
-					}
-				}
-				if (!hasResource) {
-					return false;
-				}
-				// Remove the source
-				this->game->removeEntity(resSource);
-			}
-		}
-		return true;
-	}
-	// TBA
-	return true;
+void GameHud::showBuild() {
+	this->currentState = State::Building;
+	this->buildScreen.show(this->game->getGui());
+}
+void GameHud::hideBuild() {
+	this->currentState = State::Nothing;
+	this->buildScreen.hide(this->game->getGui());
+}
+void GameHud::updateBuild() {
+	this->buildScreen.update();
 }
 void GameHud::transferItems(std::weak_ptr<Entity> e, GameResource res, unsigned int amount) {
 	this->selectCallback = std::bind([&](
@@ -216,10 +160,10 @@ void GameHud::transferItems(std::weak_ptr<Entity> e, GameResource res, unsigned 
 			to.lock()->components.inventory->addItems(res, amount);
 		}
 	}, std::placeholders::_1, e, res, amount);
-	this->currentClickState = ClickState::Selecting;
+	this->currentState = State::Selecting;
 }
 void GameHud::onClick(sf::Vector2f pos) {
-	if (this->currentClickState == ClickState::Nothing) {
+	if (this->currentState == State::Nothing) {
 		for (auto e : this->game->getEntities()) {
 			if (e->components.click != nullptr) {
 				if (e->components.click->checkForClick(pos)) {
@@ -230,37 +174,15 @@ void GameHud::onClick(sf::Vector2f pos) {
 			}
 		}
 	}
-	else if (this->currentClickState == ClickState::Building) {
-		// Remove the money required for the entity
-		std::map<GameResource, unsigned int> playerInv = this->game->getPlayer()->components.inventory->getInventory();
-		std::map<GameResource, unsigned int> neededInv = this->buildRecipe.requiredResources;
-		for (auto it = neededInv.begin(); it != neededInv.end(); it++) {
-			if (playerInv[it->first] < it->second) {
-				// Todo: tell the player they don't have the stuff to build the entity
-				this->currentClickState = Nothing;
-				return;
-			}
-		}
-		// Remove the inventory from the player
-		for (auto it = neededInv.begin(); it != neededInv.end(); it++) {
-			this->game->getPlayer()->components.inventory->removeItems(it->first, it->second);
-		}
-		// Create the entity
-		std::shared_ptr<Entity> e = this->buildRecipe.createMethod(this->game, this->game->getMouseCoords());
-		// Check if it works
-		if (this->ensureValid(e)) {
-			// Add it to the game
-			this->game->addEntity(e);
-			this->currentClickState = ClickState::Nothing;
-			this->stateText->setVisible(false);
-		}
+	else if (this->currentState == State::Building) {
+		this->buildScreen.onClick(pos);
 	}
-	else if (this->currentClickState == ClickState::Selecting) {
+	else if (this->currentState == State::Selecting) {
 		for (auto e : this->game->getEntities()) {
 			if (e->components.click) {
 				if (e->components.click->checkForClick(pos)) {
 					this->selectCallback(e);
-					this->currentClickState = ClickState::Nothing;
+					this->currentState = State::Nothing;
 					this->stateText->setVisible(false);
 				}
 			}
@@ -269,82 +191,9 @@ void GameHud::onClick(sf::Vector2f pos) {
 }
 void GameHud::selectEntity(std::function<void(std::weak_ptr<Entity> entity)> callback) {
 	this->selectCallback = callback;
-	this->currentClickState = ClickState::Selecting;
+	this->currentState = State::Selecting;
 	this->stateText->setText("Select an entity");
 	this->stateText->setVisible(true);
-}
-void GameHud::toggleBuildButtons() {
-	// Hide the buttons if they are showing
-	if (this->buildGroup->isVisible()) {
-		this->buildGroup->setVisible(false);
-	}
-	// Show the buttons
-	else {
-		this->buildGroup->setVisible(true);
-		this->resetBuildButtons();
-	}
-}
-void GameHud::resetBuildButtons() {
-	// Add the build buttons
-	float y = 0.0f;
-	this->buildGroup->removeAllWidgets();
-	// Vector of buttons of stuff to build
-	for (auto cr : CraftingRecipes::recipes) {
-		// Make sure the user can build this thing
-		if (cr.requiredTech == Technology::Nothing || this->game->getTechTree()->nodes[cr.requiredTech].isResearched) {
-			// Add the actual button
-			tgui::Button::Ptr btn = tgui::Button::create();
-			btn->setText(cr.displayText);
-			tgui::TextBox::Ptr tt = tgui::TextBox::create();
-			btn->setToolTip(tt);
-			std::string resourceText;
-			for (auto it = cr.requiredResources.begin(); it != cr.requiredResources.end(); it++) {
-				resourceText += getResourceString(it->first) + ": " + std::to_string(it->second) + "\n";
-			}
-			tt->setText(cr.displayText + "\n"
-				+ "-------------------\n\n"
-				+ "Required Resources:\n"
-				+ "-------------------\n"
-				+ resourceText
-			);
-			btn->connect("clicked", [&](Game* g, CraftingRecipes::CraftRecipe cr) {
-				g->getHud()->chooseEntityToBuild(cr);
-			}, this->game, cr);
-			btn->setPosition({ 0, y });
-			this->buildGroup->add(btn);
-			y += btn->getFullSize().y;
-		}
-	}
-}
-void GameHud::chooseEntityToBuild(CraftingRecipes::CraftRecipe cr) {
-	// Create the entity
-	std::shared_ptr<Entity> e = cr.createMethod(this->game, { 0.0f, 0.0f });
-	// Overwrite all their components except for renderer
-	// Set all to nullptr except transform, which is set to simple transform
-	auto x = e->components.transform.use_count();
-	std::shared_ptr<RenderComponent> r = e->components.renderer;
-	e->components = ComponentList(
-		new BasicTransform({ 0.0f, 0.0f }, 0.0f),
-		nullptr,
-		nullptr,
-		nullptr,
-		nullptr,
-		nullptr,
-		nullptr,
-		nullptr
-	);
-	e->components.renderer = r;
-	// Save this modified entity to be used to draw for a hovering effect
-	this->toBuild = e;
-	// Save the method to build the entity
-	this->buildRecipe = cr;
-	// Set click state
-	this->currentClickState = ClickState::Building;
-	// Prompt user
-	this->stateText->setText("Choose where to build the entity");
-	this->stateText->setVisible(true);
-}
-void GameHud::buildEntity() {
 }
 void GameHud::addAnnouncement(std::string announcement) {
 	tgui::TextBox::Ptr p = tgui::TextBox::create();
