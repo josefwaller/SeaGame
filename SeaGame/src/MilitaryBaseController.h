@@ -10,7 +10,7 @@ public:
 	// How close a ship has to be for that base to shoot at it
 	static const float SHOOT_RANGE;
 
-	MilitaryBaseController();
+	virtual void setParent(std::weak_ptr<Entity> parent) override;
 	virtual void update(float delta) override;
 	// Get the cannons, used to render them
 	std::vector<Cannon> getCannons();

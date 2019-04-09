@@ -181,6 +181,16 @@ std::vector<CraftingRecipes::CraftRecipe> CraftingRecipes::recipes = {
 			return EntityPrefabs::conversionBase(g, getBaseCoords(pos), GameResource::Weapons);
 		},
 		baseValid
+	},
+	{
+		{},
+		Technology::MilitaryBases,
+		"Military Base",
+		ResourceManager::get()->getSprite("ships", "cannon.png", false),
+		[&](Game* g, sf::Vector2f(pos)) {
+			return EntityPrefabs::militaryBase(g, getBaseCoords(pos));
+		},
+		baseValid
 	}
 };
 #include "Game.h"
