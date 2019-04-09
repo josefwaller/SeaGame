@@ -22,8 +22,12 @@ void FerryShipController::setParent(std::weak_ptr<Entity> parent) {
 	this->updatePanel();
 }
 void FerryShipController::onNoPath() {
-	this->stops[this->currentStopIndex].hasPath = false;
-	this->updateComboBox();
+	// If this is the first time the path has been found to have no path, mark it
+	// as such and update the GUI
+	if (this->stops[this->currentStopIndex].hasPath) {
+		this->stops[this->currentStopIndex].hasPath = false;
+		this->updateComboBox();
+	}
 }
 void FerryShipController::update(float delta) {
 	// Move towards destination if it exists and there is a path to it

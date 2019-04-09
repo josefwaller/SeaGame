@@ -50,7 +50,7 @@ void AutomatedShipController::setTarget(sf::Vector2f target) {
 	// Only check the 10 000 most likely tiles
 	unsigned int count = 0;
 	while (true) {
-		if (coords.size() == 0 || count >= 1000) {
+		if (coords.size() == 0 || count >= 100) {
 			this->onNoPath();
 			return;
 		}
