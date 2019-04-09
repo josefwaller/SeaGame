@@ -25,8 +25,10 @@ public:
 		// Image to display on the button (TBA) and on the mouse to show position
 		sf::Sprite displaySprite;
 		// Method to build the entity
-		// Returns the entity, may be invalid because of position or other reason, will check before building:w
+		// Returns the entity, may be invalid because of position or other reason, will check before building
 		std::function<std::shared_ptr<Entity>(Game* game, sf::Vector2f pos)> createMethod;
+		// Check if the position given is a valid position for this entity
+		std::function<bool(Game* g, sf::Vector2f pos)> checkIfValid;
 	};
 	static std::vector<CraftRecipe> recipes;
 };

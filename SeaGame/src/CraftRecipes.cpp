@@ -1,9 +1,59 @@
 #include "CraftRecipes.h"
 #include "EntityPrefabs.h"
 #include "ResourceManager.h"
+#include "ResourceController.h"
+#include "Entity.h"
+#include <memory>
+#include "Game.h"
+
+// Utilitary definition for checkIfValid functions
+#define checkFunction const std::function<bool(Game* g, sf::Vector2f)>
 
 // Name of sheet
 const std::string SHEET = "medievalRTS_spritesheet@2";
+
+// Method to check if the base's location is valid
+checkFunction baseValid = [&](Game* g, sf::Vector2f pos) {
+	// Ensure the base is on the land
+	sf::Vector2i coords = sf::Vector2i(pos / 64.0f);
+	for (size_t x = 0; x < 3; x++) {
+		for (size_t y = 0; y < 3; y++) {
+			if (g->getGameMap()->getTileAt(coords.x + x, coords.y + y) == GameMap::TileType::Sea) {
+				return false;
+			}
+		}
+	}
+	return true;
+};
+// Method to check a generation base's location is correct
+// Just checks that it is a valid base location and that the resource is there
+checkFunction generationBaseValid(GameResource neededRes) {
+	return [neededRes](Game* g, sf::Vector2f pos) {
+		if (baseValid(g, pos)) {
+			// Check the resource is present
+			for (std::shared_ptr<Entity> other : g->getEntities()) {
+				// Check the entity is a resource and is the correct resource
+				if (auto otherCont = std::dynamic_pointer_cast<ResourceController>(other->components.controller)) {
+					if (otherCont->getResource() == neededRes) {
+						sf::Vector2i otherPos = sf::Vector2i(other->components.transform->getPosition()) / 64;
+						sf::Vector2i coords = sf::Vector2i(pos / 64.0f);
+						if (otherPos.x - coords.x < 3 && otherPos.x - coords.x >= 0) {
+							if (otherPos.y - coords.y < 3 && otherPos.y - coords.y >= 0) {
+								return true;
+							}
+						}
+					}
+				}
+			}
+		}
+		return false;
+	};
+}
+
+// Method to check if a ship's location is valid
+const std::function<bool(Game*, sf::Vector2f)> shipValid = [&](Game* g, sf::Vector2f pos) {
+	return true;
+};
 
 sf::Vector2f getBaseCoords(sf::Vector2f c) {
 	return sf::Vector2f(sf::Vector2i(c / 64.0f) * 64);
@@ -19,7 +69,8 @@ std::vector<CraftingRecipes::CraftRecipe> CraftingRecipes::recipes = {
 		ResourceManager::get()->getSprite("ships", "sailLargeRed.png", false),
 		[&](Game* g, sf::Vector2f pos) {
 			return EntityPrefabs::ferryShip(g, pos, {}, {});
-		}
+		},
+		shipValid
 	},
 	{
 		{},
@@ -28,7 +79,8 @@ std::vector<CraftingRecipes::CraftRecipe> CraftingRecipes::recipes = {
 		getResourceSprite(GameResource::Stone),
 		[&](Game* g, sf::Vector2f pos) {
 			return EntityPrefabs::generationBase(g, getBaseCoords(pos), GameResource::Stone);
-		}
+		},
+		generationBaseValid(GameResource::Stone)
 	},
 	{
 		{},
@@ -37,7 +89,8 @@ std::vector<CraftingRecipes::CraftRecipe> CraftingRecipes::recipes = {
 		getResourceSprite(GameResource::Iron),
 		[&](Game* g, sf::Vector2f pos) {
 			return EntityPrefabs::generationBase(g, getBaseCoords(pos), GameResource::Iron);
-		}
+		},
+		generationBaseValid(GameResource::Iron)
 	},
 	{
 		{},
@@ -46,7 +99,8 @@ std::vector<CraftingRecipes::CraftRecipe> CraftingRecipes::recipes = {
 		getResourceSprite(GameResource::Copper),
 		[&](Game* g, sf::Vector2f pos) {
 			return EntityPrefabs::generationBase(g, getBaseCoords(pos), GameResource::Copper);
-		}
+		},
+		generationBaseValid(GameResource::Copper)
 	},
 	{
 		{},
@@ -55,7 +109,8 @@ std::vector<CraftingRecipes::CraftRecipe> CraftingRecipes::recipes = {
 		getResourceSprite(GameResource::Gold),
 		[&](Game* g, sf::Vector2f pos) {
 			return EntityPrefabs::generationBase(g, getBaseCoords(pos), GameResource::Gold);
-		}
+		},
+		generationBaseValid(GameResource::Gold)
 	},
 	{
 		{},
@@ -64,7 +119,8 @@ std::vector<CraftingRecipes::CraftRecipe> CraftingRecipes::recipes = {
 		getResourceSprite(GameResource::Wheat),
 		[&](Game* g, sf::Vector2f pos) {
 			return EntityPrefabs::generationBase(g, getBaseCoords(pos), GameResource::Wheat);
-		}
+		},
+		baseValid
 	},
 	{
 		{},
@@ -73,7 +129,8 @@ std::vector<CraftingRecipes::CraftRecipe> CraftingRecipes::recipes = {
 		getResourceSprite(GameResource::Flour),
 		[&](Game* g, sf::Vector2f pos) {
 			return EntityPrefabs::conversionBase(g, getBaseCoords(pos), GameResource::Flour);
-		}
+		},
+		baseValid
 	},
 	{
 		{},
@@ -82,7 +139,8 @@ std::vector<CraftingRecipes::CraftRecipe> CraftingRecipes::recipes = {
 		getResourceSprite(GameResource::Bread),
 		[&](Game* g, sf::Vector2f pos) {
 			return EntityPrefabs::conversionBase(g, getBaseCoords(pos), GameResource::Bread);
-		}
+		},
+		baseValid
 	},
 	{
 		{},
@@ -91,7 +149,8 @@ std::vector<CraftingRecipes::CraftRecipe> CraftingRecipes::recipes = {
 		getResourceSprite(GameResource::Fruit),
 		[&](Game* g, sf::Vector2f pos) {
 			return EntityPrefabs::generationBase(g, getBaseCoords(pos), GameResource::Fruit);
-		}
+		},
+		baseValid
 	},
 	{
 		{},
@@ -100,7 +159,8 @@ std::vector<CraftingRecipes::CraftRecipe> CraftingRecipes::recipes = {
 		getResourceSprite(GameResource::Beer),
 		[&](Game* g, sf::Vector2f pos) {
 			return EntityPrefabs::conversionBase(g, getBaseCoords(pos), GameResource::Beer);
-		}
+		},
+		baseValid
 	},
 	{
 		{},
@@ -109,7 +169,8 @@ std::vector<CraftingRecipes::CraftRecipe> CraftingRecipes::recipes = {
 		getResourceSprite(GameResource::Steel),
 		[&](Game* g, sf::Vector2f pos) {
 			return EntityPrefabs::conversionBase(g, getBaseCoords(pos), GameResource::Steel);
-		}
+		},
+		baseValid
 	},
 	{
 		{},
@@ -117,7 +178,8 @@ std::vector<CraftingRecipes::CraftRecipe> CraftingRecipes::recipes = {
 		"Forge",
 		[&](Game* g, sf::Vector2f pos) {
 			return EntityPrefabs::conversionBase(g, getBaseCoords(pos), GameResource::Weapons);
-		}
+		},
+		baseValid
 	}
 };
 #include "Game.h"

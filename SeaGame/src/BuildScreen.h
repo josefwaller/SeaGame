@@ -34,6 +34,4 @@ private:
 	CraftingRecipes::CraftRecipe buildingRecipe;
 	// The sprite to show when building the entity
 	sf::Sprite buildSprite;
-	// Whether an entity's position is valid
-	bool ensureValid(std::shared_ptr<Entity> e);
 };

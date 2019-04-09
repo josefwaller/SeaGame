@@ -93,7 +93,7 @@ void BuildScreen::onClick(sf::Vector2f pos) {
 			d * 64.0f
 		);
 		// Check if it works
-		if (this->ensureValid(e)) {
+		if (this->buildingRecipe.checkIfValid(this->game, this->game->getMouseCoords())) {
 			// Add it to the game
 			this->game->addEntity(e);
 			this->isBuilding = false;
@@ -111,65 +111,17 @@ void BuildScreen::showCurrentBuild(RenderManager& rm) {
 	this->buildSprite.setPosition(sf::Vector2f(pos));
 	rm.add(this->buildSprite, RenderManager::INDEX_DECK);
 	// Tell the player if the location is invalid
-	/*if (!ensureValid(this->toBuild)) {
+	if (!this->buildingRecipe.checkIfValid(this->game, this->game->getMouseCoords())) {
+
 		sf::Sprite invalidSprite = ResourceManager::get()->getSprite(
 			"medievalRTS_spritesheet@2",
 			"medievalStructure_14.png",
 			true
 		);
-		invalidSprite.setPosition(toBuild->components.transform->getPosition());
+		invalidSprite.setPosition(sf::Vector2f(pos));
 		rm.add(invalidSprite, RenderManager::INDEX_DEBUG);
-	}*/
-}
-bool BuildScreen::ensureValid(std::shared_ptr<Entity> e) {
-	if (e->tag == EntityTag::Base) {
-		// Ensure the base is on the land
-		auto a = e->components.transform->getPosition();
-		sf::Vector2i pos = sf::Vector2i(a / 64.0f);
-		for (size_t x = 0; x < 3; x++) {
-			for (size_t y = 0; y < 3; y++) {
-				if (this->game->getGameMap()->getTileAt(pos.x + x, pos.y + y) == GameMap::TileType::Sea) {
-					return false;
-				}
-			}
-		}
-		// If the base is a mining/forestry/something base, make sure it's on the right resource
-		// Check it's a generation base
-		if (auto cont = std::dynamic_pointer_cast<GenerationBaseController>(e->components.controller)) {
-			// Get the resource
-			GameResource neededRes = cont->getResource();
-			std::weak_ptr<Entity> resSource;
-			if (generationBaseNeedsSource(neededRes)) {
-				bool hasResource = false;
-				// Check the resource is present
-				for (std::shared_ptr<Entity> other : this->game->getEntities()) {
-					// Check the entity is a resource and is the correct resource
-					if (auto otherCont = std::dynamic_pointer_cast<ResourceController>(other->components.controller)) {
-						if (otherCont->getResource() == neededRes) {
-							sf::Vector2i otherPos = sf::Vector2i(other->components.transform->getPosition()) / 64;
-							if (otherPos.x - pos.x < 3 && otherPos.x - pos.x >= 0) {
-								if (otherPos.y - pos.y < 3 && otherPos.y - pos.y >= 0) {
-									hasResource = true;
-									resSource = other;
-									break;
-								}
-							}
-						}
-					}
-				}
-				if (!hasResource) {
-					return false;
-				}
-				// Remove the source
-				this->game->removeEntity(resSource);
-			}
-		}
-		return true;
 	}
-	// TBA
-	return true;
 }
-
 void BuildScreen::show(tgui::Container::Ptr c) {
 	c->add(this->buttons);
 }
