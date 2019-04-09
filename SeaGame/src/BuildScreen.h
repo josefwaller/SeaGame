@@ -32,9 +32,8 @@ private:
 	bool isBuilding;
 	// What the player is building right now
 	CraftingRecipes::CraftRecipe buildingRecipe;
-	// A modified Entity with no components except transform and renderer,
-	// used to display where the entity will be
-	std::shared_ptr<Entity> toBuild;
+	// The sprite to show when building the entity
+	sf::Sprite buildSprite;
 	// Whether an entity's position is valid
 	bool ensureValid(std::shared_ptr<Entity> e);
 };

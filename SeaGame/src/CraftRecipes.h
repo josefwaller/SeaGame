@@ -22,6 +22,8 @@ public:
 		Technology requiredTech;
 		// Text to display on the button
 		std::string displayText;
+		// Image to display on the button (TBA) and on the mouse to show position
+		sf::Sprite displaySprite;
 		// Method to build the entity
 		// Returns the entity, may be invalid because of position or other reason, will check before building:w
 		std::function<std::shared_ptr<Entity>(Game* game, sf::Vector2f pos)> createMethod;

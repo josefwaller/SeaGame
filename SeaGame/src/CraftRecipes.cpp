@@ -1,5 +1,9 @@
 #include "CraftRecipes.h"
 #include "EntityPrefabs.h"
+#include "ResourceManager.h"
+
+// Name of sheet
+const std::string SHEET = "medievalRTS_spritesheet@2";
 
 sf::Vector2f getBaseCoords(sf::Vector2f c) {
 	return sf::Vector2f(sf::Vector2i(c / 64.0f) * 64);
@@ -12,6 +16,7 @@ std::vector<CraftingRecipes::CraftRecipe> CraftingRecipes::recipes = {
 		},
 		Technology::Ferries,
 		"Ferry",
+		ResourceManager::get()->getSprite("ships", "sailLargeRed.png", false),
 		[&](Game* g, sf::Vector2f pos) {
 			return EntityPrefabs::ferryShip(g, pos, {}, {});
 		}
@@ -20,6 +25,7 @@ std::vector<CraftingRecipes::CraftRecipe> CraftingRecipes::recipes = {
 		{},
 		Technology::Mines,
 		"Mine",
+		getResourceSprite(GameResource::Stone),
 		[&](Game* g, sf::Vector2f pos) {
 			return EntityPrefabs::generationBase(g, getBaseCoords(pos), GameResource::Stone);
 		}
@@ -28,6 +34,7 @@ std::vector<CraftingRecipes::CraftRecipe> CraftingRecipes::recipes = {
 		{},
 		Technology::IronMining,
 		"Iron Mine",
+		getResourceSprite(GameResource::Iron),
 		[&](Game* g, sf::Vector2f pos) {
 			return EntityPrefabs::generationBase(g, getBaseCoords(pos), GameResource::Iron);
 		}
@@ -36,6 +43,7 @@ std::vector<CraftingRecipes::CraftRecipe> CraftingRecipes::recipes = {
 		{},
 		Technology::CopperMining,
 		"Copper Mine",
+		getResourceSprite(GameResource::Copper),
 		[&](Game* g, sf::Vector2f pos) {
 			return EntityPrefabs::generationBase(g, getBaseCoords(pos), GameResource::Copper);
 		}
@@ -44,6 +52,7 @@ std::vector<CraftingRecipes::CraftRecipe> CraftingRecipes::recipes = {
 		{},
 		Technology::GoldMining,
 		"Gold Mine",
+		getResourceSprite(GameResource::Gold),
 		[&](Game* g, sf::Vector2f pos) {
 			return EntityPrefabs::generationBase(g, getBaseCoords(pos), GameResource::Gold);
 		}
@@ -52,6 +61,7 @@ std::vector<CraftingRecipes::CraftRecipe> CraftingRecipes::recipes = {
 		{},
 		Technology::Farming,
 		"Farm",
+		getResourceSprite(GameResource::Wheat),
 		[&](Game* g, sf::Vector2f pos) {
 			return EntityPrefabs::generationBase(g, getBaseCoords(pos), GameResource::Wheat);
 		}
@@ -60,6 +70,7 @@ std::vector<CraftingRecipes::CraftRecipe> CraftingRecipes::recipes = {
 		{},
 		Technology::Mills,
 		"Mill",
+		getResourceSprite(GameResource::Flour),
 		[&](Game* g, sf::Vector2f pos) {
 			return EntityPrefabs::conversionBase(g, getBaseCoords(pos), GameResource::Flour);
 		}
@@ -68,6 +79,7 @@ std::vector<CraftingRecipes::CraftRecipe> CraftingRecipes::recipes = {
 		{},
 		Technology::Baking,
 		"Bakery",
+		getResourceSprite(GameResource::Bread),
 		[&](Game* g, sf::Vector2f pos) {
 			return EntityPrefabs::conversionBase(g, getBaseCoords(pos), GameResource::Bread);
 		}
@@ -76,6 +88,7 @@ std::vector<CraftingRecipes::CraftRecipe> CraftingRecipes::recipes = {
 		{},
 		Technology::Orchards,
 		"Orchard",
+		getResourceSprite(GameResource::Fruit),
 		[&](Game* g, sf::Vector2f pos) {
 			return EntityPrefabs::generationBase(g, getBaseCoords(pos), GameResource::Fruit);
 		}
@@ -84,6 +97,7 @@ std::vector<CraftingRecipes::CraftRecipe> CraftingRecipes::recipes = {
 		{},
 		Technology::Breweries,
 		"Brewery",
+		getResourceSprite(GameResource::Beer),
 		[&](Game* g, sf::Vector2f pos) {
 			return EntityPrefabs::conversionBase(g, getBaseCoords(pos), GameResource::Beer);
 		}
@@ -92,6 +106,7 @@ std::vector<CraftingRecipes::CraftRecipe> CraftingRecipes::recipes = {
 		{},
 		Technology::Smelting,
 		"Furnace",
+		getResourceSprite(GameResource::Steel),
 		[&](Game* g, sf::Vector2f pos) {
 			return EntityPrefabs::conversionBase(g, getBaseCoords(pos), GameResource::Steel);
 		}

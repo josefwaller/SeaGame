@@ -63,25 +63,8 @@ void BuildScreen::update() {
 	this->buttons->add(closeBtn);
 }
 void BuildScreen::setToBuild(CraftingRecipes::CraftRecipe cr) {
-	// Create the entity
-	std::shared_ptr<Entity> e = cr.createMethod(this->game, { 0.0f, 0.0f });
-	// Overwrite all their components except for renderer
-	// Set all to nullptr except transform, which is set to simple transform
-	auto x = e->components.transform.use_count();
-	std::shared_ptr<RenderComponent> r = e->components.renderer;
-	e->components = ComponentList(
-		new BasicTransform({ 0.0f, 0.0f }, 0.0f),
-		nullptr,
-		nullptr,
-		nullptr,
-		nullptr,
-		nullptr,
-		nullptr,
-		nullptr
-	);
-	e->components.renderer = r;
-	// Save this modified entity to be used to draw for a hovering effect
-	this->toBuild = e;
+	// Set the sprite to display
+	this->buildSprite = cr.displaySprite;
 	// Save the method to build the entity
 	this->buildingRecipe = cr;
 	this->isBuilding = true;
@@ -125,13 +108,10 @@ void BuildScreen::render(RenderManager& rm) {
 void BuildScreen::showCurrentBuild(RenderManager& rm) {
 	// Move to mouse coords, rounded to 64px
 	sf::Vector2i pos = sf::Vector2i(this->game->getMouseCoords() / 64.0f) * 64;
-	this->toBuild->components.transform->setPosition(sf::Vector2f(pos));
-	// Reset the texture
-	this->toBuild->components.renderer->reset();
-	// Render
-	this->toBuild->components.renderer->render(rm);
+	this->buildSprite.setPosition(sf::Vector2f(pos));
+	rm.add(this->buildSprite, RenderManager::INDEX_DECK);
 	// Tell the player if the location is invalid
-	if (!ensureValid(this->toBuild)) {
+	/*if (!ensureValid(this->toBuild)) {
 		sf::Sprite invalidSprite = ResourceManager::get()->getSprite(
 			"medievalRTS_spritesheet@2",
 			"medievalStructure_14.png",
@@ -139,7 +119,7 @@ void BuildScreen::showCurrentBuild(RenderManager& rm) {
 		);
 		invalidSprite.setPosition(toBuild->components.transform->getPosition());
 		rm.add(invalidSprite, RenderManager::INDEX_DEBUG);
-	}
+	}*/
 }
 bool BuildScreen::ensureValid(std::shared_ptr<Entity> e) {
 	if (e->tag == EntityTag::Base) {
