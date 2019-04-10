@@ -178,7 +178,7 @@ bool GameMap::addBuilding(
 				this->game->addEntity(EntityPrefabs::getEntityFromType(this->game, { x * 64.0f, y * 64.0f }, type));
 				for (size_t xOff = 0; xOff < 3; xOff++) {
 					for (size_t yOff = 0; yOff < 3; yOff++) {
-						this->tiles[x + xOff][y + yOff].isFull = true;
+						this->setIsFull(x + xOff, y + yOff, true);
 					}
 				}
 				return true;
@@ -194,6 +194,23 @@ void GameMap::initTileRenderData() {
 			this->setTileRenderData(x, y);
 		}
 	}
+}
+bool GameMap::getTileIsFull(size_t x, size_t y) {
+	if (!coordIsOnMap(x, y)) {
+		return false;
+	}
+	return this->tiles[x][y].isFull;
+}
+void GameMap::setIsFull(size_t x, size_t y, bool val) {
+	if (coordIsOnMap(x, y)) {
+		this->tiles[x][y].isFull = true;
+	}
+}
+bool GameMap::coordIsOnMap(size_t x, size_t y) {
+	if (x < 0 || x >= this->tiles.size() || y < 0 || y >= this->tiles[0].size()) {
+		return false;
+	}
+	return true;
 }
 void GameMap::render(sf::RenderWindow* window)
 {
@@ -244,7 +261,7 @@ void GameMap::render(sf::RenderWindow* window)
 }
 void GameMap::drawTile(sf::RenderWindow* window, size_t x, size_t y) {
 	// Make sure the tile is on the map
-	if (x < 0 || x >= this->tiles.size() || y < 0 || y >= this->tiles[0].size()) {
+	if (!coordIsOnMap(x, y)) {
 		return;
 	}
 	// Get tile and make sure it's land

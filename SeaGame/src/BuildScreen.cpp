@@ -71,29 +71,29 @@ void BuildScreen::setToBuild(CraftingRecipes::CraftRecipe cr) {
 }
 void BuildScreen::onClick(sf::Vector2f pos) {
 	if (this->isBuilding) {
-		// Remove the money required for the entity
-		std::map<GameResource, unsigned int> playerInv = this->game->getPlayer()->components.inventory->getInventory();
-		std::map<GameResource, unsigned int> neededInv = this->buildingRecipe.requiredResources;
-		for (auto it = neededInv.begin(); it != neededInv.end(); it++) {
-			if (playerInv[it->first] < it->second) {
-				// Todo: tell the player they don't have the stuff to build the entity
-				return;
-			}
-		}
-		// Remove the inventory from the player
-		for (auto it = neededInv.begin(); it != neededInv.end(); it++) {
-			this->game->getPlayer()->components.inventory->removeItems(it->first, it->second);
-		}
-		// Create the entity
-		auto a = this->game->getMouseCoords();
-		auto b = a / 64.0f;
-		auto c = sf::Vector2i(b);
-		auto d = sf::Vector2f(c);
-		std::shared_ptr<Entity> e = this->buildingRecipe.createMethod(this->game,
-			d * 64.0f
-		);
 		// Check if it works
 		if (this->buildingRecipe.checkIfValid(this->game, this->game->getMouseCoords())) {
+			// Remove the money required for the entity
+			std::map<GameResource, unsigned int> playerInv = this->game->getPlayer()->components.inventory->getInventory();
+			std::map<GameResource, unsigned int> neededInv = this->buildingRecipe.requiredResources;
+			for (auto it = neededInv.begin(); it != neededInv.end(); it++) {
+				if (playerInv[it->first] < it->second) {
+					// Todo: tell the player they don't have the stuff to build the entity
+					return;
+				}
+			}
+			// Remove the inventory from the player
+			for (auto it = neededInv.begin(); it != neededInv.end(); it++) {
+				this->game->getPlayer()->components.inventory->removeItems(it->first, it->second);
+			}
+			// Create the entity
+			auto a = this->game->getMouseCoords();
+			auto b = a / 64.0f;
+			auto c = sf::Vector2i(b);
+			auto d = sf::Vector2f(c);
+			std::shared_ptr<Entity> e = this->buildingRecipe.createMethod(this->game,
+				d * 64.0f
+			);
 			// Add it to the game
 			this->game->addEntity(e);
 			this->isBuilding = false;

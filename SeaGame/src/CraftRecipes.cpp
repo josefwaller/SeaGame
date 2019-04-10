@@ -15,10 +15,11 @@ const std::string SHEET = "medievalRTS_spritesheet@2";
 // Method to check if the base's location is valid
 checkFunction baseValid = [&](Game* g, sf::Vector2f pos) {
 	// Ensure the base is on the land
-	sf::Vector2i coords = sf::Vector2i(pos / 64.0f);
+	GameMap* gM = g->getGameMap();
+	sf::Vector2i c = sf::Vector2i(pos / 64.0f);
 	for (size_t x = 0; x < 3; x++) {
 		for (size_t y = 0; y < 3; y++) {
-			if (g->getGameMap()->getTileAt(coords.x + x, coords.y + y) == GameMap::TileType::Sea) {
+			if (gM->getTileAt(c.x + x, c.y + y) == GameMap::TileType::Sea || gM->getTileIsFull(c.x + x, c.y + y)) {
 				return false;
 			}
 		}
@@ -48,6 +49,14 @@ checkFunction generationBaseValid(GameResource neededRes) {
 		}
 		return false;
 	};
+}
+void setIsFullForBase(Game* g, sf::Vector2f pos) {
+	sf::Vector2i c = sf::Vector2i(pos / 64.0f);
+	for (size_t x = 0; x < 3; x++) {
+		for (size_t y = 0; y < 3; y++) {
+			g->getGameMap()->setIsFull(c.x + x, c.y + y, false);
+		}
+	}
 }
 
 // Method to check if a ship's location is valid
@@ -118,6 +127,7 @@ std::vector<CraftingRecipes::CraftRecipe> CraftingRecipes::recipes = {
 		"Farm",
 		getResourceSprite(GameResource::Wheat, false),
 		[&](Game* g, sf::Vector2f pos) {
+			setIsFullForBase(g, pos);
 			return EntityPrefabs::generationBase(g, getBaseCoords(pos), GameResource::Wheat);
 		},
 		baseValid

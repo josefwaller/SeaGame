@@ -30,7 +30,14 @@ public:
 	GameMap(Game* g, SaveData data);
 	GameMap();
 	void render(sf::RenderWindow* window);
+	// Get the tile type at a coordinate
 	TileType getTileAt(size_t x, size_t y);
+	// Get whether the coordinate has an entity on it
+	// Only for static entities
+	bool getTileIsFull(size_t x, size_t y);
+	// Set whether the tile is full at a certain coord
+	void setIsFull(size_t x, size_t y, bool val);
+	// Get the size of the map
 	sf::Vector2<size_t> getMapSize();
 	SaveData getSaveData();
 	// Values that are rendered
@@ -55,6 +62,8 @@ private:
 	Game* game;
 	// The tiles in the map
 	std::vector<std::vector<Tile>> tiles;
+	// Check whether an x, y coordinate is on the map
+	bool coordIsOnMap(size_t x, size_t y);
 	// The Box2d bodies associated with the islands
 	std::vector<b2Body*> bodies;
 	// Set the TileRenderData for each tile, and add sprites to tileSprites
