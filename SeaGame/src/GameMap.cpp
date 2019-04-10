@@ -133,9 +133,12 @@ GameMap::GameMap(Game* g, SaveData data): game(g) {
 		int x = std::stoi(tile.getValue("x"));
 		int y = std::stoi(tile.getValue("y"));
 		TileType t = (TileType)(std::stoi(tile.getValue("type")));
+		bool isFull = (bool)std::stoi(tile.getValue("isFull"));
 		if (t == TileType::Land) {
 			this->addLandTile(x, y);
 		}
+		if (isFull)
+			this->setIsFull(x, y, true);
 	}
 	this->initTileRenderData();
 }
@@ -300,6 +303,7 @@ SaveData GameMap::getSaveData() {
 			t.addValue("x", std::to_string(x));
 			t.addValue("y", std::to_string(y));
 			t.addValue("type", std::to_string(this->tiles[x][y].type));
+			t.addValue("isFull", std::to_string(this->tiles[x][y].isFull));
 			s.addData(t);
 		}
 	}
