@@ -157,6 +157,9 @@ std::unique_ptr<Game> SaveFile::load(App* a) {
 			}
 		}
 	}
+	// And can set the game map tile entities, i.e. which entity taks up which tile
+	// Since it saves the ID, has to do it after entities and game have been initialized
+	g->getGameMap()->initTileEntities(gm);
 	// After that, reset all the renderers because they entities might have changed unexpectedly
 	// Ex: Bases might move, but bases should never move in an actual game
 	for (auto it = entities.begin(); it != entities.end(); it++) {

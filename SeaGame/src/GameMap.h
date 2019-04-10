@@ -28,6 +28,9 @@ public:
 	GameMap(Game* g);
 	// Get map data from a document
 	GameMap(Game* g, SaveData data);
+	// Set the entity for each tile when loading
+	// Has to be done after intializing the game, so that the entities exist
+	void initTileEntities(SaveData data);
 	GameMap();
 	void render(sf::RenderWindow* window);
 	// Get the tile type at a coordinate
@@ -36,7 +39,7 @@ public:
 	// Only for static entities
 	bool getTileIsFull(size_t x, size_t y);
 	// Set whether the tile is full at a certain coord
-	void setIsFull(size_t x, size_t y, bool val);
+	void setTileEntity(size_t x, size_t y, std::weak_ptr<Entity>);
 	// Get the size of the map
 	sf::Vector2<size_t> getMapSize();
 	SaveData getSaveData();
@@ -52,10 +55,10 @@ public:
 		TileType type;
 		// The data used to render it quickly
 		TileRenderData data;
-		// Whether or not the tile has something (i.e. a base or something) on it
-		bool isFull;
-		Tile() : type(TileType::Sea), data(), isFull(false) {}
-		Tile(TileType t) : type(t), isFull(false) {}
+		// The thing on the tile (only static things) or nullptr if there is nothing
+		std::weak_ptr<Entity> entity;
+		Tile() : type(TileType::Sea), data() {}
+		Tile(TileType t) : type(t) {}
 	};
 private:
 	// Game the map is in

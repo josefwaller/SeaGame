@@ -50,11 +50,11 @@ checkFunction generationBaseValid(GameResource neededRes) {
 		return false;
 	};
 }
-void setIsFullForBase(Game* g, sf::Vector2f pos) {
+void setIsFullForBase(Game* g, sf::Vector2f pos, std::weak_ptr<Entity> e) {
 	sf::Vector2i c = sf::Vector2i(pos / 64.0f);
 	for (size_t x = 0; x < 3; x++) {
 		for (size_t y = 0; y < 3; y++) {
-			g->getGameMap()->setIsFull(c.x + x, c.y + y, false);
+			g->getGameMap()->setTileEntity(c.x + x, c.y + y, e);
 		}
 	}
 }
@@ -127,8 +127,9 @@ std::vector<CraftingRecipes::CraftRecipe> CraftingRecipes::recipes = {
 		"Farm",
 		getResourceSprite(GameResource::Wheat, false),
 		[&](Game* g, sf::Vector2f pos) {
-			setIsFullForBase(g, pos);
-			return EntityPrefabs::generationBase(g, getBaseCoords(pos), GameResource::Wheat);
+			std::shared_ptr<Entity> e = EntityPrefabs::generationBase(g, getBaseCoords(pos), GameResource::Wheat);
+			setIsFullForBase(g, pos, e);
+			return e;
 		},
 		baseValid
 	},

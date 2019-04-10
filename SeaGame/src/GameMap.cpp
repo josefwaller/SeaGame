@@ -88,10 +88,13 @@ noiseGrid[x].push_back(noise.octaveNoise0_1(x / fx, y / fy, 16));
 						res = GameResource::Gold;
 						break;
 					}
-					this->game->addEntity(
-						EntityPrefabs::resourceSource(this->game, sf::Vector2f((float)x, (float)y) * 64.0f, res)
+					std::shared_ptr<Entity> e = EntityPrefabs::resourceSource(
+						this->game,
+						sf::Vector2f((float)x, (float)y) * 64.0f,
+						res
 					);
-					this->tiles[x][y].isFull = true;
+					this->game->addEntity(e);
+					this->tiles[x][y].entity = e;
 				}
 			}
 		}
@@ -133,14 +136,21 @@ GameMap::GameMap(Game* g, SaveData data): game(g) {
 		int x = std::stoi(tile.getValue("x"));
 		int y = std::stoi(tile.getValue("y"));
 		TileType t = (TileType)(std::stoi(tile.getValue("type")));
-		bool isFull = (bool)std::stoi(tile.getValue("isFull"));
 		if (t == TileType::Land) {
 			this->addLandTile(x, y);
 		}
-		if (isFull)
-			this->setIsFull(x, y, true);
 	}
 	this->initTileRenderData();
+}
+void GameMap::initTileEntities(SaveData data) {
+	for (SaveData tile : data.getDatas()) {
+		int x = std::stoi(tile.getValue("x"));
+		int y = std::stoi(tile.getValue("y"));
+		int eId = std::stoi(tile.getValue("entity"));
+		if (eId != -1)
+			this->setTileEntity(x, y, this->game->getEntityById(eId));
+	}
+
 }
 void GameMap::addLandTile(size_t x, size_t y) {
 	// Set the tile to land
@@ -171,17 +181,22 @@ bool GameMap::addBuilding(
 			for (size_t xOff = 0; xOff < 3; xOff++) {
 				for (size_t yOff = 0; yOff < 3; yOff++) {
 					Tile t = this->tiles[x + xOff][y + yOff];
-					if (t.type != TileType::Land || t.isFull) {
+					if (t.type != TileType::Land || this->getTileIsFull(x + xOff, y + yOff)) {
 						canBuildCity = false;
 						break;
 					}
 				}
 			}
 			if (canBuildCity) {
-				this->game->addEntity(EntityPrefabs::getEntityFromType(this->game, { x * 64.0f, y * 64.0f }, type));
+				std::shared_ptr<Entity> e = EntityPrefabs::getEntityFromType(
+					this->game,
+					{ x * 64.0f, y * 64.0f },
+					type
+				);
+				this->game->addEntity(e);
 				for (size_t xOff = 0; xOff < 3; xOff++) {
 					for (size_t yOff = 0; yOff < 3; yOff++) {
-						this->setIsFull(x + xOff, y + yOff, true);
+						this->setTileEntity(x + xOff, y + yOff, e);
 					}
 				}
 				return true;
@@ -202,11 +217,11 @@ bool GameMap::getTileIsFull(size_t x, size_t y) {
 	if (!coordIsOnMap(x, y)) {
 		return false;
 	}
-	return this->tiles[x][y].isFull;
+	return this->tiles[x][y].entity.lock() != nullptr;
 }
-void GameMap::setIsFull(size_t x, size_t y, bool val) {
+void GameMap::setTileEntity(size_t x, size_t y, std::weak_ptr<Entity> e) {
 	if (coordIsOnMap(x, y)) {
-		this->tiles[x][y].isFull = true;
+		this->tiles[x][y].entity = e;
 	}
 }
 bool GameMap::coordIsOnMap(size_t x, size_t y) {
@@ -303,7 +318,12 @@ SaveData GameMap::getSaveData() {
 			t.addValue("x", std::to_string(x));
 			t.addValue("y", std::to_string(y));
 			t.addValue("type", std::to_string(this->tiles[x][y].type));
-			t.addValue("isFull", std::to_string(this->tiles[x][y].isFull));
+			// Get either the entity id, or -1 if it is empty
+			int eId = -1;
+			if (this->tiles[x][y].entity.lock()) {
+				eId = this->tiles[x][y].entity.lock()->id;
+			}
+			t.addValue("entity", std::to_string(eId));
 			s.addData(t);
 		}
 	}
