@@ -224,6 +224,12 @@ void GameMap::setTileEntity(size_t x, size_t y, std::weak_ptr<Entity> e) {
 		this->tiles[x][y].entity = e;
 	}
 }
+std::weak_ptr<Entity> GameMap::getTileEntity(size_t x, size_t y) {
+	if (coordIsOnMap(x, y)) {
+		return this->tiles[x][y].entity;
+	}
+	return std::weak_ptr<Entity>();
+}
 bool GameMap::coordIsOnMap(size_t x, size_t y) {
 	if (x < 0 || x >= this->tiles.size() || y < 0 || y >= this->tiles[0].size()) {
 		return false;

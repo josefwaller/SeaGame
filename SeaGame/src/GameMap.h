@@ -40,6 +40,8 @@ public:
 	bool getTileIsFull(size_t x, size_t y);
 	// Set whether the tile is full at a certain coord
 	void setTileEntity(size_t x, size_t y, std::weak_ptr<Entity>);
+	// Get the entity for a tile from its coords
+	std::weak_ptr<Entity> getTileEntity(size_t x, size_t y);
 	// Get the size of the map
 	sf::Vector2<size_t> getMapSize();
 	SaveData getSaveData();

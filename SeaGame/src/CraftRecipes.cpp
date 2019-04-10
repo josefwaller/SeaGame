@@ -12,40 +12,69 @@
 // Name of sheet
 const std::string SHEET = "medievalRTS_spritesheet@2";
 
-// Method to check if the base's location is valid
-checkFunction baseValid = [&](Game* g, sf::Vector2f pos) {
+// Method to check if the base's location is on land
+checkFunction baseOnLand = [&](Game* g, sf::Vector2f pos) {
 	// Ensure the base is on the land
 	GameMap* gM = g->getGameMap();
 	sf::Vector2i c = sf::Vector2i(pos / 64.0f);
 	for (size_t x = 0; x < 3; x++) {
 		for (size_t y = 0; y < 3; y++) {
-			if (gM->getTileAt(c.x + x, c.y + y) == GameMap::TileType::Sea || gM->getTileIsFull(c.x + x, c.y + y)) {
+			if (gM->getTileAt(c.x + x, c.y + y) == GameMap::TileType::Sea) {
 				return false;
 			}
 		}
 	}
 	return true;
 };
+// Check if a bases location is on land and has no other entities on it
+// Used for conversion bases and generation bases which do not require a resource (i.e. farms)
+checkFunction basePositionIsEmpty = [&](Game* g, sf::Vector2f pos) {
+	GameMap* gM = g->getGameMap();
+	sf::Vector2i c = sf::Vector2i(pos / 64.0f);
+	for (size_t x = 0; x < 3; x++) {
+		for (size_t y = 0; y < 3; y++) {
+			if (gM->getTileIsFull(c.x + x, c.y + x)) {
+				return false;
+			}
+		}
+	}
+	return true;
+};
+checkFunction basePositionValidWithoutResource = [&](Game* g, sf::Vector2f pos) {
+	return basePositionIsEmpty(g, pos) && baseOnLand(g, pos);
+};
 // Method to check a generation base's location is correct
 // Just checks that it is a valid base location and that the resource is there
 checkFunction generationBaseValid(GameResource neededRes) {
 	return [neededRes](Game* g, sf::Vector2f pos) {
-		if (baseValid(g, pos)) {
+		sf::Vector2i c = sf::Vector2i(pos / 64.0f);
+		if (baseOnLand(g, pos)) {
 			// Check the resource is present
-			for (std::shared_ptr<Entity> other : g->getEntities()) {
-				// Check the entity is a resource and is the correct resource
-				if (auto otherCont = std::dynamic_pointer_cast<ResourceController>(other->components.controller)) {
-					if (otherCont->getResource() == neededRes) {
-						sf::Vector2i otherPos = sf::Vector2i(other->components.transform->getPosition()) / 64;
-						sf::Vector2i coords = sf::Vector2i(pos / 64.0f);
-						if (otherPos.x - coords.x < 3 && otherPos.x - coords.x >= 0) {
-							if (otherPos.y - coords.y < 3 && otherPos.y - coords.y >= 0) {
-								return true;
+			bool hasResource = false;
+			for (size_t x = 0; x < 3; x++) {
+				for (size_t y = 0; y < 3; y++) {
+					if (g->getGameMap()->getTileIsFull(c.x + x, c.y + y)) {
+						std::shared_ptr<Entity> e = g->getGameMap()->getTileEntity(c.x + x, c.y + y).lock();
+						// Check the entity is a resource and is the correct resource
+						if (auto otherCont = std::dynamic_pointer_cast<ResourceController>(e->components.controller)) {
+							if (otherCont->getResource() == neededRes) {
+								hasResource = true;
+							}
+							else {
+								// There is some other resource here that blocks us
+								return false;
 							}
 						}
+						else {
+							// There is another entity (i.e. a base) here that blocks us
+							return false;
+						}
+
 					}
 				}
 			}
+			if (hasResource)
+				return true;
 		}
 		return false;
 	};
@@ -131,7 +160,7 @@ std::vector<CraftingRecipes::CraftRecipe> CraftingRecipes::recipes = {
 			setIsFullForBase(g, pos, e);
 			return e;
 		},
-		baseValid
+		basePositionValidWithoutResource
 	},
 	{
 		{},
@@ -141,7 +170,7 @@ std::vector<CraftingRecipes::CraftRecipe> CraftingRecipes::recipes = {
 		[&](Game* g, sf::Vector2f pos) {
 			return EntityPrefabs::conversionBase(g, getBaseCoords(pos), GameResource::Flour);
 		},
-		baseValid
+		basePositionValidWithoutResource
 	},
 	{
 		{},
@@ -151,7 +180,7 @@ std::vector<CraftingRecipes::CraftRecipe> CraftingRecipes::recipes = {
 		[&](Game* g, sf::Vector2f pos) {
 			return EntityPrefabs::conversionBase(g, getBaseCoords(pos), GameResource::Bread);
 		},
-		baseValid
+		basePositionValidWithoutResource
 	},
 	{
 		{},
@@ -161,7 +190,7 @@ std::vector<CraftingRecipes::CraftRecipe> CraftingRecipes::recipes = {
 		[&](Game* g, sf::Vector2f pos) {
 			return EntityPrefabs::generationBase(g, getBaseCoords(pos), GameResource::Fruit);
 		},
-		baseValid
+		basePositionValidWithoutResource
 	},
 	{
 		{},
@@ -171,7 +200,7 @@ std::vector<CraftingRecipes::CraftRecipe> CraftingRecipes::recipes = {
 		[&](Game* g, sf::Vector2f pos) {
 			return EntityPrefabs::conversionBase(g, getBaseCoords(pos), GameResource::Beer);
 		},
-		baseValid
+		basePositionValidWithoutResource
 	},
 	{
 		{},
@@ -181,7 +210,7 @@ std::vector<CraftingRecipes::CraftRecipe> CraftingRecipes::recipes = {
 		[&](Game* g, sf::Vector2f pos) {
 			return EntityPrefabs::conversionBase(g, getBaseCoords(pos), GameResource::Steel);
 		},
-		baseValid
+		basePositionValidWithoutResource
 	},
 	{
 		{},
@@ -191,7 +220,7 @@ std::vector<CraftingRecipes::CraftRecipe> CraftingRecipes::recipes = {
 		[&](Game* g, sf::Vector2f pos) {
 			return EntityPrefabs::conversionBase(g, getBaseCoords(pos), GameResource::Weapons);
 		},
-		baseValid
+		basePositionValidWithoutResource
 	},
 	{
 		{},
@@ -201,7 +230,7 @@ std::vector<CraftingRecipes::CraftRecipe> CraftingRecipes::recipes = {
 		[&](Game* g, sf::Vector2f(pos)) {
 			return EntityPrefabs::militaryBase(g, getBaseCoords(pos));
 		},
-		baseValid
+		basePositionValidWithoutResource
 	}
 };
 #include "Game.h"
