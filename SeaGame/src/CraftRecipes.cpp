@@ -89,6 +89,31 @@ void setIsFullForBase(Game* g, sf::Vector2f pos, std::weak_ptr<Entity> e) {
 		}
 	}
 }
+// Remove the resource deposit when building a resource needed base
+void removeBaseResource(Game* g, sf::Vector2f pos) {
+	sf::Vector2i c = sf::Vector2i(pos / 64.0f);
+	for (size_t x = 0; x < 3; x++) {
+		for (size_t y = 0; y < 3; y++) {
+			// Since the base would not be build if the position is invalid, we can assume that
+			// the only entity here is the resource
+			if (auto e = g->getGameMap()->getTileEntity(c.x + x, c.y + y).lock()) {
+				g->removeEntity(e);
+			}
+		}
+	}
+}
+// Macros used to build certain bases
+#define buildResBase(buildMethod) [&](Game* g, sf::Vector2f pos) { \
+	removeBaseResource(g, pos); \
+	auto e = buildMethod; \
+	setIsFullForBase(g, pos, e); \
+	return e; \
+}
+#define buildNoResBase(buildMethod) [&](Game* g, sf::Vector2f pos) { \
+	auto e = buildMethod; \
+	setIsFullForBase(g, pos, e); \
+	return e; \
+}
 
 // Method to check if a ship's location is valid
 const std::function<bool(Game*, sf::Vector2f)> shipValid = [&](Game* g, sf::Vector2f pos) {
@@ -117,9 +142,7 @@ std::vector<CraftingRecipes::CraftRecipe> CraftingRecipes::recipes = {
 		Technology::Mines,
 		"Mine",
 		getResourceSprite(GameResource::Stone, false),
-		[&](Game* g, sf::Vector2f pos) {
-			return EntityPrefabs::generationBase(g, getBaseCoords(pos), GameResource::Stone);
-		},
+		buildResBase(EntityPrefabs::generationBase(g, getBaseCoords(pos), GameResource::Stone)),
 		resBaseValid(GameResource::Stone)
 	},
 	{
@@ -127,9 +150,7 @@ std::vector<CraftingRecipes::CraftRecipe> CraftingRecipes::recipes = {
 		Technology::IronMining,
 		"Iron Mine",
 		getResourceSprite(GameResource::Iron, false),
-		[&](Game* g, sf::Vector2f pos) {
-			return EntityPrefabs::generationBase(g, getBaseCoords(pos), GameResource::Iron);
-		},
+		buildResBase(EntityPrefabs::generationBase(g, getBaseCoords(pos), GameResource::Iron)),
 		resBaseValid(GameResource::Iron)
 	},
 	{
@@ -137,9 +158,7 @@ std::vector<CraftingRecipes::CraftRecipe> CraftingRecipes::recipes = {
 		Technology::CopperMining,
 		"Copper Mine",
 		getResourceSprite(GameResource::Copper, false),
-		[&](Game* g, sf::Vector2f pos) {
-			return EntityPrefabs::generationBase(g, getBaseCoords(pos), GameResource::Copper);
-		},
+		buildResBase(EntityPrefabs::generationBase(g, getBaseCoords(pos), GameResource::Copper)),
 		resBaseValid(GameResource::Copper)
 	},
 	{
@@ -147,9 +166,7 @@ std::vector<CraftingRecipes::CraftRecipe> CraftingRecipes::recipes = {
 		Technology::GoldMining,
 		"Gold Mine",
 		getResourceSprite(GameResource::Gold, false),
-		[&](Game* g, sf::Vector2f pos) {
-			return EntityPrefabs::generationBase(g, getBaseCoords(pos), GameResource::Gold);
-		},
+		buildResBase(EntityPrefabs::generationBase(g, getBaseCoords(pos), GameResource::Gold)),
 		resBaseValid(GameResource::Gold)
 	},
 	{
@@ -157,11 +174,7 @@ std::vector<CraftingRecipes::CraftRecipe> CraftingRecipes::recipes = {
 		Technology::Farming,
 		"Farm",
 		getResourceSprite(GameResource::Wheat, false),
-		[&](Game* g, sf::Vector2f pos) {
-			std::shared_ptr<Entity> e = EntityPrefabs::generationBase(g, getBaseCoords(pos), GameResource::Wheat);
-			setIsFullForBase(g, pos, e);
-			return e;
-		},
+		buildNoResBase(EntityPrefabs::generationBase(g, getBaseCoords(pos), GameResource::Wheat)),
 		noResBaseValid
 	},
 	{
@@ -169,9 +182,7 @@ std::vector<CraftingRecipes::CraftRecipe> CraftingRecipes::recipes = {
 		Technology::Mills,
 		"Mill",
 		getResourceSprite(GameResource::Flour, false),
-		[&](Game* g, sf::Vector2f pos) {
-			return EntityPrefabs::conversionBase(g, getBaseCoords(pos), GameResource::Flour);
-		},
+		buildNoResBase(EntityPrefabs::conversionBase(g, getBaseCoords(pos), GameResource::Flour)),
 		noResBaseValid
 	},
 	{
@@ -179,9 +190,7 @@ std::vector<CraftingRecipes::CraftRecipe> CraftingRecipes::recipes = {
 		Technology::Baking,
 		"Bakery",
 		getResourceSprite(GameResource::Bread, false),
-		[&](Game* g, sf::Vector2f pos) {
-			return EntityPrefabs::conversionBase(g, getBaseCoords(pos), GameResource::Bread);
-		},
+		buildNoResBase(EntityPrefabs::conversionBase(g, getBaseCoords(pos), GameResource::Bread)),
 		noResBaseValid
 	},
 	{
@@ -189,9 +198,7 @@ std::vector<CraftingRecipes::CraftRecipe> CraftingRecipes::recipes = {
 		Technology::Orchards,
 		"Orchard",
 		getResourceSprite(GameResource::Fruit, false),
-		[&](Game* g, sf::Vector2f pos) {
-			return EntityPrefabs::generationBase(g, getBaseCoords(pos), GameResource::Fruit);
-		},
+		buildNoResBase(EntityPrefabs::generationBase(g, getBaseCoords(pos), GameResource::Fruit)),
 		noResBaseValid
 	},
 	{
@@ -199,9 +206,7 @@ std::vector<CraftingRecipes::CraftRecipe> CraftingRecipes::recipes = {
 		Technology::Breweries,
 		"Brewery",
 		getResourceSprite(GameResource::Beer, false),
-		[&](Game* g, sf::Vector2f pos) {
-			return EntityPrefabs::conversionBase(g, getBaseCoords(pos), GameResource::Beer);
-		},
+		buildNoResBase(EntityPrefabs::conversionBase(g, getBaseCoords(pos), GameResource::Beer)),
 		noResBaseValid
 	},
 	{
@@ -209,9 +214,7 @@ std::vector<CraftingRecipes::CraftRecipe> CraftingRecipes::recipes = {
 		Technology::Smelting,
 		"Furnace",
 		getResourceSprite(GameResource::Steel, false),
-		[&](Game* g, sf::Vector2f pos) {
-			return EntityPrefabs::conversionBase(g, getBaseCoords(pos), GameResource::Steel);
-		},
+		buildNoResBase(EntityPrefabs::conversionBase(g, getBaseCoords(pos), GameResource::Steel)),
 		noResBaseValid
 	},
 	{
@@ -219,9 +222,7 @@ std::vector<CraftingRecipes::CraftRecipe> CraftingRecipes::recipes = {
 		Technology::Forgery,
 		"Forge",
 		getResourceSprite(GameResource::Weapons, false),
-		[&](Game* g, sf::Vector2f pos) {
-			return EntityPrefabs::conversionBase(g, getBaseCoords(pos), GameResource::Weapons);
-		},
+		buildNoResBase(EntityPrefabs::conversionBase(g, getBaseCoords(pos), GameResource::Weapons)),
 		noResBaseValid
 	},
 	{
@@ -229,10 +230,10 @@ std::vector<CraftingRecipes::CraftRecipe> CraftingRecipes::recipes = {
 		Technology::MilitaryBases,
 		"Military Base",
 		ResourceManager::get()->getSprite("ships", "cannon.png", false),
-		[&](Game* g, sf::Vector2f(pos)) {
-			return EntityPrefabs::militaryBase(g, getBaseCoords(pos));
-		},
+		buildNoResBase(EntityPrefabs::militaryBase(g, getBaseCoords(pos))),
 		noResBaseValid
 	}
 };
-#include "Game.h"
+#undef buildResBase
+#undef buildNoResBase
+#undef buildFunction
