@@ -26,6 +26,19 @@ void Tile::render(float x, float y, sf::RenderWindow* window) {
 		window->draw(*s);
 	}
 }
+void Tile::renderDebug(float x, float y, sf::RenderWindow* window) {
+	// Render isFull
+	sf::RectangleShape r;
+	if (this->entity.lock()) {
+		r.setFillColor(sf::Color(255, 0, 0, 50));
+	}
+	else {
+		r.setFillColor(sf::Color(0, 0, 255, 50));
+	}
+	r.setSize(sf::Vector2f(64.0f, 64.0f));
+	r.setPosition(x, y);
+	window->draw(r);
+}
 sf::Sprite Tile::getTileSprite(TileType top, TileType right, TileType bottom, TileType left) {
 	return ResourceManager::get()->getSprite("tiles",
 		getTileString(top) + "-" +

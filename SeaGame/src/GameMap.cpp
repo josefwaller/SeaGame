@@ -255,6 +255,8 @@ void GameMap::render(sf::RenderWindow* window)
 			}
 		}
 	}
+}
+void GameMap::renderDebug(sf::RenderWindow* window) {
 	// Draw collision bodies
 	sf::FloatRect rect = this->game->getViewRect();
 	for (auto b_it : this->bodies) {
@@ -281,7 +283,20 @@ void GameMap::render(sf::RenderWindow* window)
 			window->draw(drawable);
 		}
 	}
+	// Render tile debug info
+	auto c = window->getView().getCenter();
+	auto s = window->getView().getSize();
+	// Render the tiles
+	int minX = std::max((int)floor((c.x - s.x / 2) / 64.0f), 0);
+	int minY = std::max((int)floor((c.y - s.y / 2) / 64.0f), 0);
+	int maxX = (int)ceil((c.x + s.x / 2) / 64.0f);
+	int maxY = (int)ceil((c.y + s.y / 2) / 64.0f);
 
+	for (size_t x = minX; x < maxX; x++) {
+		for (size_t y = minY; y < maxY; y++) {
+			this->tiles[x][y].renderDebug((float)x * 64.0f, (float)y * 64.0f, window);
+		}
+	}
 }
 void GameMap::drawTile(sf::RenderWindow* window, size_t x, size_t y) {
 	// Make sure the tile is on the map

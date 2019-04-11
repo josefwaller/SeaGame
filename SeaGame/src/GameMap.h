@@ -27,7 +27,9 @@ public:
 	// Has to be done after intializing the game, so that the entities exist
 	void initTileEntities(SaveData data);
 	GameMap();
+	// Render regularly, and debug information
 	void render(sf::RenderWindow* window);
+	void renderDebug(sf::RenderWindow* window);
 	// Get the tile type at a coordinate
 	TileType getTileAt(size_t x, size_t y);
 	// Get whether the coordinate has an entity on it

@@ -33,6 +33,8 @@ struct Tile {
 	Tile(TileType t) : type(t) {}
 	// Render method
 	void render(float x, float y, sf::RenderWindow* window);
+	// Render debug information
+	void renderDebug(float x, float y, sf::RenderWindow * window);
 	static sf::Sprite getTileSprite(TileType top, TileType left, TileType bot, TileType right);
 	static std::string getTileString(TileType t);
 	static TileRenderData getTileRenderData(TileType t, TileType l, TileType b, TileType r, TileType c);

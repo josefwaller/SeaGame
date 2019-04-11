@@ -142,6 +142,8 @@ void Game::render()
 	}
 	r.render(this->app->getWindow());
 	r.reset();
+	// Render map debug
+	this->gMap.renderDebug(this->getWindow());
 	// Set view to default so that the coordinates are matched with the GUI
 	this->getWindow()->setView(this->getWindow()->getDefaultView());
 	// Render HUD that isn't part of tgui
