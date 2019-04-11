@@ -21,7 +21,7 @@ sf::Vector2f BaseController::getDockCoords() {
 		sf::Vector2i c = coords.front();
 		coords.pop();
 		// Check if it is sea
-		if (gMap->getTileAt(c.x, c.y) == GameMap::TileType::Sea) {
+		if (gMap->getTileAt(c.x, c.y) == TileType::Sea) {
 			this->dockCoords = (sf::Vector2f)(c) * 64.0f;
 			break;
 		}

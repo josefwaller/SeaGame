@@ -399,6 +399,7 @@ b2Body* EntityPrefabs::getShipBody(Game* g, sf::Vector2f pos, float rot) {
 entity_ptr EntityPrefabs::getEntityFromType(Game* g, sf::Vector2f pos, EntityType type) {
 	float x = pos.x;
 	float y = pos.y;
+	auto t = type;
 	switch (type){
 	// Types of bases
 	case EntityType::MiningBase:

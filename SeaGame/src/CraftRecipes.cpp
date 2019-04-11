@@ -19,7 +19,7 @@ bool baseOnLand(Game* g, sf::Vector2f pos) {
 	sf::Vector2i c = sf::Vector2i(pos / 64.0f);
 	for (size_t x = 0; x < 3; x++) {
 		for (size_t y = 0; y < 3; y++) {
-			if (gM->getTileAt(c.x + x, c.y + y) == GameMap::TileType::Sea) {
+			if (gM->getTileAt(c.x + x, c.y + y) == TileType::Sea) {
 				return false;
 			}
 		}

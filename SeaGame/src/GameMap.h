@@ -1,5 +1,6 @@
 #pragma once
 #include "EntityType.h"
+#include "Tile.h"
 #include <vector>
 #include <string>
 // Cannot forward declare Vector2 or Sprite, so just include it
@@ -18,12 +19,6 @@ namespace sf {
 class GameMap
 {
 public:
-	// Different types of tiles
-	enum TileType
-	{
-		Sea,
-		Land
-	};
 	// Generate a new map
 	GameMap(Game* g);
 	// Get map data from a document
@@ -45,23 +40,6 @@ public:
 	// Get the size of the map
 	sf::Vector2<size_t> getMapSize();
 	SaveData getSaveData();
-	// Values that are rendered
-	struct TileRenderData {
-		sf::Sprite topLeft;
-		sf::Sprite topRight;
-		sf::Sprite botLeft;
-		sf::Sprite botRight;
-	};
-	struct Tile {
-		// The type (Land or sea) of this tile
-		TileType type;
-		// The data used to render it quickly
-		TileRenderData data;
-		// The thing on the tile (only static things) or nullptr if there is nothing
-		std::weak_ptr<Entity> entity;
-		Tile() : type(TileType::Sea), data() {}
-		Tile(TileType t) : type(t) {}
-	};
 private:
 	// Game the map is in
 	Game* game;
@@ -73,10 +51,8 @@ private:
 	std::vector<b2Body*> bodies;
 	// Set the TileRenderData for each tile, and add sprites to tileSprites
 	void initTileRenderData();
-	void GameMap::setTileRenderData(size_t x, size_t y);
-	void GameMap::drawTile(sf::RenderWindow* window, size_t x, size_t y);
-	sf::Sprite GameMap::getSprite(TileType top, TileType right, TileType bottom, TileType left);
-	std::string GameMap::getTileString(TileType t);
+	void setTileRenderData(size_t x, size_t y);
+	void drawTile(sf::RenderWindow* window, size_t x, size_t y);
 	// Add a land tile at the position and create a box2d collider for it
 	void addLandTile(size_t x, size_t y);
 	// Add a given type of building somewhere in the bounds given

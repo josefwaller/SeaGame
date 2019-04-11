@@ -67,7 +67,7 @@ void Game::generateNew() {
 	// Add the player in the first sea tile
 	for (size_t x = 0; x < this->gMap.getMapSize().x; x++) {
 		for (size_t y = 0; y < this->gMap.getMapSize().y; y++) {
-			if (this->gMap.getTileAt(x, y) == GameMap::TileType::Sea) {
+			if (this->gMap.getTileAt(x, y) == TileType::Sea) {
 				// Add player
 				this->addEntity(EntityPrefabs::playerShip(this, { x * 64.0f, y * 64.0f }));
 				this->player = this->entities.back();

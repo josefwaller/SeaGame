@@ -293,26 +293,7 @@ void GameMap::drawTile(sf::RenderWindow* window, size_t x, size_t y) {
 	if (tile.type == TileType::Sea) {
 		return;
 	}
-	TileRenderData data = this->tiles[x][y].data;
-	const std::vector<sf::Sprite*> sprs = {
-		&data.topLeft,
-		&data.topRight,
-		&data.botLeft,
-		&data.botRight
-	};
-	sf::Vector2f pos = sf::Vector2f((float)x, (float)y) * 64.0f;
-	const std::vector<sf::Vector2f> poses = {
-		pos,
-		pos + sf::Vector2f(32.0f, 0),
-		pos + sf::Vector2f(0, 32.0f),
-		pos + sf::Vector2f(32.0f, 32.0f)
-	};
-	for (size_t i = 0; i < 4; i++) {
-		sf::Sprite* s = sprs[i];
-		s->setScale(0.5, 0.5);
-		s->setPosition(poses[i]);
-		window->draw(*s);
-	}
+	tile.render((float)x, (float)y, window);
 }
 SaveData GameMap::getSaveData() {
 	SaveData s("GameMap");
@@ -335,7 +316,7 @@ SaveData GameMap::getSaveData() {
 	}
 	return s;
 }
-GameMap::TileType GameMap::getTileAt(size_t x, size_t y) {
+TileType GameMap::getTileAt(size_t x, size_t y) {
 	if (x >= 0 && x < this->tiles.size()) {
 		if (y >= 0 && y < this->tiles[0].size()) {
 			return this->tiles[x][y].type;
@@ -348,7 +329,7 @@ sf::Vector2<size_t> GameMap::getMapSize() {
 }
 void GameMap::setTileRenderData(size_t x, size_t y) {
 	if (this->tiles[x][y].type == TileType::Sea) {
-		sf::Sprite seaSprite = getSprite(
+		sf::Sprite seaSprite = Tile::getTileSprite(
 			TileType::Sea,
 			TileType::Sea,
 			TileType::Sea,
@@ -388,26 +369,6 @@ void GameMap::setTileRenderData(size_t x, size_t y) {
 	}
 	center = this->tiles[x][y].type;
 	// Get the sprites
-	sf::Sprite topLeftSprite, bottomLeftSprite, topRightSprite, bottomRightSprite;
 	Tile* t = &this->tiles[x][y];
-	t->data.topLeft = getSprite(top, center, center, left);
-	t->data.topRight = getSprite(top, right, center, center);
-	t->data.botRight = getSprite(center, right, bottom, center);
-	t->data.botLeft = getSprite(center, center, bottom, left);
-}
-sf::Sprite GameMap::getSprite(TileType top, TileType right, TileType bottom, TileType left) {
-	return ResourceManager::get()->getSprite("tiles",
-		getTileString(top) + "-" +
-		getTileString(right) + "-" +
-		getTileString(bottom) + "-" +
-		getTileString(left),
-	false);
-}
-std::string GameMap::getTileString(TileType t) {
-	if (t == TileType::Land) {
-		return "land";
-	}
-	else {
-		return "sea";
-	}
+	t->data = Tile::getTileRenderData(top, left, bottom, right, t->type);
 }
