@@ -289,8 +289,8 @@ void GameMap::renderDebug(sf::RenderWindow* window) {
 	// Render the tiles
 	int minX = std::max((int)floor((c.x - s.x / 2) / 64.0f), 0);
 	int minY = std::max((int)floor((c.y - s.y / 2) / 64.0f), 0);
-	int maxX = (int)ceil((c.x + s.x / 2) / 64.0f);
-	int maxY = (int)ceil((c.y + s.y / 2) / 64.0f);
+	int maxX = std::min((int)ceil((c.x + s.x / 2) / 64.0f), (int)this->tiles.size());
+	int maxY = std::min((int)ceil((c.y + s.y / 2) / 64.0f), (int)this->tiles[0].size());
 
 	for (size_t x = minX; x < maxX; x++) {
 		for (size_t y = minY; y < maxY; y++) {
