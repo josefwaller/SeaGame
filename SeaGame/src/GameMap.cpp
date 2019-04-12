@@ -14,8 +14,8 @@
 GameMap::GameMap() {}
 GameMap::GameMap(Game* g): game(g)
 {
-	const unsigned int WIDTH = 100;
-	const unsigned int HEIGHT = 100;
+	const unsigned int WIDTH = 30;
+	const unsigned int HEIGHT = 30;
 	// The width of the water border around the edges
 	const unsigned int BORDER_WIDTH = 3;
 	const float frequency = 25.0f;
@@ -343,47 +343,13 @@ sf::Vector2<size_t> GameMap::getMapSize() {
 	return { this->tiles.size(), this->tiles[0].size() };
 }
 void GameMap::setTileRenderData(size_t x, size_t y) {
-	if (this->tiles[x][y].type == TileType::Sea) {
-		sf::Sprite seaSprite = Tile::getTileSprite(
-			TileType::Sea,
-			TileType::Sea,
-			TileType::Sea,
-			TileType::Sea
-		);
-		this->tiles[x][y].data = {
-			seaSprite,
-			seaSprite,
-			seaSprite,
-			seaSprite
-		};
-	}
-	TileType top, bottom, left, right, center;
-	if (x == 0) {
-		left = TileType::Sea;
-	}
-	else {
-		left = this->tiles[x - 1][y].type;
-	}
-	if (x == this->tiles.size() - 1) {
-		right = TileType::Sea;
-	}
-	else {
-		right = this->tiles[x + 1][y].type;
-	}
-	if (y == 0) {
-		top = TileType::Sea;
-	}
-	else {
-		top = this->tiles[x][y - 1].type;
-	}
-	if (y == this->tiles[x].size() - 1) {
-		bottom = TileType::Sea;
-	}
-	else {
-		bottom = this->tiles[x][y + 1].type;
-	}
-	center = this->tiles[x][y].type;
 	// Get the sprites
 	Tile* t = &this->tiles[x][y];
-	t->data = Tile::getTileRenderData(top, left, bottom, right, t->type);
+	t->data = Tile::getTileRenderData(
+		this->getTileAt(x, y - 1),
+		this->getTileAt(x - 1, y),
+		this->getTileAt(x, y + 1),
+		this->getTileAt(x + 1, y),
+		t->type
+	);
 }
