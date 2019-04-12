@@ -19,6 +19,10 @@ private:
 	static const float GENERATION_DELAY;
 	GameResource res;
 	sf::Clock resourceClock;
+	// How many of the resource are left
+	unsigned int amountLeft;
 	// The gui of how far the generation is
 	tgui::ProgressBar::Ptr progressGui;
+	// The text of how many resources are left in this base
+	tgui::Label::Ptr amountLeftLabel;
 };
