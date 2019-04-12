@@ -10,6 +10,9 @@
 #include <SFML/Graphics.hpp>
 #include <ctime>
 #include <cstdio>
+#include <algorithm>
+#include <queue>
+#include <random>
 
 GameMap::GameMap() {}
 GameMap::GameMap(Game* g): game(g)
@@ -18,41 +21,12 @@ GameMap::GameMap(Game* g): game(g)
 	const unsigned int HEIGHT = 30;
 	// The width of the water border around the edges
 	const unsigned int BORDER_WIDTH = 3;
-	const float frequency = 25.0f;
-	siv::PerlinNoise noise((uint32_t)time(0));
-	std::vector<std::vector<double>> noiseGrid;
-	// Generate noise grid
-	for (size_t x = 0; x < WIDTH - 2 * BORDER_WIDTH; x++) {
-		noiseGrid.push_back({});
-		for (size_t y = 0; y < HEIGHT - 2 * BORDER_WIDTH; y++) {
-			const float fx = WIDTH / frequency;
-			const float fy = HEIGHT / frequency;
-noiseGrid[x].push_back(noise.octaveNoise0_1(x / fx, y / fy, 16));
-		}
-	}
-	// Smooth noise grid
-	for (size_t _ = 0; _ < 3; _++) {
-		std::vector<std::vector<double>> newNoiseGrid;
-		for (size_t x = 0; x < WIDTH - 2 * BORDER_WIDTH; x++) {
-			newNoiseGrid.push_back({});
-			for (size_t y = 0; y < HEIGHT - 2 * BORDER_WIDTH; y++) {
-				double total = 0;
-				unsigned int count = 0;
-				for (int xOff = -1; xOff <= 1; xOff++) {
-					if (x + xOff < WIDTH - 2 * BORDER_WIDTH && x + xOff >= 0) {
-						for (int yOff = -1; yOff <= 1; yOff++) {
-							if (y + yOff < HEIGHT - 2 * BORDER_WIDTH && y + yOff >= 0) {
-								total += noiseGrid[x + xOff][y + yOff];
-								count++;
-							}
-						}
-					}
-				}
-				newNoiseGrid[x].push_back(total / (double)count);
-			}
-		}
-		noiseGrid = newNoiseGrid;
-	}
+	const float FREQUENCY = 25.0f;
+	std::vector<std::vector<double>> noiseGrid = GameMap::getNoiseMap(
+		WIDTH - 2 * BORDER_WIDTH,
+		HEIGHT - 2 * BORDER_WIDTH,
+		FREQUENCY,
+		3);
 	// Fill grid with sea
 	this->tiles.resize(WIDTH);
 	for (auto it = this->tiles.begin(); it != this->tiles.end(); it++) {
@@ -68,34 +42,55 @@ noiseGrid[x].push_back(noise.octaveNoise0_1(x / fx, y / fy, 16));
 				this->addLandTile(x, y);
 				// Temporarily, have a 5% chance to add a resource to it
 				// Eventually will make actually spawn randomly
+			}
+		}
+	}
+	// Add Resources
+	noiseGrid = getNoiseMap(
+		(WIDTH - 2 * BORDER_WIDTH),
+		(HEIGHT - 2 * BORDER_WIDTH),
+		15.0f,
+		0);
+	// Temporary resource deck for shuffling before converting to a queue
+	std::vector<GameResource> tempResDeck;
+	for (size_t r = 0; r < 100; r++) {
+		// 50% chance to spawn wood
+		if (r < 50)
+			tempResDeck.push_back(GameResource::Wood);
+		// 20% for stone
+		else if (r < 70)
+			tempResDeck.push_back(GameResource::Stone);
+		// 15% for copper
+		else if (r < 85)
+			tempResDeck.push_back(GameResource::Copper);
+		// 10% for iron
+		else if (r < 95)
+			tempResDeck.push_back(GameResource::Iron);
+		// 5% for gold
+		else
+			tempResDeck.push_back(GameResource::Gold);
+	}
+	auto rng = std::default_random_engine();
+	std::shuffle(tempResDeck.begin(), tempResDeck.end(), rng);
+	std::queue<GameResource> resourceDeck;
+	for (GameResource r : tempResDeck) {
+		resourceDeck.push(r);
+	}
+	for (size_t x = 0; x < noiseGrid.size(); x++) {
+		for (size_t y = 0; y < noiseGrid[0].size(); y++) {
+			if (noiseGrid[x][y] > 0.60 && this->getTileAt(x, y) == TileType::Land) {
 				int r = rand() % 100;
-				if (r < 6) {
-					GameResource res;
-					switch (rand() % 5) {
-					case 0:
-						res = GameResource::Wood;
-						break;
-					case 1:
-						res = GameResource::Stone;
-						break;
-					case 2:
-						res = GameResource::Copper;
-						break;
-					case 3:
-						res = GameResource::Iron;
-						break;
-					case 4:
-						res = GameResource::Gold;
-						break;
-					}
-					std::shared_ptr<Entity> e = EntityPrefabs::resourceSource(
-						this->game,
-						sf::Vector2f((float)x, (float)y) * 64.0f,
-						res
-					);
-					this->game->addEntity(e);
-					this->tiles[x][y].entity = e;
-				}
+				// Get resource and add to back of deck
+				GameResource res = resourceDeck.front();
+				resourceDeck.pop();
+				tempResDeck.push_back(res);
+				std::shared_ptr<Entity> e = EntityPrefabs::resourceSource(
+					this->game,
+					sf::Vector2f((float)x, (float)y) * 64.0f,
+					res
+				);
+				this->game->addEntity(e);
+				this->tiles[x][y].entity = e;
 			}
 		}
 	}
@@ -124,6 +119,43 @@ noiseGrid[x].push_back(noise.octaveNoise0_1(x / fx, y / fy, 16));
 		}
 	}
 	this->initTileRenderData();
+}
+std::vector<std::vector<double>> GameMap::getNoiseMap(int w, int h, float f, int sC) {
+	siv::PerlinNoise noise((uint32_t)time(0));
+	std::vector<std::vector<double>> noiseGrid;
+	// Generate noise grid
+	for (size_t x = 0; x < w; x++) {
+		noiseGrid.push_back({});
+		for (size_t y = 0; y < h; y++) {
+			const float fx = (float)w / f;
+			const float fy = (float)h / f;
+			noiseGrid[x].push_back(noise.octaveNoise0_1(x / fx, y / fy, 16));
+		}
+	}
+	// Smooth noise grid
+	for (size_t _ = 0; _ < sC; _++) {
+		std::vector<std::vector<double>> newNoiseGrid;
+		for (size_t x = 0; x < w; x++) {
+			newNoiseGrid.push_back({});
+			for (size_t y = 0; y < h; y++) {
+				double total = 0;
+				unsigned int count = 0;
+				for (int xOff = -1; xOff <= 1; xOff++) {
+					if (x + xOff < w && x + xOff >= 0) {
+						for (int yOff = -1; yOff <= 1; yOff++) {
+							if (y + yOff < h && y + yOff >= 0) {
+								total += noiseGrid[x + xOff][y + yOff];
+								count++;
+							}
+						}
+					}
+				}
+				newNoiseGrid[x].push_back(total / (double)count);
+			}
+		}
+		noiseGrid = newNoiseGrid;
+	}
+	return noiseGrid;
 }
 GameMap::GameMap(Game* g, SaveData data): game(g) {
 	int w = std::stoi(data.getValue("width"));

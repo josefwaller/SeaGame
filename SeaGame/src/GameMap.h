@@ -23,10 +23,10 @@ public:
 	GameMap(Game* g);
 	// Get map data from a document
 	GameMap(Game* g, SaveData data);
+	GameMap();
 	// Set the entity for each tile when loading
 	// Has to be done after intializing the game, so that the entities exist
 	void initTileEntities(SaveData data);
-	GameMap();
 	// Render regularly, and debug information
 	void render(sf::RenderWindow* window);
 	void renderDebug(sf::RenderWindow* window);
@@ -42,6 +42,8 @@ public:
 	// Get the size of the map
 	sf::Vector2<size_t> getMapSize();
 	SaveData getSaveData();
+	// Get a Perlin noise map of the size given
+	std::vector<std::vector<double>> getNoiseMap(int w, int h, float frequency, int smoothCount);
 private:
 	// Game the map is in
 	Game* game;
