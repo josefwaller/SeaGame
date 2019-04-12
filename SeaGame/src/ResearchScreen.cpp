@@ -27,7 +27,7 @@ ResearchScreen::ResearchScreen(Game* g) {
 	while (!currentTechs.empty()) {
 		std::vector<Technology> nextTechs;
 		// The vertical distance between technologies
-		const float RESEARCH_HEIGHT = 200.0f;
+		const float RESEARCH_HEIGHT = 100.0f;
 		// Easy reference to the center of the screen
 		const float CENTER_LINE = this->game->getWindow()->getSize().y / 2.0f;
 		// The highest y position a technology will be in this columnb
