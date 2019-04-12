@@ -232,6 +232,22 @@ std::vector<CraftingRecipes::CraftRecipe> CraftingRecipes::recipes = {
 		ResourceManager::get()->getSprite("ships", "cannon.png", false),
 		buildNoResBase(EntityPrefabs::militaryBase(g, getBaseCoords(pos))),
 		noResBaseValid
+	},
+	{
+		{},
+		Technology::DeepMining,
+		"Deep Mine",
+		getResourceSprite(GameResource::Stone),
+		buildNoResBase(EntityPrefabs::generationBase(g, getBaseCoords(pos), GameResource::Stone)),
+		noResBaseValid
+	},
+	{
+		{},
+		Technology::SustainableForests,
+		"Sustainable Forestry",
+		getResourceSprite(GameResource::Wood),
+		buildNoResBase(EntityPrefabs::generationBase(g, getBaseCoords(pos), GameResource::Wood)),
+		noResBaseValid
 	}
 };
 #undef buildResBase
