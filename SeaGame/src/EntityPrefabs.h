@@ -22,6 +22,7 @@ public:
 	static entity_ptr explosion(Game* g, sf::Vector2f pos);
 	static entity_ptr militaryBase(Game* g, sf::Vector2f pos);
 	static entity_ptr generationBase(Game* g, sf::Vector2f pos, GameResource res);
+	static entity_ptr limitedGenerationBase(Game* g, sf::Vector2f pos, GameResource res);
 	static entity_ptr ferryShip(Game * g, sf::Vector2f pos, std::weak_ptr<Entity> from, std::weak_ptr<Entity> to);
 	static entity_ptr city(Game* g, sf::Vector2f pos);
 	static entity_ptr pirateBase(Game* g, sf::Vector2f pos);

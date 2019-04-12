@@ -142,7 +142,7 @@ std::vector<CraftingRecipes::CraftRecipe> CraftingRecipes::recipes = {
 		Technology::Mines,
 		"Mine",
 		getResourceSprite(GameResource::Stone, false),
-		buildResBase(EntityPrefabs::generationBase(g, getBaseCoords(pos), GameResource::Stone)),
+		buildResBase(EntityPrefabs::limitedGenerationBase(g, getBaseCoords(pos), GameResource::Stone)),
 		resBaseValid(GameResource::Stone)
 	},
 	{
@@ -150,7 +150,7 @@ std::vector<CraftingRecipes::CraftRecipe> CraftingRecipes::recipes = {
 		Technology::IronMining,
 		"Iron Mine",
 		getResourceSprite(GameResource::Iron, false),
-		buildResBase(EntityPrefabs::generationBase(g, getBaseCoords(pos), GameResource::Iron)),
+		buildResBase(EntityPrefabs::limitedGenerationBase(g, getBaseCoords(pos), GameResource::Iron)),
 		resBaseValid(GameResource::Iron)
 	},
 	{
@@ -158,7 +158,7 @@ std::vector<CraftingRecipes::CraftRecipe> CraftingRecipes::recipes = {
 		Technology::CopperMining,
 		"Copper Mine",
 		getResourceSprite(GameResource::Copper, false),
-		buildResBase(EntityPrefabs::generationBase(g, getBaseCoords(pos), GameResource::Copper)),
+		buildResBase(EntityPrefabs::limitedGenerationBase(g, getBaseCoords(pos), GameResource::Copper)),
 		resBaseValid(GameResource::Copper)
 	},
 	{
@@ -166,7 +166,7 @@ std::vector<CraftingRecipes::CraftRecipe> CraftingRecipes::recipes = {
 		Technology::GoldMining,
 		"Gold Mine",
 		getResourceSprite(GameResource::Gold, false),
-		buildResBase(EntityPrefabs::generationBase(g, getBaseCoords(pos), GameResource::Gold)),
+		buildResBase(EntityPrefabs::limitedGenerationBase(g, getBaseCoords(pos), GameResource::Gold)),
 		resBaseValid(GameResource::Gold)
 	},
 	{
@@ -174,7 +174,7 @@ std::vector<CraftingRecipes::CraftRecipe> CraftingRecipes::recipes = {
 		Technology::Farming,
 		"Farm",
 		getResourceSprite(GameResource::Wheat, false),
-		buildNoResBase(EntityPrefabs::generationBase(g, getBaseCoords(pos), GameResource::Wheat)),
+		buildNoResBase(EntityPrefabs::limitedGenerationBase(g, getBaseCoords(pos), GameResource::Wheat)),
 		noResBaseValid
 	},
 	{
@@ -198,7 +198,7 @@ std::vector<CraftingRecipes::CraftRecipe> CraftingRecipes::recipes = {
 		Technology::Orchards,
 		"Orchard",
 		getResourceSprite(GameResource::Fruit, false),
-		buildNoResBase(EntityPrefabs::generationBase(g, getBaseCoords(pos), GameResource::Fruit)),
+		buildNoResBase(EntityPrefabs::limitedGenerationBase(g, getBaseCoords(pos), GameResource::Fruit)),
 		noResBaseValid
 	},
 	{

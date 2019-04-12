@@ -15,14 +15,12 @@ public:
 	virtual SaveData getSaveData() override;
 	virtual void fromSaveData(SaveData data) override;
 	virtual tgui::Widget::Ptr getGui() override;
+protected:
+	virtual void addResource();
 private:
 	static const float GENERATION_DELAY;
 	GameResource res;
 	sf::Clock resourceClock;
-	// How many of the resource are left
-	unsigned int amountLeft;
 	// The gui of how far the generation is
 	tgui::ProgressBar::Ptr progressGui;
-	// The text of how many resources are left in this base
-	tgui::Label::Ptr amountLeftLabel;
 };

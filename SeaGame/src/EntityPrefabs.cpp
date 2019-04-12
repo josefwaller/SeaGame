@@ -17,6 +17,7 @@
 #include "MilitaryBaseRenderer.h"
 #include "MilitaryBaseController.h"
 #include "GenerationBaseController.h"
+#include "LimitedGenBaseController.h"
 #include "FerryShipController.h"
 #include "GuiComponent.h"
 #include "Box2dClick.h"
@@ -152,6 +153,24 @@ entity_ptr EntityPrefabs::generationBase(Game* g, sf::Vector2f pos, GameResource
 		ComponentList(
 			new Box2dTransform(EntityPrefabs::getBaseBody(g, pos, 0.0f)),
 			new GenerationBaseController(res),
+			new MiningBaseRenderer(res),
+			nullptr,
+			new HealthComponent(100),
+			new InventoryComponent(),
+			new GuiComponent(),
+			new Box2dClick()
+		)
+	));
+}
+entity_ptr EntityPrefabs::limitedGenerationBase(Game* g, sf::Vector2f pos, GameResource res) {
+	return EntityPrefabs::buildEntity(new Entity(
+		g,
+		1,
+		EntityType::MiningBase,
+		EntityTag::Base,
+		ComponentList(
+			new Box2dTransform(EntityPrefabs::getBaseBody(g, pos, 0.0f)),
+			new LimitedGenBaseController(res, 200),
 			new MiningBaseRenderer(res),
 			nullptr,
 			new HealthComponent(100),

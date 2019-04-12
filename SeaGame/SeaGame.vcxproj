@@ -186,6 +186,7 @@
     <ClCompile Include="src\ShipRenderer.cpp" />
     <ClCompile Include="src\SimpleCollisionListener.cpp" />
     <ClCompile Include="src\CraftRecipes.cpp" />
+    <ClCompile Include="src\LimitedGenBaseController.cpp" />
     <ClCompile Include="src\SpriteRenderer.cpp" />
     <ClCompile Include="src\BasicTransform.cpp" />
     <ClCompile Include="src\TechTree.cpp" />
@@ -229,6 +230,7 @@
     <ClInclude Include="src\Entity.h" />
     <ClInclude Include="src\Game.h" />
     <ClInclude Include="src\GameMap.h" />
+    <ClInclude Include="src\LimitedGenBaseController.h" />
     <ClInclude Include="src\MainMenu.h" />
     <ClInclude Include="src\MilitaryBaseController.h" />
     <ClInclude Include="src\MilitaryBaseRenderer.h" />

@@ -200,6 +200,9 @@
     <Filter Include="Files\GameMap\Tile">
       <UniqueIdentifier>{bb10affd-df3f-4b2e-ad9f-82c99c1e34e1}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Files\Components\Controllers\BaseControllers\LimitedGenBaseController">
+      <UniqueIdentifier>{b14d34f0-0eaa-48d4-8d6d-9965c80c2977}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\CannonBallController.cpp">
@@ -387,6 +390,9 @@
     </ClCompile>
     <ClCompile Include="src\Tile.cpp">
       <Filter>Files\GameMap\Tile</Filter>
+    </ClCompile>
+    <ClCompile Include="src\LimitedGenBaseController.cpp">
+      <Filter>Files\Components\Controllers\BaseControllers\LimitedGenBaseController</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -581,6 +587,9 @@
     </ClInclude>
     <ClInclude Include="src\Tile.h">
       <Filter>Files\GameMap\Tile</Filter>
+    </ClInclude>
+    <ClInclude Include="src\LimitedGenBaseController.h">
+      <Filter>Files\Components\Controllers\BaseControllers\LimitedGenBaseController</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
