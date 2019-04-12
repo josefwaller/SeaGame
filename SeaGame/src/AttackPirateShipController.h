@@ -1,5 +1,7 @@
 #pragma once
 #include "PirateShipController.h"
+// Forward Declaration
+class SaveData;
 
 /*
  * Attack one of the player's bases, then keep attacking the nearest entity on the
@@ -11,6 +13,8 @@ public:
 	const static float SHOOT_DISTANCE;
 	AttackPirateShipController(std::weak_ptr<Entity> base, std::weak_ptr<Entity> target);
 	virtual void update(float delta) override;
+	virtual SaveData getSaveData() override;
+	virtual void fromSaveData(SaveData data) override;
 private:
 	// Current target
 	std::weak_ptr<Entity> target;

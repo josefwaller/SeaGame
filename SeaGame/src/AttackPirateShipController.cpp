@@ -1,6 +1,7 @@
 #include "AttackPirateShipController.h"
 #include "BaseController.h"
 #include "Entity.h"
+#include "SaveData.h"
 #include <memory>
 
 AttackPirateShipController::AttackPirateShipController(
@@ -52,5 +53,21 @@ void AttackPirateShipController::update(float delta) {
 		if (newTarget.lock()) {
 			this->target = newTarget;
 		}
+	}
+}
+SaveData AttackPirateShipController::getSaveData() {
+	return SaveData("Component", {
+		{"target", this->target.lock() ? std::to_string(this->target.lock()->id) : "-1"},
+		{"base", this->base.lock() ? std::to_string(this->base.lock()->id) : "-1"}
+	});
+}
+void AttackPirateShipController::fromSaveData(SaveData data) {
+	int targetId = std::stoi(data.getValue("target"));
+	if (targetId != -1) {
+		this->target = this->getGame()->getEntityById(targetId);
+	}
+	int baseId = std::stoi(data.getValue("base"));
+	if (baseId != -1) {
+		this->base = this->getGame()->getEntityById(baseId);
 	}
 }

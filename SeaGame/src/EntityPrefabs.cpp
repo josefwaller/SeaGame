@@ -430,6 +430,8 @@ entity_ptr EntityPrefabs::getEntityFromType(Game* g, sf::Vector2f pos, EntityTyp
 		return EntityPrefabs::cannonBall(g, {}, { x, y }, 0.0f);
 	case EntityType::PirateFortress:
 		return EntityPrefabs::pirateFortress(g, { x, y });
+	case EntityType::AttackPirateShip:
+		return EntityPrefabs::attackPirateShip(g, { x, y }, {}, {});
 	case EntityType::Explosion:
 		return EntityPrefabs::explosion(g, { x, y });
 	}
