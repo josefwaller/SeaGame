@@ -66,11 +66,12 @@ entity_ptr EntityPrefabs::playerShip(Game* g, sf::Vector2f position)
 		)
 	));
 }
-entity_ptr EntityPrefabs::cannonBall(Game* g, std::weak_ptr<Entity> spawner, sf::Vector2f pos, float rot)
+entity_ptr EntityPrefabs::cannonBall(Game* g, int team, sf::Vector2f pos, float rot)
 {
+	// If loading, team will be set after the cannonball is created
 	return buildEntity(new Entity(
 		g,
-		spawner.lock()->team,
+		team,
 		EntityType::Cannonball,
 		EntityTag::Cannonball,
 		ComponentList(
@@ -427,7 +428,7 @@ entity_ptr EntityPrefabs::getEntityFromType(Game* g, sf::Vector2f pos, EntityTyp
 	case EntityType::DefensePirateShip:
 		return EntityPrefabs::defensePirateShip(g, { x, y }, {});
 	case EntityType::Cannonball:
-		return EntityPrefabs::cannonBall(g, {}, { x, y }, 0.0f);
+		return EntityPrefabs::cannonBall(g, 0, { x, y }, 0.0f);
 	case EntityType::PirateFortress:
 		return EntityPrefabs::pirateFortress(g, { x, y });
 	case EntityType::AttackPirateShip:

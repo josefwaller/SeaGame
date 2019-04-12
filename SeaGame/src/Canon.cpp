@@ -17,7 +17,7 @@ void Cannon::fire() {
 		parent.lock()->game->addEntity(
 			EntityPrefabs::cannonBall(
 				parent.lock()->game,
-				parent,
+				parent.lock()->team,
 				parent.lock()->components.transform->getPosition() + position,
 				rotation
 			)

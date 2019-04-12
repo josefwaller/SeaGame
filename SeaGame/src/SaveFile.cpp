@@ -112,6 +112,8 @@ std::unique_ptr<Game> SaveFile::load(App* a) {
 		// Override id
 		e->id = std::stoi(it.getValue("id"));
 		maxId = std::max(maxId, e->id);
+		// Set team
+		e->team = std::stoi(it.getValue("team"));
 		// Add to list
 		entities.push_back(e);
 		// Set to player if it is

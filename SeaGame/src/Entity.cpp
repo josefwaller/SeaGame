@@ -26,7 +26,8 @@ SaveData Entity::getSaveData() {
 	SaveData sd("Entity", {
 		{"type", std::to_string((int)this->type)},
 		{"tag", std::to_string((int)this->tag)},
-		{"id", std::to_string(this->id)}
+		{"id", std::to_string(this->id)},
+		{"team", std::to_string(this->team)}
 	});
 	// Get data for all components
 	for (ComponentType t : ComponentList::allTypes) {
