@@ -103,14 +103,13 @@ void GameHud::update() {
 	// Update player health
 	this->playerHealth->setValue(this->game->getPlayer()->components.health->getHealth());
 	// Update announcements
-	if (!this->announcements.empty()) {
-		while (this->announcements.front().second.getElapsedTime().asMilliseconds() >= 3000.0) {
-			this->announcementContainer->remove(this->announcements.front().first);
-			this->announcements.pop();
-			this->announcementContainer->setSize(
-				this->announcementContainer->getSize().x,
-				this->announcements.size() * ANNOUNCEMENT_ITEM_HEIGHT);
-		}
+	while (!this->announcements.empty()
+		&& this->announcements.front().second.getElapsedTime().asMilliseconds() >= 3000.0) {
+		this->announcementContainer->remove(this->announcements.front().first);
+		this->announcements.pop();
+		this->announcementContainer->setSize(
+			this->announcementContainer->getSize().x,
+			this->announcements.size() * ANNOUNCEMENT_ITEM_HEIGHT);
 	}
 	// Update the research tech tree
 	this->researchScreen.update();
