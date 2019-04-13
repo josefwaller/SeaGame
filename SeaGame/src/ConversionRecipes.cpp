@@ -11,6 +11,12 @@ const std::map<GameResource, ConversionRecipes::Recipe> ConversionRecipes::recip
 		"Woodcutter"
 		}
 	},
+	{ GameResource::Furniture, {
+		{ {GameResource::Plank, 5 } },
+		5.0f,
+		"Build furniture from planks"
+		}
+	},
 	{ GameResource::StoneBrick, {
 		{ { GameResource::Stone, 3 }, },
 		10.0f,

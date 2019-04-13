@@ -10,6 +10,7 @@
 	etype(Wood) \
 	etype(Gold) \
 	etype(Plank) \
+	etype(Furniture) \
 	etype(Iron) \
 	etype(Copper) \
 	etype(StoneBrick) \

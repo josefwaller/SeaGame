@@ -52,6 +52,9 @@ sf::Sprite getResourceSprite(GameResource res, bool center) {
 	case GameResource::Weapons:
 		spriteName = "medievalStructure_03.png";
 		break;
+	case GameResource::Furniture:
+		spriteName = "medievalStructure_22.png";
+		break;
 	}
 	return ResourceManager::get()->getSprite("medievalRTS_spritesheet@2", spriteName, center);
 }

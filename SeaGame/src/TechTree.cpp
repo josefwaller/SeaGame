@@ -61,6 +61,11 @@ TechTree::TechTree() {
 			"Build bases that turn wood into planks")
 		},
 		{
+			Technology::Carpentry,
+			TechTreeNode("Carpentry", Technology::Woodcutting, TIER_3_COST,
+			"Buil bases to turn planks into more valuable furniture")
+		},
+		{
 			Technology::Farming,
 			TechTreeNode("Farming", Technology::Forestries, TIER_2_COST,
 			"Build farms, which don't require any resource to be build and generates wheat")

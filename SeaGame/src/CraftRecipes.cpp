@@ -139,6 +139,30 @@ std::vector<CraftingRecipes::CraftRecipe> CraftingRecipes::recipes = {
 	},
 	{
 		{},
+		Technology::Forestries,
+		"Forestry",
+		getResourceSprite(GameResource::Wood, false),
+		buildResBase(EntityPrefabs::limitedGenerationBase(g, getBaseCoords(pos), GameResource::Wood)),
+		resBaseValid(GameResource::Wood)
+	},
+	{
+		{},
+		Technology::Woodcutting,
+		"Wood Cutter",
+		getResourceSprite(GameResource::Plank, false),
+		buildNoResBase(EntityPrefabs::conversionBase(g, getBaseCoords(pos), GameResource::Plank)),
+		noResBaseValid
+	},
+	{
+		{},
+		Technology::Carpentry,
+		"Carpentry",
+		getResourceSprite(GameResource::Furniture, false),
+		buildNoResBase(EntityPrefabs::conversionBase(g, getBaseCoords(pos), GameResource::Furniture)),
+		noResBaseValid
+	},
+	{
+		{},
 		Technology::Mines,
 		"Mine",
 		getResourceSprite(GameResource::Stone, false),

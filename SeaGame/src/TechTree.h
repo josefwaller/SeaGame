@@ -21,7 +21,7 @@ enum Technology {
 	Forestries,
 	Woodcutting,
 	ShipBuilding,
-	Furniture,
+	Carpentry,
 	Farming,
 	Mills,
 	Baking,
