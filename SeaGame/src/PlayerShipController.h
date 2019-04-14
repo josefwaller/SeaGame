@@ -6,4 +6,5 @@ class PlayerShipController : public ShipController
 public:
 	PlayerShipController();
 	virtual void update(float delta) override;
+	virtual void onDeath() override;
 };

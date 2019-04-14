@@ -1,4 +1,5 @@
 #include "PlayerShipController.h"
+#include "EntityPrefabs.h"
 
 PlayerShipController::PlayerShipController() : ShipController()
 {
@@ -23,4 +24,16 @@ void PlayerShipController::update(float delta)
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space)) {
 		this->shootSwivel();
 	}
+}
+
+void PlayerShipController::onDeath() {
+	// Add the respawn ship
+	std::shared_ptr<Entity> respawnShip = EntityPrefabs::respawnPlayerShip(
+		this->getGame(),
+		this->getComponentList().transform->getPosition()
+	);
+	this->getGame()->addEntity(respawnShip);
+	this->getGame()->setPlayer(respawnShip);
+	// Remove self
+	this->getGame()->removeEntity(this->getParent());
 }

@@ -97,6 +97,9 @@ void Game::update(double delta)
 		if (e->components.controller != nullptr) {
 			e->components.controller->update((float)delta);
 		}
+		if (e->components.health) {
+			e->components.health->update();
+		}
 	}
 	// Update world and resolve collisions
 	this->world->Step((float)delta, 8, 3);
@@ -114,7 +117,8 @@ void Game::quitGame() {
 void Game::render()
 {
 	// Set view
-	this->view.setCenter(this->player.lock()->components.transform->getPosition());
+	if (this->player.lock())
+		this->view.setCenter(this->player.lock()->components.transform->getPosition());
 	this->app->getWindow()->setView(this->view);
 	// Render Map (give direct access to window for speed reasons)
 	this->gMap.render(this->getWindow());
@@ -196,6 +200,9 @@ void Game::addEntity(std::shared_ptr<Entity> newEnt)
 void Game::removeEntity(std::weak_ptr<Entity> e)
 {
 	this->toRemove.push_back(e);
+}
+void Game::setPlayer(std::weak_ptr<Entity> player) {
+	this->player = player;
 }
 sf::Vector2f Game::getMouseCoords()
 {

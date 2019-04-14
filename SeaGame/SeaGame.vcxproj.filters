@@ -203,6 +203,9 @@
     <Filter Include="Files\Components\Controllers\BaseControllers\LimitedGenBaseController">
       <UniqueIdentifier>{b14d34f0-0eaa-48d4-8d6d-9965c80c2977}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Files\Components\Controllers\ShipControllers\PlayerShipController\RespawnPlayerShipController">
+      <UniqueIdentifier>{a40b072e-be00-4a6c-b114-8ead77d5e211}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\CannonBallController.cpp">
@@ -393,6 +396,9 @@
     </ClCompile>
     <ClCompile Include="src\LimitedGenBaseController.cpp">
       <Filter>Files\Components\Controllers\BaseControllers\LimitedGenBaseController</Filter>
+    </ClCompile>
+    <ClCompile Include="src\RespawnPlayerShipController.cpp">
+      <Filter>Files\Components\Controllers\ShipControllers\PlayerShipController\RespawnPlayerShipController</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -590,6 +596,9 @@
     </ClInclude>
     <ClInclude Include="src\LimitedGenBaseController.h">
       <Filter>Files\Components\Controllers\BaseControllers\LimitedGenBaseController</Filter>
+    </ClInclude>
+    <ClInclude Include="src\RespawnPlayerShipController.h">
+      <Filter>Files\Components\Controllers\ShipControllers\PlayerShipController\RespawnPlayerShipController</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

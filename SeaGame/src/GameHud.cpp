@@ -101,7 +101,9 @@ void GameHud::update() {
 	// Update money display
 	this->moneyDisplay->setText("$" + std::to_string(this->game->getMoney()));
 	// Update player health
-	this->playerHealth->setValue(this->game->getPlayer()->components.health->getHealth());
+	if (this->game->getPlayer())
+		if (this->game->getPlayer()->components.health)
+			this->playerHealth->setValue(this->game->getPlayer()->components.health->getHealth());
 	// Update announcements
 	while (!this->announcements.empty()
 		&& this->announcements.front().second.getElapsedTime().asMilliseconds() >= 3000.0) {

@@ -75,6 +75,9 @@ public:
 	sf::FloatRect getViewRect();
 	// Set name of file to save to
 	void setSaveFile(std::string fileName);
+	// Set the player
+	// Used when the player dies/respawns
+	void setPlayer(std::weak_ptr<Entity> player);
 private:
 	// App of the game, get window and gui through this pointer
 	App* app;

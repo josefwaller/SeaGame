@@ -13,6 +13,9 @@ public:
 	virtual void takeDamage(int damageAmount);
 	// Heal this entity
 	virtual void heal(int healAmount);
+	// Update, or when it is same to call ControllerComponent::onDeath()
+	// So that we don't call it when the box 2d world is stepping
+	void update();
 	// Check if the entity is dead
 	virtual bool isDead();
 	virtual SaveData getSaveData() override;
@@ -22,4 +25,6 @@ private:
 	unsigned int health;
 	// The max amount of health
 	unsigned int maxHealth;
+	// Whether to call onDeath on the next update
+	bool callOnDeath;
 };

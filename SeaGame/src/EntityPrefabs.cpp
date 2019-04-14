@@ -35,6 +35,7 @@
 #include "AttackPirateShipController.h"
 #include "InventoryComponent.h"
 #include "ShipRenderer.h"
+#include "RespawnPlayerShipController.h"
 #include "Entity.h"
 #include "SaveData.h"
 
@@ -60,8 +61,26 @@ entity_ptr EntityPrefabs::playerShip(Game* g, sf::Vector2f position)
 			new PlayerShipController(),
 			new ShipRenderer(ShipRenderer::SailColor::Blue),
 			new PhysicsComponent(),
-			new HealthComponent(10000),
+			new HealthComponent(100),
 			new InventoryComponent(),
+			new GuiComponent(),
+			new Box2dClick()
+		)
+	));
+}
+entity_ptr EntityPrefabs::respawnPlayerShip(Game* g, sf::Vector2f pos) {
+	return EntityPrefabs::buildEntity(new Entity(
+		g,
+		0,
+		EntityType::Player,
+		EntityTag::Ship,
+		ComponentList(
+			new Box2dTransform(getShipBody(g, pos, 0.0f)),
+			new RespawnPlayerShipController(),
+			new ShipRenderer(ShipRenderer::SailColor::White),
+			new PhysicsComponent(),
+			nullptr,
+			nullptr,
 			new GuiComponent(),
 			new Box2dClick()
 		)

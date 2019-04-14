@@ -17,6 +17,7 @@ public:
 	static entity_ptr buildEntity(Entity* entity);
 	// Return the different type of entities in the game
 	static entity_ptr playerShip(Game* g, sf::Vector2f position);
+	static entity_ptr respawnPlayerShip(Game* g, sf::Vector2f pos);
 	static entity_ptr cannonBall(Game* g, int team, sf::Vector2f pos, float rot);
 	static entity_ptr enemyChasingShip(Game* g, sf::Vector2f pos);
 	static entity_ptr explosion(Game* g, sf::Vector2f pos);
