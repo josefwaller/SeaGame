@@ -101,7 +101,21 @@ void GameHud::render(RenderManager& rm) {
 		break;
 	}
 }
+void GameHud::hideCurrent() {
+	switch (this->currentState) {
+	case State::Research:
+		this->hideResearch();
+		break;
+	case State::Building:
+		this->hideBuild();
+		break;
+	case State::Paused:
+		this->hidePause();
+		break;
+	}
+}
 void GameHud::showResearch() {
+	this->hideCurrent();
 	this->currentState = State::Research;
 	this->researchScreen.show(this->game->getGui());
 }
@@ -110,6 +124,7 @@ void GameHud::hideResearch() {
 	this->researchScreen.hide(this->game->getGui());
 }
 void GameHud::showBuild() {
+	this->hideCurrent();
 	this->currentState = State::Building;
 	this->buildScreen.show(this->game->getGui());
 }
@@ -122,6 +137,7 @@ void GameHud::updateBuild() {
 }
 void GameHud::showPause() {
 	if (this->currentState != State::Paused) {
+		this->hideCurrent();
 		this->currentState = State::Paused;
 		this->pauseScreen.show(this->game->getGui());
 	}

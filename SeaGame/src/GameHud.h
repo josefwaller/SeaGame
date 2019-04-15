@@ -45,6 +45,8 @@ public:
 	void onClick(sf::Vector2f pos);
 	// Select an entity, then call the callback method with the entity
 	void selectEntity(std::function<void(std::weak_ptr<Entity>)> callback);
+	// Hide the screen that is currently being shown
+	void hideCurrent();
 	// Show/Hide the research screen
 	void showResearch();
 	void hideResearch();
