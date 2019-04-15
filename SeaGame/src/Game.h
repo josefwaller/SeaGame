@@ -98,8 +98,6 @@ private:
 	std::vector<std::shared_ptr<Entity>> entities;
 	// Entities to be removed after this frame
 	std::vector<std::weak_ptr<Entity>> toRemove;
-	// Theme for GUI
-	tgui::Theme theme;
 	// View for rendering game
 	sf::View view;
 	// The build button

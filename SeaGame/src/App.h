@@ -2,6 +2,7 @@
 #include <memory>
 #include "SFML\Graphics.hpp"
 #include <TGUI/Gui.hpp>
+#include <TGUI/Loading/Theme.hpp>
 #include "Game.h"
 #include "MainMenu.h"
 
@@ -27,6 +28,8 @@ private:
 	sf::RenderWindow window;
 	tgui::Gui gui;
 	std::unique_ptr<Game> game;
+	// The theme used for everything
+	tgui::Theme theme;
 	MainMenu menu;
 	AppState state;
 };

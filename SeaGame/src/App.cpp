@@ -4,8 +4,10 @@
 App::App() :
 	menu(this),
 	window(sf::VideoMode(1920, 1080), "SeaGame"),
+	theme("../TGUI-0.8/themes/Black.txt"),
 	gui(this->window) {
 
+	tgui::Theme::setDefault(&this->theme);
 	tgui::setGlobalTextSize(20);
 	this->state = AppState::InMenu;
 	this->menu.show();
