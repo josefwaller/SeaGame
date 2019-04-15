@@ -14,9 +14,9 @@
 #include <queue>
 #include <random>
 
-GameMap::GameMap() {}
-GameMap::GameMap(Game* g): game(g)
-{
+GameMap::GameMap(Game* g) : game(g)
+{}
+void GameMap::generate() {
 	const unsigned int WIDTH = 30;
 	const unsigned int HEIGHT = 30;
 	// The width of the water border around the edges
@@ -157,7 +157,7 @@ std::vector<std::vector<double>> GameMap::getNoiseMap(int w, int h, float f, int
 	}
 	return noiseGrid;
 }
-GameMap::GameMap(Game* g, SaveData data): game(g) {
+void GameMap::loadFromData(SaveData data) {
 	int w = std::stoi(data.getValue("width"));
 	int h = std::stoi(data.getValue("height"));
 	this->tiles.resize(w);

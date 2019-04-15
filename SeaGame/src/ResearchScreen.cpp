@@ -4,7 +4,6 @@
 #include "RenderManager.h"
 #include <TGUI/SignalImpl.hpp>
 
-ResearchScreen::ResearchScreen() {}
 ResearchScreen::ResearchScreen(Game* g) {
 	this->game = g;
 	this->researchBtns = tgui::ScrollablePanel::create();

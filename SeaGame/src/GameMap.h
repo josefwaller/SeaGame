@@ -19,11 +19,12 @@ namespace sf {
 class GameMap
 {
 public:
-	// Generate a new map
+	// Create an empty map
 	GameMap(Game* g);
+	// Generate a new map
+	void generate();
 	// Get map data from a document
-	GameMap(Game* g, SaveData data);
-	GameMap();
+	void loadFromData(SaveData data);
 	// Set the entity for each tile when loading
 	// Has to be done after intializing the game, so that the entities exist
 	void initTileEntities(SaveData data);

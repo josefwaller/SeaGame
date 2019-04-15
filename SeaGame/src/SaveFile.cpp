@@ -92,7 +92,8 @@ std::unique_ptr<Game> SaveFile::load(App* a) {
 	unsigned int money = (unsigned int)std::stoi(gameNode->first_attribute("money")->value());
 	// Create GameMap
 	SaveData gm = this->getData(gameNode->first_node("GameMap"));
-	GameMap gMap(g, gm);
+	GameMap gMap(g);
+	gMap.loadFromData(gm);
 	// Load all the entities' data
 	std::vector<SaveData> entityDatas;
 	auto eN = gameNode->first_node("EntityList");

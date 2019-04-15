@@ -16,8 +16,6 @@
 const float GameHud::ANNOUNCEMENT_WIDTH = 400.0f;
 const float GameHud::ANNOUNCEMENT_ITEM_HEIGHT = 60.0f;
 
-GameHud::GameHud() {
-}
 GameHud::GameHud(Game* g): researchScreen(g), buildScreen(g), pauseScreen(g) {
 	this->game = g;
 	// Set click state to nothing initially

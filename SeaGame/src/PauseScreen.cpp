@@ -3,7 +3,6 @@
 #include <TGUI/Widgets/ChildWindow.hpp>
 #include <TGUI/SignalImpl.hpp>
 
-PauseScreen::PauseScreen() {}
 PauseScreen::PauseScreen(Game* g) {
 	auto gui = g->getGui();
 	auto cW = tgui::ChildWindow::create();

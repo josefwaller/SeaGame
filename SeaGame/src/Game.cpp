@@ -18,11 +18,16 @@
 
 const float Game::BOX2D_TO_WORLD = 100.0f;
 const float Game::WORLD_TO_BOX2D = 1 / Game::BOX2D_TO_WORLD;
-Game::Game() {}
 Game::~Game() {
 	this->app->getGui()->remove(this->guiContainer);
 }
-Game::Game(App* app): app(app) {
+Game::Game(App* app):
+	app(app),
+	techTree(),
+	guiContainer(tgui::Group::create()),
+	gMap(this),
+	gHud(this)
+{
 	// Create world and make gravity 0, since it is top down
 	this->world = std::shared_ptr<b2World>(new b2World({ 0.0f, 0.0f }));
 	this->theme = tgui::Theme("../TGUI-0.8/themes/Black.txt");
@@ -32,14 +37,11 @@ Game::Game(App* app): app(app) {
 	this->listener = SimpleCollisionListener();
 	this->world->SetContactListener(&this->listener);
 	// Create gui container
-	this->guiContainer = tgui::Group::create();
 	this->app->getGui()->add(this->guiContainer);
 	// Add text displaying the FPS in the corner
 	this->fpsText = tgui::TextBox::create();
 	this->fpsText->setPosition({ this->app->getWindow()->getSize().x - 200.0f, 0.0f });
 	this->guiContainer->add(this->fpsText);
-	// Create game hud
-	this->gHud = GameHud(this);
 	// Set default file name
 	this->saveFileName = "";
 }
@@ -60,7 +62,7 @@ void Game::loadFromData(
 }
 void Game::generateNew() {
 	// Generate new map
-	this->gMap = GameMap(this);
+	this->gMap.generate();
 	// Start with the beginning amount of money
 	this->money = Game::STARTING_MONEY;
 	// Add the player in the first sea tile

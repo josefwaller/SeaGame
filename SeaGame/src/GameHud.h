@@ -24,7 +24,6 @@ public:
 	static const float ANNOUNCEMENT_WIDTH;
 	// The height of each announcement
 	static const float ANNOUNCEMENT_ITEM_HEIGHT;
-	GameHud();
 	GameHud(Game* game);
 	// The state of what is being shown on the UI
 	enum State {

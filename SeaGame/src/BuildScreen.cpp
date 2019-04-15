@@ -12,7 +12,6 @@
 #include <TGUI/Widgets/Button.hpp>
 #include <TGUI/SignalImpl.hpp>
 
-BuildScreen::BuildScreen() {}
 BuildScreen::BuildScreen(Game* g) {
 	this->game = g;
 	this->isBuilding = false;

@@ -11,7 +11,6 @@ class RenderManager;
  */
 class ResearchScreen {
 public:
-	ResearchScreen();
 	ResearchScreen(Game* g);
 	// Show the research screen
 	void show(tgui::Container::Ptr c);

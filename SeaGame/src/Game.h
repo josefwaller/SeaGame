@@ -20,7 +20,6 @@ public:
 	// Convert between world units and box2d units
 	static const float BOX2D_TO_WORLD;
 	static const float WORLD_TO_BOX2D;
-	Game();
 	~Game();
 	Game(App* app);
 	void loadFromData(
@@ -85,6 +84,8 @@ private:
 	App* app;
 	// Container of all gui items the game uses
 	tgui::Group::Ptr guiContainer;
+	// Tech Tree of the game
+	TechTree techTree;
 	// The box2d world
 	std::shared_ptr<b2World> world;
 	// Box2d listener
@@ -94,7 +95,6 @@ private:
 	std::weak_ptr<Entity> player;
 	GameMap gMap;
 	GameHud gHud;
-	TechTree techTree;
 	std::vector<std::shared_ptr<Entity>> entities;
 	// Entities to be removed after this frame
 	std::vector<std::weak_ptr<Entity>> toRemove;

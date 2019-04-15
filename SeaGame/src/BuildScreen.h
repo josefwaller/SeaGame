@@ -8,7 +8,6 @@ struct Entity;
 
 class BuildScreen {
 public:
-	BuildScreen();
 	BuildScreen(Game* g);
 	// Update the information on the screen
 	void update();
