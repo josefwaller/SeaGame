@@ -15,7 +15,9 @@
 BuildScreen::BuildScreen(Game* g) {
 	this->game = g;
 	this->isBuilding = false;
-	this->buttons = tgui::Group::create();
+	auto p = tgui::Panel::create();
+	p->getRenderer()->setBackgroundColor(sf::Color(0, 0, 0, 100));
+	this->buttons = p;
 	this->update();
 }
 void BuildScreen::update() {
