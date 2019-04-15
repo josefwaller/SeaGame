@@ -1,6 +1,7 @@
 #pragma once
 #include "ResearchScreen.h"
 #include "BuildScreen.h"
+#include "PauseScreen.h"
 #include <TGUI/Widgets/ChildWindow.hpp>
 #include <TGUI/Widgets/Label.hpp>
 #include <TGUI/Widgets/Button.hpp>
@@ -35,6 +36,8 @@ public:
 		Selecting,
 		// The research screen
 		Research,
+		// Showing the pause screen (i.e. menu)
+		Paused
 	};
 	// Update widgets that need updating
 	void update();
@@ -50,6 +53,9 @@ public:
 	void showBuild();
 	void hideBuild();
 	void updateBuild();
+	// Show/hide the menu screen
+	void showPause();
+	void hidePause();
 	// Transfer items between entities by clicking between them
 	void transferItems(std::weak_ptr<Entity> e, GameResource res, unsigned int amount);
 	// Add an announcement
@@ -78,6 +84,8 @@ private:
 	ResearchScreen researchScreen;
 	// The build screen
 	BuildScreen buildScreen;
+	// The pause screen
+	PauseScreen pauseScreen;
 	/*
 	 * There are two ways to select something via clicking on it
 	 * Selecting a point, or selecting an entity

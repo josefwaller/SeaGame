@@ -206,6 +206,9 @@
     <Filter Include="Files\Components\Controllers\ShipControllers\PlayerShipController\RespawnPlayerShipController">
       <UniqueIdentifier>{a40b072e-be00-4a6c-b114-8ead77d5e211}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Files\GameHud\Components\PauseScreen">
+      <UniqueIdentifier>{48aa3ba3-f478-44ff-ab15-98b310c6bd7d}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\CannonBallController.cpp">
@@ -399,6 +402,9 @@
     </ClCompile>
     <ClCompile Include="src\RespawnPlayerShipController.cpp">
       <Filter>Files\Components\Controllers\ShipControllers\PlayerShipController\RespawnPlayerShipController</Filter>
+    </ClCompile>
+    <ClCompile Include="src\PauseScreen.cpp">
+      <Filter>Files\GameHud\Components\PauseScreen</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -599,6 +605,9 @@
     </ClInclude>
     <ClInclude Include="src\RespawnPlayerShipController.h">
       <Filter>Files\Components\Controllers\ShipControllers\PlayerShipController\RespawnPlayerShipController</Filter>
+    </ClInclude>
+    <ClInclude Include="src\PauseScreen.h">
+      <Filter>Files\GameHud\Components\PauseScreen</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

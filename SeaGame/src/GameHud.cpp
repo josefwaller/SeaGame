@@ -18,7 +18,7 @@ const float GameHud::ANNOUNCEMENT_ITEM_HEIGHT = 60.0f;
 
 GameHud::GameHud() {
 }
-GameHud::GameHud(Game* g): researchScreen(g), buildScreen(g) {
+GameHud::GameHud(Game* g): researchScreen(g), buildScreen(g), pauseScreen(g) {
 	this->game = g;
 	// Set click state to nothing initially
 	this->currentState = State::Nothing;
@@ -65,37 +65,12 @@ GameHud::GameHud(Game* g): researchScreen(g), buildScreen(g) {
 	this->stateText->getRenderer()->setBackgroundColor(tgui::Color::Black);
 	this->game->getGui()->add(this->stateText);
 	this->stateText->setVisible(false);
-	// Add menu
-	auto gui = this->game->getGui();
-	auto menu = tgui::ChildWindow::create();
-	menu->setSize(400, 600);
-	menu->setResizable(false);
-	menu->setPositionLocked(true);
-	menu->setPosition(
-		(tgui::bindWidth(gui) - tgui::bindWidth(menu)) / 2,
-		(tgui::bindHeight(gui) - tgui::bindHeight(menu)) / 2
-	);
-	// Add horizontal layout inside
-	auto vL = tgui::VerticalLayout::create();
-	menu->add(vL);
-	// Add save button
-	auto saveBtn = tgui::Button::create();
-	saveBtn->setText("Save");
-	saveBtn->connect("clicked", &Game::save, this->game);
-	vL->add(saveBtn);
-	// Add quit button
-	auto quitBtn = tgui::Button::create();
-	quitBtn->setText("Quit");
-	quitBtn->connect("clicked", &Game::quitGame, this->game);
-	vL->add(quitBtn);
 	// Add menu button
 	auto menuButton = tgui::Button::create();
 	menuButton->setText("Menu");
 	menuButton->setPosition(400, 0);
-	menuButton->connect("clicked", [](tgui::ChildWindow::Ptr w, tgui::Container::Ptr gui) {
-		gui->add(w);
-	}, menu, gui);
-	gui->add(menuButton);
+	menuButton->connect("clicked", &GameHud::showPause, this->game->getHud());
+	this->game->getGui()->add(menuButton);
 }
 void GameHud::update() {
 	// Update money display
@@ -146,6 +121,18 @@ void GameHud::hideBuild() {
 }
 void GameHud::updateBuild() {
 	this->buildScreen.update();
+}
+void GameHud::showPause() {
+	if (this->currentState != State::Paused) {
+		this->currentState = State::Paused;
+		this->pauseScreen.show(this->game->getGui());
+	}
+}
+void GameHud::hidePause() {
+	if (this->currentState == State::Paused) {
+		this->currentState = State::Nothing;
+		this->pauseScreen.hide(this->game->getGui());
+	}
 }
 void GameHud::transferItems(std::weak_ptr<Entity> e, GameResource res, unsigned int amount) {
 	this->selectCallback = std::bind([&](

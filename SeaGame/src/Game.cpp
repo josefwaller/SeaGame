@@ -22,8 +22,7 @@ Game::Game() {}
 Game::~Game() {
 	this->app->getGui()->remove(this->guiContainer);
 }
-Game::Game(App* app): app(app)
-{
+Game::Game(App* app): app(app) {
 	// Create world and make gravity 0, since it is top down
 	this->world = std::shared_ptr<b2World>(new b2World({ 0.0f, 0.0f }));
 	this->theme = tgui::Theme("../TGUI-0.8/themes/Black.txt");
@@ -34,11 +33,11 @@ Game::Game(App* app): app(app)
 	this->world->SetContactListener(&this->listener);
 	// Create gui container
 	this->guiContainer = tgui::Group::create();
+	this->app->getGui()->add(this->guiContainer);
 	// Add text displaying the FPS in the corner
 	this->fpsText = tgui::TextBox::create();
 	this->fpsText->setPosition({ this->app->getWindow()->getSize().x - 200.0f, 0.0f });
 	this->guiContainer->add(this->fpsText);
-	this->app->getGui()->add(this->guiContainer);
 	// Create game hud
 	this->gHud = GameHud(this);
 	// Set default file name

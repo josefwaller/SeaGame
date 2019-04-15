@@ -47,6 +47,8 @@ public:
 	void handleEvent(sf::Event e);
 	// Get mouse coordinates relative to the window
 	sf::Vector2f getMouseCoords();
+	// Pause/Unpause the game
+	void setPause(bool pause);
 	// Get player
 	std::shared_ptr<Entity> getPlayer();
 	// Get all entities
