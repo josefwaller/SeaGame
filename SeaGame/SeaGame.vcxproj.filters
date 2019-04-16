@@ -77,9 +77,6 @@
     <Filter Include="Files\Utils\Cannon">
       <UniqueIdentifier>{b346e237-aa7b-4993-aaf7-e5ae6e6d09bb}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Files\Utils\EntityPrefabs">
-      <UniqueIdentifier>{70b7c286-e9e9-49d0-938b-6927be201a6b}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Files\Utils\GameResource">
       <UniqueIdentifier>{b1a67f83-363b-4e65-a8b3-7ad13c48b3d4}</UniqueIdentifier>
     </Filter>
@@ -209,6 +206,12 @@
     <Filter Include="Files\GameHud\Components\PauseScreen">
       <UniqueIdentifier>{48aa3ba3-f478-44ff-ab15-98b310c6bd7d}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Files\EntityPrefabs">
+      <UniqueIdentifier>{70b7c286-e9e9-49d0-938b-6927be201a6b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Files\EntityPrefabs\Implementations">
+      <UniqueIdentifier>{71207169-7c77-4ba0-b76a-5c82b195a440}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\CannonBallController.cpp">
@@ -272,7 +275,7 @@
       <Filter>Files\Components</Filter>
     </ClCompile>
     <ClCompile Include="src\EntityPrefabs.cpp">
-      <Filter>Files\Utils\EntityPrefabs</Filter>
+      <Filter>Files\EntityPrefabs</Filter>
     </ClCompile>
     <ClCompile Include="src\RenderManager.cpp">
       <Filter>Files\Utils\RenderManager</Filter>
@@ -406,6 +409,54 @@
     <ClCompile Include="src\PauseScreen.cpp">
       <Filter>Files\GameHud\Components\PauseScreen</Filter>
     </ClCompile>
+    <ClCompile Include="src\PlayerShip.cpp">
+      <Filter>Files\EntityPrefabs\Implementations</Filter>
+    </ClCompile>
+    <ClCompile Include="src\RespawnPlayerShip.cpp">
+      <Filter>Files\EntityPrefabs\Implementations</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Cannonball.cpp">
+      <Filter>Files\EntityPrefabs\Implementations</Filter>
+    </ClCompile>
+    <ClCompile Include="src\EnemyChasingShip.cpp">
+      <Filter>Files\EntityPrefabs\Implementations</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Ferry.cpp">
+      <Filter>Files\EntityPrefabs\Implementations</Filter>
+    </ClCompile>
+    <ClCompile Include="src\MilitaryBase.cpp">
+      <Filter>Files\EntityPrefabs\Implementations</Filter>
+    </ClCompile>
+    <ClCompile Include="src\GenerationBase.cpp">
+      <Filter>Files\EntityPrefabs\Implementations</Filter>
+    </ClCompile>
+    <ClCompile Include="src\LimitedGenerationBase.cpp">
+      <Filter>Files\EntityPrefabs\Implementations</Filter>
+    </ClCompile>
+    <ClCompile Include="src\PirateBase.cpp">
+      <Filter>Files\EntityPrefabs\Implementations</Filter>
+    </ClCompile>
+    <ClCompile Include="src\DefensePirateShip.cpp">
+      <Filter>Files\EntityPrefabs\Implementations</Filter>
+    </ClCompile>
+    <ClCompile Include="src\AttackPirateShip.cpp">
+      <Filter>Files\EntityPrefabs\Implementations</Filter>
+    </ClCompile>
+    <ClCompile Include="src\PirateFortress.cpp">
+      <Filter>Files\EntityPrefabs\Implementations</Filter>
+    </ClCompile>
+    <ClCompile Include="src\ConversionBase.cpp">
+      <Filter>Files\EntityPrefabs\Implementations</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Explosion.cpp">
+      <Filter>Files\EntityPrefabs\Implementations</Filter>
+    </ClCompile>
+    <ClCompile Include="src\City.cpp">
+      <Filter>Files\EntityPrefabs\Implementations</Filter>
+    </ClCompile>
+    <ClCompile Include="src\ResourceSource.cpp">
+      <Filter>Files\EntityPrefabs\Implementations</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Component.h">
@@ -478,7 +529,7 @@
       <Filter>Files\Utils\Cannon</Filter>
     </ClInclude>
     <ClInclude Include="src\EntityPrefabs.h">
-      <Filter>Files\Utils\EntityPrefabs</Filter>
+      <Filter>Files\EntityPrefabs</Filter>
     </ClInclude>
     <ClInclude Include="src\GameResource.h">
       <Filter>Files\Utils\GameResource</Filter>
@@ -608,6 +659,9 @@
     </ClInclude>
     <ClInclude Include="src\PauseScreen.h">
       <Filter>Files\GameHud\Components\PauseScreen</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Bases.h">
+      <Filter>Files\EntityPrefabs</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
