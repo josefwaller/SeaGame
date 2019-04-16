@@ -69,6 +69,8 @@ void BuildScreen::setToBuild(CraftingRecipes::CraftRecipe cr) {
 	// Save the method to build the entity
 	this->buildingRecipe = cr;
 	this->isBuilding = true;
+	// Hide the background
+	this->buttons->setVisible(false);
 }
 void BuildScreen::onClick(sf::Vector2f pos) {
 	if (this->isBuilding) {
@@ -98,6 +100,8 @@ void BuildScreen::onClick(sf::Vector2f pos) {
 			// Add it to the game
 			this->game->addEntity(e);
 			this->isBuilding = false;
+			// Show the background again
+			this->buttons->setVisible(true);
 		}
 	}
 }
