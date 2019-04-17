@@ -28,19 +28,22 @@ ResearchScreen::ResearchScreen(Game* g) {
 		// The vertical distance between technologies
 		const float RESEARCH_HEIGHT = 100.0f;
 		// Easy reference to the center of the screen
-		const float CENTER_LINE = this->game->getWindow()->getSize().y / 2.0f;
+		const auto CENTER_LINE = tgui::bindHeight(this->game->getGui()) / 2.0f;
 		// The highest y position a technology will be in this columnb
-		const float TOP_LIMIT = CENTER_LINE - RESEARCH_HEIGHT * (float)(currentTechs.size() - 1) / 2.0f;
+		const auto TOP_LIMIT = CENTER_LINE - RESEARCH_HEIGHT * (float)(currentTechs.size() - 1) / 2.0f;
 		// Add a button for each tech
 		for (auto it = currentTechs.begin(); it != currentTechs.end(); it++) {
 			auto btn = getButtonForTech(*it);
 			this->techButtons[*it] = btn;
 			size_t offset = it - currentTechs.begin();
-			btn->setPosition(sf::Vector2f(
+			btn->setPosition(
 				x,
 				TOP_LIMIT + RESEARCH_HEIGHT * (float)offset
-			));
+			);
 			this->researchBtns->add(btn);
+			// Connect moving the buttons to reseting the lines, so that when they move
+			// as the window resizes, the lines are updated
+			btn->connect("PositionChanged", &ResearchScreen::resetLines, this);
 			// Get the next techs to add
 			for (auto cIt = techTree->nodes.begin(); cIt != techTree->nodes.end(); cIt++) {
 				if (cIt->second.parent == *it) {
@@ -52,6 +55,9 @@ ResearchScreen::ResearchScreen(Game* g) {
 		currentTechs = nextTechs;
 		x += LAYER_WIDTH;
 	}
+}
+void ResearchScreen::resetLines() {
+	TechTree* techTree = this->game->getTechTree();
 	// Create the lines between technologies
 	this->techLines = sf::VertexArray(sf::Lines, 2 * techTree->nodes.size());
 	size_t index = 0;

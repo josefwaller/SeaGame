@@ -33,4 +33,6 @@ private:
 	sf::VertexArray techLines;
 	// Get the button for a certain tech
 	tgui::Button::Ptr getButtonForTech(Technology t);
+	// Reset the lines connecting technologies
+	void resetLines();
 };
