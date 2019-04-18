@@ -2,6 +2,7 @@
 #include "Component.h"
 #include "GameResource.h"
 #include <TGUI/Gui.hpp>
+#include <TGUI/Container.hpp>
 
 class GuiComponent : public Component {
 public:
@@ -9,12 +10,8 @@ public:
 	static const float WINDOW_WIDTH;
 	// Height of the entity's window
 	static const float WINDOW_HEIGHT;
-	virtual void setParent(std::weak_ptr<Entity> parent) override;
 	// Show the entity's GUI on the screen
-	void show();
+	void show(tgui::Container::Ptr c);
 	// Hide the entity's GUI
-	void hide();
-private:
-	// The window which shows the data for this entity
-	tgui::ChildWindow::Ptr entityWindow;
+	void hide(tgui::Container::Ptr c);
 };

@@ -21,6 +21,6 @@ void ControllerComponent::onHit(HealthType t, int damageAmount)
 void ControllerComponent::onDeath() {}
 void ControllerComponent::onClick() {
 	if (this->getComponentList().gui) {
-		this->getComponentList().gui->show();
+		this->getGame()->getHud()->showEntity(this->getParent());
 	}
 }

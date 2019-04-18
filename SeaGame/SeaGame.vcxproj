@@ -153,6 +153,7 @@
     <ClCompile Include="src\ConversionBase.cpp" />
     <ClCompile Include="src\ConversionBaseController.cpp" />
     <ClCompile Include="src\ConversionRecipes.cpp" />
+    <ClCompile Include="src\DefaultScreen.cpp" />
     <ClCompile Include="src\DefensePirateShip.cpp" />
     <ClCompile Include="src\DefensePirateShipController.cpp" />
     <ClCompile Include="src\EnemyChasingShip.cpp" />
@@ -233,6 +234,7 @@
     <ClInclude Include="src\ConversionBaseController.h" />
     <ClInclude Include="src\ConversionRecipes.h" />
     <ClInclude Include="src\CraftRecipes.h" />
+    <ClInclude Include="src\DefaultScreen.h" />
     <ClInclude Include="src\DefensePirateShipController.h" />
     <ClInclude Include="src\EntityPrefabs.h" />
     <ClInclude Include="src\EntityType.h" />

@@ -212,6 +212,9 @@
     <Filter Include="Files\EntityPrefabs\Implementations">
       <UniqueIdentifier>{71207169-7c77-4ba0-b76a-5c82b195a440}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Files\GameHud\Components\DefaultScreen">
+      <UniqueIdentifier>{a754ee54-536a-4e61-8e00-7e7290c0ac3a}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\CannonBallController.cpp">
@@ -457,6 +460,9 @@
     <ClCompile Include="src\ResourceSource.cpp">
       <Filter>Files\EntityPrefabs\Implementations</Filter>
     </ClCompile>
+    <ClCompile Include="src\DefaultScreen.cpp">
+      <Filter>Files\GameHud\Components\DefaultScreen</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Component.h">
@@ -662,6 +668,9 @@
     </ClInclude>
     <ClInclude Include="src\Bases.h">
       <Filter>Files\EntityPrefabs</Filter>
+    </ClInclude>
+    <ClInclude Include="src\DefaultScreen.h">
+      <Filter>Files\GameHud\Components\DefaultScreen</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
