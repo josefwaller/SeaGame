@@ -13,7 +13,7 @@
 #include "Entity.h"
 #include <TGUI/SignalImpl.hpp>
 
-GameHud::GameHud(Game* g): researchScreen(g), buildScreen(g), pauseScreen(g), defaultScreen(g) {
+GameHud::GameHud(Game* g): researchScreen(g), buildScreen(g), pauseScreen(g), defaultScreen(g), selectScreen(g) {
 	this->game = g;
 	// Set click state to nothing initially
 	this->currentState = State::Nothing;
@@ -53,6 +53,10 @@ void GameHud::hideCurrent() {
 		break;
 	case State::Nothing:
 		this->hideDefault();
+		break;
+	case State::Selecting:
+		this->hideSelect();
+		break;
 	}
 }
 void GameHud::showResearch() {
@@ -98,23 +102,30 @@ void GameHud::showDefault() {
 void GameHud::hideDefault() {
 	this->defaultScreen.hide(this->game->getGui());
 }
+void GameHud::showSelect() {
+	this->hideDefault();
+	this->selectScreen.show(this->game->getGui());
+	this->currentState = State::Selecting;
+}
+void GameHud::hideSelect() {
+	this->selectScreen.hide(this->game->getGui());
+	this->currentState = State::Nothing;
+	this->showDefault();
+}
 void GameHud::showEntity(std::weak_ptr<Entity> e) {
 	this->defaultScreen.showEntity(e);
 }
 void GameHud::transferItems(std::weak_ptr<Entity> e, GameResource res, unsigned int amount) {
-	this->selectCallback = std::bind([&](
-		std::weak_ptr<Entity> to,
-		std::weak_ptr<Entity> from,
-		GameResource res,
-		unsigned int amount) {
+	this->selectScreen.setCallback([e, res, amount](
+		std::weak_ptr<Entity> to) {
 		// Ensure both entities still exist
-		if (to.lock() && from.lock()) {
+		if (to.lock() && e.lock()) {
 			// Remove resources
-			from.lock()->components.inventory->removeItems(res, amount);
+			e.lock()->components.inventory->removeItems(res, amount);
 			// Add resources
 			to.lock()->components.inventory->addItems(res, amount);
 		}
-	}, std::placeholders::_1, e, res, amount);
+	});
 	this->currentState = State::Selecting;
 }
 void GameHud::onClick(sf::Vector2f pos) {
@@ -125,19 +136,12 @@ void GameHud::onClick(sf::Vector2f pos) {
 		this->buildScreen.onClick(pos);
 	}
 	else if (this->currentState == State::Selecting) {
-		for (auto e : this->game->getEntities()) {
-			if (e->components.click) {
-				if (e->components.click->checkForClick(pos)) {
-					this->selectCallback(e);
-					this->currentState = State::Nothing;
-				}
-			}
-		}
+		this->selectScreen.onClick(pos);
 	}
 }
 void GameHud::selectEntity(std::function<void(std::weak_ptr<Entity> entity)> callback) {
-	this->selectCallback = callback;
-	this->currentState = State::Selecting;
+	this->selectScreen.setCallback(callback);
+	this->showSelect();
 }
 void GameHud::addAnnouncement(std::string announcement) {
 	this->defaultScreen.addAnnoucnement(announcement);

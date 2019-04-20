@@ -5,6 +5,8 @@
 #include <TGUI/Widgets/Group.hpp>
 #include <TGUI/Widgets/Button.hpp>
 #include <TGUI/SignalImpl.hpp>
+#include <TGUI/Widgets/ChildWindow.hpp>
+#include <TGUI/Widgets/VerticalLayout.hpp>
 // Player health display
 #include "HealthComponent.h"
 // Checking for click/running click code

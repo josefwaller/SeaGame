@@ -1,6 +1,7 @@
 #include "PauseScreen.h"
 #include "Game.h"
 #include <TGUI/Widgets/ChildWindow.hpp>
+#include <TGUI/Widgets/VerticalLayout.hpp>
 #include <TGUI/SignalImpl.hpp>
 
 PauseScreen::PauseScreen(Game* g) {

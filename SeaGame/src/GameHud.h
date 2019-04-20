@@ -3,16 +3,8 @@
 #include "BuildScreen.h"
 #include "PauseScreen.h"
 #include "DefaultScreen.h"
-#include <TGUI/Widgets/ChildWindow.hpp>
-#include <TGUI/Widgets/Label.hpp>
-#include <TGUI/Widgets/Button.hpp>
-#include <TGUI/Widgets/ProgressBar.hpp>
-#include <TGUI/Widgets/Group.hpp>
-#include <TGUI/Widgets/VerticalLayout.hpp>
-#include <TGUI/Widgets/TextBox.hpp>
-#include <queue>
-#include <functional>
-#include <utility>
+#include "SelectScreen.h"
+#include <TGUI/Container.hpp>
 // Forward Declarations
 class Game;
 struct Entity;
@@ -33,7 +25,7 @@ public:
 		// The research screen
 		Research,
 		// Showing the pause screen (i.e. menu)
-		Paused
+		Paused,
 	};
 	// Update widgets that need updating
 	void update();
@@ -57,6 +49,9 @@ public:
 	// Show/hide the default screen
 	void showDefault();
 	void hideDefault();
+	// Show/Hide the select screen
+	void showSelect();
+	void hideSelect();
 	// Transfer items between entities by clicking between them
 	void transferItems(std::weak_ptr<Entity> e, GameResource res, unsigned int amount);
 	// Add an announcement
@@ -68,7 +63,6 @@ private:
 	Game* game;
 	// Current Click state
 	State currentState;
-	tgui::VerticalLayout::Ptr announcementContainer;
 	// The research screen
 	ResearchScreen researchScreen;
 	// The build screen
@@ -77,6 +71,8 @@ private:
 	PauseScreen pauseScreen;
 	// The default screen
 	DefaultScreen defaultScreen;
+	// The screen for when the player is selecting an entity, i.e. to choose where a ferry goes
+	SelectScreen selectScreen;
 	/*
 	 * There are two ways to select something via clicking on it
 	 * Selecting a point, or selecting an entity

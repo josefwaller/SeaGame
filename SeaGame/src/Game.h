@@ -4,6 +4,9 @@
 #include "SimpleCollisionListener.h"
 #include "GameResource.h"
 #include "TechTree.h"
+#include <TGUI/Widgets/TextBox.hpp>
+#include <vector>
+#include <memory>
 //For dec of app
 class App;
 class b2World;

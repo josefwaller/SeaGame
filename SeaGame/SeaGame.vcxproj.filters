@@ -215,6 +215,9 @@
     <Filter Include="Files\GameHud\Components\DefaultScreen">
       <UniqueIdentifier>{a754ee54-536a-4e61-8e00-7e7290c0ac3a}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Files\GameHud\Components\SelectScreen">
+      <UniqueIdentifier>{a473ade9-dbf2-46d4-be6f-4132766a911e}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\CannonBallController.cpp">
@@ -463,6 +466,9 @@
     <ClCompile Include="src\DefaultScreen.cpp">
       <Filter>Files\GameHud\Components\DefaultScreen</Filter>
     </ClCompile>
+    <ClCompile Include="src\SelectScreen.cpp">
+      <Filter>Files\GameHud\Components\SelectScreen</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Component.h">
@@ -671,6 +677,9 @@
     </ClInclude>
     <ClInclude Include="src\DefaultScreen.h">
       <Filter>Files\GameHud\Components\DefaultScreen</Filter>
+    </ClInclude>
+    <ClInclude Include="src\SelectScreen.h">
+      <Filter>Files\GameHud\Components\SelectScreen</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
