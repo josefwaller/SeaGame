@@ -272,6 +272,14 @@ std::vector<CraftingRecipes::CraftRecipe> CraftingRecipes::recipes = {
 		getResourceSprite(GameResource::Wood),
 		buildNoResBase(EntityPrefabs::generationBase(g, getBaseCoords(pos), GameResource::Wood)),
 		noResBaseValid
+	},
+	{
+		{},
+		Technology::Exports,
+		"Export Base",
+		ResourceManager::get()->getSprite("medievalRTS_spritesheet", "medievalStructure_02.png", false),
+		buildNoResBase(EntityPrefabs::exportBase(g, getBaseCoords(pos))),
+		noResBaseValid
 	}
 };
 #undef buildResBase

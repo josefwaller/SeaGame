@@ -469,6 +469,9 @@
     <ClCompile Include="src\SelectScreen.cpp">
       <Filter>Files\GameHud\Components\SelectScreen</Filter>
     </ClCompile>
+    <ClCompile Include="src\ExportsBase.cpp">
+      <Filter>Files\EntityPrefabs\Implementations</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Component.h">
@@ -671,9 +674,6 @@
     </ClInclude>
     <ClInclude Include="src\PauseScreen.h">
       <Filter>Files\GameHud\Components\PauseScreen</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Bases.h">
-      <Filter>Files\EntityPrefabs</Filter>
     </ClInclude>
     <ClInclude Include="src\DefaultScreen.h">
       <Filter>Files\GameHud\Components\DefaultScreen</Filter>

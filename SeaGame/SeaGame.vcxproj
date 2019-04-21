@@ -160,6 +160,7 @@
     <ClCompile Include="src\Entity.cpp" />
     <ClCompile Include="src\EntityPrefabs.cpp" />
     <ClCompile Include="src\Explosion.cpp" />
+    <ClCompile Include="src\ExportsBase.cpp" />
     <ClCompile Include="src\Ferry.cpp" />
     <ClCompile Include="src\FerryShipController.cpp" />
     <ClCompile Include="src\Game.cpp" />
@@ -220,7 +221,6 @@
     <ClInclude Include="src\AutomatedShipController.h" />
     <ClInclude Include="src\BaseController.h" />
     <ClInclude Include="src\BaseRenderer.h" />
-    <ClInclude Include="src\Bases.h" />
     <ClInclude Include="src\BasicTransform.h" />
     <ClInclude Include="src\Box2dClick.h" />
     <ClInclude Include="src\Box2dTransform.h" />

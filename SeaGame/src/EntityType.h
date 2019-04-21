@@ -15,5 +15,6 @@ enum class EntityType {
 	ResourceDeposit = 11,
 	DefensePirateShip = 12,
 	PirateFortress = 13,
-	AttackPirateShip = 14
+	AttackPirateShip = 14,
+	ExportBase = 15
 };
