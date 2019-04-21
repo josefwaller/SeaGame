@@ -1,25 +1,25 @@
 #include "EntityPrefabs.h"
 #include "Entity.h"
+#include "Game.h"
 #include "Box2dTransform.h"
-#include "ExportBaseController.h"
-#include "BaseRenderer.h"
+#include "ShipRenderer.h"
+#include "PhysicsComponent.h"
 #include "HealthComponent.h"
 #include "InventoryComponent.h"
 #include "GuiComponent.h"
 #include "Box2dClick.h"
-#include "Game.h"
 
-entity_ptr EntityPrefabs::exportBase(Game* g, sf::Vector2f pos) {
+entity_ptr EntityPrefabs::exportShip(Game* g, sf::Vector2f pos) {
 	return buildEntity(new Entity(
 		g,
 		0,
-		EntityType::ExportBase,
-		EntityTag::Base,
+		EntityType::ExportShip,
+		EntityTag::Ship,
 		ComponentList(
-			new Box2dTransform(getBaseBody(g, pos, 0.0f)),
-			new ExportBaseController(),
-			new BaseRenderer(),
+			new Box2dTransform(getShipBody(g, pos, 0.0f)),
 			nullptr,
+			new ShipRenderer(ShipRenderer::SailColor::Yellow),
+			new PhysicsComponent(),
 			new HealthComponent(100),
 			new InventoryComponent(),
 			new GuiComponent(),

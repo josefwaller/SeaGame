@@ -218,6 +218,9 @@
     <Filter Include="Files\GameHud\Components\SelectScreen">
       <UniqueIdentifier>{a473ade9-dbf2-46d4-be6f-4132766a911e}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Files\Components\Controllers\BaseControllers\ExportBaseController">
+      <UniqueIdentifier>{bd26158e-82c3-4e47-9b36-5538e9adaa83}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\CannonBallController.cpp">
@@ -472,6 +475,12 @@
     <ClCompile Include="src\ExportsBase.cpp">
       <Filter>Files\EntityPrefabs\Implementations</Filter>
     </ClCompile>
+    <ClCompile Include="src\ExportBaseController.cpp">
+      <Filter>Files\Components\Controllers\BaseControllers\ExportBaseController</Filter>
+    </ClCompile>
+    <ClCompile Include="src\ExportShip.cpp">
+      <Filter>Files\EntityPrefabs\Implementations</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Component.h">
@@ -680,6 +689,9 @@
     </ClInclude>
     <ClInclude Include="src\SelectScreen.h">
       <Filter>Files\GameHud\Components\SelectScreen</Filter>
+    </ClInclude>
+    <ClInclude Include="src\ExportBaseController.h">
+      <Filter>Files\Components\Controllers\BaseControllers\ExportBaseController</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
