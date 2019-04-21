@@ -31,9 +31,9 @@ enum Technology {
 	UpgradedCannons,
 	MilitaryShips,
 	Fleets,
-	EscapeShip,
 	DeepMining,
-	SustainableForests
+	SustainableForests,
+	Exports
 };
 
 struct TechTreeNode {

@@ -23,7 +23,7 @@ TechTree::TechTree() {
 		{
 			Technology::FasterFerries,
 			TechTreeNode("Fast Ferries", Technology::MultipleStops, TIER_3_COST,
-"Increases the speed of ferries")
+			"Increases the speed of ferries")
 		},
 		{
 			Technology::Mines,
@@ -116,11 +116,6 @@ TechTree::TechTree() {
 			"Allows creating a leader ship with a target, which other military ships can be assigned to.")
 		},
 		{
-			Technology::EscapeShip,
-			TechTreeNode("Escape Ship", Technology::FasterFerries, TIER_5_COST,
-			"Allows creating a ship capable of leaving the islands. This is your final goal")
-		},
-		{
 			Technology::DeepMining,
 			TechTreeNode("Deep Mining", Technology::Mines, TIER_4_COST,
 			"Allows creating a deep mining base which never runs out of resources")
@@ -129,6 +124,11 @@ TechTree::TechTree() {
 			Technology::SustainableForests,
 			TechTreeNode("Sustainable Forestry", Technology::Forestries, TIER_4_COST,
 			"Allows creating a forestry which never runs out of wood")
+		},
+		{
+			Technology::Exports,
+			TechTreeNode("Exports", Technology::FasterFerries, TIER_5_COST,
+			"Allows building bases which sends resources back home for a lot of money. Building this is your end goal.")
 		}
 	};
 }
