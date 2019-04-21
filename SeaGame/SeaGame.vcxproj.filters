@@ -221,6 +221,9 @@
     <Filter Include="Files\Components\Controllers\BaseControllers\ExportBaseController">
       <UniqueIdentifier>{bd26158e-82c3-4e47-9b36-5538e9adaa83}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Files\Components\Controllers\ShipControllers\ExportShipController">
+      <UniqueIdentifier>{f93677b6-94db-4b6b-bd89-af155857c0de}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\CannonBallController.cpp">
@@ -481,6 +484,9 @@
     <ClCompile Include="src\ExportShip.cpp">
       <Filter>Files\EntityPrefabs\Implementations</Filter>
     </ClCompile>
+    <ClCompile Include="src\ExportShipController.cpp">
+      <Filter>Files\Components\Controllers\ShipControllers\ExportShipController</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Component.h">
@@ -692,6 +698,9 @@
     </ClInclude>
     <ClInclude Include="src\ExportBaseController.h">
       <Filter>Files\Components\Controllers\BaseControllers\ExportBaseController</Filter>
+    </ClInclude>
+    <ClInclude Include="src\ExportShipController.h">
+      <Filter>Files\Components\Controllers\ShipControllers\ExportShipController</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

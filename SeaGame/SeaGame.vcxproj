@@ -210,6 +210,7 @@
     <ClCompile Include="src\SimpleCollisionListener.cpp" />
     <ClCompile Include="src\CraftRecipes.cpp" />
     <ClCompile Include="src\LimitedGenBaseController.cpp" />
+    <ClCompile Include="src\ExportShipController.cpp" />
     <ClCompile Include="src\SpriteRenderer.cpp" />
     <ClCompile Include="src\BasicTransform.cpp" />
     <ClCompile Include="src\TechTree.cpp" />
@@ -242,6 +243,7 @@
     <ClInclude Include="src\EntityPrefabs.h" />
     <ClInclude Include="src\EntityType.h" />
     <ClInclude Include="src\ExportBaseController.h" />
+    <ClInclude Include="src\ExportShipController.h" />
     <ClInclude Include="src\FerryShipController.h" />
     <ClInclude Include="src\GameHud.h" />
     <ClInclude Include="src\GameResource.h" />

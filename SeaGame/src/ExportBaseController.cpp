@@ -3,7 +3,7 @@
 
 void ExportBaseController::update(float delta) {
 	if (!this->ship.lock()) {
-		auto s = EntityPrefabs::exportShip(this->getGame(), this->getDockCoords());
+		auto s = EntityPrefabs::exportShip(this->getGame(), this->getDockCoords(), this->getParent());
 		this->ship = s;
 		this->getGame()->addEntity(s);
 	}
