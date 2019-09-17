@@ -19,7 +19,7 @@ namespace sf {
 class Game
 {
 public:
-	static const unsigned int STARTING_MONEY = 20000;
+	static const unsigned int STARTING_MONEY;
 	// Convert between world units and box2d units
 	static const float BOX2D_TO_WORLD;
 	static const float WORLD_TO_BOX2D;

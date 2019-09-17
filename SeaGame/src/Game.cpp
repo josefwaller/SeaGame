@@ -18,6 +18,8 @@
 
 const float Game::BOX2D_TO_WORLD = 100.0f;
 const float Game::WORLD_TO_BOX2D = 1 / Game::BOX2D_TO_WORLD;
+const unsigned int Game::STARTING_MONEY = 20000000;
+
 Game::~Game() {
 	this->app->getGui()->remove(this->guiContainer);
 }
