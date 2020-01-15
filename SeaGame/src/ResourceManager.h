@@ -1,7 +1,10 @@
 #pragma once
 #include <string>
-#include <SFML/Graphics.hpp>
+#include <SFML/Graphics/Texture.hpp>
+#include <SFML/Graphics/Sprite.hpp>
+#include <SFML/Graphics/Rect.hpp>
 #include "LayoutSprite.h"
+#include <rapidxml\rapidxml.hpp>
 
 class ResourceManager
 {
@@ -21,4 +24,8 @@ private:
 	std::map<std::string, std::map<std::string, LayoutSprite>> layouts;
 	void ensureSheetIsLoaded(std::string sheetName);
 	void loadSpritesheet(std::string sheetName);
+	// Read file as a spritesheet and add it to sprites
+	void readAsSpriteSheet(std::string sheetName, rapidxml::xml_document<>& doc);
+	// Read file as a tilesheet and add it to sprites
+	void readAsTileSheet(std::string sheetName, rapidxml::xml_document<>& doc);
 };

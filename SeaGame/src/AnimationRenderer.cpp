@@ -1,12 +1,10 @@
 #include "AnimationRenderer.h"
 
 AnimationRenderer::AnimationRenderer(
-	std::weak_ptr<Entity> parent,
 	std::vector<sf::Sprite> sprites,
 	float dur,
 	size_t z,
 	bool loop)
-	: RenderComponent(parent)
 {
 	this->sprites = sprites;
 	this->duration = dur;
@@ -28,13 +26,13 @@ void AnimationRenderer::render(RenderManager& r)
 			}
 			else {
 				// Remove parent
-				this->getParent()->game->removeEntity(this->getParent());
+				this->getGame()->removeEntity(this->getParent());
 				return;
 			}
 		}
 		this->sClock.restart();
 	}
 	sf::Sprite s = this->sprites[this->index];
-	s.setPosition(this->getParent()->transform->getPosition());
+	s.setPosition(this->getComponentList().transform->getPosition());
 	r.add(s, this->zIndex);
 }

@@ -1,3 +1,29 @@
-<TextureAtlas imagePath="tiles.png">
-    <SubTexture name="sea" x="512" y="256" width="64" height="64" />
-</TextureAtlas>
+<TileSetAtlas path="tiles.png" size="64">
+    <!-- Define each tile by the type of edges it has
+         i.e. each edge is either sea or land
+         Note that there is always a 1 tile border of sand around islands,
+         and the rest of the islands are grass.
+         Names start at the top edge and go clockwise -->
+     <Tile x="5" y="0" name="sea-land-land-sea"/>
+     <Tile x="6" y="0" name="sea-land-land-land"/>
+     <Tile x="8" y="0" name="sea-sea-land-land"/>
+     <Tile x="5" y="1" name="land-land-land-sea"/>
+     <Tile x="6" y="1" name="land-land-land-land"/>
+     <Tile x="8" y="1" name="land-sea-land-land"/>
+     <Tile x="3" y="2" name="land-land-land-land"/>
+     <Tile x="4" y="2" name="land-land-land-land"/>
+     <Tile x="3" y="3" name="land-land-land-land"/>
+     <Tile x="4" y="3" name="land-land-land-land"/>
+     <Tile x="5" y="3" name="land-land-sea-sea"/>
+     <Tile x="6" y="3" name="land-land-sea-land"/>
+     <Tile x="8" y="3" name="land-sea-sea-land"/>
+     <Tile x="8" y="4" name="sea-sea-sea-sea"/>
+     <!-- Non-terrain tiles, mostly for base building -->
+     <Tile x="12" y="0" name="tower" />
+     <Tile x="14" y="0" name="wall-vertical" />
+     <Tile x="15" y="0" name="wall-horizontal" />
+     <Tile x="14" y="3" name="wall-down" />
+     <Tile x="15" y="3" name="wall-right" />
+     <Tile x="14" y="4" name="wall-up" />
+     <Tile x="15" y="4" name="wall-left" />
+</TileSetAtlas>

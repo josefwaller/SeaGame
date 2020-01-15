@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup Label="ProjectConfigurations">
     <ProjectConfiguration Include="Debug|Win32">
@@ -84,11 +84,15 @@
       <SDLCheck>true</SDLCheck>
       <AdditionalUsingDirectories>%(AdditionalUsingDirectories)</AdditionalUsingDirectories>
       <PreprocessorDefinitions>_MBCS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>..\packages\rapidxml.1.13\build\native\include;..\SFML-2.4.2\include</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\Users\josef\Documents\Github\SeaGame\PerlinNoise;C:\Users\josef\Documents\Github\SeaGame\TGUI-0.8\include;..\packages\rapidxml.1.13\build\native\include;C:\Users\josef\Documents\Github\SeaGame\SFML-2.5.1\include;C:\Users\josef\Documents\Github\SeaGame\</AdditionalIncludeDirectories>
+      <LanguageStandard>stdcpp17</LanguageStandard>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
+      <AdditionalOptions>/Bt+ %(AdditionalOptions)</AdditionalOptions>
+      <ShowIncludes>false</ShowIncludes>
     </ClCompile>
     <Link>
-      <AdditionalDependencies>sfml-graphics-d.lib;sfml-system-d.lib;sfml-main-d.lib;sfml-window-d.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <AdditionalLibraryDirectories>..\SFML-2.4.2\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>Box2D_d.lib;sfml-graphics-d.lib;sfml-system-d.lib;sfml-main-d.lib;sfml-window-d.lib;tgui-d.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>C:\Users\josef\Documents\Github\SeaGame\TGUI-0.8\lib;C:\Users\josef\Documents\Github\SeaGame\SFML-2.5.1\lib;C:\Users\josef\Documents\Github\SeaGame\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -111,66 +115,178 @@
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
-      <AdditionalIncludeDirectories>..\packages\rapidxml.1.13\build\native\include;..\SFML-2.4.2\include</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\Users\josef\Documents\Github\SeaGame\PerlinNoise;C:\Users\josef\Documents\Github\SeaGame\TGUI-0.8\include;..\packages\rapidxml.1.13\build\native\include;C:\Users\josef\Documents\Github\SeaGame\SFML-2.5.1\include;C:\Users\josef\Documents\Github\SeaGame\</AdditionalIncludeDirectories>
+      <LanguageStandard>stdcpp17</LanguageStandard>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
+      <AdditionalOptions>/Bt+ %(AdditionalOptions)</AdditionalOptions>
+      <ShowIncludes>false</ShowIncludes>
     </ClCompile>
     <Link>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
-      <AdditionalLibraryDirectories>..\SFML-2.4.2\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>sfml-window.lib;sfml-graphics.lib;sfml-system.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>C:\Users\josef\Documents\Github\SeaGame\TGUI-0.8\lib;C:\Users\josef\Documents\Github\SeaGame\SFML-2.5.1\lib;C:\Users\josef\Documents\Github\SeaGame\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>Box2D.lib;sfml-window.lib;sfml-graphics.lib;sfml-system.lib;tgui.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="src\AnimationRenderer.cpp" />
-    <ClCompile Include="src\BoxCollider.cpp" />
+    <ClCompile Include="src\App.cpp" />
+    <ClCompile Include="src\AttackPirateShip.cpp" />
+    <ClCompile Include="src\AttackPirateShipController.cpp" />
+    <ClCompile Include="src\AutomatedShipController.cpp" />
+    <ClCompile Include="src\BaseController.cpp" />
+    <ClCompile Include="src\BaseRenderer.cpp" />
+    <ClCompile Include="src\Box2dClick.cpp" />
+    <ClCompile Include="src\Box2dTransform.cpp" />
+    <ClCompile Include="src\BuildScreen.cpp" />
+    <ClCompile Include="src\Cannonball.cpp" />
     <ClCompile Include="src\CannonBallController.cpp" />
+    <ClCompile Include="src\Canon.cpp" />
     <ClCompile Include="src\ChasingShipController.cpp" />
-    <ClCompile Include="src\CircleCollider.cpp" />
-    <ClCompile Include="src\ColliderComponent.cpp" />
+    <ClCompile Include="src\City.cpp" />
+    <ClCompile Include="src\CityController.cpp" />
+    <ClCompile Include="src\CityRenderer.cpp" />
+    <ClCompile Include="src\ClickComponent.cpp" />
     <ClCompile Include="src\Component.cpp" />
+    <ClCompile Include="src\ComponentList.cpp" />
     <ClCompile Include="src\ControllerComponent.cpp" />
+    <ClCompile Include="src\ConversionBase.cpp" />
+    <ClCompile Include="src\ConversionBaseController.cpp" />
+    <ClCompile Include="src\ConversionRecipes.cpp" />
+    <ClCompile Include="src\DefaultScreen.cpp" />
+    <ClCompile Include="src\DefensePirateShip.cpp" />
+    <ClCompile Include="src\DefensePirateShipController.cpp" />
+    <ClCompile Include="src\EnemyChasingShip.cpp" />
+    <ClCompile Include="src\Entity.cpp" />
     <ClCompile Include="src\EntityPrefabs.cpp" />
+    <ClCompile Include="src\Explosion.cpp" />
+    <ClCompile Include="src\ExportBaseController.cpp" />
+    <ClCompile Include="src\ExportsBase.cpp" />
+    <ClCompile Include="src\ExportShip.cpp" />
+    <ClCompile Include="src\Ferry.cpp" />
+    <ClCompile Include="src\FerryShipController.cpp" />
     <ClCompile Include="src\Game.cpp" />
+    <ClCompile Include="src\GameHud.cpp" />
     <ClCompile Include="src\GameMap.cpp" />
+    <ClCompile Include="src\GameResource.cpp" />
+    <ClCompile Include="src\GenerationBase.cpp" />
+    <ClCompile Include="src\GuiComponent.cpp" />
     <ClCompile Include="src\HealthComponent.cpp" />
+    <ClCompile Include="src\InventoryComponent.cpp" />
     <ClCompile Include="src\LayoutSprite.cpp" />
+    <ClCompile Include="src\LimitedGenerationBase.cpp" />
     <ClCompile Include="src\main.cpp" />
+    <ClCompile Include="src\MainMenu.cpp" />
+    <ClCompile Include="src\MilitaryBase.cpp" />
+    <ClCompile Include="src\MilitaryBaseController.cpp" />
+    <ClCompile Include="src\MilitaryBaseRenderer.cpp" />
+    <ClCompile Include="src\GenerationBaseController.cpp" />
+    <ClCompile Include="src\MiningBaseRenderer.cpp" />
+    <ClCompile Include="src\PauseScreen.cpp" />
+    <ClCompile Include="src\PhysicsComponent.cpp" />
+    <ClCompile Include="src\PirateBase.cpp" />
+    <ClCompile Include="src\PirateBaseController.cpp" />
+    <ClCompile Include="src\PirateBaseRenderer.cpp" />
+    <ClCompile Include="src\PirateFortress.cpp" />
+    <ClCompile Include="src\PirateFortressController.cpp" />
+    <ClCompile Include="src\PirateShipController.cpp" />
+    <ClCompile Include="src\PlayerShip.cpp" />
     <ClCompile Include="src\PlayerShipController.cpp" />
+    <ClCompile Include="src\RectangleClick.cpp" />
     <ClCompile Include="src\RenderComponent.cpp" />
     <ClCompile Include="src\RenderManager.cpp" />
+    <ClCompile Include="src\ResearchScreen.cpp" />
+    <ClCompile Include="src\ResourceController.cpp" />
     <ClCompile Include="src\ResourceManager.cpp" />
+    <ClCompile Include="src\ResourceRenderer.cpp" />
+    <ClCompile Include="src\ResourceSource.cpp" />
+    <ClCompile Include="src\RespawnPlayerShip.cpp" />
+    <ClCompile Include="src\RespawnPlayerShipController.cpp" />
+    <ClCompile Include="src\SaveData.cpp" />
+    <ClCompile Include="src\SaveFile.cpp" />
+    <ClCompile Include="src\SelectScreen.cpp" />
     <ClCompile Include="src\ShipController.cpp" />
-    <ClCompile Include="src\ShipHealth.cpp" />
     <ClCompile Include="src\ShipRenderer.cpp" />
-    <ClCompile Include="src\SimpleHealth.cpp" />
+    <ClCompile Include="src\SimpleCollisionListener.cpp" />
+    <ClCompile Include="src\CraftRecipes.cpp" />
+    <ClCompile Include="src\LimitedGenBaseController.cpp" />
+    <ClCompile Include="src\ExportShipController.cpp" />
     <ClCompile Include="src\SpriteRenderer.cpp" />
+    <ClCompile Include="src\BasicTransform.cpp" />
+    <ClCompile Include="src\TechTree.cpp" />
+    <ClCompile Include="src\Tile.cpp" />
     <ClCompile Include="src\TransformComponent.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\AnimationRenderer.h" />
-    <ClInclude Include="src\BoxCollider.h" />
+    <ClInclude Include="src\App.h" />
+    <ClInclude Include="src\AttackPirateShipController.h" />
+    <ClInclude Include="src\AutomatedShipController.h" />
+    <ClInclude Include="src\BaseController.h" />
+    <ClInclude Include="src\BaseRenderer.h" />
+    <ClInclude Include="src\BasicTransform.h" />
+    <ClInclude Include="src\Box2dClick.h" />
+    <ClInclude Include="src\Box2dTransform.h" />
+    <ClInclude Include="src\BuildScreen.h" />
+    <ClInclude Include="src\Cannon.h" />
     <ClInclude Include="src\CannonBallController.h" />
     <ClInclude Include="src\ChasingShipController.h" />
-    <ClInclude Include="src\CircleCollider.h" />
-    <ClInclude Include="src\ColliderComponent.h" />
+    <ClInclude Include="src\CityController.h" />
+    <ClInclude Include="src\CityRenderer.h" />
+    <ClInclude Include="src\ClickComponent.h" />
+    <ClInclude Include="src\ComponentList.h" />
+    <ClInclude Include="src\ConversionBaseController.h" />
+    <ClInclude Include="src\ConversionRecipes.h" />
+    <ClInclude Include="src\CraftRecipes.h" />
+    <ClInclude Include="src\DefaultScreen.h" />
+    <ClInclude Include="src\DefensePirateShipController.h" />
     <ClInclude Include="src\EntityPrefabs.h" />
+    <ClInclude Include="src\EntityType.h" />
+    <ClInclude Include="src\ExportBaseController.h" />
+    <ClInclude Include="src\ExportShipController.h" />
+    <ClInclude Include="src\FerryShipController.h" />
+    <ClInclude Include="src\GameHud.h" />
+    <ClInclude Include="src\GameResource.h" />
+    <ClInclude Include="src\GuiComponent.h" />
     <ClInclude Include="src\HealthComponent.h" />
     <ClInclude Include="src\HealthType.h" />
+    <ClInclude Include="src\InventoryComponent.h" />
     <ClInclude Include="src\LayoutSprite.h" />
     <ClInclude Include="src\ControllerComponent.h" />
     <ClInclude Include="src\Component.h" />
     <ClInclude Include="src\Entity.h" />
     <ClInclude Include="src\Game.h" />
     <ClInclude Include="src\GameMap.h" />
+    <ClInclude Include="src\LimitedGenBaseController.h" />
+    <ClInclude Include="src\MainMenu.h" />
+    <ClInclude Include="src\MilitaryBaseController.h" />
+    <ClInclude Include="src\MilitaryBaseRenderer.h" />
+    <ClInclude Include="src\GenerationBaseController.h" />
+    <ClInclude Include="src\MiningBaseRenderer.h" />
+    <ClInclude Include="src\PauseScreen.h" />
+    <ClInclude Include="src\PhysicsComponent.h" />
+    <ClInclude Include="src\PirateBaseController.h" />
+    <ClInclude Include="src\PirateBaseRenderer.h" />
+    <ClInclude Include="src\PirateFortressController.h" />
+    <ClInclude Include="src\PirateShipController.h" />
     <ClInclude Include="src\PlayerShipController.h" />
+    <ClInclude Include="src\RectangleClick.h" />
     <ClInclude Include="src\RenderComponent.h" />
     <ClInclude Include="src\RenderManager.h" />
+    <ClInclude Include="src\ResearchScreen.h" />
+    <ClInclude Include="src\ResourceController.h" />
     <ClInclude Include="src\ResourceManager.h" />
+    <ClInclude Include="src\ResourceRenderer.h" />
+    <ClInclude Include="src\RespawnPlayerShipController.h" />
+    <ClInclude Include="src\SaveData.h" />
+    <ClInclude Include="src\SaveFile.h" />
+    <ClInclude Include="src\SelectScreen.h" />
     <ClInclude Include="src\ShipController.h" />
-    <ClInclude Include="src\ShipHealth.h" />
     <ClInclude Include="src\ShipRenderer.h" />
-    <ClInclude Include="src\SimpleHealth.h" />
+    <ClInclude Include="src\SimpleCollisionListener.h" />
     <ClInclude Include="src\SpriteRenderer.h" />
+    <ClInclude Include="src\TechTree.h" />
+    <ClInclude Include="src\Tile.h" />
     <ClInclude Include="src\TransformComponent.h" />
     <ClInclude Include="src\Triangle.h" />
   </ItemGroup>

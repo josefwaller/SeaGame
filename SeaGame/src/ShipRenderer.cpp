@@ -1,34 +1,35 @@
 #include "ShipRenderer.h"
 #include "ResourceManager.h"
 #include "ShipController.h"
+#include "AutomatedShipController.h"
 
-std::string ShipRenderer::getSailColorString(ShipRenderer::SAIL_COLOR color)
+std::string ShipRenderer::getSailColorString(ShipRenderer::SailColor color)
 {
 	switch (color) {
-	case SAIL_COLOR::Red:
+	case SailColor::Red:
 		return "Red";
-	case SAIL_COLOR::Blue:
+	case SailColor::Blue:
 		return "Blue";
-	case SAIL_COLOR::Yellow:
+	case SailColor::Yellow:
 		return "Yellow";
-	case SAIL_COLOR::Green:
+	case SailColor::Green:
 		return "Green";
-	case SAIL_COLOR::Black:
+	case SailColor::Black:
 		return "Black";
-	case SAIL_COLOR::White:
+	case SailColor::White:
 		return "White";
 	default:
 		return "White";
 	}
 }
-ShipRenderer::ShipRenderer(std::weak_ptr<Entity> parent, SAIL_COLOR sailColor) : RenderComponent(parent)
+ShipRenderer::ShipRenderer(SailColor sailColor)
 {
 	this->hull = ResourceManager::get()->getSprite("ships", "hullLarge.png", true);
 	this->bigSail = ResourceManager::get()->getSprite(
 		"ships",
 		"sailLarge" + getSailColorString(sailColor) + ".png",
 		true);
-	this->hasSmallSail = (sailColor != SAIL_COLOR::Black && sailColor != SAIL_COLOR::White);
+	this->hasSmallSail = (sailColor != SailColor::Black && sailColor != SailColor::White);
 	if (this->hasSmallSail) {
 		this->smallSail = ResourceManager::get()->getSprite(
 			"ships",
@@ -53,8 +54,8 @@ void ShipRenderer::render(RenderManager& r)
 	// Get the layout
 	std::map<std::string, LayoutSprite> layout = ResourceManager::get()->getLayout("smallShip");
 	// Get this entity's position and rotation for easy access
-	sf::Vector2f pos = this->getParent()->transform->getPosition();
-	float rot = this->getParent()->transform->getRotation() * 180.0f / (float)M_PI;
+	sf::Vector2f pos = this->getComponentList().transform->getPosition();
+	float rot = this->getComponentList().transform->getRotation() * 180.0f / (float)M_PI;
 	// Position all sprites in the ship
 	positionLayoutSprite(this->hull, layout["hull"], pos, rot);
 	positionLayoutSprite(this->bigSail, layout["bigSail"], pos, rot);
@@ -67,11 +68,18 @@ void ShipRenderer::render(RenderManager& r)
 	r.add(this->bigSail, RenderManager::INDEX_SAILS);
 	if (this->hasSmallSail)
 		r.add(this->smallSail, RenderManager::INDEX_SAILS);
+	if (auto c = std::dynamic_pointer_cast<AutomatedShipController>(this->getComponentList().controller)) {
+		sf::Sprite s = ResourceManager::get()->getSprite("ships", "crew (1).png", true);
+		for (auto it : c->points) {
+			s.setPosition(it + sf::Vector2f(32.0f, 32.0f));
+			r.add(s, RenderManager::INDEX_SAILS);
+		}
+	}
 
 }
 void ShipRenderer::reset()
 {
-	if (auto cont = std::dynamic_pointer_cast<ShipController>(this->getParent()->controller)) {
+	if (auto cont = std::dynamic_pointer_cast<ShipController>(this->getComponentList().controller)) {
 		this->swivelAngle = cont->getSwivelAngle();
 	}
 	this->setSprites();
@@ -81,33 +89,33 @@ void ShipRenderer::setSprites()
 {
 	this->bigSail = ResourceManager::get()->getSprite(
 		"ships",
-		"sailLarge" + this->getSailColorString(this->sailColor) + this->getDamageString(HealthType::Sails) + ".png",
+		"sailLarge" + this->getSailColorString(this->sailColor) + this->getDamageString() + ".png",
 		true);
 	if (this->hasSmallSail) {
 		// Small sails only have 1 destroyed sprite, rather than 1 for each color
 		// So if the small sail is destroyed, don't have a color string
 		std::string colorName = this->getSailColorString(this->sailColor);
-		if (this->getParent()->health != nullptr && this->getParent()->health->getHealth(HealthType::Sails) == 0)
+		if (this->getComponentList().health != nullptr && this->getComponentList().health->getHealth() == 0)
 			colorName = "";
 		this->smallSail = ResourceManager::get()->getSprite(
 			"ships",
-			"sailSmall" + colorName + this->getDamageString(HealthType::Sails) + ".png",
+			"sailSmall" + colorName + this->getDamageString() + ".png",
 			true
 		);
 	}
 	this->hull = ResourceManager::get()->getSprite(
 		"ships",
-		"hullLarge" + this->getDamageString(HealthType::Hull) + ".png",
+		"hullLarge" + this->getDamageString() + ".png",
 		true
 	);
 }
-std::string ShipRenderer::getDamageString(HealthType t)
+std::string ShipRenderer::getDamageString()
 {
 	int health;
-	if (this->getParent()->health == nullptr)
+	if (this->getComponentList().health == nullptr)
 		health = 100;
 	else
-		health = this->getParent()->health->getHealth(t);
+		health = this->getComponentList().health->getHealth();
 
 	if (health == 100)
 		return "";

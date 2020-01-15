@@ -1,192 +1,706 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <Filter Include="Source Files">
-      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
-      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
-    </Filter>
-    <Filter Include="Header Files">
+    <Filter Include="Files">
       <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
       <Extensions>h;hh;hpp;hxx;hm;inl;inc;xsd</Extensions>
     </Filter>
-    <Filter Include="Resource Files">
-      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
-      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
-    </Filter>
-    <Filter Include="Header Files\Components">
+    <Filter Include="Files\Components">
       <UniqueIdentifier>{541cafe4-51f7-4a90-9be3-3995d474c643}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Header Files\Utils">
-      <UniqueIdentifier>{34fd1fd3-7fdc-49ed-bd22-9653290b5249}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Header Files\Components\Renderers">
+    <Filter Include="Files\Components\Renderers">
       <UniqueIdentifier>{bdfd56c3-bb5a-43b9-a41e-cd72c4a990ce}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Header Files\Components\Controllers">
+    <Filter Include="Files\Components\Renderers\AnimationRenderer">
+      <UniqueIdentifier>{792e0926-0c25-4f14-bc7b-b20ecd219152}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Files\Components\Renderers\BaseRenderers">
+      <UniqueIdentifier>{2139f570-a315-4f4f-a50d-a6c233c67f60}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Files\Components\Renderers\BaseRenderers\MilitaryBaseRenderer">
+      <UniqueIdentifier>{4a9bf044-c957-42ab-b11d-be68d0dddd2f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Files\Components\Renderers\ShipRenderer">
+      <UniqueIdentifier>{0e214de2-3cff-4c3f-9888-24617031173e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Files\Components\Renderers\SpriteRenderer">
+      <UniqueIdentifier>{a13d5cc9-e101-4525-9ba3-131e87ea07ab}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Files\Components\Controllers">
       <UniqueIdentifier>{485aadb3-d9f9-4e66-8d2a-25ae8af5620d}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Header Files\Components\Transforms">
+    <Filter Include="Files\Components\Controllers\CannonBallController">
+      <UniqueIdentifier>{8161a095-e7fb-4036-85e0-83c4ce88ff84}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Files\Components\Controllers\ShipControllers">
+      <UniqueIdentifier>{4ed33fc8-b98d-4231-b7ee-74deddde5648}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Files\Components\Controllers\ShipControllers\AutomatedShipController">
+      <UniqueIdentifier>{1b5692a9-3dad-47b2-a324-ff87f2555caf}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Files\Components\Controllers\ShipControllers\ChasingShipController">
+      <UniqueIdentifier>{c9f79005-c807-4428-8226-04957941ca8b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Files\Components\Controllers\ShipControllers\FerryShipController">
+      <UniqueIdentifier>{53c0b080-c570-484e-9143-3c847c1afcd3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Files\Components\Controllers\ShipControllers\PlayerShipController">
+      <UniqueIdentifier>{525e85e6-470c-4d27-a0a3-e2eeeeb09c18}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Files\Components\Controllers\BaseControllers">
+      <UniqueIdentifier>{e0f9cf01-5025-4db0-9bcd-41753d71da22}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Files\Components\Controllers\BaseControllers\MilitaryBaseController">
+      <UniqueIdentifier>{a0306215-6cd7-4da8-a814-3b960e8a5a59}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Files\Components\Transforms">
       <UniqueIdentifier>{b8769202-5315-4052-8969-44cfc32351e8}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Header Files\Components\Colliders">
-      <UniqueIdentifier>{33c081e4-37e7-4501-a3e4-0bdb71d4df76}</UniqueIdentifier>
+    <Filter Include="Files\Components\Transforms\BasicTransform">
+      <UniqueIdentifier>{4686335f-f3d3-49c1-be7d-cc2ec3b65c6b}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Header Files\Components\Health">
+    <Filter Include="Files\Components\Transforms\Box2dTransform">
+      <UniqueIdentifier>{40c87022-0d71-4ed2-ae53-c41eb36a9e7b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Files\Components\Health">
       <UniqueIdentifier>{12bf1484-a3d2-4889-9e3f-11d1e0d00d13}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Files\Components\Physics">
+      <UniqueIdentifier>{33c081e4-37e7-4501-a3e4-0bdb71d4df76}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Files\Components\Inventory">
+      <UniqueIdentifier>{e57ed9bf-cf40-4747-b712-5472639c9543}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Files\Utils">
+      <UniqueIdentifier>{34fd1fd3-7fdc-49ed-bd22-9653290b5249}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Files\Utils\Cannon">
+      <UniqueIdentifier>{b346e237-aa7b-4993-aaf7-e5ae6e6d09bb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Files\Utils\GameResource">
+      <UniqueIdentifier>{b1a67f83-363b-4e65-a8b3-7ad13c48b3d4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Files\Utils\HealthType">
+      <UniqueIdentifier>{bfecd3f3-9fcf-4836-a5fd-987f7c3da71e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Files\Utils\LayoutSprite">
+      <UniqueIdentifier>{f70a97f7-6257-4b57-8183-77a612a529a0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Files\Utils\RenderManager">
+      <UniqueIdentifier>{fe082cf3-c591-4509-a24d-59f328e4a15c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Files\Utils\SimpleCollisionListener">
+      <UniqueIdentifier>{b911ca7b-fb48-402b-a369-f8ba96f43d73}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Files\Game">
+      <UniqueIdentifier>{044ba6c5-ba20-41e3-b2ef-cb6cee796a0a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Files\GameMap">
+      <UniqueIdentifier>{07e56650-301f-4f6d-843a-6c867c1f23f6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Files\ResourceManager">
+      <UniqueIdentifier>{a27d9926-a2e0-4725-b428-5c1e37947400}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Files\Entity">
+      <UniqueIdentifier>{c2bf30d8-c47c-4c05-9d35-7e1ad925ca8c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Files\Components\Gui">
+      <UniqueIdentifier>{4cb305bc-347d-46c2-ba80-f6aea5ef0719}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Files\GameHud">
+      <UniqueIdentifier>{70968fcc-056b-4d4b-a881-deacdd831982}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Files\Utils\CraftRecipes">
+      <UniqueIdentifier>{c2ad3ebf-f313-4e74-9c34-86bfd9bf475a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Files\Components\Click">
+      <UniqueIdentifier>{86a2f3c3-6cbd-48e8-8e55-9416f6cc2f0e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Files\Components\Click\Box2dClick">
+      <UniqueIdentifier>{7139c1b1-041c-4a80-abd1-d510e4d86548}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Files\Components\Controllers\BaseControllers\CityController">
+      <UniqueIdentifier>{e13eb6ec-b5f8-434b-8c2f-2aef6cac67ec}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Files\Utils\TechTree">
+      <UniqueIdentifier>{3d574869-bdcc-4b1b-8ae0-50e111c1d1c4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Files\Components\Renderers\BaseRenderers\CityRenderer">
+      <UniqueIdentifier>{bc84efd6-c546-4313-bdc6-ba8196301826}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Files\Components\Renderers\BaseRenderers\MiningBaseRenderer">
+      <UniqueIdentifier>{bd784fac-7606-44b0-9d37-f6d5575fd0e9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Files\Components\Renderers\BaseRenderers\PirateBaseRenderer">
+      <UniqueIdentifier>{3dc84a7f-171b-4a2a-8097-418321fff3b6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Files\Components\Controllers\BaseControllers\PirateBaseController">
+      <UniqueIdentifier>{775e8906-756a-4bdb-8041-1dd72cac7d1c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Files\Entity\ComponentList">
+      <UniqueIdentifier>{2516d76f-3c72-4263-8523-667c6050099b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Files\Utils\MainMenu">
+      <UniqueIdentifier>{05591215-6e57-4b2e-b267-1e9f95851a5b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Files\App">
+      <UniqueIdentifier>{1aac12cc-6629-4fab-9eb7-89d652812ac6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Files\Utils\ConversionRecipes">
+      <UniqueIdentifier>{01f4ae0b-08dd-4ce8-b59d-811a78cbff1d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Files\Components\Controllers\BaseControllers\ConversionBaseController">
+      <UniqueIdentifier>{fc4796c1-a07d-4512-af92-fa7546135ef4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Files\Components\Controllers\ResourceController">
+      <UniqueIdentifier>{3341130e-9c9c-4872-b8d1-af223fdb0827}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Files\Components\Renderers\ResourceRenderer">
+      <UniqueIdentifier>{6b230493-50bc-45b8-901e-2c3f32dbcb70}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Files\Components\Click\RectangleClick">
+      <UniqueIdentifier>{bf5ce1bd-27e7-40d6-ac42-df2724944c8f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Files\Utils\SaveFile">
+      <UniqueIdentifier>{60753542-5e99-444a-9ca7-8503b03fcb66}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Files\Utils\SaveData">
+      <UniqueIdentifier>{540a612c-a8ee-4d17-a096-48e5f5933ad8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Files\Entity\EntityType">
+      <UniqueIdentifier>{b5d7dc1d-2939-4abc-82c5-0c0f699210bd}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Files\Components\Controllers\ShipControllers\DefensePirateShipController">
+      <UniqueIdentifier>{c7adf25f-ba48-4ec3-90ea-0cd42df455ab}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Files\Components\Controllers\BaseControllers\PirateFortressController">
+      <UniqueIdentifier>{bbbd53bf-393f-48ef-91a4-238103f71164}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Files\Components\Controllers\ShipControllers\AttackPirateShipController">
+      <UniqueIdentifier>{0ad3c957-ccae-4676-aeca-d883c7190f03}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Files\Components\Controllers\ShipControllers\PirateShipController">
+      <UniqueIdentifier>{72245337-b871-4a32-8ddd-7c81845695d7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Files\Components\Controllers\BaseControllers\GenerationBaseController">
+      <UniqueIdentifier>{f4f7692b-c8d4-44f4-85db-efe6397d16fc}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Files\GameHud\Components">
+      <UniqueIdentifier>{5791c65a-3ea3-4691-a04a-e72c14804e81}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Files\GameHud\Components\ResearchScreen">
+      <UniqueIdentifier>{0a1e9bd2-db98-4d37-8f1a-e3c311714197}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Files\GameHud\Components\BuildScreen">
+      <UniqueIdentifier>{26e97efb-ee1a-41ae-adc5-9acb669bba81}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Files\GameMap\Tile">
+      <UniqueIdentifier>{bb10affd-df3f-4b2e-ad9f-82c99c1e34e1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Files\Components\Controllers\BaseControllers\LimitedGenBaseController">
+      <UniqueIdentifier>{b14d34f0-0eaa-48d4-8d6d-9965c80c2977}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Files\Components\Controllers\ShipControllers\PlayerShipController\RespawnPlayerShipController">
+      <UniqueIdentifier>{a40b072e-be00-4a6c-b114-8ead77d5e211}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Files\GameHud\Components\PauseScreen">
+      <UniqueIdentifier>{48aa3ba3-f478-44ff-ab15-98b310c6bd7d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Files\EntityPrefabs">
+      <UniqueIdentifier>{70b7c286-e9e9-49d0-938b-6927be201a6b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Files\EntityPrefabs\Implementations">
+      <UniqueIdentifier>{71207169-7c77-4ba0-b76a-5c82b195a440}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Files\GameHud\Components\DefaultScreen">
+      <UniqueIdentifier>{a754ee54-536a-4e61-8e00-7e7290c0ac3a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Files\GameHud\Components\SelectScreen">
+      <UniqueIdentifier>{a473ade9-dbf2-46d4-be6f-4132766a911e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Files\Components\Controllers\BaseControllers\ExportBaseController">
+      <UniqueIdentifier>{bd26158e-82c3-4e47-9b36-5538e9adaa83}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Files\Components\Controllers\ShipControllers\ExportShipController">
+      <UniqueIdentifier>{f93677b6-94db-4b6b-bd89-af155857c0de}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="src\main.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\ResourceManager.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\GameMap.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Game.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\SpriteRenderer.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\RenderComponent.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Component.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\TransformComponent.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\ControllerComponent.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\ShipController.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\PlayerShipController.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\ShipRenderer.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\LayoutSprite.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\EntityPrefabs.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="src\CannonBallController.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Files\Components\Controllers\CannonBallController</Filter>
     </ClCompile>
-    <ClCompile Include="src\RenderManager.cpp">
-      <Filter>Source Files</Filter>
+    <ClCompile Include="src\MilitaryBaseController.cpp">
+      <Filter>Files\Components\Controllers\BaseControllers\MilitaryBaseController</Filter>
+    </ClCompile>
+    <ClCompile Include="src\AutomatedShipController.cpp">
+      <Filter>Files\Components\Controllers\ShipControllers\AutomatedShipController</Filter>
     </ClCompile>
     <ClCompile Include="src\ChasingShipController.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Files\Components\Controllers\ShipControllers\ChasingShipController</Filter>
     </ClCompile>
-    <ClCompile Include="src\ColliderComponent.cpp">
-      <Filter>Source Files</Filter>
+    <ClCompile Include="src\FerryShipController.cpp">
+      <Filter>Files\Components\Controllers\ShipControllers\FerryShipController</Filter>
     </ClCompile>
-    <ClCompile Include="src\BoxCollider.cpp">
-      <Filter>Source Files</Filter>
+    <ClCompile Include="src\PlayerShipController.cpp">
+      <Filter>Files\Components\Controllers\ShipControllers\PlayerShipController</Filter>
     </ClCompile>
-    <ClCompile Include="src\CircleCollider.cpp">
-      <Filter>Source Files</Filter>
+    <ClCompile Include="src\ShipController.cpp">
+      <Filter>Files\Components\Controllers\ShipControllers</Filter>
     </ClCompile>
-    <ClCompile Include="src\AnimationRenderer.cpp">
-      <Filter>Source Files</Filter>
+    <ClCompile Include="src\ControllerComponent.cpp">
+      <Filter>Files\Components\Controllers</Filter>
     </ClCompile>
     <ClCompile Include="src\HealthComponent.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Files\Components\Health</Filter>
     </ClCompile>
-    <ClCompile Include="src\SimpleHealth.cpp">
-      <Filter>Source Files</Filter>
+    <ClCompile Include="src\InventoryComponent.cpp">
+      <Filter>Files\Components\Inventory</Filter>
     </ClCompile>
-    <ClCompile Include="src\ShipHealth.cpp">
-      <Filter>Source Files</Filter>
+    <ClCompile Include="src\PhysicsComponent.cpp">
+      <Filter>Files\Components\Physics</Filter>
+    </ClCompile>
+    <ClCompile Include="src\AnimationRenderer.cpp">
+      <Filter>Files\Components\Renderers\AnimationRenderer</Filter>
+    </ClCompile>
+    <ClCompile Include="src\BaseRenderer.cpp">
+      <Filter>Files\Components\Renderers\BaseRenderers</Filter>
+    </ClCompile>
+    <ClCompile Include="src\SpriteRenderer.cpp">
+      <Filter>Files\Components\Renderers\SpriteRenderer</Filter>
+    </ClCompile>
+    <ClCompile Include="src\ShipRenderer.cpp">
+      <Filter>Files\Components\Renderers\ShipRenderer</Filter>
+    </ClCompile>
+    <ClCompile Include="src\RenderComponent.cpp">
+      <Filter>Files\Components\Renderers</Filter>
+    </ClCompile>
+    <ClCompile Include="src\BasicTransform.cpp">
+      <Filter>Files\Components\Transforms\BasicTransform</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Box2dTransform.cpp">
+      <Filter>Files\Components\Transforms\Box2dTransform</Filter>
+    </ClCompile>
+    <ClCompile Include="src\TransformComponent.cpp">
+      <Filter>Files\Components\Transforms</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Component.cpp">
+      <Filter>Files\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="src\EntityPrefabs.cpp">
+      <Filter>Files\EntityPrefabs</Filter>
+    </ClCompile>
+    <ClCompile Include="src\RenderManager.cpp">
+      <Filter>Files\Utils\RenderManager</Filter>
+    </ClCompile>
+    <ClCompile Include="src\SimpleCollisionListener.cpp">
+      <Filter>Files\Utils\SimpleCollisionListener</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Game.cpp">
+      <Filter>Files\Game</Filter>
+    </ClCompile>
+    <ClCompile Include="src\GameMap.cpp">
+      <Filter>Files\GameMap</Filter>
+    </ClCompile>
+    <ClCompile Include="src\ResourceManager.cpp">
+      <Filter>Files\ResourceManager</Filter>
+    </ClCompile>
+    <ClCompile Include="src\LayoutSprite.cpp">
+      <Filter>Files\Utils\LayoutSprite</Filter>
+    </ClCompile>
+    <ClCompile Include="src\MilitaryBaseRenderer.cpp">
+      <Filter>Files\Components\Renderers\BaseRenderers\MilitaryBaseRenderer</Filter>
+    </ClCompile>
+    <ClCompile Include="src\main.cpp">
+      <Filter>Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\GuiComponent.cpp">
+      <Filter>Files\Components\Gui</Filter>
+    </ClCompile>
+    <ClCompile Include="src\GameHud.cpp">
+      <Filter>Files\GameHud</Filter>
+    </ClCompile>
+    <ClCompile Include="src\CraftRecipes.cpp">
+      <Filter>Files\Utils\CraftRecipes</Filter>
+    </ClCompile>
+    <ClCompile Include="src\ClickComponent.cpp">
+      <Filter>Files\Components\Click</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Box2dClick.cpp">
+      <Filter>Files\Components\Click\Box2dClick</Filter>
+    </ClCompile>
+    <ClCompile Include="src\CityController.cpp">
+      <Filter>Files\Components\Controllers\BaseControllers\CityController</Filter>
+    </ClCompile>
+    <ClCompile Include="src\TechTree.cpp">
+      <Filter>Files\Utils\TechTree</Filter>
+    </ClCompile>
+    <ClCompile Include="src\CityRenderer.cpp">
+      <Filter>Files\Components\Renderers\BaseRenderers\CityRenderer</Filter>
+    </ClCompile>
+    <ClCompile Include="src\MiningBaseRenderer.cpp">
+      <Filter>Files\Components\Renderers\BaseRenderers\MiningBaseRenderer</Filter>
+    </ClCompile>
+    <ClCompile Include="src\PirateBaseRenderer.cpp">
+      <Filter>Files\Components\Renderers\BaseRenderers\PirateBaseRenderer</Filter>
+    </ClCompile>
+    <ClCompile Include="src\PirateBaseController.cpp">
+      <Filter>Files\Components\Controllers\BaseControllers\PirateBaseController</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Entity.cpp">
+      <Filter>Files\Entity</Filter>
+    </ClCompile>
+    <ClCompile Include="src\BaseController.cpp">
+      <Filter>Files\Components\Controllers\BaseControllers</Filter>
+    </ClCompile>
+    <ClCompile Include="src\ComponentList.cpp">
+      <Filter>Files\Entity\ComponentList</Filter>
+    </ClCompile>
+    <ClCompile Include="src\MainMenu.cpp">
+      <Filter>Files\Utils\MainMenu</Filter>
+    </ClCompile>
+    <ClCompile Include="src\App.cpp">
+      <Filter>Files\App</Filter>
+    </ClCompile>
+    <ClCompile Include="src\ConversionRecipes.cpp">
+      <Filter>Files\Utils\ConversionRecipes</Filter>
+    </ClCompile>
+    <ClCompile Include="src\ConversionBaseController.cpp">
+      <Filter>Files\Components\Controllers\BaseControllers\ConversionBaseController</Filter>
+    </ClCompile>
+    <ClCompile Include="src\GameResource.cpp">
+      <Filter>Files\Utils\GameResource</Filter>
+    </ClCompile>
+    <ClCompile Include="src\ResourceController.cpp">
+      <Filter>Files\Components\Controllers\ResourceController</Filter>
+    </ClCompile>
+    <ClCompile Include="src\ResourceRenderer.cpp">
+      <Filter>Files\Components\Renderers\ResourceRenderer</Filter>
+    </ClCompile>
+    <ClCompile Include="src\RectangleClick.cpp">
+      <Filter>Files\Components\Click\RectangleClick</Filter>
+    </ClCompile>
+    <ClCompile Include="src\SaveFile.cpp">
+      <Filter>Files\Utils\SaveFile</Filter>
+    </ClCompile>
+    <ClCompile Include="src\SaveData.cpp">
+      <Filter>Files\Utils\SaveData</Filter>
+    </ClCompile>
+    <ClCompile Include="src\DefensePirateShipController.cpp">
+      <Filter>Files\Components\Controllers\ShipControllers\DefensePirateShipController</Filter>
+    </ClCompile>
+    <ClCompile Include="src\PirateFortressController.cpp">
+      <Filter>Files\Components\Controllers\BaseControllers\PirateFortressController</Filter>
+    </ClCompile>
+    <ClCompile Include="src\AttackPirateShipController.cpp">
+      <Filter>Files\Components\Controllers\ShipControllers\AttackPirateShipController</Filter>
+    </ClCompile>
+    <ClCompile Include="src\PirateShipController.cpp">
+      <Filter>Files\Components\Controllers\ShipControllers\PirateShipController</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Canon.cpp">
+      <Filter>Files\Utils\Cannon</Filter>
+    </ClCompile>
+    <ClCompile Include="src\GenerationBaseController.cpp">
+      <Filter>Files\Components\Controllers\BaseControllers\GenerationBaseController</Filter>
+    </ClCompile>
+    <ClCompile Include="src\ResearchScreen.cpp">
+      <Filter>Files\GameHud\Components\ResearchScreen</Filter>
+    </ClCompile>
+    <ClCompile Include="src\BuildScreen.cpp">
+      <Filter>Files\GameHud\Components\BuildScreen</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Tile.cpp">
+      <Filter>Files\GameMap\Tile</Filter>
+    </ClCompile>
+    <ClCompile Include="src\LimitedGenBaseController.cpp">
+      <Filter>Files\Components\Controllers\BaseControllers\LimitedGenBaseController</Filter>
+    </ClCompile>
+    <ClCompile Include="src\RespawnPlayerShipController.cpp">
+      <Filter>Files\Components\Controllers\ShipControllers\PlayerShipController\RespawnPlayerShipController</Filter>
+    </ClCompile>
+    <ClCompile Include="src\PauseScreen.cpp">
+      <Filter>Files\GameHud\Components\PauseScreen</Filter>
+    </ClCompile>
+    <ClCompile Include="src\PlayerShip.cpp">
+      <Filter>Files\EntityPrefabs\Implementations</Filter>
+    </ClCompile>
+    <ClCompile Include="src\RespawnPlayerShip.cpp">
+      <Filter>Files\EntityPrefabs\Implementations</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Cannonball.cpp">
+      <Filter>Files\EntityPrefabs\Implementations</Filter>
+    </ClCompile>
+    <ClCompile Include="src\EnemyChasingShip.cpp">
+      <Filter>Files\EntityPrefabs\Implementations</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Ferry.cpp">
+      <Filter>Files\EntityPrefabs\Implementations</Filter>
+    </ClCompile>
+    <ClCompile Include="src\MilitaryBase.cpp">
+      <Filter>Files\EntityPrefabs\Implementations</Filter>
+    </ClCompile>
+    <ClCompile Include="src\GenerationBase.cpp">
+      <Filter>Files\EntityPrefabs\Implementations</Filter>
+    </ClCompile>
+    <ClCompile Include="src\LimitedGenerationBase.cpp">
+      <Filter>Files\EntityPrefabs\Implementations</Filter>
+    </ClCompile>
+    <ClCompile Include="src\PirateBase.cpp">
+      <Filter>Files\EntityPrefabs\Implementations</Filter>
+    </ClCompile>
+    <ClCompile Include="src\DefensePirateShip.cpp">
+      <Filter>Files\EntityPrefabs\Implementations</Filter>
+    </ClCompile>
+    <ClCompile Include="src\AttackPirateShip.cpp">
+      <Filter>Files\EntityPrefabs\Implementations</Filter>
+    </ClCompile>
+    <ClCompile Include="src\PirateFortress.cpp">
+      <Filter>Files\EntityPrefabs\Implementations</Filter>
+    </ClCompile>
+    <ClCompile Include="src\ConversionBase.cpp">
+      <Filter>Files\EntityPrefabs\Implementations</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Explosion.cpp">
+      <Filter>Files\EntityPrefabs\Implementations</Filter>
+    </ClCompile>
+    <ClCompile Include="src\City.cpp">
+      <Filter>Files\EntityPrefabs\Implementations</Filter>
+    </ClCompile>
+    <ClCompile Include="src\ResourceSource.cpp">
+      <Filter>Files\EntityPrefabs\Implementations</Filter>
+    </ClCompile>
+    <ClCompile Include="src\DefaultScreen.cpp">
+      <Filter>Files\GameHud\Components\DefaultScreen</Filter>
+    </ClCompile>
+    <ClCompile Include="src\SelectScreen.cpp">
+      <Filter>Files\GameHud\Components\SelectScreen</Filter>
+    </ClCompile>
+    <ClCompile Include="src\ExportsBase.cpp">
+      <Filter>Files\EntityPrefabs\Implementations</Filter>
+    </ClCompile>
+    <ClCompile Include="src\ExportBaseController.cpp">
+      <Filter>Files\Components\Controllers\BaseControllers\ExportBaseController</Filter>
+    </ClCompile>
+    <ClCompile Include="src\ExportShip.cpp">
+      <Filter>Files\EntityPrefabs\Implementations</Filter>
+    </ClCompile>
+    <ClCompile Include="src\ExportShipController.cpp">
+      <Filter>Files\Components\Controllers\ShipControllers\ExportShipController</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="src\ResourceManager.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="src\GameMap.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Game.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Entity.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="src\Component.h">
-      <Filter>Header Files\Components</Filter>
-    </ClInclude>
-    <ClInclude Include="src\LayoutSprite.h">
-      <Filter>Header Files\Utils</Filter>
-    </ClInclude>
-    <ClInclude Include="src\EntityPrefabs.h">
-      <Filter>Header Files\Utils</Filter>
-    </ClInclude>
-    <ClInclude Include="src\RenderManager.h">
-      <Filter>Header Files\Utils</Filter>
-    </ClInclude>
-    <ClInclude Include="src\CannonBallController.h">
-      <Filter>Header Files\Components\Controllers</Filter>
+      <Filter>Files\Components</Filter>
     </ClInclude>
     <ClInclude Include="src\ControllerComponent.h">
-      <Filter>Header Files\Components\Controllers</Filter>
-    </ClInclude>
-    <ClInclude Include="src\PlayerShipController.h">
-      <Filter>Header Files\Components\Controllers</Filter>
+      <Filter>Files\Components\Controllers</Filter>
     </ClInclude>
     <ClInclude Include="src\RenderComponent.h">
-      <Filter>Header Files\Components\Renderers</Filter>
-    </ClInclude>
-    <ClInclude Include="src\ShipController.h">
-      <Filter>Header Files\Components\Controllers</Filter>
-    </ClInclude>
-    <ClInclude Include="src\ShipRenderer.h">
-      <Filter>Header Files\Components\Renderers</Filter>
-    </ClInclude>
-    <ClInclude Include="src\SpriteRenderer.h">
-      <Filter>Header Files\Components\Renderers</Filter>
-    </ClInclude>
-    <ClInclude Include="src\TransformComponent.h">
-      <Filter>Header Files\Components\Transforms</Filter>
-    </ClInclude>
-    <ClInclude Include="src\ChasingShipController.h">
-      <Filter>Header Files\Components\Controllers</Filter>
-    </ClInclude>
-    <ClInclude Include="src\ColliderComponent.h">
-      <Filter>Header Files\Components\Colliders</Filter>
-    </ClInclude>
-    <ClInclude Include="src\BoxCollider.h">
-      <Filter>Header Files\Components\Colliders</Filter>
+      <Filter>Files\Components\Renderers</Filter>
     </ClInclude>
     <ClInclude Include="src\Triangle.h">
-      <Filter>Header Files\Utils</Filter>
-    </ClInclude>
-    <ClInclude Include="src\CircleCollider.h">
-      <Filter>Header Files\Components\Colliders</Filter>
-    </ClInclude>
-    <ClInclude Include="src\AnimationRenderer.h">
-      <Filter>Header Files\Components\Renderers</Filter>
+      <Filter>Files\Utils</Filter>
     </ClInclude>
     <ClInclude Include="src\HealthComponent.h">
-      <Filter>Header Files\Components\Health</Filter>
+      <Filter>Files\Components\Health</Filter>
     </ClInclude>
-    <ClInclude Include="src\SimpleHealth.h">
-      <Filter>Header Files\Components\Health</Filter>
+    <ClInclude Include="src\PhysicsComponent.h">
+      <Filter>Files\Components\Physics</Filter>
+    </ClInclude>
+    <ClInclude Include="src\TransformComponent.h">
+      <Filter>Files\Components\Transforms</Filter>
+    </ClInclude>
+    <ClInclude Include="src\InventoryComponent.h">
+      <Filter>Files\Components\Inventory</Filter>
+    </ClInclude>
+    <ClInclude Include="src\AutomatedShipController.h">
+      <Filter>Files\Components\Controllers\ShipControllers\AutomatedShipController</Filter>
+    </ClInclude>
+    <ClInclude Include="src\CannonBallController.h">
+      <Filter>Files\Components\Controllers\CannonBallController</Filter>
+    </ClInclude>
+    <ClInclude Include="src\ChasingShipController.h">
+      <Filter>Files\Components\Controllers\ShipControllers\ChasingShipController</Filter>
+    </ClInclude>
+    <ClInclude Include="src\FerryShipController.h">
+      <Filter>Files\Components\Controllers\ShipControllers\FerryShipController</Filter>
+    </ClInclude>
+    <ClInclude Include="src\MilitaryBaseController.h">
+      <Filter>Files\Components\Controllers\BaseControllers\MilitaryBaseController</Filter>
+    </ClInclude>
+    <ClInclude Include="src\ShipController.h">
+      <Filter>Files\Components\Controllers\ShipControllers</Filter>
+    </ClInclude>
+    <ClInclude Include="src\PlayerShipController.h">
+      <Filter>Files\Components\Controllers\ShipControllers\PlayerShipController</Filter>
+    </ClInclude>
+    <ClInclude Include="src\AnimationRenderer.h">
+      <Filter>Files\Components\Renderers\AnimationRenderer</Filter>
+    </ClInclude>
+    <ClInclude Include="src\BaseRenderer.h">
+      <Filter>Files\Components\Renderers\BaseRenderers</Filter>
+    </ClInclude>
+    <ClInclude Include="src\MilitaryBaseRenderer.h">
+      <Filter>Files\Components\Renderers\BaseRenderers\MilitaryBaseRenderer</Filter>
+    </ClInclude>
+    <ClInclude Include="src\ShipRenderer.h">
+      <Filter>Files\Components\Renderers\ShipRenderer</Filter>
+    </ClInclude>
+    <ClInclude Include="src\SpriteRenderer.h">
+      <Filter>Files\Components\Renderers\SpriteRenderer</Filter>
+    </ClInclude>
+    <ClInclude Include="src\BasicTransform.h">
+      <Filter>Files\Components\Transforms\BasicTransform</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Box2dTransform.h">
+      <Filter>Files\Components\Transforms\Box2dTransform</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Cannon.h">
+      <Filter>Files\Utils\Cannon</Filter>
+    </ClInclude>
+    <ClInclude Include="src\EntityPrefabs.h">
+      <Filter>Files\EntityPrefabs</Filter>
+    </ClInclude>
+    <ClInclude Include="src\GameResource.h">
+      <Filter>Files\Utils\GameResource</Filter>
     </ClInclude>
     <ClInclude Include="src\HealthType.h">
-      <Filter>Header Files\Utils</Filter>
+      <Filter>Files\Utils\HealthType</Filter>
     </ClInclude>
-    <ClInclude Include="src\ShipHealth.h">
-      <Filter>Header Files\Components\Health</Filter>
+    <ClInclude Include="src\LayoutSprite.h">
+      <Filter>Files\Utils\LayoutSprite</Filter>
+    </ClInclude>
+    <ClInclude Include="src\RenderManager.h">
+      <Filter>Files\Utils\RenderManager</Filter>
+    </ClInclude>
+    <ClInclude Include="src\SimpleCollisionListener.h">
+      <Filter>Files\Utils\SimpleCollisionListener</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Game.h">
+      <Filter>Files\Game</Filter>
+    </ClInclude>
+    <ClInclude Include="src\GameMap.h">
+      <Filter>Files\GameMap</Filter>
+    </ClInclude>
+    <ClInclude Include="src\ResourceManager.h">
+      <Filter>Files\ResourceManager</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Entity.h">
+      <Filter>Files\Entity</Filter>
+    </ClInclude>
+    <ClInclude Include="src\GuiComponent.h">
+      <Filter>Files\Components\Gui</Filter>
+    </ClInclude>
+    <ClInclude Include="src\GameHud.h">
+      <Filter>Files\GameHud</Filter>
+    </ClInclude>
+    <ClInclude Include="src\CraftRecipes.h">
+      <Filter>Files\Utils\CraftRecipes</Filter>
+    </ClInclude>
+    <ClInclude Include="src\ClickComponent.h">
+      <Filter>Files\Components\Click</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Box2dClick.h">
+      <Filter>Files\Components\Click\Box2dClick</Filter>
+    </ClInclude>
+    <ClInclude Include="src\CityController.h">
+      <Filter>Files\Components\Controllers\BaseControllers\CityController</Filter>
+    </ClInclude>
+    <ClInclude Include="src\TechTree.h">
+      <Filter>Files\Utils\TechTree</Filter>
+    </ClInclude>
+    <ClInclude Include="src\CityRenderer.h">
+      <Filter>Files\Components\Renderers\BaseRenderers\CityRenderer</Filter>
+    </ClInclude>
+    <ClInclude Include="src\MiningBaseRenderer.h">
+      <Filter>Files\Components\Renderers\BaseRenderers\MiningBaseRenderer</Filter>
+    </ClInclude>
+    <ClInclude Include="src\PirateBaseRenderer.h">
+      <Filter>Files\Components\Renderers\BaseRenderers\PirateBaseRenderer</Filter>
+    </ClInclude>
+    <ClInclude Include="src\PirateBaseController.h">
+      <Filter>Files\Components\Controllers\BaseControllers\PirateBaseController</Filter>
+    </ClInclude>
+    <ClInclude Include="src\BaseController.h">
+      <Filter>Files\Components\Controllers\BaseControllers</Filter>
+    </ClInclude>
+    <ClInclude Include="src\ComponentList.h">
+      <Filter>Files\Entity\ComponentList</Filter>
+    </ClInclude>
+    <ClInclude Include="src\MainMenu.h">
+      <Filter>Files\Utils\MainMenu</Filter>
+    </ClInclude>
+    <ClInclude Include="src\App.h">
+      <Filter>Files\App</Filter>
+    </ClInclude>
+    <ClInclude Include="src\ConversionRecipes.h">
+      <Filter>Files\Utils\ConversionRecipes</Filter>
+    </ClInclude>
+    <ClInclude Include="src\ConversionBaseController.h">
+      <Filter>Files\Components\Controllers\BaseControllers\ConversionBaseController</Filter>
+    </ClInclude>
+    <ClInclude Include="src\ResourceController.h">
+      <Filter>Files\Components\Controllers\ResourceController</Filter>
+    </ClInclude>
+    <ClInclude Include="src\ResourceRenderer.h">
+      <Filter>Files\Components\Renderers\ResourceRenderer</Filter>
+    </ClInclude>
+    <ClInclude Include="src\RectangleClick.h">
+      <Filter>Files\Components\Click\RectangleClick</Filter>
+    </ClInclude>
+    <ClInclude Include="src\SaveFile.h">
+      <Filter>Files\Utils\SaveFile</Filter>
+    </ClInclude>
+    <ClInclude Include="src\SaveData.h">
+      <Filter>Files\Utils\SaveData</Filter>
+    </ClInclude>
+    <ClInclude Include="src\EntityType.h">
+      <Filter>Files\Entity\EntityType</Filter>
+    </ClInclude>
+    <ClInclude Include="src\DefensePirateShipController.h">
+      <Filter>Files\Components\Controllers\ShipControllers\DefensePirateShipController</Filter>
+    </ClInclude>
+    <ClInclude Include="src\PirateFortressController.h">
+      <Filter>Files\Components\Controllers\BaseControllers\PirateFortressController</Filter>
+    </ClInclude>
+    <ClInclude Include="src\AttackPirateShipController.h">
+      <Filter>Files\Components\Controllers\ShipControllers\AttackPirateShipController</Filter>
+    </ClInclude>
+    <ClInclude Include="src\PirateShipController.h">
+      <Filter>Files\Components\Controllers\ShipControllers\PirateShipController</Filter>
+    </ClInclude>
+    <ClInclude Include="src\GenerationBaseController.h">
+      <Filter>Files\Components\Controllers\BaseControllers\GenerationBaseController</Filter>
+    </ClInclude>
+    <ClInclude Include="src\ResearchScreen.h">
+      <Filter>Files\GameHud\Components\ResearchScreen</Filter>
+    </ClInclude>
+    <ClInclude Include="src\BuildScreen.h">
+      <Filter>Files\GameHud\Components\BuildScreen</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Tile.h">
+      <Filter>Files\GameMap\Tile</Filter>
+    </ClInclude>
+    <ClInclude Include="src\LimitedGenBaseController.h">
+      <Filter>Files\Components\Controllers\BaseControllers\LimitedGenBaseController</Filter>
+    </ClInclude>
+    <ClInclude Include="src\RespawnPlayerShipController.h">
+      <Filter>Files\Components\Controllers\ShipControllers\PlayerShipController\RespawnPlayerShipController</Filter>
+    </ClInclude>
+    <ClInclude Include="src\PauseScreen.h">
+      <Filter>Files\GameHud\Components\PauseScreen</Filter>
+    </ClInclude>
+    <ClInclude Include="src\DefaultScreen.h">
+      <Filter>Files\GameHud\Components\DefaultScreen</Filter>
+    </ClInclude>
+    <ClInclude Include="src\SelectScreen.h">
+      <Filter>Files\GameHud\Components\SelectScreen</Filter>
+    </ClInclude>
+    <ClInclude Include="src\ExportBaseController.h">
+      <Filter>Files\Components\Controllers\BaseControllers\ExportBaseController</Filter>
+    </ClInclude>
+    <ClInclude Include="src\ExportShipController.h">
+      <Filter>Files\Components\Controllers\ShipControllers\ExportShipController</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

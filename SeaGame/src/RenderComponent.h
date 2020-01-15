@@ -1,6 +1,8 @@
 #pragma once
 #include <SFML\Graphics.hpp>
 #include "Component.h"
+// Included because a lot of renderers get position to render
+#include "TransformComponent.h"
 #include "RenderManager.h"
 // Included here bc they are used in a lot of rendering components
 // to convert between degrees and radians
@@ -10,7 +12,6 @@
 class RenderComponent: public Component
 {
 public:
-	RenderComponent(std::weak_ptr<Entity> parent);
 	virtual void render(RenderManager& r) = 0;
 	void renderCollider(RenderManager& r);
 	// Update what to render

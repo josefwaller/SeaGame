@@ -1,31 +1,41 @@
 #pragma once
 #include <memory>
+#include <map>
+#include <string>
+#include "ComponentList.h"
+#include "EntityType.h"
 
-// Forward declaration of Game
+// Forward declarations
 class Game;
+class SaveData;
 
-// Forward declaration of components
-class RenderComponent;
-class TransformComponent;
-class HealthComponent;
-class ControllerComponent;
-class ColliderComponent;
+enum class EntityTag {
+	Ship,
+	Base,
+	Cannonball,
+	Resource,
+	Effect
+};
 
 struct Entity
 {
-	Entity() : game(nullptr) {}
-	Entity(Game* g) : game(g) {}
+	Entity();
+	Entity(Game* g, int team, EntityType type, EntityTag tag, ComponentList c);
+	~Entity();
 	Game* game;
-	std::shared_ptr<TransformComponent> transform;
-	std::shared_ptr<RenderComponent> renderer;
-	std::shared_ptr<ControllerComponent> controller;
-	std::shared_ptr<ColliderComponent> collider;
-	std::shared_ptr<HealthComponent> health;
+	static unsigned int trueEntityCount;
+	static unsigned long currentId;
+	// The team this entity belongs to
+	// 0 is the player's team
+	int team;
+	// The entity's id
+	unsigned long id;
+	// The entity's tag
+	EntityTag tag;
+	// The specific type of entity
+	EntityType type;
+	ComponentList components;
+	SaveData getSaveData();
+	// Get a string representation of the entity to be used in UI
+	std::string getStringRep();
 };
-
-#include "RenderComponent.h"
-#include "TransformComponent.h"
-#include "HealthComponent.h"
-#include "ControllerComponent.h"
-#include "ColliderComponent.h"
-#include "Game.h"

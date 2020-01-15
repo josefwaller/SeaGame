@@ -1,13 +1,15 @@
 #include "PlayerShipController.h"
+#include "EntityPrefabs.h"
 
-PlayerShipController::PlayerShipController(std::weak_ptr<Entity> e) : ShipController(e)
+PlayerShipController::PlayerShipController() : ShipController()
 {
 
 }
 
 void PlayerShipController::update(float delta)
 {
-	sf::Vector2f diff = this->getParent()->game->getMouseCoords() - this->getParent()->transform->getPosition();
+	auto x = this->getComponentList().transform->getPosition();
+	sf::Vector2f diff = this->getGame()->getMouseCoords() - this->getComponentList().transform->getPosition();
 	float angle = atan2(diff.y, diff.x);
 	this->aimSwivel(angle);
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up)) {
@@ -21,7 +23,17 @@ void PlayerShipController::update(float delta)
 	}
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space)) {
 		this->shootSwivel();
-		auto x = 0;
 	}
-	this->move(delta);
+}
+
+void PlayerShipController::onDeath() {
+	// Add the respawn ship
+	std::shared_ptr<Entity> respawnShip = EntityPrefabs::respawnPlayerShip(
+		this->getGame(),
+		this->getComponentList().transform->getPosition()
+	);
+	this->getGame()->addEntity(respawnShip);
+	this->getGame()->setPlayer(respawnShip);
+	// Remove self
+	this->getGame()->removeEntity(this->getParent());
 }

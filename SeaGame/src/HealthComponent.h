@@ -6,18 +6,25 @@ class HealthComponent : public Component
 {
 public:
 
-	HealthComponent(std::weak_ptr<Entity> parent);
-	// Add a type of health to this entity
-	void addHealth(HealthType t, int health, int maxHealth = -1);
+	HealthComponent(unsigned int maxHealth);
 	// Get the health this entity has
-	virtual int getHealth(HealthType t);
+	virtual int getHealth();
 	// Deal damage to this entity
-	virtual void takeDamage(HealthType t, int damageAmount);
+	virtual void takeDamage(int damageAmount);
 	// Heal this entity
-	virtual void heal(HealthType t, int healAmount);
+	virtual void heal(int healAmount);
+	// Update, or when it is same to call ControllerComponent::onDeath()
+	// So that we don't call it when the box 2d world is stepping
+	void update();
 	// Check if the entity is dead
 	virtual bool isDead();
+	virtual SaveData getSaveData() override;
+	virtual void fromSaveData(SaveData data) override;
 private:
-	std::map<HealthType, int> healths;
-	std::map<HealthType, int> maxHealths;
+	// The amount of health
+	unsigned int health;
+	// The max amount of health
+	unsigned int maxHealth;
+	// Whether to call onDeath on the next update
+	bool callOnDeath;
 };

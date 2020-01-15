@@ -1,15 +1,20 @@
 #pragma once
 #include "ControllerComponent.h"
 
-class CannonBallController : public ControllerComponent
+class CannonballController : public ControllerComponent
 {
 public:
-	CannonBallController(std::weak_ptr<Entity> parent, std::weak_ptr<Entity> spawner);
-	virtual void update(float delta) override;
-	virtual void onCollision(std::weak_ptr<Entity> spawner) override;
+	// How far each cannonball goes before being destroyed
+	static const float MAX_DISTANCE;
 	// Speed at which cannonballs move
 	static const float SPEED;
+
+	CannonballController(float angle);
+	virtual void update(float delta) override;
+	virtual void onCollision(std::weak_ptr<Entity> spawner) override;
+	virtual void setParent(std::weak_ptr<Entity> parent) override;
 private:
-	// Ship which shot the cannonball
-	std::weak_ptr<Entity> spawner;
+	float angle;
+	// Original position of the cannonball
+	sf::Vector2f startPos;
 };
